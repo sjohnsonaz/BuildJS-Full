@@ -23,7 +23,7 @@ var Build = bld.Build = (function() {
 			parent = parent[currentPart];
 		}
 
-		return grandParent[currentPart] = grandParent[currentPart] || $constructor;
+		return grandParent[currentPart] = $constructor;
 	}
 	function copyNoReplace(destination, source) {
 		for ( var member in source) {
@@ -42,20 +42,24 @@ var Build = bld.Build = (function() {
 		return destination;
 	}
 	function inherit($child, $parent, $prototype) {
-		$prototype = $prototype || {};
-		if (Object.keys($child.prototype).length) {
-			copyReplace($prototype, $child.prototype);
+		if ($parent) {
+			$prototype = $prototype || {};
+			if (Object.keys($child.prototype).length) {
+				copyReplace($prototype, $child.prototype);
+			}
+			$child.prototype = Object.create($parent.prototype, $prototype);
+			$child.prototype.constructor = $child;
+
+			copyNoReplace($child, $parent);
+
+			$child.$parent = $parent;
+
+			$child.prototype.$super = $child.prototype.$super || function() {
+				arguments.callee.caller.apply(this, Array.prototype.slice.call(arguments));
+			};
+		} else {
+			copyNoReplace($child.prototype, $prototype);
 		}
-		$child.prototype = Object.create($parent.prototype, $prototype);
-		$child.prototype.creator = $child;
-
-		copyNoReplace($child, $parent);
-
-		$child.$parent = $parent;
-
-		$child.prototype.$super = $child.prototype.$super || function() {
-			arguments.callee.caller.apply(this, Array.prototype.slice.call(arguments));
-		};
 	}
 	function singleton($constructor) {
 		var result = undefined;
@@ -82,21 +86,53 @@ var Build = bld.Build = (function() {
 		$constructor.$name = $name;
 
 		definitions[$name] = $constructor;
+		namespace($name, $constructor);
 	}
-	var compiled = false;
-	var required = {};
+	var compiled = true;
+	var loaded = false;
+	var loading = {};
+	var defHandles = {};
 	var paths = {
 		main : '/'
 	};
-	var defHandles = {};
 	function define($name, $required, $definition) {
+		compiled = false;
+		var requiredRemaining = [];
 		for ( var index = 0, length = $required.length; index < length; index++) {
 			var requiredName = $required[index];
-			if (!definitions[requiredName]) {
-				required[requiredName] = $name;
+			if (!definitions[requiredName] && !defHandles[requiredName] && !loading[requiredName]) {
+				requiredRemaining.push(requiredName);
 			}
 		}
 		defHandles[$name] = $definition;
+		for ( var index = 0, length = requiredRemaining.length; index < length; index++) {
+			var name = requiredRemaining[index];
+			loading[name] = true;
+		}
+		if (requiredRemaining.length) {
+			load(requiredRemaining, function() {
+				for ( var index = 0, length = requiredRemaining.length; index < length; index++) {
+					var name = requiredRemaining[index];
+					delete loading[name];
+				}
+				if (!Object.keys(loading).length) {
+					compile();
+				}
+			});
+		} else {
+			compile();
+		}
+	}
+	function compile(callback) {
+		function define($definition) {
+			assemble(name, $definition.$constructor, $definition.$prototype, $definition.$static, $definition.$parent, $definition.$singleton);
+		}
+		for ( var name in defHandles) {
+			defHandles[name](define);
+		}
+		defHandles = {};
+		compiled = true;
+		loadPhaseComplete();
 	}
 	function nameToCss($name) {
 		return $name.replace(/\./g, '-');
@@ -105,7 +141,7 @@ var Build = bld.Build = (function() {
 		if ($name.endsWith('.js')) {
 			return path + name;
 		} else {
-			return path + $name.replace(/\./g, '/');
+			return path + $name.replace(/\./g, '/') + '.js';
 		}
 	}
 	function load(names, callback) {
@@ -120,6 +156,8 @@ var Build = bld.Build = (function() {
 					}
 				});
 			}
+		} else {
+			loadSingle(names, callback);
 		}
 	}
 	function loadSingle($name, callback) {
@@ -155,12 +193,19 @@ var Build = bld.Build = (function() {
 			}
 		},
 		call : function() {
-			for ( var index = 0, length = this.queue.length; index < length; index++) {
-				this.queue[index]();
+			if (!this.done) {
+				for ( var index = 0, length = this.queue.length; index < length; index++) {
+					this.queue[index]();
+				}
+				this.done = true;
 			}
-			this.done = true;
 		}
 	};
+	function loadPhaseComplete() {
+		if (loaded) {
+			onload.queue.call();
+		}
+	}
 	function onload(callback) {
 		if (typeof (jQuery) != 'undefined') {
 			jQuery(callback);
@@ -171,23 +216,29 @@ var Build = bld.Build = (function() {
 				onload.queue = new CallbackQueue();
 				onload.queue.add(callback);
 				window.addEventListener('load', function() {
-					onload.queue.call();
+					loaded = true;
+					if (compiled) {
+						onload.queue.call();
+					}
 				}, false);
 			}
 		}
 	}
 	onload.queue = null;
-	
-	function compile(callback) {
-		
-	}
 
-	Build.definitions = definitions;
+	Build.namespace = namespace;
 	Build.copyReplace = copyReplace;
 	Build.copyNoReplace = copyNoReplace;
 	Build.inherit = inherit;
 	Build.singleton = singleton;
+	Build.definitions = definitions;
 	Build.assemble = assemble;
+	Build.paths = paths;
+	Build.define = define;
+	Build.nameToCss = nameToCss;
+	Build.nameToFileName = nameToFileName;
+	Build.load = load;
+	Build.loadScript = loadScript;
 	Build.CallbackQueue = CallbackQueue;
 	Build.onload = onload;
 	return Build;
