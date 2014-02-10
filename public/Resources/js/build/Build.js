@@ -105,25 +105,11 @@ var Build = bld.Build = (function() {
 			}
 		}
 		defHandles[$name] = $definition;
-		// for ( var index = 0, length = requiredRemaining.length; index <
-		// length; index++) {
-		// var name = requiredRemaining[index];
-		// }
 		if (requiredRemaining.length) {
 			load(requiredRemaining, function() {
-				// for ( var index = 0, length = requiredRemaining.length; index
-				// < length; index++) {
-				// var name = requiredRemaining[index];
-				// delete loading[name];
-				// }
 			});
-		} else {
-			// if (!Object.keys(loading).length) {
-			// compile();
-			// }
 		}
 	}
-	var defHandlesNames = null;
 	function compile() {
 		var defHandlesNames = Object.keys(defHandles);
 		while (defHandlesNames.length) {
