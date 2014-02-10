@@ -1,5 +1,5 @@
 {
-  "name": "WebGraphicsSystem",
+  "name": "BuildJS",
   "scripts": {
     "start": "node app.js"
   },
