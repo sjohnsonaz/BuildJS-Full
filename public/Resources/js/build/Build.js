@@ -105,34 +105,52 @@ var Build = bld.Build = (function() {
 			}
 		}
 		defHandles[$name] = $definition;
-		for ( var index = 0, length = requiredRemaining.length; index < length; index++) {
-			var name = requiredRemaining[index];
-			loading[name] = true;
-		}
+		// for ( var index = 0, length = requiredRemaining.length; index <
+		// length; index++) {
+		// var name = requiredRemaining[index];
+		// }
 		if (requiredRemaining.length) {
 			load(requiredRemaining, function() {
-				for ( var index = 0, length = requiredRemaining.length; index < length; index++) {
-					var name = requiredRemaining[index];
-					delete loading[name];
-				}
-				if (!Object.keys(loading).length) {
-					compile();
-				}
+				// for ( var index = 0, length = requiredRemaining.length; index
+				// < length; index++) {
+				// var name = requiredRemaining[index];
+				// delete loading[name];
+				// }
 			});
 		} else {
-			compile();
+			// if (!Object.keys(loading).length) {
+			// compile();
+			// }
 		}
 	}
-	function compile(callback) {
-		function define($definition) {
-			assemble(name, $definition.$constructor, $definition.$prototype, $definition.$static, definitions[$definition.$extends], $definition.$singleton);
-		}
-		for ( var name in defHandles) {
-			defHandles[name](define);
+	var defHandlesNames = null;
+	function compile() {
+		var defHandlesNames = Object.keys(defHandles);
+		while (defHandlesNames.length) {
+			var $name = defHandlesNames.pop();
+			compileClass($name);
 		}
 		defHandles = {};
+		defHandlesNames = null;
 		compiled = true;
 		loadPhaseComplete();
+	}
+	function compileClass($name) {
+		var defHandle = defHandles[$name];
+		delete defHandles[$name];
+		if (defHandle) {
+			defHandle(function($definition) {
+				var $parent;
+				if (definitions[$definition.$extends]) {
+					$parent = definitions[$definition.$extends];
+				} else {
+					compileClass($definition.$extends);
+					$parent = definitions[$definition.$extends];
+				}
+				assemble($name, $definition.$constructor, $definition.$prototype, $definition.$static, $parent, $definition.$singleton);
+			});
+		}
+
 	}
 	function nameToCss($name) {
 		return $name.replace(/\./g, '-');
@@ -143,42 +161,6 @@ var Build = bld.Build = (function() {
 		} else {
 			return path + $name.replace(/\./g, '/') + '.js';
 		}
-	}
-	function load(names, callback) {
-		if (names instanceof Array) {
-			var waiting = names.length;
-			for ( var index = 0, length = names.length; index < length; index++) {
-				var $name = names[index];
-				loadSingle($name, function() {
-					waiting--;
-					if (!waiting) {
-						callback();
-					}
-				});
-			}
-		} else {
-			loadSingle(names, callback);
-		}
-	}
-	function loadSingle($name, callback) {
-		var path;
-		var pathParts = $name.split('::');
-		if (pathParts.length > 1) {
-			path = paths[pathParts[0]] || paths.main;
-			$name = pathParts[1];
-		} else {
-			path = paths.main;
-		}
-		var fileName = nameToFileName($name, path);
-		var id = nameToCss($name);
-		loadScript(id, fileName, callback);
-	}
-	function loadScript(id, fileName, callback) {
-		var script = document.createElement('script');
-		script.id = id;
-		script.src = fileName;
-		script.addEventListener('load', callback, false);
-		document.getElementsByTagName("head")[0].appendChild(script);
 	}
 	function CallbackQueue() {
 		this.done = false;
@@ -199,8 +181,62 @@ var Build = bld.Build = (function() {
 				}
 				this.done = true;
 			}
+		},
+		clear : function() {
+			this.done = false;
+			this.queue = [];
 		}
 	};
+	var waiting = 0;
+	function load(names, callback) {
+		load.queue.add(callback);
+		function finishLoad() {
+			if (!Object.keys(loading).length) {
+				compile();
+			}
+			load.queue.call();
+			load.queue.clear();
+		}
+		if (names instanceof Array) {
+			for ( var index = 0, length = names.length; index < length; index++) {
+				var $name = names[index];
+				waiting++;
+				loadSingle($name, function() {
+					waiting--;
+					if (!waiting) {
+						finishLoad();
+					}
+				});
+			}
+		} else {
+			loadSingle(names, finishLoad);
+		}
+	}
+	load.queue = new CallbackQueue();
+	function loadSingle($name, callback) {
+		var path;
+		var pathParts = $name.split('::');
+		if (pathParts.length > 1) {
+			path = paths[pathParts[0]] || paths.main;
+			$name = pathParts[1];
+		} else {
+			path = paths.main;
+		}
+		var fileName = nameToFileName($name, path);
+		var id = nameToCss($name);
+		loading[$name] = true;
+		loadScript(id, fileName, function() {
+			delete loading[$name];
+			callback();
+		});
+	}
+	function loadScript(id, fileName, callback) {
+		var script = document.createElement('script');
+		script.id = id;
+		script.src = fileName;
+		script.addEventListener('load', callback, false);
+		document.getElementsByTagName("head")[0].appendChild(script);
+	}
 	function loadPhaseComplete() {
 		if (loaded) {
 			onload.queue.call();
