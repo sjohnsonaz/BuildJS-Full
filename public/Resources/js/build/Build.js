@@ -55,7 +55,7 @@ var Build = bld.Build = (function() {
 			$child.$parent = $parent;
 
 			$child.prototype.$super = $child.prototype.$super || function() {
-				arguments.callee.caller.apply(this, Array.prototype.slice.call(arguments));
+				this.constructor.$parent.apply(this, Array.prototype.slice.call(arguments));
 			};
 		} else {
 			copyNoReplace($child.prototype, $prototype);
@@ -125,7 +125,7 @@ var Build = bld.Build = (function() {
 	}
 	function compile(callback) {
 		function define($definition) {
-			assemble(name, $definition.$constructor, $definition.$prototype, $definition.$static, $definition.$parent, $definition.$singleton);
+			assemble(name, $definition.$constructor, $definition.$prototype, $definition.$static, definitions[$definition.$extends], $definition.$singleton);
 		}
 		for ( var name in defHandles) {
 			defHandles[name](define);
