@@ -88,15 +88,15 @@ var Build = bld.Build = (function() {
 	var paths = {
 		main : '/'
 	};
+	var defHandles = {};
 	function define($name, $required, $definition) {
 		for ( var index = 0, length = $required.length; index < length; index++) {
 			var requiredName = $required[index];
 			if (!definitions[requiredName]) {
-				required[requiredName] = true;
-			} else {
-
+				required[requiredName] = $name;
 			}
 		}
+		defHandles[$name] = $definition;
 	}
 	function nameToCss($name) {
 		return $name.replace(/\./g, '-');
@@ -177,6 +177,10 @@ var Build = bld.Build = (function() {
 		}
 	}
 	onload.queue = null;
+	
+	function compile(callback) {
+		
+	}
 
 	Build.definitions = definitions;
 	Build.copyReplace = copyReplace;
