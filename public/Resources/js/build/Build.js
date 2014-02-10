@@ -86,7 +86,7 @@ var Build = bld.Build = (function() {
 	var compiled = false;
 	var required = {};
 	var paths = {
-		main : ''
+		main : '/'
 	};
 	function define($name, $required, $definition) {
 		for ( var index = 0, length = $required.length; index < length; index++) {
