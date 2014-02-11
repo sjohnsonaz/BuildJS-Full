@@ -60,7 +60,7 @@ function minifyDirectory(source, destination, included, excluded) {
 	console.log(files);
 
 	new compressor.minify({
-		type : 'gcc',
+		type : 'uglifyjs',
 		language : 'ECMASCRIPT5',
 		fileIn : files,// 'public/Resources/js/build/Build.js',
 		fileOut : destination,

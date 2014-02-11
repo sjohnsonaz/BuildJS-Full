@@ -1,5 +1,5 @@
-var bld = bld || {};
-var Build = bld.Build = (function() {
+var build = build || {};
+var Build = build.Build = (function() {
 	function Build(value) {
 		switch (typeof value) {
 		case 'function':
@@ -162,8 +162,8 @@ var Build = bld.Build = (function() {
 		},
 		call : function() {
 			if (!this.done) {
-				for ( var index = 0, length = this.queue.length; index < length; index++) {
-					this.queue[index]();
+				while (this.queue.length) {
+					this.queue.pop()();
 				}
 				this.done = true;
 			}
@@ -184,9 +184,9 @@ var Build = bld.Build = (function() {
 			load.queue.clear();
 		}
 		if (names instanceof Array) {
+			waiting += names.length;
 			for ( var index = 0, length = names.length; index < length; index++) {
 				var $name = names[index];
-				waiting++;
 				loadSingle($name, function() {
 					waiting--;
 					if (!waiting) {
@@ -208,13 +208,17 @@ var Build = bld.Build = (function() {
 		} else {
 			path = paths.main;
 		}
-		var fileName = nameToFileName($name, path);
-		var id = nameToCss($name);
-		loading[$name] = true;
-		loadScript(id, fileName, function() {
-			delete loading[$name];
+		if (!definitions[$name]) {
+			var fileName = nameToFileName($name, path);
+			var id = nameToCss($name);
+			loading[$name] = true;
+			loadScript(id, fileName, function() {
+				delete loading[$name];
+				callback();
+			});
+		} else {
 			callback();
-		});
+		}
 	}
 	function loadScript(id, fileName, callback) {
 		var script = document.createElement('script');
@@ -226,6 +230,7 @@ var Build = bld.Build = (function() {
 	function loadPhaseComplete() {
 		if (loaded) {
 			onload.queue.call();
+			onload.queue.clear();
 		}
 	}
 	function onload(callback) {
@@ -239,8 +244,12 @@ var Build = bld.Build = (function() {
 				onload.queue.add(callback);
 				window.addEventListener('load', function() {
 					loaded = true;
+					if (!Object.keys(loading).length) {
+						compile();
+					}
 					if (compiled) {
 						onload.queue.call();
+						onload.queue.clear();
 					}
 				}, false);
 			}
