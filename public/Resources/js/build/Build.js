@@ -28,12 +28,18 @@ var Build = build.Build = (function() {
 		} else if (typeof process !== 'undefined') {
 			loaded = true;
 			module.exports = Build;
-			GLOBAL.Build = Build;
 			return {
 				name : 'node',
-				root : process,
-				globalOverride: function() {
+				root : root,
+				override : 'hidden',
+				processOverride : function() {
+					this.root = process;
+					this.override = 'process';
+					process.Build = Build;
+				},
+				globalOverride : function() {
 					this.root = GLOBAL;
+					this.override = 'global';
 					GLOBAL.Build = Build;
 				}
 			};
@@ -276,7 +282,9 @@ var Build = build.Build = (function() {
 			break;
 		case 'node':
 			var handle = require(fileName);
-			// handle(Build);
+			if (!environment.override || typeof handle === 'function') {
+				handle(Build);
+			}
 			callback();
 			break;
 		}
