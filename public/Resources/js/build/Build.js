@@ -99,19 +99,29 @@ var Build = build.Build = (function() {
 	var paths = {
 		main : '/'
 	};
+	var preLoading = {};
 	function define($name, $required, $definition) {
 		compiled = false;
+		if (!loaded) {
+			delete preLoading[$name];
+		}
 		var requiredRemaining = [];
 		for ( var index = 0, length = $required.length; index < length; index++) {
 			var requiredName = $required[index];
-			if (!definitions[requiredName] && !defHandles[requiredName] && !loading[requiredName]) {
+			if (!definitions[requiredName] && !defHandles[requiredName] && !loading[requiredName] && !preLoading[requiredName]) {
 				requiredRemaining.push(requiredName);
 			}
 		}
 		defHandles[$name] = $definition;
 		if (requiredRemaining.length) {
-			load(requiredRemaining, function() {
-			});
+			if (loaded) {
+				load(requiredRemaining, function() {
+				});
+			} else {
+				for ( var index = 0, length = requiredRemaining.length; index < length; index++) {
+					preLoading[requiredRemaining[index]] = true;
+				}
+			}
 		}
 	}
 	function compile() {
@@ -253,13 +263,18 @@ var Build = build.Build = (function() {
 				onload.queue.add(callback);
 				window.addEventListener('load', function() {
 					loaded = true;
-					if (!Object.keys(loading).length) {
+					var preLoadingNames = Object.keys(preLoading);
+					if (preLoadingNames.length) {
+						load(preLoadingNames, function() {
+							compile();
+						});
+					} else {
 						compile();
 					}
-					if (compiled) {
-						onload.queue.call();
-						onload.queue.clear();
-					}
+					/*
+					 * if (compiled) { onload.queue.call();
+					 * onload.queue.clear(); }
+					 */
 				}, false);
 			}
 		}
