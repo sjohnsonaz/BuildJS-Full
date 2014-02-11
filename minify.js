@@ -34,29 +34,33 @@ function extensionNoMatch(value, extensions) {
 	return result;
 }
 
-function getFiles(path, extensionsIncluded, extensionsExcluded) {
-	var contents = fs.readdirSync(path);
+function arrayMerge(array0, array1) {
+	for ( var index = 0, length = array1.length; index < length; index++) {
+		array0.push(array1[index]);
+	}
+	return array0;
+}
+
+function addFile(path, extensionsIncluded, extensionsExcluded) {
 	var files = [];
-	for ( var index = 0, length = contents.length; index < length; index++) {
-		var filename = path + '/' + contents[index];
-		var stat = fs.statSync(filename);
-		if (stat.isFile()) {
-			if ((extensionsIncluded ? extensionMatch(filename, extensionsIncluded) : true) && (extensionsExcluded ? extensionNoMatch(filename, extensionsExcluded) : true)) {
-				files.push(filename);
-			}
-		} else if (stat.isDirectory()) {
-			var childFiles = getFiles(filename);
-			for ( var childIndex = 0, childLength = childFiles.length; childIndex < childLength; childIndex++) {
-				files.push(childFiles[childIndex]);
-			}
+	var stat = fs.statSync(path);
+	if (stat.isFile()) {
+		files.push(path);
+	} else if (stat.isDirectory()) {
+		var contents = fs.readdirSync(path);
+		for ( var index = 0, length = contents.length; index < length; index++) {
+			arrayMerge(files, addFile(path + '/' + contents[index], extensionsIncluded, extensionsExcluded));
 		}
 	}
 	return files;
 }
 
-function minifyDirectory(algorithm, source, destination, included, excluded) {
+function minifyDirectory(algorithm, source, destination, include, exclude) {
 	console.log('Minifying ' + __dirname + source);
-	var files = getFiles(__dirname + source, included, excluded);
+	var files = [];
+	for ( var index = 0, length = source.length; index < length; index++) {
+		arrayMerge(files, addFile(__dirname + source[index], include, exclude));
+	}
 	console.log(files);
 
 	new compressor.minify({
@@ -77,7 +81,7 @@ function minifyDirectory(algorithm, source, destination, included, excluded) {
 function run(files) {
 	for ( var index = 0, length = files.length; index < length; index++) {
 		var file = files[index];
-		minifyDirectory.apply(minifyDirectory, file);
+		minifyDirectory(file.algorithm, file.source, file.destination, file.include, file.exclude);
 	}
 }
 
