@@ -10,6 +10,15 @@ var Build = build.Build = (function() {
 			break;
 		}
 	}
+	var environment = (function() {
+		if (window) {
+			return 'browser';
+		} else if (process) {
+			return 'node';
+		} else {
+			return null;
+		}
+	})();
 	function namespace($name, $constructor) {
 		var parts = $name.split('.');
 		var parent = window;
@@ -240,11 +249,20 @@ var Build = build.Build = (function() {
 		}
 	}
 	function loadScript(id, fileName, callback) {
-		var script = document.createElement('script');
-		script.id = id;
-		script.src = fileName;
-		script.addEventListener('load', callback, false);
-		document.getElementsByTagName("head")[0].appendChild(script);
+		switch (environment) {
+		case 'browser':
+			var script = document.createElement('script');
+			script.id = id;
+			script.src = fileName;
+			script.addEventListener('load', callback, false);
+			document.getElementsByTagName("head")[0].appendChild(script);
+			break;
+		case 'node':
+			var handle = require(__dirname + '/' + fileName);
+			handle(Build);
+			callback();
+			break;
+		}
 	}
 	function loadPhaseComplete() {
 		if (loaded) {
@@ -281,6 +299,7 @@ var Build = build.Build = (function() {
 	}
 	onload.queue = null;
 
+	Build.environment = environment;
 	Build.namespace = namespace;
 	Build.copyReplace = copyReplace;
 	Build.copyNoReplace = copyNoReplace;
