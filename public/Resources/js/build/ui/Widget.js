@@ -2,18 +2,17 @@ Build('build.ui.Widget', [ 'build.ui.Module' ], function(define, $super) {
 	var idCount = {};
 	define({
 		$extends : 'build.ui.Module',
-		$constructor : function() {
+		$constructor : function(type) {
 			$super(this)();
-			this.id = this.uniqueId();
-			this.cssClass = this.uniqueClass();
-			console.log('build.ui.Widget');
-			this.type = 'div';
+			this.type = type || 'div';
+			this.createElement();
 		},
 		$prototype : {
 			createElement : function() {
 				this.element = document.createElement(this.type);
-				this.element.id = this.id;
-				this.element.classList.add(this.cssClass);
+				this.element.id = this.uniqueId();
+				this.element.classList.add(this.uniqueClass());
+				this.element.controller = this;
 				this.build();
 			},
 			build : function() {
@@ -25,6 +24,12 @@ Build('build.ui.Widget', [ 'build.ui.Module' ], function(define, $super) {
 			},
 			uniqueClass : function() {
 				return Build.nameToCss(this.constructor.$name);
+			},
+			appendChild : function(widget) {
+				this.element.appendChild(widget.element);
+			},
+			removeChild : function(widget) {
+				this.element.removeChild(widget.element);
 			}
 		}
 	});

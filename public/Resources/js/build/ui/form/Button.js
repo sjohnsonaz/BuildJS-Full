@@ -1,13 +1,12 @@
 Build('build.ui.form.Button', [ 'build.ui.form.FormElement' ], function(define, $super) {
 	define({
 		$extends : 'build.ui.form.FormElement',
-		$constructor : function() {
-			$super(this)();
-			this.type = 'button';
+		$constructor : function(type) {
+			$super(this)(type || 'button');
 		},
 		$prototype : {
 			build : function() {
-				this.element.innerHtml = 'Button';
+				this.element.innerHTML = 'Button';
 			}
 		}
 	});
