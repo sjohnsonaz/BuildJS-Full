@@ -55,9 +55,11 @@ var Build = build.Build = (function() {
 
 			$child.$parent = $parent;
 
-			$child.prototype.$super = $child.prototype.$super || function() {
-				this.constructor.$parent.apply(this, Array.prototype.slice.call(arguments));
-			};
+			/*
+			 * $child.$super = function(scope) { return function() {
+			 * $child.$parent.apply(scope,
+			 * Array.prototype.slice.call(arguments)); }; };
+			 */
 		} else {
 			copyNoReplace($child.prototype, $prototype);
 		}
@@ -88,6 +90,7 @@ var Build = build.Build = (function() {
 
 		definitions[$name] = $constructor;
 		namespace($name, $constructor);
+		return $constructor;
 	}
 	var compiled = true;
 	var loaded = false;
@@ -126,6 +129,7 @@ var Build = build.Build = (function() {
 		var defHandle = defHandles[$name];
 		delete defHandles[$name];
 		if (defHandle) {
+			var $constructor;
 			defHandle(function($definition) {
 				var $parent;
 				if (definitions[$definition.$extends]) {
@@ -134,7 +138,11 @@ var Build = build.Build = (function() {
 					compileClass($definition.$extends);
 					$parent = definitions[$definition.$extends];
 				}
-				assemble($name, $definition.$constructor, $definition.$prototype, $definition.$static, $parent, $definition.$singleton);
+				$constructor = assemble($name, $definition.$constructor, $definition.$prototype, $definition.$static, $parent, $definition.$singleton);
+			}, function(scope) {
+				return function() {
+					$constructor.$parent.apply(scope, Array.prototype.slice.call(arguments));
+				};
 			});
 		}
 

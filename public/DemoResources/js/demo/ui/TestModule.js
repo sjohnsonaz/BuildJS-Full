@@ -1,8 +1,8 @@
-Build('demo.ui.TestModule', [], function(define) {
+Build('demo.ui.TestModule', [], function(define, $super) {
 	define({
 		$extends: 'build.ui.Module',
 		$constructor : function() {
-			this.$super();
+			$super(this)();
 			console.log('demo.ui.TestModule');
 		}
 	});

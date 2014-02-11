@@ -1,17 +1,21 @@
-Build('build.ui.Widget', [ 'build.ui.Module' ], function(define) {
+Build('build.ui.Widget', [ 'build.ui.Module' ], function(define, $super) {
 	var idCount = {};
 	define({
 		$extends : 'build.ui.Module',
 		$constructor : function() {
-			this.$super();
+			$super(this)();
 			this.id = this.uniqueId();
 			this.cssClass = this.uniqueClass();
 			console.log('build.ui.Widget');
-			this.element = document.createElement('div');
-			this.element.id = this.id;
-			this.element.classList.add(this.cssClass);
+			this.type = 'div';
 		},
 		$prototype : {
+			createElement : function() {
+				this.element = document.createElement(this.type);
+				this.element.id = this.id;
+				this.element.classList.add(this.cssClass);
+				this.build();
+			},
 			build : function() {
 			},
 			uniqueId : function() {

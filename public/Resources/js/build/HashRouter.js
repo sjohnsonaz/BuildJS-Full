@@ -1,4 +1,4 @@
-Build('build.HashRouter', [], function(define) {
+Build('build.HashRouter', [], function(define, $super) {
 	define({
 		$constructor : function() {
 			this.routes = {};
