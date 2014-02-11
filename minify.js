@@ -1,7 +1,8 @@
 var fs = require('fs');
 var compressor = require('node-minify');
 
-var files = [ [ '/public/Resources/js', 'public/Resources/min/js/Build.min.js', [ '.js' ] ] ];
+var config = require('./config-minify');
+var files = config.files;
 
 if (typeof String.prototype.endsWith !== 'function') {
 	String.prototype.endsWith = function(suffix) {
