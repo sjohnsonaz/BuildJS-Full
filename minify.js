@@ -54,13 +54,13 @@ function getFiles(path, extensionsIncluded, extensionsExcluded) {
 	return files;
 }
 
-function minifyDirectory(source, destination, included, excluded) {
+function minifyDirectory(algorithm, source, destination, included, excluded) {
 	console.log('Minifying ' + __dirname + source);
 	var files = getFiles(__dirname + source, included, excluded);
 	console.log(files);
 
 	new compressor.minify({
-		type : 'uglifyjs',
+		type : algorithm,
 		language : 'ECMASCRIPT5',
 		fileIn : files,// 'public/Resources/js/build/Build.js',
 		fileOut : destination,
