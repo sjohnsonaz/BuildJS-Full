@@ -18,6 +18,7 @@ var Build = build.Build = (function() {
 		main : '/'
 	};
 	var preLoading = {};
+	var root = {};
 	var environment = (function() {
 		if (typeof window !== 'undefined') {
 			return {
@@ -44,7 +45,6 @@ var Build = build.Build = (function() {
 		var parent = environment.root;
 		var grandParent = parent;
 		var currentPart = '';
-
 		for ( var index = 0, length = parts.length; index < length; index++) {
 			currentPart = parts[index];
 			parent[currentPart] = parent[currentPart] || {};
@@ -52,6 +52,7 @@ var Build = build.Build = (function() {
 			parent = parent[currentPart];
 		}
 
+		root[parts[0]] = environment.root[parts[0]];
 		return grandParent[currentPart] = $constructor;
 	}
 	function copyNoReplace(destination, source) {
@@ -271,7 +272,7 @@ var Build = build.Build = (function() {
 			break;
 		case 'node':
 			var handle = require(fileName);
-			//handle(Build);
+			// handle(Build);
 			callback();
 			break;
 		}
@@ -315,6 +316,7 @@ var Build = build.Build = (function() {
 	}
 	onload.queue = null;
 
+	Build.root = root;
 	Build.environment = environment;
 	Build.namespace = namespace;
 	Build.copyReplace = copyReplace;
