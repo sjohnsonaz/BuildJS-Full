@@ -10,6 +10,14 @@ var Build = build.Build = (function() {
 			break;
 		}
 	}
+	var compiled = true;
+	var loaded = false;
+	var loading = {};
+	var defHandles = {};
+	var paths = {
+		main : '/'
+	};
+	var preLoading = {};
 	var environment = (function() {
 		if (typeof window !== 'undefined') {
 			return {
@@ -17,10 +25,12 @@ var Build = build.Build = (function() {
 				root : window
 			};
 		} else if (typeof process !== 'undefined') {
+			loaded = true;
 			module.exports = Build;
+			GLOBAL.Build = Build;
 			return {
 				name : 'node',
-				root : process
+				root : GLOBAL
 			};
 		} else {
 			return {
@@ -111,14 +121,6 @@ var Build = build.Build = (function() {
 		namespace($name, $constructor);
 		return $constructor;
 	}
-	var compiled = true;
-	var loaded = false;
-	var loading = {};
-	var defHandles = {};
-	var paths = {
-		main : '/'
-	};
-	var preLoading = {};
 	function define($name, $required, $definition) {
 		compiled = false;
 		if (!loaded) {
@@ -269,7 +271,7 @@ var Build = build.Build = (function() {
 			break;
 		case 'node':
 			var handle = require(fileName);
-			handle(Build);
+			//handle(Build);
 			callback();
 			break;
 		}
@@ -304,6 +306,7 @@ var Build = build.Build = (function() {
 					}, false);
 					break;
 				case 'node':
+					compile();
 					break;
 				}
 
