@@ -5,5 +5,6 @@ Build(function() {
 	Build.load([ 'build.ui.Widget', 'demo::demo.ui.TestModule' ], function() {
 		var widget = new build.ui.Widget();
 		var testModule = new demo.ui.TestModule();
+		document.body.appendChild(widget.element);
 	});
 });
