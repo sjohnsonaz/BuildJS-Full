@@ -1,7 +1,32 @@
 var fs = require('fs');
 var compressor = require('node-minify');
-
 var config = require('./config-minify');
+
+function getDestination(folder, name, version, specialization, suffix) {
+	return folder + '/' + name + (version ? ('-' + version) : '') + (specialization ? ('.' + specialization) : '') + '.min.' + suffix;
+}
+
+function zeroFillString(number) {
+	if (number < 10) {
+		return '0' + number;
+	} else {
+		return '' + number;
+	}
+}
+
+var date = null;
+var timestamp = null;
+function getTimestamp() {
+	date = date || new Date();
+	timestamp = timestamp || (zeroFillString(date.getDate()) + '-' + zeroFillString(date.getMonth() + 1) + '-' + date.getFullYear());
+	return timestamp;
+}
+
+config = config({
+	getDestination : getDestination,
+	getTimestamp : getTimestamp
+});
+
 var files = config.files;
 
 if (typeof String.prototype.endsWith !== 'function') {
