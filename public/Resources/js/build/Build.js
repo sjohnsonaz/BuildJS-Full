@@ -11,17 +11,27 @@ var Build = build.Build = (function() {
 		}
 	}
 	var environment = (function() {
-		if (window) {
-			return 'browser';
-		} else if (process) {
-			return 'node';
+		if (typeof window !== 'undefined') {
+			return {
+				name : 'browser',
+				root : window
+			};
+		} else if (typeof process !== 'undefined') {
+			module.exports = Build;
+			return {
+				name : 'node',
+				root : process
+			};
 		} else {
-			return null;
+			return {
+				name : null,
+				root : null
+			};
 		}
 	})();
 	function namespace($name, $constructor) {
 		var parts = $name.split('.');
-		var parent = window;
+		var parent = environment.root;
 		var grandParent = parent;
 		var currentPart = '';
 
@@ -249,7 +259,7 @@ var Build = build.Build = (function() {
 		}
 	}
 	function loadScript(id, fileName, callback) {
-		switch (environment) {
+		switch (environment.name) {
 		case 'browser':
 			var script = document.createElement('script');
 			script.id = id;
@@ -258,7 +268,7 @@ var Build = build.Build = (function() {
 			document.getElementsByTagName("head")[0].appendChild(script);
 			break;
 		case 'node':
-			var handle = require(__dirname + '/' + fileName);
+			var handle = require(fileName);
 			handle(Build);
 			callback();
 			break;
@@ -279,21 +289,24 @@ var Build = build.Build = (function() {
 			} else {
 				onload.queue = new CallbackQueue();
 				onload.queue.add(callback);
-				window.addEventListener('load', function() {
-					loaded = true;
-					var preLoadingNames = Object.keys(preLoading);
-					if (preLoadingNames.length) {
-						load(preLoadingNames, function() {
+				switch (environment.name) {
+				case 'browser':
+					window.addEventListener('load', function() {
+						loaded = true;
+						var preLoadingNames = Object.keys(preLoading);
+						if (preLoadingNames.length) {
+							load(preLoadingNames, function() {
+								compile();
+							});
+						} else {
 							compile();
-						});
-					} else {
-						compile();
-					}
-					/*
-					 * if (compiled) { onload.queue.call();
-					 * onload.queue.clear(); }
-					 */
-				}, false);
+						}
+					}, false);
+					break;
+				case 'node':
+					break;
+				}
+
 			}
 		}
 	}
