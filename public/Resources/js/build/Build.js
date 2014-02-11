@@ -31,7 +31,11 @@ var Build = build.Build = (function() {
 			GLOBAL.Build = Build;
 			return {
 				name : 'node',
-				root : GLOBAL
+				root : process,
+				globalOverride: function() {
+					this.root = GLOBAL;
+					GLOBAL.Build = Build;
+				}
 			};
 		} else {
 			return {
