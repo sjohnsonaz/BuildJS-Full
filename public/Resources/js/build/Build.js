@@ -47,7 +47,8 @@ var Build = build.Build = (function() {
 			if (Object.keys($child.prototype).length) {
 				copyReplace($prototype, $child.prototype);
 			}
-			$child.prototype = Object.create($parent.prototype, $prototype);
+			$child.prototype = Object.create($parent.prototype);
+			copyReplace($child.prototype, $prototype);
 			$child.prototype.constructor = $child;
 
 			copyNoReplace($child, $parent);
