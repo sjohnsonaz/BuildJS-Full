@@ -1,4 +1,4 @@
-var cluster = require('cluster')
+var cluster = require('cluster');
 var os = require('os');
 var processors = os.cpus().length;
 if ( cluster.isMaster ) {
