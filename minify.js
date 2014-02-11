@@ -1,6 +1,8 @@
 var fs = require('fs');
 var compressor = require('node-minify');
 
+var files = [ [ '/public/Resources/js', 'public/Resources/min/js/Build.min.js', [ '.js' ] ] ];
+
 if (typeof String.prototype.endsWith !== 'function') {
 	String.prototype.endsWith = function(suffix) {
 		return this.indexOf(suffix, this.length - suffix.length) !== -1;
@@ -71,4 +73,11 @@ function minifyDirectory(source, destination, included, excluded) {
 	});
 }
 
-minifyDirectory('/public/Resources/js', 'public/Resources/min/js/Build.min.js', [ '.js' ]);
+function run(files) {
+	for ( var index = 0, length = files.length; index < length; index++) {
+		var file = files[index];
+		minifyDirectory.apply(minifyDirectory, file);
+	}
+}
+
+run(files);
