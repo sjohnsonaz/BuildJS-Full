@@ -14,9 +14,12 @@ module.exports = function(Build) {
 
 				app.configure(function() {
 					app.use(config.staticDirectory, express.compress());
-					app.use(config.staticDirectory, express.static(config.staticPath, {
-						maxAge : 86400000
-					}));
+					for ( var index = 0, length = config.staticPaths.length; index < length; index++) {
+						var staticPath = config.staticPaths[index];
+						app.use(staticPath.virtual, express.static(staticPath.local, {
+							maxAge : 86400000
+						}));
+					}
 					app.use(express.methodOverride());
 					app.use(app.router);
 				});

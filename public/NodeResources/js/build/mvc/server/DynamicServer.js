@@ -28,7 +28,12 @@ module.exports = function(Build) {
 					});
 					app.use(express.compress());
 					app.use(expressLayouts);
-					app.use(config.staticDirectory, express.static(config.staticPath));
+					for ( var index = 0, length = config.staticPaths.length; index < length; index++) {
+						var staticPath = config.staticPaths[index];
+						app.use(staticPath.virtual, express.static(staticPath.local, {
+							maxAge : 86400000
+						}));
+					}
 					app.use(express.favicon(config.icon));
 					app.use(express.logger('dev'));
 					app.use(express.bodyParser());
