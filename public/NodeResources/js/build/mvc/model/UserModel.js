@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 module.exports = function(Build) {
-	Build('build.mvc.model.UserModel', [ 'build.mvc.model.MongooseModel' ], function(define, $super) {
+	Build('build.mvc.model.UserModel', [ 'node::build.mvc.model.MongooseModel' ], function(define, $super) {
 		define({
 			$extends : 'build.mvc.model.MongooseModel',
 			$constructor : function() {
@@ -15,7 +15,7 @@ module.exports = function(Build) {
 					username : 1
 				});
 				this.schema.set('autoIndex', false);
-				this.model = mongoose.model('User', schema);
+				this.model = mongoose.model('User', this.schema);
 			},
 		});
 	});

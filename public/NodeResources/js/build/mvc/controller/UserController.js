@@ -1,13 +1,14 @@
-Build('build.mvc.controller.TestController', [ 'node::build.mvc.controller.Controller', 'node::build.mvc.model.UserModel' ], function(define, $super) {
+Build('build.mvc.controller.UserController', [ 'node::build.mvc.controller.Controller', 'node::build.mvc.model.UserModel' ], function(define, $super) {
 	define({
 		$extends : 'build.mvc.controller.Controller',
 		$constructor : function(app) {
 			$super(this)(app);
+			var self = this;
 			this.userModel = new build.mvc.model.UserModel();
-			this.index = route({
+			this.index = this.route({
 				verb : 'all',
 				route : '/user',
-				permission : 'isLoggedIn',
+				permission : null,
 				restful : false,
 				method : function(request, response) {
 					var layoutData = {};
@@ -21,48 +22,48 @@ Build('build.mvc.controller.TestController', [ 'node::build.mvc.controller.Contr
 					response.render('user/index', data);
 				}
 			});
-			this.get = route({
+			this.get = this.route({
 				verb : 'get',
 				route : '/api/user',
-				permission : 'isLoggedIn',
+				permission : null,
 				restful : true,
 				method : function(request, response, output) {
 					if (request.query.id) {
-						this.UserModel.model.findOne({
+						self.userModel.model.findOne({
 							_id : request.query.id
 						}, function(err, user) {
 							output(user);
 						});
 					} else {
-						this.UserModel.model.find({}, function(err, data) {
+						self.userModel.model.find({}, function(err, data) {
 							output(data);
 						});
 					}
 				}
 			});
-			this.getByUsername = route({
+			this.getByUsername = this.route({
 				verb : 'get',
 				route : '/api/user/getByUsername',
-				permission : 'isLoggedIn',
+				permission : null,
 				restful : true,
 				method : function(request, response, output) {
-					this.UserModel.model.findOne({
+					self.userModel.model.findOne({
 						username : request.query.username
 					}, function(err, user) {
 						output(user);
 					});
 				}
 			});
-			this.search = route({
+			this.search = this.route({
 				verb : 'get',
 				route : '/api/user/search',
-				permission : 'isLoggedIn',
+				permission : null,
 				restful : true,
 				method : function(request, response, output) {
 					var limit = request.query.limit || 10;
 					var index = request.query.index || 0;
-					this.UserModel.model.count({}, function(err, count) {
-						this.UserModel.model.find({}).sort({
+					self.userModel.model.count({}, function(err, count) {
+						self.userModel.model.find({}).sort({
 							'_id' : 'asc'
 						}).skip(index * limit).limit(limit).exec(function(err, users) {
 							// for ( var x = 0; x < users.length; x++) {
@@ -76,13 +77,13 @@ Build('build.mvc.controller.TestController', [ 'node::build.mvc.controller.Contr
 					});
 				}
 			});
-			this.post = route({
+			this.post = this.route({
 				verb : 'post',
 				route : '/api/user',
-				permission : 'isLoggedIn',
+				permission : null,
 				restful : true,
 				method : function(request, response, output) {
-					var user = this.UserModel.model.UserModel(request.body);
+					var user = self.userModel.model.userModel(request.body);
 					user.save(function(err) {
 						console.log(request.body);
 						output(user);
@@ -90,10 +91,10 @@ Build('build.mvc.controller.TestController', [ 'node::build.mvc.controller.Contr
 				}
 			});
 			// This is a conflicted route
-			this.put = route({
+			this.put = this.route({
 				verb : 'put',
 				route : '/api/user',
-				permission : 'isLoggedIn',
+				permission : null,
 				restful : true,
 				method : function(request, response, output) {
 					console.log(request.query.id);
@@ -101,7 +102,7 @@ Build('build.mvc.controller.TestController', [ 'node::build.mvc.controller.Contr
 					if (request.body._id) {
 						delete request.body._id;
 					}
-					this.UserModel.model.findOneAndUpdate({
+					self.userModel.model.findOneAndUpdate({
 						_id : request.query.id
 					}, request.body, function(err, result) {
 						if (err) {
@@ -116,13 +117,13 @@ Build('build.mvc.controller.TestController', [ 'node::build.mvc.controller.Contr
 					});
 				}
 			});
-			this.del = route({
+			this.del = this.route({
 				verb : 'delete',
 				route : '/api/user',
-				permission : 'isLoggedIn',
+				permission : null,
 				restful : true,
 				method : function(request, response, output) {
-					this.UserModel.model.remove({
+					self.userModel.model.remove({
 						_id : request.body.id
 					}, function(err, result) {
 						output({
@@ -136,16 +137,16 @@ Build('build.mvc.controller.TestController', [ 'node::build.mvc.controller.Contr
 });
 
 /*
- * browse : route({ verb : 'get', route : '/api/user', permission :
+ * browse : this.route({ verb : 'get', route : '/api/user', permission :
  * 'isLoggedIn', restful : true, method : function(request, response, output) {
- * var UserModel = system.models.UserModel; // var pageNumber =
+ * var userModel = system.models.userModel; // var pageNumber =
  * request.params.pageNumber; // pageNumber = parseInt(pageNumber); // if
  * (!pageNumber || isNaN(pageNumber)) { // pageNumber = 0; // } //
  * data.pageNumber = pageNumber; // var pageSize = 3; // data.pageSize =
- * pageSize; // var UserModel = system.models.UserModel; //
- * UserModel.getAllCount(function(err, numUsers) { // if (err) { //
+ * pageSize; // var userModel = system.models.userModel; //
+ * userModel.getAllCount(function(err, numUsers) { // if (err) { //
  * output.errors.push(err); // } // data.numUsers = numUsers; //
- * UserModel.getPage(pageNumber, pageSize, function(err, users) // { // if (err) { //
+ * userModel.getPage(pageNumber, pageSize, function(err, users) // { // if (err) { //
  * output.errors.push(err); // } // data.users = users; // output.data = data; //
  * response.send(JSON.stringify(output)); // }); // }); } }),
  */
