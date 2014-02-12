@@ -230,9 +230,9 @@ var Build = build.Build = (function() {
 		function finishLoad() {
 			if (!Object.keys(loading).length) {
 				compile();
+				load.queue.call();
+				load.queue.clear();
 			}
-			load.queue.call();
-			load.queue.clear();
 		}
 		if (names instanceof Array) {
 			waiting += names.length;
