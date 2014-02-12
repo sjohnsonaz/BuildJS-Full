@@ -1,11 +1,11 @@
 module.exports = function(Build) {
-	Build('build.mvc.Controller', [], function(define, $super) {
-		Build.root.system.controllers = {};
+	Build('build.mvc.controller.Controller', [], function(define, $super) {
 		define({
-			$constructor : function() {
+			$constructor : function(app) {
+				this.app = app;
 			},
 			$prototype : {
-				route : function(app, params) {
+				route : function(params) {
 					var defaultParams = {
 						verb : 'all',
 						route : null,
@@ -22,7 +22,6 @@ module.exports = function(Build) {
 					if (!params.route || !params.method) {
 						throw "missing parameters in route";
 					}
-
 					var permissions = params.permission;
 					var verbs = params.verb;
 					var routeStrings = params.route;
@@ -34,77 +33,77 @@ module.exports = function(Build) {
 					if (typeof (routeStrings) == 'string') {
 						routeStrings = [ routeStrings ];
 					}
+					var permissionTest = function(request, response) {
+						if (!permissions) {
+							permissions = [];
+						} else if (!Array.isArray(permissions)) {
+							permissions = [ permissions ];
+						}
+						var permissionResult = true;
+						for ( var permissionIndex = 0; permissionIndex < permissions.length; permissionIndex++) {
+							var permission = permissions[permissionIndex];
+							permissionResult = permission(request, response);
+							if (!permissionResult) {
+								break;
+							}
+						}
+						if (permissionResult) {
+							var output;
+							if (params.restful) {
+								output = function(data) {
+									response.send(data);
+								};
+								method(request, response, output);
+							} else {
+								var data = {
+									layout : 'layoutMain',
+									title : '',
+									instance : {
+										request : request,
+										response : response
+									},
+									main : {}
+								};
+								output = function(view, data) {
+									if (data.widgets) {
+										self.renderWidgets(request, response, data.widgets, function(widgets) {
+											data.widgets = widgets;
+											response.render(view, data);
+										});
+									} else {
+										response.render(view, data);
+									}
+								};
+								method(request, response, output, data);
+							}
+						} else {
+							response.send(false);
+						}
+					};
 					for ( var routeIndex = 0; routeIndex < routeStrings.length; routeIndex++) {
 						var routeString = routeStrings[routeIndex];
 						for ( var index = 0; index < verbs.length; index++) {
 							var verbString = verbs[index];
 							switch (verbString) {
 							case 'all':
-								app.all(routeString, this.permissionTest);
+								this.app.all(routeString, permissionTest);
 								break;
 							case 'get':
-								app.get(routeString, this.permissionTest);
+								this.app.get(routeString, permissionTest);
 								break;
 							case 'post':
-								app.post(routeString, this.permissionTest);
+								this.app.post(routeString, permissionTest);
 								break;
 							case 'put':
-								app.put(routeString, this.permissionTest);
+								this.app.put(routeString, permissionTest);
 								break;
 							case 'delete':
-								app.del(routeString, this.permissionTest);
+								this.app.del(routeString, permissionTest);
 								break;
 							}
 						}
 					}
 					return method;
-				},
-				permissionTest : function(request, response) {
-					if (!permissions) {
-						permissions = [];
-					} else if (!Array.isArray(permissions)) {
-						permissions = [ permissions ];
-					}
-					var permissionResult = true;
-					for ( var permissionIndex = 0; permissionIndex < permissions.length; permissionIndex++) {
-						var permission = permissions[permissionIndex];
-						permissionResult = permission(request, response);
-						if (!permissionResult) {
-							break;
-						}
-					}
-					if (permissionResult) {
-						var output;
-						if (params.restful) {
-							output = function(data) {
-								response.send(data);
-							};
-							method(request, response, output);
-						} else {
-							var data = {
-								layout : 'layoutMain',
-								title : '',
-								instance : {
-									request : request,
-									response : response
-								},
-								main : {}
-							};
-							output = function(view, data) {
-								if (data.widgets) {
-									self.renderWidgets(request, response, data.widgets, function(widgets) {
-										data.widgets = widgets;
-										response.render(view, data);
-									});
-								} else {
-									response.render(view, data);
-								}
-							};
-							method(request, response, output, data);
-						}
-					} else {
-						response.send(false);
-					}
 				},
 				renderWidgets : function(request, response, widgets, callback) {
 					/*

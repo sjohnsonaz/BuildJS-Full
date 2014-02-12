@@ -3,9 +3,13 @@ module.exports = function(Build) {
 		define({
 			$constructor : function(config) {
 				this.config = config;
+				this.controllers = [];
 			},
 			$prototype : {
 				start : function(callback) {
+				},
+				addController : function(controller) {
+					this.controllers.push(controller);
 				}
 			},
 			$static : {
