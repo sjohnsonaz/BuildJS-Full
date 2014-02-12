@@ -4,6 +4,8 @@ module.exports = function(Build) {
 			$extends : 'build.mvc.model.Model',
 			$constructor : function() {
 				$super(this)();
+				this.schema = null;
+				this.model = null;
 			},
 		});
 	});
