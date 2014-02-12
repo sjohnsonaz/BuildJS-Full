@@ -2,7 +2,7 @@ var express = require('express');
 
 module.exports = function(Build) {
 	// 'build.mvc.Database', 'build.mvc.Permission', 'build.mvc.Helper', 'build.mvc.Widget', 'build.mvc.Controller', 'build.mvc.Model' 
-	Build('build.mvc.Server', [], function(define, $super) {
+	Build('build.mvc.server.DynamicServer', [], function(define, $super) {
 		define({
 			$constructor : function(config) {
 				var self = this;
