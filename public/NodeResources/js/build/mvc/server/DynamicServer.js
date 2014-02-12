@@ -9,15 +9,14 @@ var ejs = require('ejs');
 var async = require('async');
 
 module.exports = function(Build) {
-	// 'build.mvc.Database', 'build.mvc.Permission', 'build.mvc.Helper',
-	// 'build.mvc.Widget', 'build.mvc.Controller', 'build.mvc.Model'
-	Build('build.mvc.server.DynamicServer', [ 'node::build.mvc.server.Server' ], function(define, $super) {
+	// 'build.mvc.Permission', 'build.mvc.Helper', 'build.mvc.Widget',
+	// 'build.mvc.Controller', 'build.mvc.Model'
+	Build('build.mvc.server.DynamicServer', [ 'node::build.mvc.server.Server', 'node::build.mvc.Database' ], function(define, $super) {
 		define({
 			$extends : 'build.mvc.server.Server',
 			$constructor : function(config) {
 				var self = this;
 				$super(this)(config);
-				this.config = config;
 				var app = express();
 				this.app = app;
 				this.system = {};
@@ -62,18 +61,13 @@ module.exports = function(Build) {
 					app.use(express.errorHandler());
 				});
 
-				// Database = Database(system);
+				this.database = new build.mvc.Database(this.config.mongodb.host, this.config.mongodb.port, this.config.mongodb.database, this.config.mongodb.username, this.config.mongodb.password, this.config.mongooseConnection);
+
 				// Permission = Permission(system);
 				// Helper = Helper(system);
 				// Widget = Widget(system);
 				// Controller = Controller(system);
 				// Model = Model(system);
-
-				// Database.initialize(function() {
-				// initialize(function() {
-				// listen();
-				// });
-				// });
 
 				function initialize(callback) {
 					// Permission.loadPermissions(config.permissionPath);
@@ -83,9 +77,6 @@ module.exports = function(Build) {
 					// Model.loadModels(config.modelPath);
 					// buildDefaultRoutes();
 					callback();
-				}
-
-				function listen(callback) {
 				}
 
 				function buildDefaultRoutes() {
@@ -98,9 +89,11 @@ module.exports = function(Build) {
 			$prototype : {
 				start : function(callback) {
 					var self = this;
-					this.app.listen(this.config.port, function() {
-						console.log('Listening on port ' + self.config.port);
-						typeof (callback) == 'function' ? callback() : false;
+					this.database.init(function() {
+						self.app.listen(self.config.port, function() {
+							console.log('Listening on port ' + self.config.port);
+							typeof (callback) == 'function' ? callback() : false;
+						});
 					});
 				}
 			},

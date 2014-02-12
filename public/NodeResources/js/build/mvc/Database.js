@@ -7,13 +7,13 @@ var Db = mongo.Db;
 module.exports = function(Build) {
 	Build('build.mvc.Database', [], function(define, $super) {
 		define({
-			$constructor : function(host, port, database, username, password) {
+			$constructor : function(host, port, database, username, password, mongooseConnection) {
 				this.db = null;
 				this.server = null;
 				var self = this;
 				this.init = function(callback) {
 					var result = self.initMongo(host, port, database, username, password, function() {
-						self.initMongoose(function() {
+						self.initMongoose(mongooseConnection, function() {
 							typeof (callback) == 'function' ? callback() : false;
 						});
 					});
@@ -21,7 +21,7 @@ module.exports = function(Build) {
 					self.server = result.server;
 				};
 			},
-			$static : {
+			$prototype : {
 				initMongo : function(host, port, database, username, password, callback) {
 					var server = new Server(host, port, {
 						auto_reconnect : true
@@ -45,12 +45,12 @@ module.exports = function(Build) {
 						db : db
 					};
 				},
-				initMongoose : function(callback) {
+				initMongoose : function(mongooseConnection, callback) {
 					mongoose.connection.on("open", function() {
 						console.log('Mongoose connection success...');
 						callback();
 					});
-					mongoose.connect(system.config.mongooseConnection);
+					mongoose.connect(mongooseConnection);
 				}
 			}
 		});
