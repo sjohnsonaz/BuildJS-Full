@@ -5,7 +5,7 @@ Build('build.mvc.controller.TestController', [ 'node::build.mvc.controller.Contr
 			$super(this)(app);
 			this.index = this.route({
 				verb : 'all',
-				route : '/main',
+				route : '/test',
 				permission : null,// 'isLoggedIn',
 				restful : false,
 				method : function(request, response, output, data) {
