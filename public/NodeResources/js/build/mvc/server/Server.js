@@ -5,7 +5,7 @@ module.exports = function(Build) {
 				this.config = config;
 			},
 			$prototype : {
-				start : function() {
+				start : function(callback) {
 				}
 			},
 			$static : {

@@ -31,10 +31,11 @@ module.exports = function(Build) {
 				});
 			},
 			$prototype : {
-				start : function() {
+				start : function(callback) {
 					var self = this;
 					this.app.listen(this.config.port, function() {
 						console.log('Listening on port ' + self.config.port);
+						typeof (callback) == 'function' ? callback() : false;
 					});
 				}
 			},
