@@ -9,14 +9,12 @@ module.exports = function(Build) {
 		define({
 			$extends : 'build.mvc.server.Server',
 			$constructor : function(config) {
-				var self = this;
 				$super(this)(config);
 				var app = express();
 				this.app = app;
 				this.system = {};
 				this.system.app = app;
 				this.system.config = config;
-				// app.locals.Html = {};
 
 				app.configure(function() {
 					app.engine('ejs', engine);
