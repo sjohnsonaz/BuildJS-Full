@@ -2,16 +2,10 @@ var express = require('express');
 var expressLayouts = require('express-ejs-layouts');
 var engine = require('ejs-locals');
 var mongoStore = require('connect-mongo')(express);
-var fs = require('fs');
-var path = require('path');
-var url = require('url');
 var ejs = require('ejs');
-var async = require('async');
 
 module.exports = function(Build) {
-	// 'build.mvc.Permission', 'build.mvc.Helper', 'build.mvc.Widget',
-	// 'build.mvc.Controller', 'build.mvc.Model'
-	Build('build.mvc.server.DynamicServer', [ 'node::build.mvc.server.Server', 'node::build.mvc.Database' ], function(define, $super) {
+	Build('build.mvc.server.DynamicServer', [ 'node::build.mvc.server.Server', 'node::build.mvc.database.Database' ], function(define, $super) {
 		define({
 			$extends : 'build.mvc.server.Server',
 			$constructor : function(config) {
@@ -61,23 +55,7 @@ module.exports = function(Build) {
 					app.use(express.errorHandler());
 				});
 
-				this.database = new build.mvc.Database(this.config.mongodb.host, this.config.mongodb.port, this.config.mongodb.database, this.config.mongodb.username, this.config.mongodb.password, this.config.mongooseConnection);
-
-				// Permission = Permission(system);
-				// Helper = Helper(system);
-				// Widget = Widget(system);
-				// Controller = Controller(system);
-				// Model = Model(system);
-
-				function initialize(callback) {
-					// Permission.loadPermissions(config.permissionPath);
-					// Helper.loadHelpers(system.config.helperPath);
-					// Widget.loadWidgets(system.config.widgetPath);
-					// Controller.loadControllers(config.controllerPath);
-					// Model.loadModels(config.modelPath);
-					// buildDefaultRoutes();
-					callback();
-				}
+				this.database = new build.mvc.database.Database(this.config.mongodb.host, this.config.mongodb.port, this.config.mongodb.database, this.config.mongodb.username, this.config.mongodb.password, this.config.mongooseConnection);
 
 				function buildDefaultRoutes() {
 					// app.all('/',
