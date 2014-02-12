@@ -56,7 +56,7 @@ module.exports = function(Build) {
 								method(request, response, output);
 							} else {
 								var data = {
-									layout : 'layoutMain',
+									layout : 'layout',
 									title : '',
 									instance : {
 										request : request,
