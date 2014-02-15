@@ -1,5 +1,5 @@
 var express = require('express');
-var config = require('./config/config');
+var config = require('./config');
 var app = express();
 var system = {};
 system.app = app;
