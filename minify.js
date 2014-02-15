@@ -1,6 +1,6 @@
 var fs = require('fs');
 var compressor = require('node-minify');
-var config = require('./config-minify');
+var config = require('./config/config-minify');
 
 function getDestination(folder, name, version, specialization, suffix) {
 	return folder + '/' + name + (version ? ('-' + version) : '') + (specialization ? ('.' + specialization) : '') + '.min.' + suffix;
