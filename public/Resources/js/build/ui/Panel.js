@@ -1,8 +1,8 @@
 Build('build.ui.Panel', [ 'build.ui.Widget' ], function(define, $super) {
 	define({
 		$extends : 'build.ui.Widget',
-		$constructor : function(type) {
-			$super(this)(type);
+		$constructor : function(parameters) {
+			$super(this)(parameters);
 			this.children = [];
 		},
 		$prototype : {

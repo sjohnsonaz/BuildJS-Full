@@ -1,8 +1,8 @@
 Build('build.ui.tab.TabPanel', [ 'build.ui.Panel' ], function(define, $super) {
 	define({
 		$extends : 'build.ui.Panel',
-		$constructor : function(type) {
-			$super(this)(type);
+		$constructor : function(parameters) {
+			$super(this)(parameters);
 			this.title = null;
 		},
 		$prototype : {}
