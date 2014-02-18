@@ -11,7 +11,7 @@ module.exports = {
 	helperPath : __dirname + '/helpers',
 	widgetPath : __dirname + '/widgets',
 	uploadPath : __dirname + '/public/uploads',
-	icon : __dirname + '/public/favicon.ico',
+	icon : __dirname + '/public/favicon.png',
 	session : {
 		database : {
 			collection : 'session',
