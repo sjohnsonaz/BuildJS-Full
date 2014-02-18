@@ -4,6 +4,22 @@ module.exports = {
 		local : __dirname + '/public',
 		virtual : ''
 	} ],
+	Build : {
+		frontend : {
+			paths : {
+				main : '',
+				build : '',
+				demo : ''
+			}
+		},
+		backend : {
+			paths : {
+				main : __dirname + '/public/Resources/js/',
+				buildnode : __dirname + '/public/NodeResources/js/',
+				demo : __dirname + '/public/DemoResources/js/'
+			}
+		}
+	},
 	viewPath : __dirname + '/views',
 	controllerPath : __dirname + '/controllers',
 	modelPath : __dirname + '/models',
