@@ -1,4 +1,17 @@
 Build('build.ui.Widget', [ 'build::build.ui.Module' ], function(define, $super) {
+	ko.bindingHandlers.element = {
+		init : function(element, valueAccessor, allBindings, viewModel, bindingContext) {
+			var child = ko.unwrap(valueAccessor());
+			child = child.element || child;
+			element.appendChild(child);
+		},
+		update : function(element, valueAccessor, allBindings, viewModel, bindingContext) {
+			var child = ko.unwrap(valueAccessor());
+			child = child.element || child;
+			element.appendChild(child);
+		}
+	};
+
 	var idCount = {};
 	define({
 		$extends : 'build.ui.Module',
@@ -17,11 +30,20 @@ Build('build.ui.Widget', [ 'build::build.ui.Module' ], function(define, $super) 
 				this.element.controller = this;
 
 				if (this.template) {
+					this.templateHandle = ko.observable('no-template');
+					// this.element.dataset.bind=
 					var self = this;
 					this.loadTemplate(this.template === true ? Build.nameToCss(this.constructor.$name) : this.template, null, function(script) {
-						self.renderTemplate(script.id, function(renderedElement) {
-							self.build(renderedElement);
+						ko.applyBindingsToNode(self.element, {
+							template : {
+								name : script.id,
+								data : self
+							}
 						});
+						self.build();
+						// self.renderTemplate(script.id,
+						// function(renderedElement) {
+						// });
 					});
 				} else {
 					this.build();
