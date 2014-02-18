@@ -41,13 +41,20 @@ Build('build.history.HashRouter', [], function(define, $super) {
 			remove : function(route) {
 				delete this.routes[route];
 			},
-			watch : function(name, prefix, callback) {
+			watch : function(scope, name, prefix, callback) {
 				var parameterNames = getParameterNames(callback);
 				parameterNames.unshift(prefix);
-				this.router.add('#/' + parameterNames.join('/:'), callback);
-				return function() {
-					window.location.hash = '#/' + Array.prototype.slice.call(arguments);
+				this.add('#/' + parameterNames.join('/:'), function() {
+					callback.apply(scope, arguments);
+				});
+				var handle = function() {
+					var parameterValues = Array.prototype.slice.call(arguments);
+					parameterValues.unshift(prefix);
+					window.location.hash = '#/' + parameterValues.join('/');
+					return window.location.hash;
 				};
+				scope[name] = handle;
+				return handle;
 			},
 			go : function() {
 

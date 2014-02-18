@@ -12,8 +12,11 @@ Build('demo.inheritance.Application', [ 'build.ui.Application', 'build.ui.form.F
 			// form.addChild(button);
 			var form = new demo.ui.form.TestForm();
 			this.addChild(form);
-			this.router.add('#/test/:id', function() {
-				console.log('test started');
+			this.router.add('#/test/:id', function(id) {
+				console.log('test started: ' + id);
+			});
+			this.router.watch(this, 'openTab', 'tab', function(id) {
+				console.log('tab started: ' + id);
 			});
 			this.router.listen();
 		}
