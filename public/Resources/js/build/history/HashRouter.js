@@ -1,25 +1,34 @@
-Build('build.HashRouter', [], function(define, $super) {
+Build('build.history.HashRouter', [], function(define, $super) {
+	var STRIP_COMMENTS = /((\/\/.*$)|(\/\*[\s\S]*?\*\/))/mg;
+	function getParameterNames(functionHandle) {
+		var definition = functionHandle.toString().replace(STRIP_COMMENTS, '');
+		return definition.slice(definition.indexOf('(') + 1, definition.indexOf(')')).match(/([^\s,]+)/g) || [];
+	}
 	define({
 		$constructor : function() {
+			var self = this;
 			this.routes = {};
-		},
-		$prototype : {
-			handler : function(event) {
+			this.handler = function(event) {
+				var url = (event && event.newURL) ? event.newURL : window.location.href;
+				var routes = self.routes;
 				for ( var route in routes) {
 					if (routes.hasOwnProperty(route)) {
 						var routeDef = routes[route];
-						var params = event.newURL.match(routeDef.regex);
+						var params = url.match(routeDef.regex);
 						if (params) {
 							routeDef.enter.apply(routeDef.enter, params.slice(1));
 						}
 					}
 				}
-			},
+			};
+		},
+		$prototype : {
 			listen : function() {
-				window.addEventHandler('hashchange', this.handler);
+				window.addEventListener('hashchange', this.handler);
+				this.handler();
 			},
 			stop : function() {
-				window.removeEventHandler('hashchange', this.handler);
+				window.removeEventListener('hashchange', this.handler);
 			},
 			add : function(route, enter, exit) {
 				this.routes[route] = {
@@ -31,6 +40,17 @@ Build('build.HashRouter', [], function(define, $super) {
 			},
 			remove : function(route) {
 				delete this.routes[route];
+			},
+			watch : function(name, prefix, callback) {
+				var parameterNames = getParameterNames(callback);
+				parameterNames.unshift(prefix);
+				this.router.add('#/' + parameterNames.join('/:'), callback);
+				return function() {
+					window.location.hash = '#/' + Array.prototype.slice.call(arguments);
+				};
+			},
+			go : function() {
+
 			}
 		}
 	});

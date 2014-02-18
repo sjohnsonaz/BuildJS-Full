@@ -12,6 +12,10 @@ Build('demo.inheritance.Application', [ 'build.ui.Application', 'build.ui.form.F
 			// form.addChild(button);
 			var form = new demo.ui.form.TestForm();
 			this.addChild(form);
+			this.router.add('#/test/:id', function() {
+				console.log('test started');
+			});
+			this.router.listen();
 		}
 	});
 });
