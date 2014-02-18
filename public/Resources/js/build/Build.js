@@ -16,7 +16,7 @@ var Build = build.Build = (function() {
 	var defHandles = {};
 	var paths = {
 		main : '/',
-		build: '/'
+		build : '/'
 	};
 	var preLoading = {};
 	var root = {};
@@ -56,7 +56,7 @@ var Build = build.Build = (function() {
 		var parent = environment.root;
 		var grandParent = parent;
 		var currentPart = '';
-		for ( var index = 0, length = parts.length; index < length; index++) {
+		for (var index = 0, length = parts.length; index < length; index++) {
 			currentPart = parts[index];
 			parent[currentPart] = parent[currentPart] || {};
 			grandParent = parent;
@@ -139,7 +139,7 @@ var Build = build.Build = (function() {
 			delete preLoading[$name];
 		}
 		var requiredRemaining = [];
-		for ( var index = 0, length = $required.length; index < length; index++) {
+		for (var index = 0, length = $required.length; index < length; index++) {
 			var requiredName = $required[index];
 			if (!definitions[requiredName] && !defHandles[requiredName] && !loading[requiredName] && !preLoading[requiredName]) {
 				requiredRemaining.push(requiredName);
@@ -151,7 +151,7 @@ var Build = build.Build = (function() {
 				load(requiredRemaining, function() {
 				});
 			} else {
-				for ( var index = 0, length = requiredRemaining.length; index < length; index++) {
+				for (var index = 0, length = requiredRemaining.length; index < length; index++) {
 					preLoading[requiredRemaining[index]] = true;
 				}
 			}
@@ -237,7 +237,7 @@ var Build = build.Build = (function() {
 		}
 		if (names instanceof Array) {
 			waiting += names.length;
-			for ( var index = 0, length = names.length; index < length; index++) {
+			for (var index = 0, length = names.length; index < length; index++) {
 				var $name = names[index];
 				loadSingle($name, function() {
 					waiting--;
@@ -251,6 +251,7 @@ var Build = build.Build = (function() {
 		}
 	}
 	load.queue = new CallbackQueue();
+	var definitionPaths = {}
 	function loadSingle($name, callback) {
 		var path;
 		var pathParts = $name.split('::');
@@ -261,6 +262,7 @@ var Build = build.Build = (function() {
 			path = paths.main;
 		}
 		if (!definitions[$name]) {
+			definitionPaths[$name] = path;
 			var fileName = nameToFileName($name, path);
 			var id = nameToCss($name);
 			loading[$name] = true;
@@ -337,6 +339,7 @@ var Build = build.Build = (function() {
 	Build.inherit = inherit;
 	Build.singleton = singleton;
 	Build.definitions = definitions;
+	Build.definitionPaths = definitionPaths;
 	Build.assemble = assemble;
 	Build.paths = paths;
 	Build.define = define;
