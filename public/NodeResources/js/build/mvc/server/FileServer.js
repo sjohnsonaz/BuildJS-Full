@@ -1,7 +1,7 @@
 var express = require('express');
 
 module.exports = function(Build) {
-	Build('build.mvc.server.FileServer', [ 'node::build.mvc.server.Server' ], function(define, $super) {
+	Build('build.mvc.server.FileServer', [ 'buildnode::build.mvc.server.Server' ], function(define, $super) {
 		define({
 			$extends : 'build.mvc.server.Server',
 			$constructor : function(config) {

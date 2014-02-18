@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 module.exports = function(Build) {
-	Build('build.mvc.model.UserModel', [ 'node::build.mvc.model.MongooseModel' ], function(define, $super) {
+	Build('build.mvc.model.UserModel', [ 'buildnode::build.mvc.model.MongooseModel' ], function(define, $super) {
 		define({
 			$extends : 'build.mvc.model.MongooseModel',
 			$constructor : function() {
