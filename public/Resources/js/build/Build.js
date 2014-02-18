@@ -15,7 +15,8 @@ var Build = build.Build = (function() {
 	var loading = {};
 	var defHandles = {};
 	var paths = {
-		main : '/'
+		main : '/',
+		build: '/'
 	};
 	var preLoading = {};
 	var root = {};

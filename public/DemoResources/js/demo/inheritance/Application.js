@@ -1,7 +1,8 @@
 Build.paths.main = '/Resources/js/';
+Build.paths.build = '/Resources/js/';
 Build.paths.demo = '/DemoResources/js/';
 
-Build('demo.inheritance.Application', [ 'build.ui.Application', 'build.ui.form.Form', 'build.ui.form.Button', 'demo::demo.ui.form.TestForm' ], function(define, $super) {
+Build('demo.inheritance.Application', [ 'build::build.ui.Application', 'build::build.ui.form.Form', 'build::build.ui.form.Button', 'demo::demo.ui.form.TestForm' ], function(define, $super) {
 	define({
 		$extends : 'build.ui.Application',
 		$constructor : function() {

@@ -1,4 +1,4 @@
-Build('build.ui.tab.TabPanel', [ 'build.ui.Panel' ], function(define, $super) {
+Build('build.ui.tab.TabPanel', [ 'build::build.ui.Panel' ], function(define, $super) {
 	define({
 		$extends : 'build.ui.Panel',
 		$constructor : function(parameters) {

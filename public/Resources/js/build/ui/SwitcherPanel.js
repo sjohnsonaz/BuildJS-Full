@@ -1,4 +1,4 @@
-Build('build.ui.SwitcherPanel', [ 'build.ui.Panel' ], function(define, $super) {
+Build('build.ui.SwitcherPanel', [ 'build::build.ui.Panel' ], function(define, $super) {
 	define({
 		$extends : 'build.ui.Panel',
 		$constructor : function(parameters) {

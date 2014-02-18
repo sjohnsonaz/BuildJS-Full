@@ -1,4 +1,4 @@
-Build('build.ui.tab.TabContainer', [ 'build.ui.SwitcherPanel' ], function(define, $super) {
+Build('build.ui.tab.TabContainer', [ 'build::build.ui.SwitcherPanel' ], function(define, $super) {
 	define({
 		$extends : 'build.ui.SwitcherPanel',
 		$constructor : function(parameters) {

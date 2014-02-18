@@ -1,4 +1,4 @@
-Build('build.ui.Widget', [ 'build.ui.Module' ], function(define, $super) {
+Build('build.ui.Widget', [ 'build::build.ui.Module' ], function(define, $super) {
 	var idCount = {};
 	define({
 		$extends : 'build.ui.Module',
