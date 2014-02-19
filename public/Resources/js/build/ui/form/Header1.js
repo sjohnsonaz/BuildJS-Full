@@ -4,13 +4,14 @@ Build('build.ui.form.Header1', [ 'build::build.ui.Widget' ], function(define, $s
 		$constructor : function(parameters) {
 			parameters = parameters || {};
 			parameters.type = parameters.type = 'h1';
+			this.title = ko.observable('');
 			$super(this)(parameters);
-			this.title = '';
 		},
 		$prototype : {
-			setTitle : function(title) {
-				this.title = title;
-				this.element.innerHTML = title;
+			build : function() {
+				ko.applyBindingsToNode(this.element, {
+					text : this.title
+				});
 			}
 		}
 	});
