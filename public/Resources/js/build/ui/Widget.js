@@ -12,6 +12,25 @@ Build('build.ui.Widget', [ 'build::build.ui.Module' ], function(define, $super) 
 		}
 	};
 
+	ko.bindingHandlers.foreachElement = {
+		init : function(element, valueAccessor, allBindings, viewModel, bindingContext) {
+			var children = ko.unwrap(valueAccessor());
+			for (var index = 0, length = children.length; index < length; index++) {
+				var child = children[index];
+				child = child.element || child;
+				element.appendChild(child);
+			}
+		},
+		update : function(element, valueAccessor, allBindings, viewModel, bindingContext) {
+			var children = ko.unwrap(valueAccessor());
+			for (var index = 0, length = children.length; index < length; index++) {
+				var child = children[index];
+				child = child.element || child;
+				element.appendChild(child);
+			}
+		}
+	};
+
 	var idCount = {};
 	define({
 		$extends : 'build.ui.Module',

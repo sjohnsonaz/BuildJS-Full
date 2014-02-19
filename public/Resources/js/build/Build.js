@@ -251,7 +251,7 @@ var Build = build.Build = (function() {
 		}
 	}
 	load.queue = new CallbackQueue();
-	var definitionPaths = {}
+	var definitionPaths = {};
 	function loadSingle($name, callback) {
 		var path;
 		var pathParts = $name.split('::');
