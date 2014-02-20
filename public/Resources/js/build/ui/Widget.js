@@ -1,4 +1,4 @@
-Build('build.ui.Widget', [ 'build::build.ui.Module' ], function(define, $super) {
+Build('build.ui.Widget', [ 'build::build.ui.Module' ], function(define, $super, merge) {
 	ko.bindingHandlers.element = {
 		init : function(element, valueAccessor, allBindings, viewModel, bindingContext) {
 			var child = ko.unwrap(valueAccessor());
@@ -34,20 +34,15 @@ Build('build.ui.Widget', [ 'build::build.ui.Module' ], function(define, $super) 
 	var idCount = {};
 	define({
 		$extends : 'build.ui.Module',
-		$constructor : function(parameters) {
-			parameters = parameters || {};
-			$super(this)(parameters);
-			this.type = parameters.type || 'div';
-			this.template = parameters.template;
-			this.createElement();
+		$constructor : function() {
+			$super(this)();
+			this.type = 'div';
+			this.id = ko.observable(this.uniqueId());
+			this.cssClass = ko.observable(this.uniqueClass());
+			this.template = null;
 		},
 		$prototype : {
-			createElement : function() {
-				this.element = document.createElement(this.type);
-				this.element.id = this.uniqueId();
-				this.element.classList.add(this.uniqueClass());
-				this.element.controller = this;
-
+			build : function(callback) {
 				if (this.template) {
 					this.templateHandle = ko.observable('no-template');
 					// this.element.dataset.bind=
@@ -59,14 +54,27 @@ Build('build.ui.Widget', [ 'build::build.ui.Module' ], function(define, $super) 
 								data : self
 							}
 						});
-						self.build();
-						// self.renderTemplate(script.id,
-						// function(renderedElement) {
-						// });
+						if (typeof callback == 'function') {
+							callback.apply(self);
+						}
 					});
 				} else {
-					this.build();
+					if (typeof callback == 'function') {
+						callback.apply(this);
+					}
 				}
+			},
+			createElement : function() {
+				this.element = document.createElement(this.type);
+				// this.element.classList.add(this.uniqueClass());
+				this.element.controller = this;
+
+				ko.applyBindingsToNode(this.element, {
+					attr : {
+						id : this.id,
+						'class' : this.cssClass
+					}
+				});
 			},
 			build : function(renderedElement) {
 			},
@@ -129,6 +137,15 @@ Build('build.ui.Widget', [ 'build::build.ui.Module' ], function(define, $super) 
 			},
 			removeChild : function(widget) {
 				this.element.removeChild(widget.element);
+			}
+		},
+		$static : {
+			create : function() {
+				var result = Object.create(this.prototype);
+				result = this.apply(result, arguments) || result;
+				result.createElement();
+				result.build();
+				return result;
 			}
 		}
 	});
