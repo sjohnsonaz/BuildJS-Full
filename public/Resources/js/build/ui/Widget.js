@@ -76,8 +76,6 @@ Build('build.ui.Widget', [ 'build::build.ui.Module' ], function(define, $super, 
 					}
 				});
 			},
-			build : function(renderedElement) {
-			},
 			getText : function(fileName, callback) {
 				var xmlhttp;
 				xmlhttp = new XMLHttpRequest();
