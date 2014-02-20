@@ -1,14 +1,16 @@
 Build('build.ui.form.Button', [ 'build::build.ui.form.FormElement' ], function(define, $super) {
 	define({
 		$extends : 'build.ui.form.FormElement',
-		$constructor : function(parameters) {
-			parameters = parameters || {};
-			parameters.type = parameters.type || 'button';
-			$super(this)(parameters);
+		$constructor : function() {
+			$super(this)(text);
+			this.type = 'button';
+			this.text = ko.observable(text || 'Button');
 		},
 		$prototype : {
 			build : function() {
-				this.element.innerHTML = 'Button';
+				ko.applyBindingsToNode(this.element, {
+					text : this.text
+				});
 			}
 		}
 	});
