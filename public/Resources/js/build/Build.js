@@ -95,6 +95,21 @@ var Build = build.Build = (function() {
 			copyNoReplace($child, $parent);
 
 			$child.$parent = $parent;
+			$child.$super = {};
+			for ( var member in $parent.prototype) {
+				if ($parent.prototype.hasOwnProperty(member)) {
+					var method = $parent.prototype[member];
+					if (typeof method == 'function') {
+						(function(member, method) {
+							$child.$super[member] = function(scope) {
+								return function() {
+									method.apply(scope, arguments);
+								};
+							};
+						})(member, method);
+					}
+				}
+			}
 
 			/*
 			 * $child.$super = function(scope) { return function() {
@@ -183,9 +198,29 @@ var Build = build.Build = (function() {
 				}
 				$constructor = assemble($name, $definition.$constructor, $definition.$prototype, $definition.$static, $parent, $definition.$singleton);
 			}, function(scope) {
-				return function() {
-					$constructor.$parent.apply(scope, Array.prototype.slice.call(arguments));
-				};
+				if (scope) {
+					return function() {
+						$constructor.$parent.apply(scope, Array.prototype.slice.call(arguments));
+					};
+				} else {
+					return $constructor.$super;
+				}
+			}, function(a, b, c) {
+				if (b) {
+					for ( var member in b) {
+						if (b.hasOwnProperty(member)) {
+							a[member] = b[member];
+						}
+					}
+				}
+				if (c) {
+					for ( var member in c) {
+						if (b.hasOwnProperty(member)) {
+							a[member] = c[member];
+						}
+					}
+				}
+				return a;
 			});
 		}
 
