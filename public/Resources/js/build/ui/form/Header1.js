@@ -7,8 +7,8 @@ Build('build.ui.form.Header1', [ 'build::build.ui.Widget' ], function(define, $s
 			this.title = ko.observable(title || '');
 		},
 		$prototype : {
-			build : function(callback) {
-				$super().build(this)(callback);
+			build : function() {
+				$super().build(this)();
 				ko.applyBindingsToNode(this.element, {
 					text : this.title
 				});

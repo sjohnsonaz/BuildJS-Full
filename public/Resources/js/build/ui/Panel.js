@@ -6,8 +6,8 @@ Build('build.ui.Panel', [ 'build::build.ui.Widget' ], function(define, $super) {
 			this.children = ko.observableArray();
 		},
 		$prototype : {
-			build : function(callback) {
-				$super().build(this)(callback);
+			build : function() {
+				$super().build(this)();
 				ko.applyBindingsToNode(this.element, {
 					foreachElement : this.children
 				});
