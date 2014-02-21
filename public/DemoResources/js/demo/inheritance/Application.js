@@ -2,17 +2,27 @@ Build.paths.main = '/Resources/js/';
 Build.paths.build = '/Resources/js/';
 Build.paths.demo = '/DemoResources/js/';
 
-Build('demo.inheritance.Application', [ 'build::build.ui.Application', 'build::build.ui.form.Form', 'build::build.ui.form.Button', 'demo::demo.ui.form.TestForm' ], function(define, $super) {
+Build('demo.inheritance.Application', [ 'build::build.ui.Application', 'build::build.ui.form.Form', 'build::build.ui.form.Button', 'build.ui.form.Header1', 'demo::demo.ui.form.TestForm' ], function(define, $super) {
 	define({
 		$extends : 'build.ui.Application',
 		$constructor : function() {
 			$super(this)();
 
-			// var form = new build.ui.form.Form();
-			// var button = new build.ui.form.Button();
-			// form.addChild(button);
-			var form = new demo.ui.form.TestForm();
+			// Add title
+			var title = build.ui.form.Header1.create('BuildJS');
+			this.addChild(title);
+
+			// Add form and button
+			var form = build.ui.form.Form.create();
+			var button = build.ui.form.Button.create('Button 1');
+			form.addChild(button);
 			this.addChild(form);
+
+			// Add testForm
+			var testForm = demo.ui.form.TestForm.create();
+			this.addChild(testForm);
+
+			// Add routes
 			this.router.add('#/test/:id', function(id) {
 				console.log('test started: ' + id);
 			});
@@ -26,7 +36,9 @@ Build('demo.inheritance.Application', [ 'build::build.ui.Application', 'build::b
 
 Build(function() {
 	console.log('Application started...');
-	application = new demo.inheritance.Application();
-	document.body.appendChild(application.element);
+	application = demo.inheritance.Application.create();
+	ko.applyBindingsToNode(document.body, {
+		element : application
+	});
 	// Build.load([], function() {});
 });
