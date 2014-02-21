@@ -8,8 +8,11 @@ Build('build.ui.Panel', [ 'build::build.ui.Widget' ], function(define, $super) {
 		$prototype : {
 			build : function() {
 				$super().build(this)();
+				var div = document.createElement('div');
+				div.dataset.bind = 'element: $data';
+				this.element.appendChild(div);
 				ko.applyBindingsToNode(this.element, {
-					foreachElement : this.children
+					foreach : this.children
 				});
 			},
 			addChild : function(child) {

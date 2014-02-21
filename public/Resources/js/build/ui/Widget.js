@@ -2,31 +2,51 @@ Build('build.ui.Widget', [ 'build::build.ui.Module' ], function(define, $super, 
 	ko.bindingHandlers.element = {
 		init : function(element, valueAccessor, allBindings, viewModel, bindingContext) {
 			var child = ko.unwrap(valueAccessor());
-			child = child.element || child;
-			element.appendChild(child);
+			if (child) {
+				child = child.element || child;
+				element.appendChild(child);
+			}
+			return {
+				controlsDescendantBindings : true
+			};
 		},
 		update : function(element, valueAccessor, allBindings, viewModel, bindingContext) {
 			var child = ko.unwrap(valueAccessor());
-			child = child.element || child;
-			element.appendChild(child);
+			while (element.lastChild) {
+				element.removeChild(element.lastChild);
+			}
+			if (child) {
+				child = child.element || child;
+				element.appendChild(child);
+			}
 		}
 	};
 
 	ko.bindingHandlers.foreachElement = {
 		init : function(element, valueAccessor, allBindings, viewModel, bindingContext) {
 			var children = ko.unwrap(valueAccessor());
-			for (var index = 0, length = children.length; index < length; index++) {
-				var child = children[index];
-				child = child.element || child;
-				element.appendChild(child);
+			if (children) {
+				for (var index = 0, length = children.length; index < length; index++) {
+					var child = children[index];
+					child = child.element || child;
+					element.appendChild(child);
+				}
 			}
+			return {
+				controlsDescendantBindings : true
+			};
 		},
 		update : function(element, valueAccessor, allBindings, viewModel, bindingContext) {
 			var children = ko.unwrap(valueAccessor());
-			for (var index = 0, length = children.length; index < length; index++) {
-				var child = children[index];
-				child = child.element || child;
-				element.appendChild(child);
+			while (element.lastChild) {
+				element.removeChild(element.lastChild);
+			}
+			if (children) {
+				for (var index = 0, length = children.length; index < length; index++) {
+					var child = children[index];
+					child = child.element || child;
+					element.appendChild(child);
+				}
 			}
 		}
 	};
@@ -115,7 +135,7 @@ Build('build.ui.Widget', [ 'build::build.ui.Module' ], function(define, $super, 
 			},
 			uniqueId : function() {
 				var $name = this.constructor.$name;
-				idCount[$name] = idCount[$name] ? idCount[$name] + 1 : 0;
+				idCount[$name] = idCount[$name] !== undefined ? idCount[$name] + 1 : 0;
 				return Build.nameToCss($name + '-' + idCount[$name]);
 			},
 			uniqueClass : function() {

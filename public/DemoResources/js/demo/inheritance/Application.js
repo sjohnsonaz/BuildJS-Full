@@ -2,7 +2,7 @@ Build.paths.main = '/Resources/js/';
 Build.paths.build = '/Resources/js/';
 Build.paths.demo = '/DemoResources/js/';
 
-Build('demo.inheritance.Application', [ 'build::build.ui.Application', 'build::build.ui.form.Form', 'build::build.ui.form.Button', 'build.ui.form.Header1', 'demo::demo.ui.form.TestForm' ], function(define, $super) {
+Build('demo.inheritance.Application', [ 'build::build.ui.Application', 'build::build.ui.form.Form', 'build::build.ui.form.Button', 'build::build.ui.form.Header1', 'build::build.ui.tab.TabContainer', 'build::build.ui.tab.TabPanel', 'demo::demo.ui.form.TestForm' ], function(define, $super) {
 	define({
 		$extends : 'build.ui.Application',
 		$constructor : function() {
@@ -11,6 +11,13 @@ Build('demo.inheritance.Application', [ 'build::build.ui.Application', 'build::b
 			// Add title
 			var title = build.ui.form.Header1.create('BuildJS');
 			this.addChild(title);
+
+			var tabContainer = build.ui.tab.TabContainer.create();
+			var tabPanel0 = build.ui.tab.TabPanel.create();
+			var tabPanel1 = build.ui.tab.TabPanel.create();
+			tabContainer.addChild(tabPanel0);
+			tabContainer.addChild(tabPanel1);
+			this.addChild(tabContainer);
 
 			// Add form and button
 			var form = build.ui.form.Form.create();
