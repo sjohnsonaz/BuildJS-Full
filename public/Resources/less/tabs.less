@@ -1,0 +1,59 @@
+.tab-container() {
+	margin: .67em 0;
+	& > ul {
+	    .clearfix;
+		list-style: none;
+		padding: 0;
+		margin: 0;
+		border-bottom: 1px solid @input-border;
+		& > li {
+		    .noselect;
+		    .pull-left;
+			display: block;
+			position: relative;
+			margin: 0px 10px 0px 0px;
+			padding: 0px;
+			top: 1px;
+			border: 1px solid @input-border;
+			.border-top-left-radius(5px);
+			.border-top-right-radius(5px);
+			background-color: @input-default;
+			& > a {
+				display: block;
+				padding: 10px;
+				text-decoration: none;
+				cursor: pointer;
+				color: @input-text-default;
+			}
+		}
+
+		& > li:hover {
+			background-color: @input-hover;
+		}
+
+		& > li:active {
+			background-color: @input-active;
+		}
+
+		& > li.tab-active {
+			border-bottom: 1px solid @tab-background;
+			background-color: @tab-background;
+		}
+	}
+
+	& > div {
+		display: block;
+		position: relative;
+		margin: 0px;
+		padding: 10px;
+		border-top: 0px solid @tab-background;
+		border-right: 1px solid @input-border;
+		border-bottom: 1px solid @input-border;
+		border-left: 1px solid @input-border;
+		background-color: @tab-background;
+	}
+}
+
+.build-ui-tab-TabContainer {
+    .tab-container();
+}

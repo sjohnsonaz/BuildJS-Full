@@ -1,0 +1,28 @@
+@import "settings.less";
+@import "mixins.less";
+
+/* LESS Style */
+
+.button {
+    .noselect;
+    display: inline-block;
+    padding: 10px;
+    border: 1px solid @input-border;
+    .border-radius(5px);
+    color: @input-text-default;
+    background-color: @input-default;
+    &:hover {
+        color: @input-text-hover;
+        background-color: @input-hover;
+    }
+    &:active {
+        color: @input-text-active;
+        background-color: @input-active;
+    }
+}
+
+/* Semantic Mapper Style */
+button,
+input[type="button"] {
+    .button;
+}
