@@ -8,10 +8,13 @@ Build('build.ui.tab.TabContainer', [ 'build::build.ui.SwitcherPanel' ], function
 				var children = self.children();
 				for (var index = 0, length = children.length; index < length; index++) {
 					if (tab === children[index]) {
-						self.active(index);
+						self.openTabIndex(index);
 						break;
 					}
 				}
+			};
+			this.openTabIndex = function(index) {
+				self.active(index);
 			};
 		},
 		$prototype : {
