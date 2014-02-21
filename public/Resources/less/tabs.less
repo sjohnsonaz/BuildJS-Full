@@ -5,7 +5,7 @@
 		list-style: none;
 		padding: 0;
 		margin: 0;
-		border-bottom: 1px solid @input-border;
+		border-bottom: @input-border-width solid @input-border;
 		& > li {
 		    .noselect;
 		    .pull-left;
@@ -13,14 +13,14 @@
 			position: relative;
 			margin: 0px 10px 0px 0px;
 			padding: 0px;
-			top: 1px;
-			border: 1px solid @input-border;
+			top: @input-border-width;
+			border: @input-border-width solid @input-border;
 			.border-top-left-radius(5px);
 			.border-top-right-radius(5px);
 			background-color: @input-default;
 			& > a {
 				display: block;
-				padding: 10px;
+				padding: @input-padding;
 				text-decoration: none;
 				cursor: pointer;
 				color: @input-text-default;
@@ -36,7 +36,7 @@
 		}
 
 		& > li.tab-active {
-			border-bottom: 1px solid @tab-background;
+			border-bottom: @input-border-width solid @tab-background;
 			background-color: @tab-background;
 		}
 	}
@@ -47,9 +47,9 @@
 		margin: 0px;
 		padding: 10px;
 		border-top: 0px solid @tab-background;
-		border-right: 1px solid @input-border;
-		border-bottom: 1px solid @input-border;
-		border-left: 1px solid @input-border;
+		border-right: @input-border-width solid @input-border;
+		border-bottom: @input-border-width solid @input-border;
+		border-left: @input-border-width solid @input-border;
 		background-color: @tab-background;
 	}
 }
