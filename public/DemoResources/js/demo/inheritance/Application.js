@@ -23,11 +23,11 @@ Build('demo.inheritance.Application', [ 'build::build.ui.Application', 'build::b
 			var form = build.ui.form.Form.create();
 			var button = build.ui.form.Button.create('Button 1');
 			form.addChild(button);
-			this.addChild(form);
+			tabPanel0.addChild(form);
 
 			// Add testForm
 			var testForm = demo.ui.form.TestForm.create();
-			this.addChild(testForm);
+			tabPanel1.addChild(testForm);
 
 			// Add routes
 			this.router.add('#/test/:id', function(id) {

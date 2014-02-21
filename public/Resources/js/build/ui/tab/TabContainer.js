@@ -3,17 +3,30 @@ Build('build.ui.tab.TabContainer', [ 'build::build.ui.SwitcherPanel' ], function
 		$extends : 'build.ui.SwitcherPanel',
 		$constructor : function() {
 			$super(this)();
+			var self = this;
+			this.openTab = function(tab) {
+				var children = self.children();
+				for (var index = 0, length = children.length; index < length; index++) {
+					if (tab === children[index]) {
+						self.active(index);
+						break;
+					}
+				}
+			};
 		},
 		$prototype : {
 			build : function() {
 				$super().build(this)();
 				var ul = document.createElement('ul');
 				var li = document.createElement('li');
-				li.dataset.bind = 'text: title';
+				var a = document.createElement('a');
+				li.appendChild(a);
 				ul.appendChild(li);
-				ko.applyBindingsToNode(ul, {
+				li.dataset.bind = "css: { 'tab-active': $parent.active() == $index() }, attr: { 'data-index' : $index, 'data-parent' : $parent.active }";
+				a.dataset.bind = 'text: title, click: $parent.openTab';
+				ko.applyBindingAccessorsToNode(ul, {
 					foreach : this.children,
-				});
+				}, this);
 				this.element.insertBefore(ul, this.element.firstChild);
 			}
 		}
