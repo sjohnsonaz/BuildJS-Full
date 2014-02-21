@@ -42,27 +42,18 @@ Build('build.ui.Widget', [ 'build::build.ui.Module' ], function(define, $super, 
 			this.template = null;
 		},
 		$prototype : {
-			build : function(callback) {
-				if (this.template) {
-					this.templateHandle = ko.observable('no-template');
-					// this.element.dataset.bind=
-					var self = this;
-					this.loadTemplate(this.template === true ? Build.nameToCss(this.constructor.$name) : this.template, null, function(script) {
-						ko.applyBindingsToNode(self.element, {
-							template : {
-								name : script.id,
-								data : self
-							}
-						});
-						if (typeof callback == 'function') {
-							callback.apply(self);
+			buildTemplate : function() {
+				var self = this;
+				this.loadTemplate(this.template === true ? Build.nameToCss(this.constructor.$name) : this.template, null, function(script) {
+					ko.applyBindingsToNode(self.element, {
+						template : {
+							name : script.id,
+							data : self
 						}
 					});
-				} else {
-					if (typeof callback == 'function') {
-						callback.apply(this);
-					}
-				}
+				});
+			},
+			build : function() {
 			},
 			createElement : function() {
 				this.element = document.createElement(this.type);
@@ -142,7 +133,11 @@ Build('build.ui.Widget', [ 'build::build.ui.Module' ], function(define, $super, 
 				var result = Object.create(this.prototype);
 				result = this.apply(result, arguments) || result;
 				result.createElement();
-				result.build();
+				if (result.template) {
+					result.buildTemplate();
+				} else {
+					result.build();
+				}
 				return result;
 			}
 		}
