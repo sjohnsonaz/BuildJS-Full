@@ -31,6 +31,7 @@
   -ms-user-select: none;
   user-select: none;
   display: inline-block;
+  margin: 2px;
   padding: 10px;
   border: 1px solid #aaaaaa;
   -moz-border-radius: 5px;
@@ -46,6 +47,39 @@
   color: #000000;
   background-color: #cccccc;
 }
+.button-group {
+  display: inline-block;
+  margin: 2px;
+  padding: 0px;
+  display: block;
+  zoom: 1;
+}
+.button-group:after {
+  display: table;
+  content: '';
+  clear: both;
+}
+.button-group > * {
+  display: block;
+  float: left;
+  margin: 0px;
+  border-right-width: 0px;
+  -moz-border-radius: 0px;
+  border-radius: 0px;
+}
+.button-group > *:first-child {
+  -moz-border-radius-topleft: 5px;
+  border-top-left-radius: 5px;
+  -moz-border-radius-bottomleft: 5px;
+  border-bottom-left-radius: 5px;
+}
+.button-group > *:last-child {
+  border-right-width: 1px;
+  -moz-border-radius-topright: 5px;
+  border-top-right-radius: 5px;
+  -moz-border-radius-bottomright: 5px;
+  border-bottom-right-radius: 5px;
+}
 /* Semantic Mapper Style */
 button,
 input[type="button"] {
@@ -56,6 +90,7 @@ input[type="button"] {
   -ms-user-select: none;
   user-select: none;
   display: inline-block;
+  margin: 2px;
   padding: 10px;
   border: 1px solid #aaaaaa;
   -moz-border-radius: 5px;

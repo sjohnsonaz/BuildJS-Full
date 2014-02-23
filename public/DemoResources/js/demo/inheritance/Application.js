@@ -2,8 +2,8 @@ Build.paths.main = '/Resources/js/';
 Build.paths.build = '/Resources/js/';
 Build.paths.demo = '/DemoResources/js/';
 
-Build('demo.inheritance.Application', [ 'build::build.ui.Application', 'build::build.ui.form.Form', 'build::build.ui.form.Button', 'build::build.ui.form.Header1', 'build::build.ui.tab.TabContainer', 'build::build.ui.tab.TabPanel',
-		'demo::demo.ui.form.TestForm' ], function(define, $super) {
+Build('demo.inheritance.Application', [ 'build::build.ui.Application', 'build::build.ui.form.Form', 'build::build.ui.form.Button', 'build::build.ui.form.ButtonGroup', 'build::build.ui.form.Header1', 'build::build.ui.tab.TabContainer',
+		'build::build.ui.tab.TabPanel', 'demo::demo.ui.form.TestForm' ], function(define, $super) {
 	define({
 		$extends : 'build.ui.Application',
 		$constructor : function() {
@@ -22,9 +22,17 @@ Build('demo.inheritance.Application', [ 'build::build.ui.Application', 'build::b
 			this.addChild(tabContainer);
 
 			// Add form and button
+			var header0 = build.ui.form.Header1.create('Widget Form');
 			var form = build.ui.form.Form.create();
 			var button = build.ui.form.Button.create('Button 1');
 			form.addChild(button);
+			var buttonGroup = build.ui.form.ButtonGroup.create();
+			buttonGroup.addChild(build.ui.form.Button.create('Button 2'));
+			buttonGroup.addChild(build.ui.form.Button.create('Button 3'));
+			buttonGroup.addChild(build.ui.form.Button.create('Button 4'));
+			form.addChild(buttonGroup);
+
+			tabPanel0.addChild(header0);
 			tabPanel0.addChild(form);
 
 			// Add testForm

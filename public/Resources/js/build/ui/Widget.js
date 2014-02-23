@@ -146,6 +146,16 @@ Build('build.ui.Widget', [ 'build::build.ui.Module' ], function(define, $super, 
 			},
 			removeChild : function(widget) {
 				this.element.removeChild(widget.element);
+			},
+			addEvent : function(type, listener, useCapture, bind) {
+				if (bind) {
+					this.element.addEventListener(type, listener.bind(this, this.element), useCapture);
+				} else {
+					this.element.addEventListener(type, listener, useCapture);
+				}
+			},
+			remoteEvent : function(type, listener) {
+				this.element.remoteEventListener(type, listener);
 			}
 		},
 		$static : {

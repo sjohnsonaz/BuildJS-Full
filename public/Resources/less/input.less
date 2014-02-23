@@ -6,6 +6,7 @@
 .button {
     .noselect;
     display: inline-block;
+    margin: @input-margin;
     padding: @input-padding;
     border: @input-border-width solid @input-border;
     .border-radius(5px);
@@ -18,6 +19,29 @@
     &:active {
         color: @input-text-active;
         background-color: @input-active;
+    }
+}
+
+.button-group {
+    display: inline-block;
+    margin: @input-margin;
+    padding: 0px;
+    .clearfix;
+    & > * {
+        display: block;
+        .pull-left;
+        margin:0px;
+        border-right-width: 0px;
+        .border-radius(0px);
+        &:first-child {
+            .border-top-left-radius(5px);
+            .border-bottom-left-radius(5px);
+        }
+        &:last-child {
+            border-right-width: @input-border-width;
+            .border-top-right-radius(5px);
+            .border-bottom-right-radius(5px);
+        }
     }
 }
 
