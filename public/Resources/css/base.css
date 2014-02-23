@@ -47,6 +47,11 @@
   color: #000000;
   background-color: #cccccc;
 }
+.button:focus {
+  outline: none;
+  box-shadow: 0px 0px 6px 0px #000033;
+  border-color: #777777;
+}
 .button-group {
   display: inline-block;
   margin: 2px;
@@ -67,6 +72,12 @@
   -moz-border-radius: 0px;
   border-radius: 0px;
 }
+.button-group > *:focus {
+  outline: none;
+  box-shadow: inherit;
+  background-color: #cccccc;
+  border-color: #aaaaaa;
+}
 .button-group > *:first-child {
   -moz-border-radius-topleft: 5px;
   border-top-left-radius: 5px;
@@ -79,6 +90,30 @@
   border-top-right-radius: 5px;
   -moz-border-radius-bottomright: 5px;
   border-bottom-right-radius: 5px;
+}
+.text {
+  margin: 2px;
+  padding: 10px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  border: 1px solid #aaaaaa;
+}
+.text:focus {
+  outline: none;
+  box-shadow: 0px 0px 6px 0px #000033;
+  border-color: #777777;
+}
+.textarea {
+  margin: 2px;
+  padding: 10px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  border: 1px solid #aaaaaa;
+}
+.textarea:focus {
+  outline: none;
+  box-shadow: 0px 0px 6px 0px #000033;
+  border-color: #777777;
 }
 /* Semantic Mapper Style */
 button,
@@ -107,6 +142,36 @@ button:active,
 input[type="button"]:active {
   color: #000000;
   background-color: #cccccc;
+}
+button:focus,
+input[type="button"]:focus {
+  outline: none;
+  box-shadow: 0px 0px 6px 0px #000033;
+  border-color: #777777;
+}
+input[type="text"] {
+  margin: 2px;
+  padding: 10px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  border: 1px solid #aaaaaa;
+}
+input[type="text"]:focus {
+  outline: none;
+  box-shadow: 0px 0px 6px 0px #000033;
+  border-color: #777777;
+}
+textarea {
+  margin: 2px;
+  padding: 10px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  border: 1px solid #aaaaaa;
+}
+textarea:focus {
+  outline: none;
+  box-shadow: 0px 0px 6px 0px #000033;
+  border-color: #777777;
 }
 .build-ui-tab-TabContainer {
   margin: .67em 0;

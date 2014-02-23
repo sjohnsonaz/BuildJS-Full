@@ -2,6 +2,22 @@
 @import "mixins.less";
 
 /* LESS Style */
+.focus() {
+    &:focus {
+        outline: none;
+        box-shadow: @input-focus-box-shadow;
+        border-color: @input-border-focus;
+    }
+}
+
+.focus-tight() {
+    &:focus {
+        outline: none;
+        box-shadow: inherit;
+        background-color: @input-active;
+        border-color: @input-border;
+    }
+}
 
 .button {
     .noselect;
@@ -9,7 +25,7 @@
     margin: @input-margin;
     padding: @input-padding;
     border: @input-border-width solid @input-border;
-    .border-radius(5px);
+    .border-radius(@input-border-radius);
     color: @input-text-default;
     background-color: @input-default;
     &:hover {
@@ -20,6 +36,7 @@
         color: @input-text-active;
         background-color: @input-active;
     }
+    .focus();
 }
 
 .button-group {
@@ -33,20 +50,45 @@
         margin:0px;
         border-right-width: 0px;
         .border-radius(0px);
+        .focus-tight();
         &:first-child {
-            .border-top-left-radius(5px);
-            .border-bottom-left-radius(5px);
+            .border-top-left-radius(@input-border-radius);
+            .border-bottom-left-radius(@input-border-radius);
         }
         &:last-child {
             border-right-width: @input-border-width;
-            .border-top-right-radius(5px);
-            .border-bottom-right-radius(5px);
+            .border-top-right-radius(@input-border-radius);
+            .border-bottom-right-radius(@input-border-radius);
         }
     }
+}
+
+.text {
+    margin: @input-margin;
+    padding: @input-padding;
+    .border-radius(@input-border-radius);
+    border: @input-border-width solid @input-border;
+    .focus();
+}
+
+.textarea {
+    margin: @input-margin;
+    padding: @input-padding;
+    .border-radius(@input-border-radius);
+    border: @input-border-width solid @input-border;
+    .focus();
 }
 
 /* Semantic Mapper Style */
 button,
 input[type="button"] {
     .button;
+}
+
+input[type="text"] {
+    .text;
+}
+
+textarea {
+    .textarea;
 }
