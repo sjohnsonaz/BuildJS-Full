@@ -1,0 +1,168 @@
+@import "mixins.less";
+
+.container,
+.container-fluid {
+    .clearfix;
+	margin: 0 auto;
+	padding: 0px;
+	border: 0px;
+}
+
+.row {
+    .clearfix;
+	margin: 0px;
+	padding: 0px;
+	border: 0px;
+}
+
+.container-fluid .row {
+	margin: 0px 0px 0px 0px;
+}
+
+.make-columns(@width, @number, @index: 1) when (@index =< @number) {
+    .span@{index} {
+        display: block;
+        float: left;
+        margin: 0px;
+        padding: 0px;
+        border: 0px;
+        width: (@index * @width / @number);
+    }
+    .make-columns(@width, @number, (@index + 1));
+}
+
+.make-offsets(@width, @number, @index: 1) when (@index =< @number) {
+    .offset@{index} {
+        display: block;
+        float: left;
+        padding: 0px;
+        border: 0px;
+        margin: 0px 0px 0px (@index * @width / @number);
+    }
+    .make-offsets(@width, @number, (@index + 1));
+}
+
+.make-columns-fluid(@number, @index: 1) when (@index =< @number) {
+    .span@{index} {
+        display: block;
+        float: left;
+        margin: 0px;
+        padding: 0px;
+        border: 0px;
+        width: (@index * 100% / @number);
+    }
+    .make-columns(@number, (@index + 1));
+}
+
+.make-offsets-fluid(@number, @index: 1) when (@index =< @number) {
+    .offset@{index} {
+        display: block;
+        float: left;
+        padding: 0px;
+        border: 0px;
+        margin: 0px 0px 0px (@index * 100% / @number);
+    }
+    .make-offsets(@number, (@index + 1));
+}
+
+.container {
+	width: 960px;
+    .make-columns(960px, 12);
+    .make-offsets(960px, 12);
+}
+
+.container-fluid {
+	width: 100%;
+    .make-columns-fluid(12);
+    .make-offsets-fluid(12);
+}
+
+/* Expanded ----------- */
+@media only screen 
+and (min-width : 768px) {
+
+}
+
+/* Stacked ----------- */
+@media only screen 
+and (max-width : 767px) {
+	.container {
+		width: auto;
+	}
+
+	.container .span1,
+	.container .span2,
+	.container .span3,
+	.container .span4,
+	.container .span5,
+	.container .span6,
+	.container .span7,
+	.container .span8,
+	.container .span9,
+	.container .span10,
+	.container .span11,
+	.container .span12,
+	.container-fluid .span1,
+	.container-fluid .span2,
+	.container-fluid .span3,
+	.container-fluid .span4,
+	.container-fluid .span5,
+	.container-fluid .span6,
+	.container-fluid .span7,
+	.container-fluid .span8,
+	.container-fluid .span9,
+	.container-fluid .span10,
+	.container-fluid .span11,
+	.container-fluid .span12 {
+		float: none;
+		width: auto;
+	}
+	
+	.container .offset1,
+	.container .offset2,
+	.container .offset3,
+	.container .offset4,
+	.container .offset5,
+	.container .offset6,
+	.container .offset7,
+	.container .offset8,
+	.container .offset9,
+	.container .offset10,
+	.container .offset11,
+	.container .offset12,
+	.container-fluid .offset1,
+	.container-fluid .offset2,
+	.container-fluid .offset3,
+	.container-fluid .offset4,
+	.container-fluid .offset5,
+	.container-fluid .offset6,
+	.container-fluid .offset7,
+	.container-fluid .offset8,
+	.container-fluid .offset9,
+	.container-fluid .offset10,
+	.container-fluid .offset11,
+	.container-fluid .offset12 {
+		margin: 0px;
+	}
+}
+
+/* Tablets ----------- */
+@media only screen 
+and (min-width : 768px) 
+and (max-width : 1024px) {
+    .container {
+    	width: 768px;
+        .make-columns(768px, 12);
+        .make-offsets(768px, 12);
+    }
+}
+
+/* Desktops and laptops ----------- */
+@media only screen 
+and (min-width : 1224px) {
+    .container {
+    	width: 1224px;
+        .make-columns(1224px, 12);
+        .make-offsets(1224px, 12);
+    }
+}

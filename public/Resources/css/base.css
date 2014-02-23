@@ -1,4 +1,17 @@
 /* CSS crunched with Crunch - http://crunchapp.net/ */
+* {
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+}
+html,
+body {
+  margin: 0px;
+  padding: 0px;
+  border: 0px;
+}
+html {
+  font-family: Arial, Helvetica, sans-serif;
+}
 .clearfix {
   display: block;
   zoom: 1;
@@ -22,8 +35,715 @@
   -ms-user-select: none;
   user-select: none;
 }
+.container,
+.container-fluid,
+.build-ui-Application,
+.demo-inheritance-Application {
+  display: block;
+  zoom: 1;
+  margin: 0 auto;
+  padding: 0px;
+  border: 0px;
+}
+.container:after,
+.container-fluid:after {
+  display: table;
+  content: '';
+  clear: both;
+}
+.row,
+.build-ui-Application > div,
+.demo-inheritance-Application > div {
+  display: block;
+  zoom: 1;
+  margin: 0px;
+  padding: 0px;
+  border: 0px;
+}
+.row:after {
+  display: table;
+  content: '';
+  clear: both;
+}
+.container-fluid .row {
+  margin: 0px 0px 0px 0px;
+}
+.container,
+.build-ui-Application,
+.demo-inheritance-Application {
+  width: 960px;
+}
+.container .span1 {
+  display: block;
+  float: left;
+  margin: 0px;
+  padding: 0px;
+  border: 0px;
+  width: 80px;
+}
+.container .span2 {
+  display: block;
+  float: left;
+  margin: 0px;
+  padding: 0px;
+  border: 0px;
+  width: 160px;
+}
+.container .span3 {
+  display: block;
+  float: left;
+  margin: 0px;
+  padding: 0px;
+  border: 0px;
+  width: 240px;
+}
+.container .span4 {
+  display: block;
+  float: left;
+  margin: 0px;
+  padding: 0px;
+  border: 0px;
+  width: 320px;
+}
+.container .span5 {
+  display: block;
+  float: left;
+  margin: 0px;
+  padding: 0px;
+  border: 0px;
+  width: 400px;
+}
+.container .span6 {
+  display: block;
+  float: left;
+  margin: 0px;
+  padding: 0px;
+  border: 0px;
+  width: 480px;
+}
+.container .span7 {
+  display: block;
+  float: left;
+  margin: 0px;
+  padding: 0px;
+  border: 0px;
+  width: 560px;
+}
+.container .span8 {
+  display: block;
+  float: left;
+  margin: 0px;
+  padding: 0px;
+  border: 0px;
+  width: 640px;
+}
+.container .span9 {
+  display: block;
+  float: left;
+  margin: 0px;
+  padding: 0px;
+  border: 0px;
+  width: 720px;
+}
+.container .span10 {
+  display: block;
+  float: left;
+  margin: 0px;
+  padding: 0px;
+  border: 0px;
+  width: 800px;
+}
+.container .span11 {
+  display: block;
+  float: left;
+  margin: 0px;
+  padding: 0px;
+  border: 0px;
+  width: 880px;
+}
+.container .span12 {
+  display: block;
+  float: left;
+  margin: 0px;
+  padding: 0px;
+  border: 0px;
+  width: 960px;
+}
+.container .offset1 {
+  display: block;
+  float: left;
+  padding: 0px;
+  border: 0px;
+  margin: 0px 0px 0px 80px;
+}
+.container .offset2 {
+  display: block;
+  float: left;
+  padding: 0px;
+  border: 0px;
+  margin: 0px 0px 0px 160px;
+}
+.container .offset3 {
+  display: block;
+  float: left;
+  padding: 0px;
+  border: 0px;
+  margin: 0px 0px 0px 240px;
+}
+.container .offset4 {
+  display: block;
+  float: left;
+  padding: 0px;
+  border: 0px;
+  margin: 0px 0px 0px 320px;
+}
+.container .offset5 {
+  display: block;
+  float: left;
+  padding: 0px;
+  border: 0px;
+  margin: 0px 0px 0px 400px;
+}
+.container .offset6 {
+  display: block;
+  float: left;
+  padding: 0px;
+  border: 0px;
+  margin: 0px 0px 0px 480px;
+}
+.container .offset7 {
+  display: block;
+  float: left;
+  padding: 0px;
+  border: 0px;
+  margin: 0px 0px 0px 560px;
+}
+.container .offset8 {
+  display: block;
+  float: left;
+  padding: 0px;
+  border: 0px;
+  margin: 0px 0px 0px 640px;
+}
+.container .offset9 {
+  display: block;
+  float: left;
+  padding: 0px;
+  border: 0px;
+  margin: 0px 0px 0px 720px;
+}
+.container .offset10 {
+  display: block;
+  float: left;
+  padding: 0px;
+  border: 0px;
+  margin: 0px 0px 0px 800px;
+}
+.container .offset11 {
+  display: block;
+  float: left;
+  padding: 0px;
+  border: 0px;
+  margin: 0px 0px 0px 880px;
+}
+.container .offset12 {
+  display: block;
+  float: left;
+  padding: 0px;
+  border: 0px;
+  margin: 0px 0px 0px 960px;
+}
+.container-fluid {
+  width: 100%;
+}
+.container-fluid .span1 {
+  display: block;
+  float: left;
+  margin: 0px;
+  padding: 0px;
+  border: 0px;
+  width: 8.33333333%;
+}
+.container-fluid .span1 {
+  display: block;
+  float: left;
+  margin: 0px;
+  padding: 0px;
+  border: 0px;
+  width: 6;
+}
+.container-fluid .span2 {
+  display: block;
+  float: left;
+  margin: 0px;
+  padding: 0px;
+  border: 0px;
+  width: 12;
+}
+.container-fluid .offset1 {
+  display: block;
+  float: left;
+  padding: 0px;
+  border: 0px;
+  margin: 0px 0px 0px 8.33333333%;
+}
+.container-fluid .offset1 {
+  display: block;
+  float: left;
+  padding: 0px;
+  border: 0px;
+  margin: 0px 0px 0px 6;
+}
+.container-fluid .offset2 {
+  display: block;
+  float: left;
+  padding: 0px;
+  border: 0px;
+  margin: 0px 0px 0px 12;
+}
+/* Expanded ----------- */
+/* Stacked ----------- */
+@media only screen and (max-width: 767px) {
+  .container,
+  .build-ui-Application,
+  .demo-inheritance-Application {
+    width: auto;
+  }
+  .container .span1,
+  .container .span2,
+  .container .span3,
+  .container .span4,
+  .container .span5,
+  .container .span6,
+  .container .span7,
+  .container .span8,
+  .container .span9,
+  .container .span10,
+  .container .span11,
+  .container .span12,
+  .container-fluid .span1,
+  .container-fluid .span2,
+  .container-fluid .span3,
+  .container-fluid .span4,
+  .container-fluid .span5,
+  .container-fluid .span6,
+  .container-fluid .span7,
+  .container-fluid .span8,
+  .container-fluid .span9,
+  .container-fluid .span10,
+  .container-fluid .span11,
+  .container-fluid .span12 {
+    float: none;
+    width: auto;
+  }
+  .container .offset1,
+  .container .offset2,
+  .container .offset3,
+  .container .offset4,
+  .container .offset5,
+  .container .offset6,
+  .container .offset7,
+  .container .offset8,
+  .container .offset9,
+  .container .offset10,
+  .container .offset11,
+  .container .offset12,
+  .container-fluid .offset1,
+  .container-fluid .offset2,
+  .container-fluid .offset3,
+  .container-fluid .offset4,
+  .container-fluid .offset5,
+  .container-fluid .offset6,
+  .container-fluid .offset7,
+  .container-fluid .offset8,
+  .container-fluid .offset9,
+  .container-fluid .offset10,
+  .container-fluid .offset11,
+  .container-fluid .offset12 {
+    margin: 0px;
+  }
+}
+/* Tablets ----------- */
+@media only screen and (min-width: 768px) and (max-width: 1024px) {
+  .container,
+  .build-ui-Application,
+  .demo-inheritance-Application {
+    width: 768px;
+  }
+  .container .span1 {
+    display: block;
+    float: left;
+    margin: 0px;
+    padding: 0px;
+    border: 0px;
+    width: 64px;
+  }
+  .container .span2 {
+    display: block;
+    float: left;
+    margin: 0px;
+    padding: 0px;
+    border: 0px;
+    width: 128px;
+  }
+  .container .span3 {
+    display: block;
+    float: left;
+    margin: 0px;
+    padding: 0px;
+    border: 0px;
+    width: 192px;
+  }
+  .container .span4 {
+    display: block;
+    float: left;
+    margin: 0px;
+    padding: 0px;
+    border: 0px;
+    width: 256px;
+  }
+  .container .span5 {
+    display: block;
+    float: left;
+    margin: 0px;
+    padding: 0px;
+    border: 0px;
+    width: 320px;
+  }
+  .container .span6 {
+    display: block;
+    float: left;
+    margin: 0px;
+    padding: 0px;
+    border: 0px;
+    width: 384px;
+  }
+  .container .span7 {
+    display: block;
+    float: left;
+    margin: 0px;
+    padding: 0px;
+    border: 0px;
+    width: 448px;
+  }
+  .container .span8 {
+    display: block;
+    float: left;
+    margin: 0px;
+    padding: 0px;
+    border: 0px;
+    width: 512px;
+  }
+  .container .span9 {
+    display: block;
+    float: left;
+    margin: 0px;
+    padding: 0px;
+    border: 0px;
+    width: 576px;
+  }
+  .container .span10 {
+    display: block;
+    float: left;
+    margin: 0px;
+    padding: 0px;
+    border: 0px;
+    width: 640px;
+  }
+  .container .span11 {
+    display: block;
+    float: left;
+    margin: 0px;
+    padding: 0px;
+    border: 0px;
+    width: 704px;
+  }
+  .container .span12 {
+    display: block;
+    float: left;
+    margin: 0px;
+    padding: 0px;
+    border: 0px;
+    width: 768px;
+  }
+  .container .offset1 {
+    display: block;
+    float: left;
+    padding: 0px;
+    border: 0px;
+    margin: 0px 0px 0px 64px;
+  }
+  .container .offset2 {
+    display: block;
+    float: left;
+    padding: 0px;
+    border: 0px;
+    margin: 0px 0px 0px 128px;
+  }
+  .container .offset3 {
+    display: block;
+    float: left;
+    padding: 0px;
+    border: 0px;
+    margin: 0px 0px 0px 192px;
+  }
+  .container .offset4 {
+    display: block;
+    float: left;
+    padding: 0px;
+    border: 0px;
+    margin: 0px 0px 0px 256px;
+  }
+  .container .offset5 {
+    display: block;
+    float: left;
+    padding: 0px;
+    border: 0px;
+    margin: 0px 0px 0px 320px;
+  }
+  .container .offset6 {
+    display: block;
+    float: left;
+    padding: 0px;
+    border: 0px;
+    margin: 0px 0px 0px 384px;
+  }
+  .container .offset7 {
+    display: block;
+    float: left;
+    padding: 0px;
+    border: 0px;
+    margin: 0px 0px 0px 448px;
+  }
+  .container .offset8 {
+    display: block;
+    float: left;
+    padding: 0px;
+    border: 0px;
+    margin: 0px 0px 0px 512px;
+  }
+  .container .offset9 {
+    display: block;
+    float: left;
+    padding: 0px;
+    border: 0px;
+    margin: 0px 0px 0px 576px;
+  }
+  .container .offset10 {
+    display: block;
+    float: left;
+    padding: 0px;
+    border: 0px;
+    margin: 0px 0px 0px 640px;
+  }
+  .container .offset11 {
+    display: block;
+    float: left;
+    padding: 0px;
+    border: 0px;
+    margin: 0px 0px 0px 704px;
+  }
+  .container .offset12 {
+    display: block;
+    float: left;
+    padding: 0px;
+    border: 0px;
+    margin: 0px 0px 0px 768px;
+  }
+}
+/* Desktops and laptops ----------- */
+@media only screen and (min-width: 1224px) {
+  .container,
+  .build-ui-Application,
+  .demo-inheritance-Application {
+    width: 1224px;
+  }
+  .container .span1 {
+    display: block;
+    float: left;
+    margin: 0px;
+    padding: 0px;
+    border: 0px;
+    width: 102px;
+  }
+  .container .span2 {
+    display: block;
+    float: left;
+    margin: 0px;
+    padding: 0px;
+    border: 0px;
+    width: 204px;
+  }
+  .container .span3 {
+    display: block;
+    float: left;
+    margin: 0px;
+    padding: 0px;
+    border: 0px;
+    width: 306px;
+  }
+  .container .span4 {
+    display: block;
+    float: left;
+    margin: 0px;
+    padding: 0px;
+    border: 0px;
+    width: 408px;
+  }
+  .container .span5 {
+    display: block;
+    float: left;
+    margin: 0px;
+    padding: 0px;
+    border: 0px;
+    width: 510px;
+  }
+  .container .span6 {
+    display: block;
+    float: left;
+    margin: 0px;
+    padding: 0px;
+    border: 0px;
+    width: 612px;
+  }
+  .container .span7 {
+    display: block;
+    float: left;
+    margin: 0px;
+    padding: 0px;
+    border: 0px;
+    width: 714px;
+  }
+  .container .span8 {
+    display: block;
+    float: left;
+    margin: 0px;
+    padding: 0px;
+    border: 0px;
+    width: 816px;
+  }
+  .container .span9 {
+    display: block;
+    float: left;
+    margin: 0px;
+    padding: 0px;
+    border: 0px;
+    width: 918px;
+  }
+  .container .span10 {
+    display: block;
+    float: left;
+    margin: 0px;
+    padding: 0px;
+    border: 0px;
+    width: 1020px;
+  }
+  .container .span11 {
+    display: block;
+    float: left;
+    margin: 0px;
+    padding: 0px;
+    border: 0px;
+    width: 1122px;
+  }
+  .container .span12 {
+    display: block;
+    float: left;
+    margin: 0px;
+    padding: 0px;
+    border: 0px;
+    width: 1224px;
+  }
+  .container .offset1 {
+    display: block;
+    float: left;
+    padding: 0px;
+    border: 0px;
+    margin: 0px 0px 0px 102px;
+  }
+  .container .offset2 {
+    display: block;
+    float: left;
+    padding: 0px;
+    border: 0px;
+    margin: 0px 0px 0px 204px;
+  }
+  .container .offset3 {
+    display: block;
+    float: left;
+    padding: 0px;
+    border: 0px;
+    margin: 0px 0px 0px 306px;
+  }
+  .container .offset4 {
+    display: block;
+    float: left;
+    padding: 0px;
+    border: 0px;
+    margin: 0px 0px 0px 408px;
+  }
+  .container .offset5 {
+    display: block;
+    float: left;
+    padding: 0px;
+    border: 0px;
+    margin: 0px 0px 0px 510px;
+  }
+  .container .offset6 {
+    display: block;
+    float: left;
+    padding: 0px;
+    border: 0px;
+    margin: 0px 0px 0px 612px;
+  }
+  .container .offset7 {
+    display: block;
+    float: left;
+    padding: 0px;
+    border: 0px;
+    margin: 0px 0px 0px 714px;
+  }
+  .container .offset8 {
+    display: block;
+    float: left;
+    padding: 0px;
+    border: 0px;
+    margin: 0px 0px 0px 816px;
+  }
+  .container .offset9 {
+    display: block;
+    float: left;
+    padding: 0px;
+    border: 0px;
+    margin: 0px 0px 0px 918px;
+  }
+  .container .offset10 {
+    display: block;
+    float: left;
+    padding: 0px;
+    border: 0px;
+    margin: 0px 0px 0px 1020px;
+  }
+  .container .offset11 {
+    display: block;
+    float: left;
+    padding: 0px;
+    border: 0px;
+    margin: 0px 0px 0px 1122px;
+  }
+  .container .offset12 {
+    display: block;
+    float: left;
+    padding: 0px;
+    border: 0px;
+    margin: 0px 0px 0px 1224px;
+  }
+}
 /* LESS Style */
-.button {
+.button,
+button,
+input[type="button"],
+.build-ui-form-Button {
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   -khtml-user-select: none;
@@ -39,32 +759,95 @@
   color: #000000;
   background-color: #dddddd;
 }
-.button:hover {
+.button:hover,
+button:hover,
+input[type="button"]:hover,
+.build-ui-form-Button:hover {
   color: #000000;
   background-color: #eeeeee;
 }
-.button:active {
+.button:active,
+button:active,
+input[type="button"]:active,
+.build-ui-form-Button:active {
   color: #000000;
   background-color: #cccccc;
 }
-.button:focus {
+.button:focus,
+button:focus,
+input[type="button"]:focus,
+.build-ui-form-Button:focus {
   outline: none;
-  box-shadow: 0px 0px 6px 0px #000033;
   border-color: #777777;
+  box-shadow: 0px 0px 6px 0px #000033;
 }
-.button-group {
+.button-group,
+.build-ui-form-ButtonGroup {
   display: inline-block;
   margin: 2px;
   padding: 0px;
   display: block;
   zoom: 1;
 }
-.button-group:after {
+.button-group:after,
+.build-ui-form-ButtonGroup:after {
   display: table;
   content: '';
   clear: both;
 }
-.button-group > * {
+.button-group > div,
+.build-ui-form-ButtonGroup > div {
+  display: block;
+  float: left;
+  margin: 0px;
+}
+.button-group > div > .button,
+.button-group > div > button,
+.button-group > div > input[type="button"],
+.build-ui-form-ButtonGroup > div > .button,
+.button-group > div > .build-ui-form-Button {
+  display: block;
+  margin: 0px;
+  border-right-width: 0px;
+  -moz-border-radius: 0px;
+  border-radius: 0px;
+}
+.button-group > div > .button:focus,
+.button-group > div > button:focus,
+.button-group > div > input[type="button"]:focus,
+.build-ui-form-ButtonGroup > div > .button:focus,
+.button-group > div > .build-ui-form-Button:focus {
+  outline: none;
+  background-color: #cccccc;
+  border-color: #aaaaaa;
+  box-shadow: inherit;
+}
+.button-group > div > .button:first-child > .button,
+.button-group > div > button:first-child > button,
+.button-group > div > input[type="button"]:first-child > input[type="button"],
+.build-ui-form-ButtonGroup > div > .button:first-child > .button,
+.button-group > div > .build-ui-form-Button:first-child > .build-ui-form-Button {
+  -moz-border-radius-topleft: 5px;
+  border-top-left-radius: 5px;
+  -moz-border-radius-bottomleft: 5px;
+  border-bottom-left-radius: 5px;
+}
+.button-group > div > .button:last-child > .button,
+.button-group > div > button:last-child > button,
+.button-group > div > input[type="button"]:last-child > input[type="button"],
+.build-ui-form-ButtonGroup > div > .button:last-child > .button,
+.button-group > div > .build-ui-form-Button:last-child > .build-ui-form-Button {
+  border-right-width: 1px;
+  -moz-border-radius-topright: 5px;
+  border-top-right-radius: 5px;
+  -moz-border-radius-bottomright: 5px;
+  border-bottom-right-radius: 5px;
+}
+.button-group > .button,
+.button-group > button,
+.button-group > input[type="button"],
+.build-ui-form-ButtonGroup > .button,
+.button-group > .build-ui-form-Button {
   display: block;
   float: left;
   margin: 0px;
@@ -72,19 +855,31 @@
   -moz-border-radius: 0px;
   border-radius: 0px;
 }
-.button-group > *:focus {
+.button-group > .button:focus,
+.button-group > button:focus,
+.button-group > input[type="button"]:focus,
+.build-ui-form-ButtonGroup > .button:focus,
+.button-group > .build-ui-form-Button:focus {
   outline: none;
-  box-shadow: inherit;
   background-color: #cccccc;
   border-color: #aaaaaa;
+  box-shadow: inherit;
 }
-.button-group > *:first-child {
+.button-group > .button:first-child,
+.button-group > button:first-child,
+.button-group > input[type="button"]:first-child,
+.build-ui-form-ButtonGroup > .button:first-child,
+.button-group > .build-ui-form-Button:first-child {
   -moz-border-radius-topleft: 5px;
   border-top-left-radius: 5px;
   -moz-border-radius-bottomleft: 5px;
   border-bottom-left-radius: 5px;
 }
-.button-group > *:last-child {
+.button-group > .button:last-child,
+.button-group > button:last-child,
+.button-group > input[type="button"]:last-child,
+.build-ui-form-ButtonGroup > .button:last-child,
+.button-group > .build-ui-form-Button:last-child {
   border-right-width: 1px;
   -moz-border-radius-topright: 5px;
   border-top-right-radius: 5px;
@@ -97,11 +892,7 @@
   -moz-border-radius: 5px;
   border-radius: 5px;
   border: 1px solid #aaaaaa;
-}
-.text:focus {
-  outline: none;
-  box-shadow: 0px 0px 6px 0px #000033;
-  border-color: #777777;
+  font-family: Arial;
 }
 .textarea {
   margin: 2px;
@@ -109,57 +900,16 @@
   -moz-border-radius: 5px;
   border-radius: 5px;
   border: 1px solid #aaaaaa;
-}
-.textarea:focus {
-  outline: none;
-  box-shadow: 0px 0px 6px 0px #000033;
-  border-color: #777777;
+  font-family: Arial;
 }
 /* Semantic Mapper Style */
-button,
-input[type="button"] {
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  display: inline-block;
-  margin: 2px;
-  padding: 10px;
-  border: 1px solid #aaaaaa;
-  -moz-border-radius: 5px;
-  border-radius: 5px;
-  color: #000000;
-  background-color: #dddddd;
-}
-button:hover,
-input[type="button"]:hover {
-  color: #000000;
-  background-color: #eeeeee;
-}
-button:active,
-input[type="button"]:active {
-  color: #000000;
-  background-color: #cccccc;
-}
-button:focus,
-input[type="button"]:focus {
-  outline: none;
-  box-shadow: 0px 0px 6px 0px #000033;
-  border-color: #777777;
-}
 input[type="text"] {
   margin: 2px;
   padding: 10px;
   -moz-border-radius: 5px;
   border-radius: 5px;
   border: 1px solid #aaaaaa;
-}
-input[type="text"]:focus {
-  outline: none;
-  box-shadow: 0px 0px 6px 0px #000033;
-  border-color: #777777;
+  font-family: Arial;
 }
 textarea {
   margin: 2px;
@@ -167,11 +917,7 @@ textarea {
   -moz-border-radius: 5px;
   border-radius: 5px;
   border: 1px solid #aaaaaa;
-}
-textarea:focus {
-  outline: none;
-  box-shadow: 0px 0px 6px 0px #000033;
-  border-color: #777777;
+  font-family: Arial;
 }
 .build-ui-tab-TabContainer {
   margin: .67em 0;

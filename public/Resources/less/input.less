@@ -5,17 +5,17 @@
 .focus() {
     &:focus {
         outline: none;
-        box-shadow: @input-focus-box-shadow;
         border-color: @input-border-focus;
+        box-shadow: @input-focus-box-shadow;
     }
 }
 
 .focus-tight() {
     &:focus {
         outline: none;
-        box-shadow: inherit;
         background-color: @input-active;
         border-color: @input-border;
+        box-shadow: inherit;
     }
 }
 
@@ -44,7 +44,30 @@
     margin: @input-margin;
     padding: 0px;
     .clearfix;
-    & > * {
+    & > div {
+                display: block;
+        .pull-left;
+        margin:0px;
+
+    }
+    & > div > .button {
+        display: block;
+                margin:0px;
+
+        border-right-width: 0px;
+        .border-radius(0px);
+        .focus-tight();
+        &:first-child > .button {
+            .border-top-left-radius(@input-border-radius);
+            .border-bottom-left-radius(@input-border-radius);
+        }
+        &:last-child > .button {
+            border-right-width: @input-border-width;
+            .border-top-right-radius(@input-border-radius);
+            .border-bottom-right-radius(@input-border-radius);
+        }
+    }
+    & > .button {
         display: block;
         .pull-left;
         margin:0px;
@@ -68,22 +91,16 @@
     padding: @input-padding;
     .border-radius(@input-border-radius);
     border: @input-border-width solid @input-border;
-    .focus();
+    font-family: Arial;
 }
 
 .textarea {
-    margin: @input-margin;
-    padding: @input-padding;
-    .border-radius(@input-border-radius);
-    border: @input-border-width solid @input-border;
-    .focus();
+    .text;
 }
 
 /* Semantic Mapper Style */
-button,
-input[type="button"] {
-    .button;
-}
+button:extend(.button all) {}
+input[type="button"]:extend(.button all) {}
 
 input[type="text"] {
     .text;
