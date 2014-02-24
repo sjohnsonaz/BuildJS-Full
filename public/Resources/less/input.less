@@ -44,19 +44,18 @@
     margin: @input-margin;
     padding: 0px;
     .clearfix;
-    & > div {
-                display: block;
+    & > .panel-iterator {
+        display: block;
         .pull-left;
         margin:0px;
-
-    }
-    & > div > .button {
-        display: block;
-                margin:0px;
-
-        border-right-width: 0px;
-        .border-radius(0px);
-        .focus-tight();
+        & > .button {
+            display: block;
+            .pull-left;
+            margin:0px;
+            border-right-width: 0px;
+            .border-radius(0px);
+            .focus-tight();
+        }
         &:first-child > .button {
             .border-top-left-radius(@input-border-radius);
             .border-bottom-left-radius(@input-border-radius);

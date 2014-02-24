@@ -1,17 +1,4 @@
 /* CSS crunched with Crunch - http://crunchapp.net/ */
-* {
-  box-sizing: border-box;
-  -moz-box-sizing: border-box;
-}
-html,
-body {
-  margin: 0px;
-  padding: 0px;
-  border: 0px;
-}
-html {
-  font-family: Arial, Helvetica, sans-serif;
-}
 .clearfix {
   display: block;
   zoom: 1;
@@ -36,9 +23,7 @@ html {
   user-select: none;
 }
 .container,
-.container-fluid,
-.build-ui-Application,
-.demo-inheritance-Application {
+.container-fluid {
   display: block;
   zoom: 1;
   margin: 0 auto;
@@ -51,9 +36,7 @@ html {
   content: '';
   clear: both;
 }
-.row,
-.build-ui-Application > div,
-.demo-inheritance-Application > div {
+.row {
   display: block;
   zoom: 1;
   margin: 0px;
@@ -68,9 +51,7 @@ html {
 .container-fluid .row {
   margin: 0px 0px 0px 0px;
 }
-.container,
-.build-ui-Application,
-.demo-inheritance-Application {
+.container {
   width: 960px;
 }
 .container .span1 {
@@ -304,9 +285,7 @@ html {
 /* Expanded ----------- */
 /* Stacked ----------- */
 @media only screen and (max-width: 767px) {
-  .container,
-  .build-ui-Application,
-  .demo-inheritance-Application {
+  .container {
     width: auto;
   }
   .container .span1,
@@ -365,9 +344,7 @@ html {
 }
 /* Tablets ----------- */
 @media only screen and (min-width: 768px) and (max-width: 1024px) {
-  .container,
-  .build-ui-Application,
-  .demo-inheritance-Application {
+  .container {
     width: 768px;
   }
   .container .span1 {
@@ -553,9 +530,7 @@ html {
 }
 /* Desktops and laptops ----------- */
 @media only screen and (min-width: 1224px) {
-  .container,
-  .build-ui-Application,
-  .demo-inheritance-Application {
+  .container {
     width: 1224px;
   }
   .container .span1 {
@@ -738,249 +713,4 @@ html {
     border: 0px;
     margin: 0px 0px 0px 1224px;
   }
-}
-/* LESS Style */
-.button,
-button,
-input[type="button"],
-.build-ui-form-Button {
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  display: inline-block;
-  margin: 2px;
-  padding: 10px;
-  border: 1px solid #aaaaaa;
-  -moz-border-radius: 5px;
-  border-radius: 5px;
-  color: #000000;
-  background-color: #dddddd;
-}
-.button:hover,
-button:hover,
-input[type="button"]:hover,
-.build-ui-form-Button:hover {
-  color: #000000;
-  background-color: #eeeeee;
-}
-.button:active,
-button:active,
-input[type="button"]:active,
-.build-ui-form-Button:active {
-  color: #000000;
-  background-color: #cccccc;
-}
-.button:focus,
-button:focus,
-input[type="button"]:focus,
-.build-ui-form-Button:focus {
-  outline: none;
-  border-color: #777777;
-  box-shadow: 0px 0px 6px 0px #000033;
-}
-.button-group,
-.build-ui-form-ButtonGroup {
-  display: inline-block;
-  margin: 2px;
-  padding: 0px;
-  display: block;
-  zoom: 1;
-}
-.button-group:after,
-.build-ui-form-ButtonGroup:after {
-  display: table;
-  content: '';
-  clear: both;
-}
-.button-group > .panel-iterator,
-.build-ui-form-ButtonGroup > .panel-iterator {
-  display: block;
-  float: left;
-  margin: 0px;
-}
-.button-group > .panel-iterator > .button,
-.button-group > .panel-iterator > button,
-.button-group > .panel-iterator > input[type="button"],
-.build-ui-form-ButtonGroup > .panel-iterator > .button,
-.button-group > .panel-iterator > .build-ui-form-Button {
-  display: block;
-  float: left;
-  margin: 0px;
-  border-right-width: 0px;
-  -moz-border-radius: 0px;
-  border-radius: 0px;
-}
-.button-group > .panel-iterator > .button:focus,
-.button-group > .panel-iterator > button:focus,
-.button-group > .panel-iterator > input[type="button"]:focus,
-.build-ui-form-ButtonGroup > .panel-iterator > .button:focus,
-.button-group > .panel-iterator > .build-ui-form-Button:focus {
-  outline: none;
-  background-color: #cccccc;
-  border-color: #aaaaaa;
-  box-shadow: inherit;
-}
-.button-group > .panel-iterator:first-child > .button,
-.button-group > .panel-iterator:first-child > button,
-.button-group > .panel-iterator:first-child > input[type="button"],
-.build-ui-form-ButtonGroup > .panel-iterator:first-child > .button,
-.button-group > .panel-iterator:first-child > .build-ui-form-Button {
-  -moz-border-radius-topleft: 5px;
-  border-top-left-radius: 5px;
-  -moz-border-radius-bottomleft: 5px;
-  border-bottom-left-radius: 5px;
-}
-.button-group > .panel-iterator:last-child > .button,
-.button-group > .panel-iterator:last-child > button,
-.button-group > .panel-iterator:last-child > input[type="button"],
-.build-ui-form-ButtonGroup > .panel-iterator:last-child > .button,
-.button-group > .panel-iterator:last-child > .build-ui-form-Button {
-  border-right-width: 1px;
-  -moz-border-radius-topright: 5px;
-  border-top-right-radius: 5px;
-  -moz-border-radius-bottomright: 5px;
-  border-bottom-right-radius: 5px;
-}
-.button-group > .button,
-.button-group > button,
-.button-group > input[type="button"],
-.build-ui-form-ButtonGroup > .button,
-.button-group > .build-ui-form-Button {
-  display: block;
-  float: left;
-  margin: 0px;
-  border-right-width: 0px;
-  -moz-border-radius: 0px;
-  border-radius: 0px;
-}
-.button-group > .button:focus,
-.button-group > button:focus,
-.button-group > input[type="button"]:focus,
-.build-ui-form-ButtonGroup > .button:focus,
-.button-group > .build-ui-form-Button:focus {
-  outline: none;
-  background-color: #cccccc;
-  border-color: #aaaaaa;
-  box-shadow: inherit;
-}
-.button-group > .button:first-child,
-.button-group > button:first-child,
-.button-group > input[type="button"]:first-child,
-.build-ui-form-ButtonGroup > .button:first-child,
-.button-group > .build-ui-form-Button:first-child {
-  -moz-border-radius-topleft: 5px;
-  border-top-left-radius: 5px;
-  -moz-border-radius-bottomleft: 5px;
-  border-bottom-left-radius: 5px;
-}
-.button-group > .button:last-child,
-.button-group > button:last-child,
-.button-group > input[type="button"]:last-child,
-.build-ui-form-ButtonGroup > .button:last-child,
-.button-group > .build-ui-form-Button:last-child {
-  border-right-width: 1px;
-  -moz-border-radius-topright: 5px;
-  border-top-right-radius: 5px;
-  -moz-border-radius-bottomright: 5px;
-  border-bottom-right-radius: 5px;
-}
-.text {
-  margin: 2px;
-  padding: 10px;
-  -moz-border-radius: 5px;
-  border-radius: 5px;
-  border: 1px solid #aaaaaa;
-  font-family: Arial;
-}
-.textarea {
-  margin: 2px;
-  padding: 10px;
-  -moz-border-radius: 5px;
-  border-radius: 5px;
-  border: 1px solid #aaaaaa;
-  font-family: Arial;
-}
-/* Semantic Mapper Style */
-input[type="text"] {
-  margin: 2px;
-  padding: 10px;
-  -moz-border-radius: 5px;
-  border-radius: 5px;
-  border: 1px solid #aaaaaa;
-  font-family: Arial;
-}
-textarea {
-  margin: 2px;
-  padding: 10px;
-  -moz-border-radius: 5px;
-  border-radius: 5px;
-  border: 1px solid #aaaaaa;
-  font-family: Arial;
-}
-.build-ui-tab-TabContainer {
-  margin: .67em 0;
-}
-.build-ui-tab-TabContainer > ul {
-  display: block;
-  zoom: 1;
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  border-bottom: 1px solid #aaaaaa;
-}
-.build-ui-tab-TabContainer > ul:after {
-  display: table;
-  content: '';
-  clear: both;
-}
-.build-ui-tab-TabContainer > ul > li {
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  float: left;
-  display: block;
-  position: relative;
-  margin: 0px 10px 0px 0px;
-  padding: 0px;
-  top: 1px;
-  border: 1px solid #aaaaaa;
-  -moz-border-radius-topleft: 5px;
-  border-top-left-radius: 5px;
-  -moz-border-radius-topright: 5px;
-  border-top-right-radius: 5px;
-  background-color: #dddddd;
-}
-.build-ui-tab-TabContainer > ul > li > a {
-  display: block;
-  padding: 10px;
-  text-decoration: none;
-  cursor: pointer;
-  color: #000000;
-}
-.build-ui-tab-TabContainer > ul > li:hover {
-  background-color: #eeeeee;
-}
-.build-ui-tab-TabContainer > ul > li:active {
-  background-color: #cccccc;
-}
-.build-ui-tab-TabContainer > ul > li.tab-active {
-  border-bottom: 1px solid #ffffff;
-  background-color: #ffffff;
-}
-.build-ui-tab-TabContainer > div {
-  display: block;
-  position: relative;
-  margin: 0px;
-  padding: 10px;
-  border-top: 0px solid #ffffff;
-  border-right: 1px solid #aaaaaa;
-  border-bottom: 1px solid #aaaaaa;
-  border-left: 1px solid #aaaaaa;
-  background-color: #ffffff;
 }
