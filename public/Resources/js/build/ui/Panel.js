@@ -10,6 +10,7 @@ Build('build.ui.Panel', [ 'build::build.ui.Widget' ], function(define, $super) {
 				$super().build(this)();
 				var div = document.createElement('div');
 				div.dataset.bind = 'element: $data';
+				div.className = 'panel-iterator';
 				this.element.appendChild(div);
 				ko.applyBindingsToNode(this.element, {
 					foreach : this.children
