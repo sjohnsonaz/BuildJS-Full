@@ -1,9 +1,27 @@
+@import "grid.less";
 .build-ui-Application {
     &:extend(.container);
     & > div {
         &:extend(.row);
     }
 }
+
+.build-ui-form-Form {
+    &:extend(.container-fluid);
+    & > .panel-iterator {
+        &:extend(.row);
+    }
+}
+
+.build-ui-form-FormControl {
+    & > .form-control-label {
+        &:extend(.span6);
+    }
+    & > .form-control-label {
+        &:extend(.span6);
+    }
+}
+
 .build-ui-form-ButtonGroup:extend(.button-group all) {}
 .build-ui-form-Button:extend(.button all) {}
 .build-ui-form-Button:extend(.build-ui-form-ButtonGroup .button all) {}
