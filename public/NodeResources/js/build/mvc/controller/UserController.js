@@ -83,7 +83,7 @@ Build('build.mvc.controller.UserController', [ 'buildnode::build.mvc.controller.
 				permission : null,
 				restful : true,
 				method : function(request, response, output) {
-					var user = self.userModel.model.userModel(request.body);
+					var user = self.userModel.model(request.body);
 					user.save(function(err) {
 						console.log(request.body);
 						output(user);
