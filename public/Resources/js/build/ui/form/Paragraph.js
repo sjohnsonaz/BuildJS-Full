@@ -3,7 +3,7 @@ Build('build.ui.form.Paragraph', [ 'build::build.ui.Widget' ], function(define, 
 		$extends : 'build.ui.Widget',
 		$constructor : function(title) {
 			$super(this)();
-			this.type = 'br';
+			this.type = 'p';
 			this.text = ko.observable('');
 		},
 		$prototype : {
