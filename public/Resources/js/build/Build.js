@@ -97,17 +97,16 @@ var Build = build.Build = (function() {
 			$child.$parent = $parent;
 			$child.$super = {};
 			for ( var member in $parent.prototype) {
-				if ($parent.prototype.hasOwnProperty(member)) {
-					var method = $parent.prototype[member];
-					if (typeof method == 'function') {
-						(function(member, method) {
-							$child.$super[member] = function(scope) {
-								return function() {
-									method.apply(scope, arguments);
-								};
+				// We do not want to check hasOwnProperty
+				var method = $parent.prototype[member];
+				if (typeof method == 'function') {
+					(function(member, method) {
+						$child.$super[member] = function(scope) {
+							return function() {
+								method.apply(scope, arguments);
 							};
-						})(member, method);
-					}
+						};
+					})(member, method);
 				}
 			}
 
