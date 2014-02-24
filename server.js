@@ -7,6 +7,9 @@ Build.paths.buildnode = config.Build.backend.paths.buildnode;
 Build(function() {
 	Build.load([ 'buildnode::build.mvc.server.DynamicServer', 'buildnode::build.mvc.controller.UserController', 'buildnode::build.mvc.controller.TestController' ], function() {
 		var server = new build.mvc.server.DynamicServer(config);
+		//Build.load(config.controllers, function () {
+		//	server.addControllers(server.app, config.controllers);
+		//});
 		server.addController(new build.mvc.controller.TestController(server.app));
 		server.addController(new build.mvc.controller.UserController(server.app));
 		server.start();

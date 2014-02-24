@@ -21,6 +21,7 @@ module.exports = {
 		}
 	},
 	viewPath : __dirname + '/views',
+	controllers: ['build.mvc.controller.TestController', 'build.mvc.controller.UserController', 'build.mvc.controller.AuthenticationController'],
 	controllerPath : __dirname + '/controllers',
 	modelPath : __dirname + '/models',
 	permissionPath : __dirname + '/permissions',
@@ -41,7 +42,7 @@ module.exports = {
 	defaultController : 'MainController',
 	errorController : 'ErrorController',
 
-	mongooseConnection : 'mongodb://localhost:27017/testdb',// 'mongodb://user:pass@localhost:port/database',
+	mongooseConnection : 'mongodb://localhost:27017/buildjs',// 'mongodb://user:pass@localhost:port/database',
 	mongooseOptions : {
 		db : {
 			native_parser : true,
@@ -52,8 +53,8 @@ module.exports = {
 	mongodb : {
 		host : 'localhost',
 		port : 27017,
-		database : 'testdb',
-		username : 'simpleMVC',
+		database : 'buildjs',
+		username : 'buildjs',
 		password : 'test'
 	},
 
