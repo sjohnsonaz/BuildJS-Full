@@ -38,6 +38,7 @@ html {
 .container,
 .container-fluid,
 .build-ui-Application,
+.build-ui-form-Form,
 .demo-inheritance-Application {
   display: block;
   zoom: 1;
@@ -53,6 +54,7 @@ html {
 }
 .row,
 .build-ui-Application > div,
+.build-ui-form-Form > .panel-iterator,
 .demo-inheritance-Application > div {
   display: block;
   zoom: 1;
@@ -253,7 +255,8 @@ html {
   border: 0px;
   margin: 0px 0px 0px 960px;
 }
-.container-fluid {
+.container-fluid,
+.build-ui-form-Form {
   width: 100%;
 }
 .container-fluid .span1 {
@@ -262,7 +265,7 @@ html {
   margin: 0px;
   padding: 0px;
   border: 0px;
-  width: 8.33333333%;
+  width: 8.333333333333334%;
 }
 .container-fluid .span1 {
   display: block;
@@ -285,7 +288,7 @@ html {
   float: left;
   padding: 0px;
   border: 0px;
-  margin: 0px 0px 0px 8.33333333%;
+  margin: 0px 0px 0px 8.333333333333334%;
 }
 .container-fluid .offset1 {
   display: block;
@@ -895,6 +898,11 @@ input[type="button"]:focus,
   border: 1px solid #aaaaaa;
   font-family: Arial;
 }
+.text:focus {
+  outline: none;
+  border-color: #777777;
+  box-shadow: 0px 0px 6px 0px #000033;
+}
 .textarea {
   margin: 2px;
   padding: 10px;
@@ -902,6 +910,19 @@ input[type="button"]:focus,
   border-radius: 5px;
   border: 1px solid #aaaaaa;
   font-family: Arial;
+}
+.textarea:focus {
+  outline: none;
+  border-color: #777777;
+  box-shadow: 0px 0px 6px 0px #000033;
+}
+.label {
+  font-weight: bold;
+}
+.fieldset {
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  border: 1px solid #aaaaaa;
 }
 /* Semantic Mapper Style */
 input[type="text"] {
@@ -912,6 +933,11 @@ input[type="text"] {
   border: 1px solid #aaaaaa;
   font-family: Arial;
 }
+input[type="text"]:focus {
+  outline: none;
+  border-color: #777777;
+  box-shadow: 0px 0px 6px 0px #000033;
+}
 textarea {
   margin: 2px;
   padding: 10px;
@@ -919,6 +945,19 @@ textarea {
   border-radius: 5px;
   border: 1px solid #aaaaaa;
   font-family: Arial;
+}
+textarea:focus {
+  outline: none;
+  border-color: #777777;
+  box-shadow: 0px 0px 6px 0px #000033;
+}
+label {
+  font-weight: bold;
+}
+fieldset {
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  border: 1px solid #aaaaaa;
 }
 .build-ui-tab-TabContainer {
   margin: .67em 0;
@@ -983,4 +1022,12 @@ textarea {
   border-bottom: 1px solid #aaaaaa;
   border-left: 1px solid #aaaaaa;
   background-color: #ffffff;
+  -moz-border-radius-topleft: 0px;
+  border-top-left-radius: 0px;
+  -moz-border-radius-topright: 5px;
+  border-top-right-radius: 5px;
+  -moz-border-radius-bottomright: 5px;
+  border-bottom-right-radius: 5px;
+  -moz-border-radius-bottomleft: 5px;
+  border-bottom-left-radius: 5px;
 }

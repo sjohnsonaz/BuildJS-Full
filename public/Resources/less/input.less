@@ -102,6 +102,11 @@
     font-weight: bold;
 }
 
+.fieldset {
+    .border-radius(@input-border-radius);
+    border: @input-border-width solid @input-border;
+}
+
 /* Semantic Mapper Style */
 button:extend(.button all) {}
 input[type="button"]:extend(.button all) {}
@@ -116,4 +121,8 @@ textarea {
 
 label {
     .label;
+}
+
+fieldset {
+    .fieldset;
 }
