@@ -2,9 +2,9 @@ Build.paths.main = '/Resources/js/';
 Build.paths.build = '/Resources/js/';
 Build.paths.demo = '/DemoResources/js/';
 
-Build('demo.inheritance.Application', [ 'build::build.ui.Application', 'build::build.ui.form.Form', 'build::build.ui.form.Button', 'build::build.ui.form.ButtonGroup', 'build::build.ui.form.Header1', 'build::build.ui.tab.TabContainer',
-		'build::build.ui.tab.TabPanel', 'demo::demo.ui.form.TestForm', 'build::build.ui.form.FieldSet', 'build::build.ui.form.FormControl', 'build::build.ui.form.Label', 'build::build.ui.form.Text', 'build::build.ui.form.TextArea' ], function(
-		define, $super) {
+Build('demo.inheritance.Application', [ 'build::build.ui.Application', 'build::build.ui.form.Form', 'build::build.ui.form.Button', 'build::build.ui.form.ButtonGroup', 'build::build.ui.form.Header1', 'build::build.ui.form.Paragraph',
+		'build::build.ui.tab.TabContainer', 'build::build.ui.tab.TabPanel', 'demo::demo.ui.form.TestForm', 'build::build.ui.form.FieldSet', 'build::build.ui.form.FormControl', 'build::build.ui.form.Label', 'build::build.ui.form.Text',
+		'build::build.ui.form.TextArea', 'demo::demo.singleton.SingletonTest' ], function(define, $super) {
 	define({
 		$extends : 'build.ui.Application',
 		$constructor : function() {
@@ -33,6 +33,9 @@ Build('demo.inheritance.Application', [ 'build::build.ui.Application', 'build::b
 			buttonGroup.addChild(build.ui.form.Button.create('Button 4'));
 			form.addChild(buttonGroup);
 			
+			form.addChild(build.ui.form.Paragraph.create(new demo.singleton.SingletonTest().data));
+			form.addChild(build.ui.form.Paragraph.create(new demo.singleton.SingletonTest().data));
+
 			var fieldSet = build.ui.form.FieldSet.create('Text Field FieldSet');
 			var text = build.ui.form.Text.create();
 			text.placeholder('Text');
