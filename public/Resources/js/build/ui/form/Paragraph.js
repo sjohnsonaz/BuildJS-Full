@@ -1,10 +1,10 @@
 Build('build.ui.form.Paragraph', [ 'build::build.ui.Widget' ], function(define, $super, merge) {
 	define({
 		$extends : 'build.ui.Widget',
-		$constructor : function(title) {
+		$constructor : function(text) {
 			$super(this)();
 			this.type = 'p';
-			this.text = ko.observable('');
+			this.text = ko.observable(text || '');
 		},
 		$prototype : {
 			build : function() {
