@@ -4,7 +4,7 @@ Build('build.mvc.controller.UserController', [ 'buildnode::build.mvc.controller.
 		$constructor : function(app) {
 			$super(this)(app);
 			var self = this;
-			this.userModel = new build.mvc.model.UserModel();
+			this.userModel = new build.mvc.model.UserModel(app.database.mongoose);
 			this.index = this.route({
 				verb : 'all',
 				route : '/user',

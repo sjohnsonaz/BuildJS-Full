@@ -3,7 +3,7 @@ module.exports = function(Build) {
 		define({
 			$constructor : function(app) {
 				$super(this)(app);
-				this.userModel = new build.mvc.model.UserModel();
+				this.userModel = new build.mvc.model.UserModel(app.database.mongoose);
 				this.index = route({
 					verb : 'all',
 					route : '/authentication',

@@ -59,6 +59,7 @@ module.exports = function(Build) {
 				});
 
 				this.database = new build.mvc.database.Database(this.config.mongodb.host, this.config.mongodb.port, this.config.mongodb.database, this.config.mongodb.username, this.config.mongodb.password, this.config.mongooseConnection);
+				app.database = this.database;
 
 				function buildDefaultRoutes() {
 					// app.all('/',

@@ -10,6 +10,7 @@ module.exports = function(Build) {
 			$constructor : function(host, port, database, username, password, mongooseConnection) {
 				this.db = null;
 				this.server = null;
+				this.mongoose = mongoose;
 				var self = this;
 				this.init = function(callback) {
 					var result = self.initMongo(host, port, database, username, password, function() {

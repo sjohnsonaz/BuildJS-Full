@@ -1,10 +1,9 @@
-var mongoose = require('mongoose');
 module.exports = function(Build) {
 	Build('build.mvc.model.UserModel', [ 'buildnode::build.mvc.model.MongooseModel' ], function(define, $super) {
 		define({
 			$extends : 'build.mvc.model.MongooseModel',
-			$constructor : function() {
-				$super(this)();
+			$constructor : function(mongoose) {
+				$super(this)(mongoose);
 				this.schema = new mongoose.Schema({
 					username : String,
 					password : String,
@@ -17,6 +16,7 @@ module.exports = function(Build) {
 				this.schema.set('autoIndex', false);
 				this.model = mongoose.model('User', this.schema);
 			},
+			$singleton: true
 		});
 	});
 };
