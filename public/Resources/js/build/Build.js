@@ -135,7 +135,7 @@ var Build = build.Build = (function() {
 	}
 	var definitions = {};
 	function assemble($name, $constructor, $prototype, $static, $parent, $singleton) {
-		$construtor = $singleton ? singletone($constructor) : $constructor;
+		$constructor = $singleton ? singleton($constructor) : $constructor;
 
 		copyNoReplace($constructor, $static);
 
