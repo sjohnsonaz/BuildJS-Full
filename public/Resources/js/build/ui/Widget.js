@@ -147,6 +147,26 @@ Build('build.ui.Widget', [ 'build::build.ui.Module' ], function(define, $super, 
 			removeChild : function(widget) {
 				this.element.removeChild(widget.element);
 			},
+			addClass : function(cssClass) {
+				if (cssClass) {
+					var classes = this.cssClass().split(' ');
+					var index = classes.indexOf(cssClass);
+					if (index == -1) {
+						classes.push(cssClass);
+						this.cssClass(classes.join(' '));
+					}
+				}
+			},
+			removeClass : function(cssClass) {
+				if (cssClass) {
+					var classes = this.cssClass().split(' ');
+					var index = classes.indexOf(cssClass);
+					if (index != -1) {
+						classes.splice(index, 1);
+						this.cssClass(classes.join(' '));
+					}
+				}
+			},
 			addEvent : function(type, listener, useCapture, bind) {
 				if (bind) {
 					this.element.addEventListener(type, listener.bind(this, this.element), useCapture);
