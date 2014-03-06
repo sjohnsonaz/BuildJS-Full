@@ -47,14 +47,72 @@ build.service.ServiceConnection = (function() {
 		}
 	}
 
+	function merge(a, b) {
+		if (b) {
+			for ( var member in b) {
+				if (b.hasOwnProperty(member)) {
+					a[member] = b[member];
+				}
+			}
+		}
+		return a;
+	}
+
+	function run(params) {
+		params = merge({
+			verb : 'GET',
+			url : '',
+			sync : false,
+			user : undefined,
+			password : undefined,
+			data : undefined,
+			unsent : undefined,
+			opened : undefined,
+			headersReceived : undefined,
+			loading : undefined,
+			done : function(request) {
+				params.processRequest(request, params.success, params.error);
+			},
+			success : undefined,
+			error : undefined,
+			buildUrl : function() {
+				return params.url;
+			},
+			processRequest : processRequest
+		}, params);
+		call(params.verb.toUpperCase(), params.buildUrl(), params.sync, params.user, params.password, params.data, params.unsent, params.opened, params.headersReceived, params.loading, params.done);
+	}
+
 	function Get(params) {
 		params = params || {};
-		call(verb, url, sync, user, password, unsent, opened, headersReceived, loading, function(request) {
-			processRequest(request, success, error);
-		});
+		params.verb = params.verb || 'GET';
+		run(params);
+	}
+
+	function Post(params) {
+		params = params || {};
+		params.verb = params.verb || 'POST';
+		run(params);
+	}
+
+	function Put(params) {
+		params = params || {};
+		params.verb = params.verb || 'PUT';
+		run(params);
+	}
+
+	function Delete(params) {
+		params = params || {};
+		params.verb = params.verb || 'DELETE';
+		run(params);
 	}
 
 	ServiceConnection.prototype.call = call;
+	ServiceConnection.prototype.run = run;
+	ServiceConnection.prototype.Get = Get;
+	ServiceConnection.prototype.Post = Post;
+	ServiceConnection.prototype.Put = Put;
+	ServiceConnection.prototype.Delete = Delete;
 	return ServiceConnection;
 })();
 
