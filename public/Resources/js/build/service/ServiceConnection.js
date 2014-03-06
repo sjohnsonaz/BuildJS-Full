@@ -56,4 +56,8 @@ build.service.ServiceConnection = (function() {
 
 	ServiceConnection.prototype.call = call;
 	return ServiceConnection;
-});
+})();
+
+if (Build) {
+	Build.definitions['build.service.ServiceConnection'] = build.service.ServiceConnection;
+}
