@@ -51,7 +51,7 @@ build.service.ServiceConnection = (function() {
 			}
 			switch (dataType) {
 			case 'json':
-				data = JSON.parse(data);
+				data = data ? JSON.parse(data) : data;
 				break;
 			case 'text':
 			default:
@@ -192,6 +192,13 @@ build.service.ServiceConnection = (function() {
 				}
 
 				if (override.queryNames) {
+					var query = override.query;
+					override.query = {};
+					for ( var index in query) {
+						if (query.hasOwnProperty(index)) {
+							override.query[index] = query[index];
+						}
+					}
 					for (var index = 0, length = override.queryNames.length; index < length; index++) {
 						var name = override.queryNames[index];
 						override.query[name] = values[name];
@@ -199,6 +206,13 @@ build.service.ServiceConnection = (function() {
 				}
 
 				if (override.paramNames) {
+					var params = override.params;
+					override.params = {};
+					for ( var index in params) {
+						if (params.hasOwnProperty(index)) {
+							override.params[index] = params[index];
+						}
+					}
 					for (var index = 0, length = override.paramNames.length; index < length; index++) {
 						var name = override.paramNames[index];
 						override.params[name] = values[name];
