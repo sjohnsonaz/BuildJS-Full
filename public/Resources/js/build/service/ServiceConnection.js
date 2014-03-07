@@ -36,10 +36,22 @@ build.service.ServiceConnection = (function() {
 		}
 	}
 
-	function processRequest(request, success, error) {
+	function processRequest(request, dataType, success, error) {
 		switch (Math.floor(request.status / 100)) {
 		case 2:
-			typeof success == 'function' ? success(request) : true;
+			var data = request.responseText;
+			if (dataType == 'detect') {
+				dataType = 'json';
+			}
+			switch (dataType) {
+			case 'json':
+				data = JSON.parse(data);
+				break;
+			case 'text':
+			default:
+				break;
+			}
+			typeof success == 'function' ? success(data, request) : true;
 			break;
 		default:
 			typeof error == 'function' ? error(request) : true;
@@ -70,8 +82,9 @@ build.service.ServiceConnection = (function() {
 			opened : undefined,
 			headersReceived : undefined,
 			loading : undefined,
+			dataType : 'detect',
 			done : function(request) {
-				params.processRequest(request, params.success, params.error);
+				params.processRequest(request, params.dataType, params.success, params.error);
 			},
 			success : undefined,
 			error : undefined,
@@ -105,6 +118,13 @@ build.service.ServiceConnection = (function() {
 		params = params || {};
 		params.verb = params.verb || 'DELETE';
 		run(params);
+	}
+
+	function addRoute(params) {
+		params = merge({
+			route : ''
+		}, params);
+
 	}
 
 	ServiceConnection.prototype.call = call;
