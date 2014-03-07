@@ -5,6 +5,12 @@ build.service.ServiceConnection = (function() {
 
 	}
 
+	var STRIP_COMMENTS = /((\/\/.*$)|(\/\*[\s\S]*?\*\/))/mg;
+	function getParameterNames(functionHandle) {
+		var definition = functionHandle.toString().replace(STRIP_COMMENTS, '');
+		return definition.slice(definition.indexOf('(') + 1, definition.indexOf(')')).match(/([^\s,]+)/g) || [];
+	}
+
 	function call(verb, url, sync, user, password, data, unsent, opened, headersReceived, loading, done) {
 		var request = new XMLHttpRequest();
 		if (sync) {
@@ -41,7 +47,7 @@ build.service.ServiceConnection = (function() {
 		case 2:
 			var data = request.responseText;
 			if (dataType == 'detect') {
-				dataType = 'json';
+				dataType = request.responseType || 'json';
 			}
 			switch (dataType) {
 			case 'json':
@@ -70,8 +76,8 @@ build.service.ServiceConnection = (function() {
 		return a;
 	}
 
-	function run(params) {
-		params = merge({
+	function run(parameters) {
+		parameters = merge({
 			verb : 'GET',
 			url : '',
 			sync : false,
@@ -84,47 +90,88 @@ build.service.ServiceConnection = (function() {
 			loading : undefined,
 			dataType : 'detect',
 			done : function(request) {
-				params.processRequest(request, params.dataType, params.success, params.error);
+				parameters.processRequest(request, parameters.dataType, parameters.success, parameters.error);
 			},
 			success : undefined,
 			error : undefined,
 			buildUrl : function() {
-				return params.url;
+				return parameters.url;
 			},
 			processRequest : processRequest
-		}, params);
-		call(params.verb.toUpperCase(), params.buildUrl(), params.sync, params.user, params.password, params.data, params.unsent, params.opened, params.headersReceived, params.loading, params.done);
+		}, parameters);
+		call(parameters.verb.toUpperCase(), parameters.buildUrl(), parameters.sync, parameters.user, parameters.password, parameters.data, parameters.unsent, parameters.opened, parameters.headersReceived, parameters.loading, parameters.done);
 	}
 
-	function Get(params) {
-		params = params || {};
-		params.verb = params.verb || 'GET';
-		run(params);
+	function Get(parameters) {
+		parameters = parameters || {};
+		parameters.verb = parameters.verb || 'GET';
+		run(parameters);
 	}
 
-	function Post(params) {
-		params = params || {};
-		params.verb = params.verb || 'POST';
-		run(params);
+	function Post(parameters) {
+		parameters = parameters || {};
+		parameters.verb = parameters.verb || 'POST';
+		run(parameters);
 	}
 
-	function Put(params) {
-		params = params || {};
-		params.verb = params.verb || 'PUT';
-		run(params);
+	function Put(parameters) {
+		parameters = parameters || {};
+		parameters.verb = parameters.verb || 'PUT';
+		run(parameters);
 	}
 
-	function Delete(params) {
-		params = params || {};
-		params.verb = params.verb || 'DELETE';
-		run(params);
+	function Delete(parameters) {
+		parameters = parameters || {};
+		parameters.verb = parameters.verb || 'DELETE';
+		run(parameters);
 	}
 
-	function addRoute(params) {
-		params = merge({
-			route : ''
-		}, params);
+	function addRoute(parameters) {
+		parameters = merge({
+			name : '',
+			route : '',
+			query : undefined,
+			params : undefined,
+			action : undefined
+		}, parameters);
+		var runner = undefined;
+		if (parameters.action) {
+			var names = getParameterNames(parameters.action);
+			runner = function() {
+				parameters.action.apply(this, arguments);
 
+				var values = {};
+				for (var index = 0, length = names.length; index < length; index++) {
+					values[names[index]] = arguments[index];
+				}
+
+				var query = {};
+				if (parameters.query) {
+					for (var index = 0, length = parameters.query.length; index < length; index++) {
+						var name = parameters.query[index];
+						query[name] = values[name];
+					}
+				}
+				parameters.query = query;
+
+				var params = {};
+				if (parameters.params) {
+					for (var index = 0, length = parameters.params.length; index < length; index++) {
+						var name = parameters.params[index];
+						params[name] = values[name];
+					}
+				}
+				parameters.params = params;
+
+				parameters.success = parameters.success || values['success'];
+				parameters.error = parameters.error || values['error'];
+				this.run(parameters);
+			}.bind(this);
+			if (parameters.name) {
+				this[parameters.name] = runner;
+			}
+		}
+		return runner;
 	}
 
 	ServiceConnection.prototype.call = call;
@@ -133,6 +180,7 @@ build.service.ServiceConnection = (function() {
 	ServiceConnection.prototype.Post = Post;
 	ServiceConnection.prototype.Put = Put;
 	ServiceConnection.prototype.Delete = Delete;
+	ServiceConnection.prototype.addRoute = addRoute;
 	return ServiceConnection;
 })();
 
