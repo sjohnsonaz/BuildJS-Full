@@ -1,8 +1,8 @@
 var build = build || {};
 build.service = build.service || {};
 build.service.ServiceConnection = (function() {
-	function ServiceConnection() {
-
+	function ServiceConnection(base) {
+		this.base = base;
 	}
 
 	var STRIP_COMMENTS = /((\/\/.*$)|(\/\*[\s\S]*?\*\/))/mg;
@@ -94,8 +94,11 @@ build.service.ServiceConnection = (function() {
 			},
 			success : undefined,
 			error : undefined,
+			query : undefined,
+			params : undefined,
+			regex : undefined,
 			buildUrl : function() {
-				return parameters.url;
+				return formatUrl(parameters.url, parameters.params, parameters.query, parameters.regex);
 			},
 			processRequest : processRequest
 		}, parameters);
@@ -126,46 +129,85 @@ build.service.ServiceConnection = (function() {
 		run(parameters);
 	}
 
+	function formatUrl(url, params, query, regex) {
+		var output;
+		if (url) {
+			output = url;
+			if (params) {
+				for ( var index in params) {
+					if (params.hasOwnProperty(index)) {
+						if (!regex) {
+							regex = RegExp(':' + index + '(?=[/?#&]|$)', 'g');
+						} else if (typeof regex === 'function') {
+							regex = regex(index);
+						} else {
+							regex = RegExp('\\{' + index + '\\}', 'g');
+						}
+						output = output.replace(regex, params[index]);
+					}
+				}
+			}
+		} else {
+			output = '';
+		}
+		if (query) {
+			var request = '';
+			for ( var index in query) {
+				if (query.hasOwnProperty(index)) {
+					request += (request ? '&' : '?') + index + '=' + query[index];
+				}
+			}
+			output += request;
+		}
+		return output;
+	}
+
 	function addRoute(parameters) {
 		parameters = merge({
 			name : '',
-			route : '',
-			query : undefined,
-			params : undefined,
+			queryNames : undefined,
+			paramNames : undefined,
 			action : undefined
 		}, parameters);
 		var runner = undefined;
 		if (parameters.action) {
 			var names = getParameterNames(parameters.action);
 			runner = function() {
-				parameters.action.apply(this, arguments);
+				var override = parameters.action.apply(this, arguments) || {};
+				override = merge(override, parameters);
+				if (this.base) {
+					var url = override.url;
+					if (url) {
+						if (!/^(f|ht)tps?:\/\//i.test(url)) {
+							override.url = this.base + url;
+						}
+					} else {
+						override.url = this.base;
+					}
+				}
 
 				var values = {};
 				for (var index = 0, length = names.length; index < length; index++) {
 					values[names[index]] = arguments[index];
 				}
 
-				var query = {};
-				if (parameters.query) {
-					for (var index = 0, length = parameters.query.length; index < length; index++) {
-						var name = parameters.query[index];
-						query[name] = values[name];
+				if (override.queryNames) {
+					for (var index = 0, length = override.queryNames.length; index < length; index++) {
+						var name = override.queryNames[index];
+						override.query[name] = values[name];
 					}
 				}
-				parameters.query = query;
 
-				var params = {};
-				if (parameters.params) {
-					for (var index = 0, length = parameters.params.length; index < length; index++) {
-						var name = parameters.params[index];
-						params[name] = values[name];
+				if (override.paramNames) {
+					for (var index = 0, length = override.paramNames.length; index < length; index++) {
+						var name = override.paramNames[index];
+						override.params[name] = values[name];
 					}
 				}
-				parameters.params = params;
 
-				parameters.success = parameters.success || values['success'];
-				parameters.error = parameters.error || values['error'];
-				this.run(parameters);
+				override.success = override.success || values['success'];
+				override.error = override.error || values['error'];
+				this.run(override);
 			}.bind(this);
 			if (parameters.name) {
 				this[parameters.name] = runner;
@@ -180,6 +222,7 @@ build.service.ServiceConnection = (function() {
 	ServiceConnection.prototype.Post = Post;
 	ServiceConnection.prototype.Put = Put;
 	ServiceConnection.prototype.Delete = Delete;
+	ServiceConnection.prototype.formatUrl = formatUrl;
 	ServiceConnection.prototype.addRoute = addRoute;
 	return ServiceConnection;
 })();
