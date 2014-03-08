@@ -3,7 +3,6 @@ Build('build.mvc.controller.UserController', [ 'buildnode::build.mvc.controller.
 		$extends : 'build.mvc.controller.Controller',
 		$constructor : function(app) {
 			$super(this)(app);
-			var self = this;
 			this.userModel = new build.mvc.model.UserModel(app.database.mongoose);
 			this.index = this.route({
 				verb : 'all',
@@ -29,13 +28,13 @@ Build('build.mvc.controller.UserController', [ 'buildnode::build.mvc.controller.
 				restful : true,
 				method : function(request, response, output) {
 					if (request.query.id) {
-						self.userModel.model.findOne({
+						this.userModel.model.findOne({
 							_id : request.query.id
 						}, function(err, user) {
 							output(user);
 						});
 					} else {
-						self.userModel.model.find({}, function(err, data) {
+						this.userModel.model.find({}, function(err, data) {
 							output(data);
 						});
 					}
@@ -47,7 +46,7 @@ Build('build.mvc.controller.UserController', [ 'buildnode::build.mvc.controller.
 				permission : null,
 				restful : true,
 				method : function(request, response, output) {
-					self.userModel.model.findOne({
+					this.userModel.model.findOne({
 						username : request.query.username
 					}, function(err, user) {
 						output(user);
@@ -62,8 +61,8 @@ Build('build.mvc.controller.UserController', [ 'buildnode::build.mvc.controller.
 				method : function(request, response, output) {
 					var limit = request.query.limit || 10;
 					var index = request.query.index || 0;
-					self.userModel.model.count({}, function(err, count) {
-						self.userModel.model.find({}).sort({
+					this.userModel.model.count({}, function(err, count) {
+						this.userModel.model.find({}).sort({
 							'_id' : 'asc'
 						}).skip(index * limit).limit(limit).exec(function(err, users) {
 							// for ( var x = 0; x < users.length; x++) {
@@ -83,7 +82,7 @@ Build('build.mvc.controller.UserController', [ 'buildnode::build.mvc.controller.
 				permission : null,
 				restful : true,
 				method : function(request, response, output) {
-					var user = self.userModel.model(request.body);
+					var user = this.userModel.model(request.body);
 					user.save(function(err) {
 						console.log(request.body);
 						output(user);
@@ -102,7 +101,7 @@ Build('build.mvc.controller.UserController', [ 'buildnode::build.mvc.controller.
 					if (request.body._id) {
 						delete request.body._id;
 					}
-					self.userModel.model.findOneAndUpdate({
+					this.userModel.model.findOneAndUpdate({
 						_id : request.query.id
 					}, request.body, function(err, result) {
 						if (err) {
@@ -123,7 +122,7 @@ Build('build.mvc.controller.UserController', [ 'buildnode::build.mvc.controller.
 				permission : null,
 				restful : true,
 				method : function(request, response, output) {
-					self.userModel.model.remove({
+					this.userModel.model.remove({
 						_id : request.body.id
 					}, function(err, result) {
 						output({
