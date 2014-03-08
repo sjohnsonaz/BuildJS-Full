@@ -2,9 +2,8 @@ Build.paths.main = '/Resources/js/';
 Build.paths.build = '/Resources/js/';
 Build.paths.demo = '/DemoResources/js/';
 
-Build('demo.inheritance.Application', [ 'build::build.ui.Application', 'build::build.ui.form.Form', 'build::build.ui.form.Button', 'build::build.ui.form.ButtonGroup', 'build::build.ui.form.Header1', 'build::build.ui.form.Paragraph',
-		'build::build.ui.tab.TabContainer', 'build::build.ui.tab.TabPanel', 'demo::demo.ui.form.TestForm', 'build::build.ui.form.FieldSet', 'build::build.ui.form.FormControl', 'build::build.ui.form.Label', 'build::build.ui.form.Text',
-		'build::build.ui.form.TextArea', 'demo::demo.singleton.SingletonTest', 'build::build.service.ServiceConnection' ], function(define, $super) {
+Build('demo.inheritance.Application', [ 'build::build.ui.Application', 'build::build.ui.form.Header1', 'build::build.ui.tab.TabContainer', 'build::build.ui.tab.TabPanel', 'demo::demo.ui.form.WidgetForm', 'demo::demo.ui.form.TestForm',
+		'demo::demo.service.TestServiceConnection' ], function(define, $super) {
 	define({
 		$extends : 'build.ui.Application',
 		$constructor : function() {
@@ -23,42 +22,12 @@ Build('demo.inheritance.Application', [ 'build::build.ui.Application', 'build::b
 			this.addChild(tabContainer);
 
 			// Add form and button
-			var header0 = build.ui.form.Header1.create('Widget Form');
-			var form = build.ui.form.Form.create();
-			var button = build.ui.form.Button.create('Button 1');
-			form.addChild(button);
-			var buttonGroup = build.ui.form.ButtonGroup.create();
-			buttonGroup.addChild(build.ui.form.Button.create('Button 2'));
-			buttonGroup.addChild(build.ui.form.Button.create('Button 3'));
-			buttonGroup.addChild(build.ui.form.Button.create('Button 4'));
-			form.addChild(buttonGroup);
-
-			form.addChild(build.ui.form.Paragraph.create(new demo.singleton.SingletonTest().data));
-			form.addChild(build.ui.form.Paragraph.create(new demo.singleton.SingletonTest().data));
-
-			var fieldSet = build.ui.form.FieldSet.create('Text Field FieldSet');
-			var text = build.ui.form.Text.create();
-			text.placeholder('Text');
-			fieldSet.addChild(build.ui.form.FormControl.create(build.ui.form.Label.create('Text Field'), text));
-
-			form.wrap = function(model) {
-				text.text(model.text);
-			};
-			form.unwrap = function(model) {
-				model.text = text.text();
-			};
-
-			form.model({
-				text : 'This is some model text.'
+			var widgetForm = demo.ui.form.WidgetForm.create();
+			tabPanel0.addChild(widgetForm);
+			var testServiceConnection = new demo.service.TestServiceConnection();
+			testServiceConnection.getRest(function(data, request) {
+				widgetForm.model(data);
 			});
-
-			var textArea = build.ui.form.TextArea.create();
-			textArea.placeholder('Text');
-			fieldSet.addChild(textArea);
-			form.addChild(fieldSet);
-
-			tabPanel0.addChild(header0);
-			tabPanel0.addChild(form);
 
 			// Add testForm
 			var testForm = demo.ui.form.TestForm.create();

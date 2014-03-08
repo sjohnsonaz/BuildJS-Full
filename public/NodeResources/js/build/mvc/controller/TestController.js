@@ -14,12 +14,13 @@ Build('build.mvc.controller.TestController', [ 'buildnode::build.mvc.controller.
 			});
 			this.rest = this.route({
 				verb : 'all',
-				route : '/test/rest',
+				route : '/api/test/rest',
 				permission : null,// 'isLoggedIn',
 				restful : true,
 				method : function(request, response, output) {
 					output({
-						value : 123
+						value : 123,
+						text : 'This is some demo text'
 					});
 				}
 			});
