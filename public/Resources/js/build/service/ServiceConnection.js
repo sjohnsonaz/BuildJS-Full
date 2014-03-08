@@ -232,7 +232,9 @@ build.service.ServiceConnection = (function() {
 				}
 
 				override.success = override.success || values['success'];
+				override.success = typeof override.success === 'function' ? override.success.bind(this) : override.success;
 				override.error = override.error || values['error'];
+				override.error = typeof override.error === 'function' ? override.error.bind(this) : override.error;
 				this.run(override);
 			}.bind(this);
 			if (parameters.name) {

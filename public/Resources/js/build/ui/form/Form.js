@@ -10,11 +10,15 @@ Build('build.ui.form.Form', [ 'build::build.ui.Panel' ], function(define, $super
 			this.model = ko.computed({
 				read : function() {
 					model = modelHidden();
-					this.unwrap(model);
+					this.unwrap(model || {});
 					return model;
 				},
 				write : function(value) {
-					this.wrap(ko.unwrap(value));
+					if (ko.unwrap(value)) {
+						this.wrap(ko.unwrap(value));
+					} else {
+						this.clear();
+					}
 					modelHidden(value);
 				},
 				owner : this
@@ -33,6 +37,8 @@ Build('build.ui.form.Form', [ 'build::build.ui.Panel' ], function(define, $super
 			wrap : function(model) {
 			},
 			unwrap : function(model) {
+			},
+			clear : function() {
 			}
 		}
 	});

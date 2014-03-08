@@ -220,6 +220,9 @@ var Build = build.Build = (function() {
 					}
 				}
 				return a;
+			}, function(callback) {
+				return typeof callback === 'function' ? callback : function() {
+				};
 			});
 		}
 

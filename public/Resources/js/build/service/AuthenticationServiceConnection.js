@@ -16,6 +16,13 @@ Build('build.service.AuthenticationServiceConnection', [ 'build::build.service.S
 					};
 				}
 			});
+			this.addRoute({
+				name : 'logout',
+				url : '/logout',
+				verb : 'POST',
+				action : function(success, error) {
+				}
+			});
 		}
 	});
 });
