@@ -15,7 +15,13 @@ build.service.ServiceConnection = (function() {
 		var request = new XMLHttpRequest();
 		if (sync) {
 			request.open(verb, url, sync, user, password);
-			request.send(data);
+			switch (verb) {
+			case 'POST':
+			case 'PUT':
+				request.setRequestHeader('Content-Type', 'application/json');
+				break;
+			}
+			request.send(JSON.stringify(data));
 			done(request);
 		} else {
 			request.onreadystatechange = function() {
@@ -38,7 +44,13 @@ build.service.ServiceConnection = (function() {
 				}
 			};
 			request.open(verb, url, sync, user, password);
-			request.send(data);
+			switch (verb) {
+			case 'POST':
+			case 'PUT':
+				request.setRequestHeader('Content-Type', 'application/json');
+				break;
+			}
+			request.send(JSON.stringify(data));
 		}
 	}
 

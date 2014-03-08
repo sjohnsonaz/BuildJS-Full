@@ -1,10 +1,11 @@
 module.exports = function(Build) {
 	Build('build.mvc.controller.AuthenticationController', [ 'buildnode::build.mvc.controller.Controller', 'buildnode::build.mvc.model.UserModel' ], function(define, $super, merge) {
 		define({
+			$extends : 'build.mvc.controller.Controller',
 			$constructor : function(app) {
 				$super(this)(app);
 				this.userModel = new build.mvc.model.UserModel(app.database.mongoose);
-				this.index = route({
+				this.index = this.route({
 					verb : 'all',
 					route : '/authentication',
 					permission : null,
@@ -17,7 +18,7 @@ module.exports = function(Build) {
 						});
 					}
 				});
-				this.login = route({
+				this.login = this.route({
 					verb : 'post',
 					route : '/api/authentication/login',
 					permission : null,
@@ -40,7 +41,7 @@ module.exports = function(Build) {
 						});
 					}
 				});
-				this.logout = route({
+				this.logout = this.route({
 					verb : 'post',
 					route : '/api/authentication/logout',
 					permission : null,
@@ -52,7 +53,7 @@ module.exports = function(Build) {
 						});
 					}
 				});
-				this.user = route({
+				this.user = this.route({
 					verb : 'get',
 					route : '/api/authentication/user',
 					permission : null,
