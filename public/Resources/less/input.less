@@ -85,7 +85,8 @@
     }
 }
 
-.text {
+.text,
+.password {
     .focus();
     margin: @input-margin;
     padding: @input-padding;
@@ -112,6 +113,10 @@ button:extend(.button all) {}
 input[type="button"]:extend(.button all) {}
 
 input[type="text"] {
+    .text;
+}
+
+input[type="password"] {
     .text;
 }
 
