@@ -32,7 +32,7 @@ module.exports = {
 	session : {
 		database : {
 			collection : 'session',
-			url : 'mongodb://localhost:27017/testdb',
+			url : 'mongodb://localhost:27017/buildjs',
 			username : 'simpleMVC',
 			password : 'test'
 		},
