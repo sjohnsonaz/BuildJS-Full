@@ -7,7 +7,9 @@ Build('build.ui.form.Form', [ 'build::build.ui.Panel' ], function(define, $super
 			var modelHidden = ko.observable();
 			this.model = ko.computed({
 				read : function() {
-					return this.unwrap(modelHidden());
+					model = modelHidden();
+					this.unwrap(model);
+					return model;
 				},
 				write : function(value) {
 					this.wrap(ko.unwrap(value));
@@ -20,7 +22,6 @@ Build('build.ui.form.Form', [ 'build::build.ui.Panel' ], function(define, $super
 			wrap : function(model) {
 			},
 			unwrap : function(model) {
-				return model;
 			}
 		}
 	});

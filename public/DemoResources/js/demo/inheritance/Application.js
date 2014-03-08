@@ -44,6 +44,9 @@ Build('demo.inheritance.Application', [ 'build::build.ui.Application', 'build::b
 			form.wrap = function(model) {
 				text.text(model.text);
 			};
+			form.unwrap = function(model) {
+				model.text = text.text();
+			};
 
 			form.model({
 				text : 'This is some model text.'
