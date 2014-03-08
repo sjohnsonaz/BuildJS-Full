@@ -4,6 +4,8 @@ Build('build.ui.form.Form', [ 'build::build.ui.Panel' ], function(define, $super
 		$constructor : function() {
 			$super(this)();
 			this.type = 'form';
+			this.method = ko.observable('GET');
+			this.action = ko.observable('');
 			var modelHidden = ko.observable();
 			this.model = ko.computed({
 				read : function() {
@@ -19,6 +21,15 @@ Build('build.ui.form.Form', [ 'build::build.ui.Panel' ], function(define, $super
 			});
 		},
 		$prototype : {
+			build : function() {
+				$super().build(this)();
+				ko.applyBindingsToNode(this.element, {
+					attr : {
+						'method' : this.method,
+						'action' : this.action
+					}
+				});
+			},
 			wrap : function(model) {
 			},
 			unwrap : function(model) {
