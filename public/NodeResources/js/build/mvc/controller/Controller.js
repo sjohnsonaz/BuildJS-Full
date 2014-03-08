@@ -25,7 +25,7 @@ module.exports = function(Build) {
 					var permissions = params.permission;
 					var verbs = params.verb;
 					var routeStrings = params.route;
-					var method = params.method;
+					var method = params.method.bind(this);
 
 					if (typeof (verbs) == 'string') {
 						verbs = [ verbs ];
