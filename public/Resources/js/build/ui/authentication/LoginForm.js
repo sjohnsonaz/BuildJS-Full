@@ -1,4 +1,5 @@
-Build('build.ui.authentication.LoginForm', [ 'build.ui.form.Form', 'build.ui.form.Text', 'build.ui.form.Password', 'build.ui.form.Submit', 'build.ui.form.FormControl', 'build.ui.form.Label' ], function(define, $super, merge) {
+Build('build.ui.authentication.LoginForm', [ 'build::build.ui.form.Form', 'build::build.ui.form.Text', 'build::build.ui.form.Password', 'build::build.ui.form.Submit', 'build::build.ui.form.FormControl', 'build::build.ui.form.Label' ], function(
+		define, $super, merge) {
 	define({
 		$extends : 'build.ui.form.Form',
 		$constructor : function() {
