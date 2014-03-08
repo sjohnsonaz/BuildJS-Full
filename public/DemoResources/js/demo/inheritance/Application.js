@@ -32,7 +32,7 @@ Build('demo.inheritance.Application', [ 'build::build.ui.Application', 'build::b
 			buttonGroup.addChild(build.ui.form.Button.create('Button 3'));
 			buttonGroup.addChild(build.ui.form.Button.create('Button 4'));
 			form.addChild(buttonGroup);
-			
+
 			form.addChild(build.ui.form.Paragraph.create(new demo.singleton.SingletonTest().data));
 			form.addChild(build.ui.form.Paragraph.create(new demo.singleton.SingletonTest().data));
 
@@ -40,6 +40,14 @@ Build('demo.inheritance.Application', [ 'build::build.ui.Application', 'build::b
 			var text = build.ui.form.Text.create();
 			text.placeholder('Text');
 			fieldSet.addChild(build.ui.form.FormControl.create(build.ui.form.Label.create('Text Field'), text));
+
+			form.wrap = function(model) {
+				text.text(model.text);
+			};
+
+			form.model({
+				text : 'This is some model text.'
+			});
 
 			var textArea = build.ui.form.TextArea.create();
 			textArea.placeholder('Text');

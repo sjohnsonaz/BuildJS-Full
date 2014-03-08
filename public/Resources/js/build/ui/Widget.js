@@ -51,6 +51,25 @@ Build('build.ui.Widget', [ 'build::build.ui.Module' ], function(define, $super, 
 		}
 	};
 
+	// TODO: Make this sync method work, or remove it.
+	ko.extenders.sync = function(target, watch) {
+		var wrapped = watch || target;
+		var result = ko.computed({
+			read : function() {
+				return wrapped();
+			},
+			write : function(value) {
+				wrapped(value);
+			}
+		});
+		result.watch = function(watch) {
+			wrapped = watch || target;
+			result.notifySubscribers();
+		};
+		result(wrapped());
+		return result;
+	};
+
 	var idCount = {};
 	define({
 		$extends : 'build.ui.Module',

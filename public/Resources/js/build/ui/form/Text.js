@@ -17,7 +17,7 @@ Build('build.ui.form.Text', [ 'build::build.ui.form.FormElement' ], function(def
 				ko.applyBindingsToNode(this.element, {
 					attr : {
 						'placeholder' : this.placeholder,
-						'name': this.name
+						'name' : this.name
 					}
 				});
 			}
