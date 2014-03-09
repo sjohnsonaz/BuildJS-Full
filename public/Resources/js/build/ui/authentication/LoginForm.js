@@ -1,11 +1,12 @@
-Build('build.ui.authentication.LoginForm', [ 'build::build.ui.form.Form', 'build::build.ui.form.Text', 'build::build.ui.form.Password', 'build::build.ui.form.Submit', 'build::build.ui.form.FormControl', 'build::build.ui.form.Label' ], function(
-		define, $super, merge, safe) {
+Build('build.ui.authentication.LoginForm', [ 'build::build.ui.form.Form', 'build::build.ui.form.Div', 'build::build.ui.form.Text', 'build::build.ui.form.Password', 'build::build.ui.form.Submit', 'build::build.ui.form.FormControl',
+		'build::build.ui.form.Label' ], function(define, $super, merge, safe) {
 	define({
 		$extends : 'build.ui.form.Form',
 		$constructor : function(authenticationServiceConnection, parent) {
 			$super(this)();
 			this.method('POST');
 			this.action('#');
+			this.message = build.ui.form.Div.create();
 			this.username = build.ui.form.Text.create();
 			this.username.placeholder('Username');
 			this.password = build.ui.form.Password.create();
@@ -14,6 +15,7 @@ Build('build.ui.authentication.LoginForm', [ 'build::build.ui.form.Form', 'build
 			this.authenticationServiceConnection = authenticationServiceConnection;
 			this.parent = parent;
 
+			this.addChild(this.message);
 			this.addChild(build.ui.form.FormControl.create(build.ui.form.Label.create('Username'), this.username));
 			this.addChild(build.ui.form.FormControl.create(build.ui.form.Label.create('Password'), this.password));
 			this.addChild(this.submit);
@@ -36,6 +38,7 @@ Build('build.ui.authentication.LoginForm', [ 'build::build.ui.form.Form', 'build
 				// model.password = this.password.text();
 			},
 			clear : function() {
+				this.message.text('');
 				this.username.text('');
 				this.password.text('');
 			},
@@ -46,6 +49,7 @@ Build('build.ui.authentication.LoginForm', [ 'build::build.ui.form.Form', 'build
 						safe(this.parent.loginSuccess)(data, request);
 						safe(success)(data, request);
 					} else {
+						this.message.text(data.message);
 						console.log('not logged in');
 					}
 				}.bind(this), function(request) {

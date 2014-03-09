@@ -34,6 +34,7 @@ module.exports = function(Build) {
 							} else {
 								request.session.user = undefined;
 								data.success = false;
+								data.message = 'Username or password is incorrect.';
 							}
 							data.user = user;
 							output(data);
