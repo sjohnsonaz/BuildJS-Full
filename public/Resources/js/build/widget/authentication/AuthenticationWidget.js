@@ -1,10 +1,10 @@
-Build('build.ui.authentication.AuthenticationWidget', [ 'build::build.ui.SwitcherPanel', 'build::build.ui.authentication.LoginForm', 'build::build.ui.authentication.LogoutForm' ], function(define, $super, merge) {
+Build('build.widget.authentication.AuthenticationWidget', [ 'build::build.ui.SwitcherPanel', 'build::build.widget.authentication.LoginForm', 'build::build.widget.authentication.LogoutForm' ], function(define, $super, merge) {
 	define({
 		$extends : 'build.ui.SwitcherPanel',
 		$constructor : function(authenticationServiceConnection) {
 			$super(this)();
-			this.loginForm = build.ui.authentication.LoginForm.create(authenticationServiceConnection, this);
-			this.logoutForm = build.ui.authentication.LogoutForm.create(authenticationServiceConnection, this);
+			this.loginForm = build.widget.authentication.LoginForm.create(authenticationServiceConnection, this);
+			this.logoutForm = build.widget.authentication.LogoutForm.create(authenticationServiceConnection, this);
 			this.addChild(this.loginForm);
 			this.addChild(this.logoutForm);
 			this.loginSuccess = function(data, request) {

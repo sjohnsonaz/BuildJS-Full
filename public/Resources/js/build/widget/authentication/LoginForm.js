@@ -1,4 +1,4 @@
-Build('build.ui.authentication.LoginForm', [ 'build::build.ui.form.Form', 'build::build.ui.form.Div', 'build::build.ui.form.Text', 'build::build.ui.form.Password', 'build::build.ui.form.Submit', 'build::build.ui.form.FormControl',
+Build('build.widget.authentication.LoginForm', [ 'build::build.ui.form.Form', 'build::build.ui.form.Div', 'build::build.ui.form.Text', 'build::build.ui.form.Password', 'build::build.ui.form.Submit', 'build::build.ui.form.FormControl',
 		'build::build.ui.form.Label' ], function(define, $super, merge, safe) {
 	define({
 		$extends : 'build.ui.form.Form',
