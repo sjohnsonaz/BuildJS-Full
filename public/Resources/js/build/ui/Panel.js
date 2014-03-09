@@ -20,7 +20,7 @@ Build('build.ui.Panel', [ 'build::build.ui.Widget' ], function(define, $super) {
 				this.children.push(child);
 			},
 			removeChild : function(child) {
-				this.children.splice(array.indexOf(child), 1);
+				this.children.splice(this.children.indexOf(child), 1);
 			}
 		}
 	});

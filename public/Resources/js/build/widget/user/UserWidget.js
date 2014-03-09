@@ -7,6 +7,15 @@ Build('build.widget.user.UserWidget', [ 'build::build.ui.SwitcherPanel', 'build:
 			this.userServiceConnection = userServiceConnection || new build.service.UserServiceConnection();
 			this.userListForm = build.widget.user.UserListForm.create(this.userServiceConnection);
 			this.addChild(this.userListForm);
+		},
+		$prototype : {
+			list : function() {
+				this.userServiceConnection.get(undefined, function(data, request) {
+					this.userListForm.model(data);
+				}.bind(this), function(request) {
+
+				}.bind(this));
+			}
 		}
 	});
 });

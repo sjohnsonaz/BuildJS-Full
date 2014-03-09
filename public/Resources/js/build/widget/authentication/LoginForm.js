@@ -2,7 +2,7 @@ Build('build.widget.authentication.LoginForm', [ 'build::build.ui.form.Form', 'b
 		'build::build.ui.form.Label' ], function(define, $super, merge, safe) {
 	define({
 		$extends : 'build.ui.form.Form',
-		$constructor : function(authenticationServiceConnection, parent) {
+		$constructor : function(authenticationServiceConnection) {
 			$super(this)();
 			this.method('POST');
 			this.action('#');
@@ -13,7 +13,6 @@ Build('build.widget.authentication.LoginForm', [ 'build::build.ui.form.Form', 'b
 			this.password.placeholder('Password');
 			this.submit = build.ui.form.Submit.create('Login');
 			this.authenticationServiceConnection = authenticationServiceConnection;
-			this.parent = parent;
 
 			this.addChild(this.message);
 			this.addChild(build.ui.form.FormControl.create(build.ui.form.Label.create('Username'), this.username));
@@ -46,7 +45,7 @@ Build('build.widget.authentication.LoginForm', [ 'build::build.ui.form.Form', 'b
 				this.authenticationServiceConnection.login(this.username.text(), this.password.text(), function(data, request) {
 					console.log(data);
 					if (data.success) {
-						safe(this.parent.loginSuccess)(data, request);
+						this.runCallbacks('loginSuccess', data, request);
 						safe(success)(data, request);
 					} else {
 						this.message.text(data.message);

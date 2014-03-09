@@ -7,11 +7,6 @@ Build('build.widget.user.UserListForm', [ 'build::build.ui.form.Form', 'build::b
 			this.userTable.headers([ 'Username', 'First Name', 'Last Name' ]);
 			this.addChild(this.userTable);
 			this.userServiceConnection = userServiceConnection;
-			this.userServiceConnection.get(undefined, function(data, request) {
-				this.model(data);
-			}.bind(this), function(request) {
-
-			}.bind(this));
 		},
 		$prototype : {
 			wrap : function(model) {
