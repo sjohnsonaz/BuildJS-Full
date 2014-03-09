@@ -42,8 +42,12 @@ Build('build.ui.authentication.LoginForm', [ 'build::build.ui.form.Form', 'build
 			login : function(success, error) {
 				this.authenticationServiceConnection.login(this.username.text(), this.password.text(), function(data, request) {
 					console.log(data);
-					safe(this.parent.loginSuccess)(data, request);
-					safe(success)(data, request);
+					if (data.success) {
+						safe(this.parent.loginSuccess)(data, request);
+						safe(success)(data, request);
+					} else {
+						console.log('not logged in');
+					}
 				}.bind(this), function(request) {
 					safe(error)(data, request);
 				}.bind(this));

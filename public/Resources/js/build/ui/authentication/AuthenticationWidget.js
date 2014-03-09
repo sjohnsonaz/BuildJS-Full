@@ -9,8 +9,8 @@ Build('build.ui.authentication.AuthenticationWidget', [ 'build::build.ui.Switche
 			this.addChild(this.logoutForm);
 			this.loginSuccess = function(data, request) {
 				this.logoutForm.model(data.user);
-				this.active(1);
 				this.loginForm.model(null);
+				this.active(1);
 			}.bind(this);
 			this.logoutSuccess = function(data, request) {
 				this.loginForm.model(null);

@@ -24,11 +24,10 @@ module.exports = function(Build) {
 					permission : null,
 					restful : true,
 					method : function(request, response, output) {
-						console.log(request.body);
-						var data = {};
 						this.userModel.model.findOne({
 							username : request.body.username
 						}, function(err, user) {
+							var data = {};
 							if (user && user.password == request.body.password) {
 								data.success = true;
 								request.session.user = user;
