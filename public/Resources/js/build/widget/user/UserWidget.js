@@ -5,7 +5,7 @@ Build('build.widget.user.UserWidget', [ 'build::build.ui.SwitcherPanel', 'build:
 		$constructor : function(userServiceConnection) {
 			$super(this)();
 			this.userServiceConnection = userServiceConnection || new build.service.UserServiceConnection();
-			this.userListForm = build.widget.user.UserListForm.create(userServiceConnection);
+			this.userListForm = build.widget.user.UserListForm.create(this.userServiceConnection);
 			this.addChild(this.userListForm);
 		}
 	});

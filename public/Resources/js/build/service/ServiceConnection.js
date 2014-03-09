@@ -166,7 +166,9 @@ build.service.ServiceConnection = (function() {
 			var request = '';
 			for ( var index in query) {
 				if (query.hasOwnProperty(index)) {
-					request += (request ? '&' : '?') + index + '=' + query[index];
+					if (query[index]) {
+						request += (request ? '&' : '?') + index + '=' + query[index];
+					}
 				}
 			}
 			output += request;
