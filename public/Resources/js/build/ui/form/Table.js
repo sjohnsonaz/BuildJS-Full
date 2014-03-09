@@ -28,6 +28,7 @@ Build('build.ui.form.Table', [ 'build::build.ui.form.FormElement' ], function(de
 
 				var td = document.createElement('td');
 				td.dataset.bind = 'element: $data';
+				tr.appendChild(td);
 
 				this.element.appendChild(thead);
 				this.element.appendChild(tbody);

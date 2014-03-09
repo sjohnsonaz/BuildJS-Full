@@ -20,8 +20,12 @@ Build('build.ui.Widget', [ 'build::build.ui.Module' ], function(define, $super, 
 				element.removeChild(element.lastChild);
 			}
 			if (child) {
-				child = child.element || child;
-				element.appendChild(child);
+				if (typeof child === 'string') {
+					element.innerHTML = child;
+				} else {
+					child = child.element || child;
+					element.appendChild(child);
+				}
 			}
 		}
 	};
