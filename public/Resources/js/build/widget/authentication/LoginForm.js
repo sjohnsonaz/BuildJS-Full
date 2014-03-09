@@ -24,6 +24,9 @@ Build('build.widget.authentication.LoginForm', [ 'build::build.ui.form.Form', 'b
 				$super().build(this)();
 				this.addEvent('submit', function(form, event) {
 					event.preventDefault();
+					// Force update for saved passwords.
+					this.username.text(this.username.element.value);
+					this.password.text(this.password.element.value);
 					this.login();
 					return false;
 				}, false, this);
