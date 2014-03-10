@@ -15,7 +15,7 @@ Build('build.widget.authentication.LogoutForm', [ 'build::build.ui.form.Form', '
 		$prototype : {
 			build : function() {
 				$super().build(this)();
-				this.addEvent('submit', function() {
+				this.addEvent('submit', function(form, event) {
 					event.preventDefault();
 					this.logout();
 					return false;
