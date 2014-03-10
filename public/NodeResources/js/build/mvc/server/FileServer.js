@@ -13,8 +13,8 @@ module.exports = function(Build) {
 				this.system.config = config;
 
 				app.configure(function() {
-					app.use(config.staticDirectory, express.compress());
-					for ( var index = 0, length = config.staticPaths.length; index < length; index++) {
+					app.use(express.compress());
+					for (var index = 0, length = config.staticPaths.length; index < length; index++) {
 						var staticPath = config.staticPaths[index];
 						app.use(staticPath.virtual, express.static(staticPath.local, {
 							maxAge : 86400000
