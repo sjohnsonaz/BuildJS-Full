@@ -336,16 +336,26 @@ var Build = build.Build = (function() {
 		}
 	}
 	function onload(callback) {
-		if (typeof (jQuery) != 'undefined') {
-			jQuery(callback);
+		if (onload.queue) {
+			onload.queue.add(callback);
 		} else {
-			if (onload.queue) {
-				onload.queue.add(callback);
-			} else {
-				onload.queue = new CallbackQueue();
-				onload.queue.add(callback);
-				switch (environment.name) {
-				case 'browser':
+			onload.queue = new CallbackQueue();
+			onload.queue.add(callback);
+			switch (environment.name) {
+			case 'browser':
+				if (typeof (jQuery) != 'undefined') {
+					jQuery(function() {
+						loaded = true;
+						var preLoadingNames = Object.keys(preLoading);
+						if (preLoadingNames.length) {
+							load(preLoadingNames, function() {
+								compile();
+							});
+						} else {
+							compile();
+						}
+					});
+				} else {
 					window.addEventListener('load', function() {
 						loaded = true;
 						var preLoadingNames = Object.keys(preLoading);
@@ -357,13 +367,13 @@ var Build = build.Build = (function() {
 							compile();
 						}
 					}, false);
-					break;
-				case 'node':
-					compile();
-					break;
 				}
-
+				break;
+			case 'node':
+				compile();
+				break;
 			}
+
 		}
 	}
 	onload.queue = null;
