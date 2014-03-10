@@ -23,6 +23,13 @@ Build('build.service.AuthenticationServiceConnection', [ 'build::build.service.S
 				action : function(success, error) {
 				}
 			});
+			this.addRoute({
+				name : 'user',
+				url : '/user',
+				verb : 'GET',
+				action : function(success, error) {
+				}
+			});
 		}
 	});
 });

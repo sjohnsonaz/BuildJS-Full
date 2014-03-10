@@ -7,6 +7,20 @@ Build('build.widget.authentication.AuthenticationWidget', [ 'build::build.ui.Swi
 			this.logoutForm = build.widget.authentication.LogoutForm.create(authenticationServiceConnection);
 			this.addChild(this.loginForm);
 			this.addChild(this.logoutForm);
+			this.authenticationServiceConnection = authenticationServiceConnection;
+			this.getUser = function(success, error) {
+				this.authenticationServiceConnection.user(function(data, request) {
+					if (data.user) {
+						this.logoutForm.model(data.user);
+						this.loginForm.model(null);
+						this.active(1);
+						this.runCallbacks('loginSuccess', data, request);
+					}
+				}.bind(this), error);
+			};
+			this.init = function() {
+				this.getUser();
+			};
 			this.loginForm.addCallback('loginSuccess', function(data, request) {
 				this.logoutForm.model(data.user);
 				this.loginForm.model(null);
