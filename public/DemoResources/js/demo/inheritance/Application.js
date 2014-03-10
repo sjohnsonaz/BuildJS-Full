@@ -2,8 +2,8 @@ Build.paths.main = '/Resources/js/';
 Build.paths.build = '/Resources/js/';
 Build.paths.demo = '/DemoResources/js/';
 
-Build('demo.inheritance.Application', [ 'build::build.ui.Application', 'build::build.ui.form.Header1', 'build::build.ui.tab.TabContainer', 'build::build.ui.tab.TabPanel', 'build::build.ui.authentication.LoginForm', 'demo::demo.ui.form.WidgetForm',
-		'demo::demo.ui.form.TestForm', 'demo::demo.service.TestServiceConnection' ], function(define, $super) {
+Build('demo.inheritance.Application', [ 'build::build.ui.Application', 'build::build.ui.form.Header1', 'build::build.ui.tab.TabContainer', 'build::build.ui.tab.TabPanel', 'build::build.widget.authentication.AuthenticationWidget',
+		'demo::demo.ui.form.WidgetForm', 'demo::demo.ui.form.TestForm', 'build::build.service.AuthenticationServiceConnection', 'demo::demo.service.TestServiceConnection' ], function(define, $super) {
 	define({
 		$extends : 'build.ui.Application',
 		$constructor : function() {
@@ -13,8 +13,9 @@ Build('demo.inheritance.Application', [ 'build::build.ui.Application', 'build::b
 			var title = build.ui.form.Header1.create('BuildJS');
 			this.addChild(title);
 
-			var loginForm = build.ui.authentication.LoginForm.create();
-			this.addChild(loginForm);
+			this.authenticationServiceConnection = new build.service.AuthenticationServiceConnection();
+			var authenticationWidget = build.widget.authentication.AuthenticationWidget.create(this.authenticationServiceConnection);
+			this.addChild(authenticationWidget);
 
 			// Add tab container
 			var tabContainer = build.ui.tab.TabContainer.create();
