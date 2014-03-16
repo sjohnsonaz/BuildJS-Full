@@ -5,7 +5,14 @@ module.exports = function(Build) {
 			$constructor : function(mongoose) {
 				$super(this)(mongoose);
 				this.schema = new mongoose.Schema({
-					username : String,
+					username : {
+						type : String,
+						lowercase : true,
+						trim : true,
+						required : true,
+						unique : true
+						//validate : [ validators.notEmpty, 'Username is empty' ]
+					},
 					password : String,
 					firstName : String,
 					lastName : String
@@ -16,7 +23,7 @@ module.exports = function(Build) {
 				this.schema.set('autoIndex', false);
 				this.model = mongoose.model('User', this.schema);
 			},
-			$singleton: true
+			$singleton : true
 		});
 	});
 };
