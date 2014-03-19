@@ -189,17 +189,23 @@ var Build = build.Build = (function() {
 			var $constructor;
 			defHandle(function($definition) {
 				var $parent;
-				if (definitions[$definition.$extends]) {
-					$parent = definitions[$definition.$extends];
-				} else {
-					compileClass($definition.$extends);
-					$parent = definitions[$definition.$extends];
+				if ($definition.$extends) {
+					if (typeof $definition.$extends === 'object') {
+						$parent = $definition.$extends;
+					} else if (definitions[$definition.$extends]) {
+						$parent = definitions[$definition.$extends];
+					} else {
+						compileClass($definition.$extends);
+						$parent = definitions[$definition.$extends];
+					}
 				}
 				$constructor = assemble($name, $definition.$constructor, $definition.$prototype, $definition.$static, $parent, $definition.$singleton);
 			}, function(scope) {
 				if (scope) {
 					return function() {
-						$constructor.$parent.apply(scope, Array.prototype.slice.call(arguments));
+						if ($constructor.$parent) {
+							$constructor.$parent.apply(scope, Array.prototype.slice.call(arguments));
+						}
 					};
 				} else {
 					return $constructor.$super;
