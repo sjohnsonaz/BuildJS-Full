@@ -1,4 +1,5 @@
 @import "grid.less";
+@import "input.less";
 .build-ui-Application {
     &:extend(.container);
     & > div {
@@ -21,6 +22,7 @@
         &:extend(.span6);
     }
 }
+.button-group(build-ui-form-ButtonGroup, build-ui-form-Button);
 
 .build-ui-form-ButtonGroup:extend(.button-group all) {}
 .build-ui-form-Button:extend(.button all) {}
