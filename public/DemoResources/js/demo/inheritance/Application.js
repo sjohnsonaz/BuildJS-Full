@@ -8,14 +8,25 @@ Build('demo.inheritance.Application', [ 'build::build.ui.Application', 'build::b
 		$extends : 'build.ui.Application',
 		$constructor : function() {
 			$super(this)();
+			this.user = undefined;
 
 			// Add title
 			var title = build.ui.form.Header1.create('BuildJS');
 			this.addChild(title);
 
 			this.authenticationServiceConnection = new build.service.AuthenticationServiceConnection();
-			var authenticationWidget = build.widget.authentication.AuthenticationWidget.create(this.authenticationServiceConnection);
-			this.addChild(authenticationWidget);
+			this.authenticationWidget = build.widget.authentication.AuthenticationWidget.create(this.authenticationServiceConnection);
+			this.addChild(this.authenticationWidget);
+			this.authenticationWidget.addCallback('loginSuccess', function(data, request) {
+				this.user = data.user;
+				this.addChild(this.userWidget);
+				this.userWidget.list();
+			}.bind(this));
+			this.authenticationWidget.addCallback('logoutSuccess', function(data, request) {
+				this.user = undefined;
+				this.removeChild(this.userWidget);
+			}.bind(this));
+			this.authenticationWidget.init();
 
 			// Add tab container
 			var tabContainer = build.ui.tab.TabContainer.create();
