@@ -22,9 +22,11 @@
         &:extend(.span6);
     }
 }
-.button-group(build-ui-form-ButtonGroup, build-ui-form-Button);
 
-.build-ui-form-ButtonGroup:extend(.button-group all) {}
+.build-ui-form-ButtonGroup {
+    .button-group;
+}
+
 .build-ui-form-Button:extend(.button all) {}
 .build-ui-form-Button:extend(.build-ui-form-ButtonGroup .button all) {}
 .demo-inheritance-Application:extend(.build-ui-Application all) {}

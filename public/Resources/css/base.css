@@ -784,6 +784,45 @@ input[type="button"]:focus,
   border-color: #777777;
   box-shadow: 0px 0px 6px 0px #000033;
 }
+.button-group {
+  display: inline-block;
+  margin: 2px;
+  padding: 0px;
+  display: block;
+  zoom: 1;
+}
+.button-group:after {
+  display: table;
+  content: '';
+  clear: both;
+}
+.button-group > * {
+  display: block;
+  float: left;
+  margin: 0px;
+  border-right-width: 0px;
+  -moz-border-radius: 0px;
+  border-radius: 0px;
+}
+.button-group > *:focus {
+  outline: none;
+  background-color: #cccccc;
+  border-color: #aaaaaa;
+  box-shadow: inherit;
+}
+.button-group > *:first-child {
+  -moz-border-radius-topleft: 5px;
+  border-top-left-radius: 5px;
+  -moz-border-radius-bottomleft: 5px;
+  border-bottom-left-radius: 5px;
+}
+.button-group > *:last-child {
+  border-right-width: 1px;
+  -moz-border-radius-topright: 5px;
+  border-top-right-radius: 5px;
+  -moz-border-radius-bottomright: 5px;
+  border-bottom-right-radius: 5px;
+}
 .text,
 .password {
   margin: 2px;
@@ -952,7 +991,7 @@ fieldset {
   content: '';
   clear: both;
 }
-.build-ui-form-ButtonGroup > .build-ui-form-Button {
+.build-ui-form-ButtonGroup > * {
   display: block;
   float: left;
   margin: 0px;
@@ -960,19 +999,19 @@ fieldset {
   -moz-border-radius: 0px;
   border-radius: 0px;
 }
-.build-ui-form-ButtonGroup > .build-ui-form-Button:focus {
+.build-ui-form-ButtonGroup > *:focus {
   outline: none;
   background-color: #cccccc;
   border-color: #aaaaaa;
   box-shadow: inherit;
 }
-.build-ui-form-ButtonGroup > .build-ui-form-Button:first-child {
+.build-ui-form-ButtonGroup > *:first-child {
   -moz-border-radius-topleft: 5px;
   border-top-left-radius: 5px;
   -moz-border-radius-bottomleft: 5px;
   border-bottom-left-radius: 5px;
 }
-.build-ui-form-ButtonGroup > .build-ui-form-Button:last-child {
+.build-ui-form-ButtonGroup > *:last-child {
   border-right-width: 1px;
   -moz-border-radius-topright: 5px;
   border-top-right-radius: 5px;

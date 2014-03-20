@@ -39,28 +39,26 @@
     .focus();
 }
 
-.button-group(@group, @button) {
-    .@{group} {
-        display: inline-block;
-        margin: @input-margin;
-        padding: 0px;
-        .clearfix;
-        & > .@{button} {
-            display: block;
-            .pull-left;
-            margin:0px;
-            border-right-width: 0px;
-            .border-radius(0px);
-            .focus-tight();
-            &:first-child {
-                .border-top-left-radius(@input-border-radius);
-                .border-bottom-left-radius(@input-border-radius);
-            }
-            &:last-child {
-                border-right-width: @input-border-width;
-                .border-top-right-radius(@input-border-radius);
-                .border-bottom-right-radius(@input-border-radius);
-            }
+.button-group {
+    display: inline-block;
+    margin: @input-margin;
+    padding: 0px;
+    .clearfix;
+    & > * {
+        display: block;
+        .pull-left;
+        margin:0px;
+        border-right-width: 0px;
+        .border-radius(0px);
+        .focus-tight();
+        &:first-child {
+            .border-top-left-radius(@input-border-radius);
+            .border-bottom-left-radius(@input-border-radius);
+        }
+        &:last-child {
+            border-right-width: @input-border-width;
+            .border-top-right-radius(@input-border-radius);
+            .border-bottom-right-radius(@input-border-radius);
         }
     }
 }
