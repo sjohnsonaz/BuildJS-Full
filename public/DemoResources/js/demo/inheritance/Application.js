@@ -20,7 +20,6 @@ Build('demo.inheritance.Application', [ 'build::build.ui.Application', 'build::b
 			this.authenticationWidget.addCallback('loginSuccess', function(data, request) {
 				this.user = data.user;
 				this.addChild(this.userWidget);
-				this.userWidget.list();
 			}.bind(this));
 			this.authenticationWidget.addCallback('logoutSuccess', function(data, request) {
 				this.user = undefined;

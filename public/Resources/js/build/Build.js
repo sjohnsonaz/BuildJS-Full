@@ -119,6 +119,12 @@ var Build = build.Build = (function() {
 			copyNoReplace($child.prototype, $prototype);
 		}
 	}
+	function base($constructor, $base) {
+		return function() {
+			var base = $base.apply(this, arguments);
+			$constructor.apply(base, arguments);
+		};
+	}
 	function singleton($constructor) {
 		var result = undefined;
 		return function() {
@@ -134,7 +140,9 @@ var Build = build.Build = (function() {
 		};
 	}
 	var definitions = {};
-	function assemble($name, $constructor, $prototype, $static, $parent, $singleton) {
+	function assemble($name, $constructor, $prototype, $static, $parent, $singleton, $base) {
+		$constructor = $base ? base($constructor, $base) : $constructor;
+
 		$constructor = $singleton ? singleton($constructor) : $constructor;
 
 		copyNoReplace($constructor, $static);
@@ -198,8 +206,9 @@ var Build = build.Build = (function() {
 						compileClass($definition.$extends);
 						$parent = definitions[$definition.$extends];
 					}
+					$definition.$base = $definition.$base || $parent.$base;
 				}
-				$constructor = assemble($name, $definition.$constructor, $definition.$prototype, $definition.$static, $parent, $definition.$singleton);
+				$constructor = assemble($name, $definition.$constructor, $definition.$prototype, $definition.$static, $parent, $definition.$singleton, $definition.$base);
 			}, function(scope) {
 				if (scope) {
 					return function() {
