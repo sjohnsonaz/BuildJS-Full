@@ -6,6 +6,15 @@ Build('build.widget.user.UserWidget', [ 'build::build.ui.SwitcherPanel', 'build:
 			$super(this)();
 			this.userServiceConnection = userServiceConnection || new build.service.UserServiceConnection();
 			this.userListForm = build.widget.user.UserListForm.create(this.userServiceConnection);
+			this.userListForm.addCallback('viewUser', function(user) {
+				console.log(user);
+			});	
+			this.userListForm.addCallback('editUser', function(user) {
+				console.log(user);
+			});	
+			this.userListForm.addCallback('deleteUser', function(user) {
+				console.log(user);
+			});	
 			this.addChild(this.userListForm);
 		},
 		$prototype : {

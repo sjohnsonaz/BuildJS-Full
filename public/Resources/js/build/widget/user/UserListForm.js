@@ -9,6 +9,9 @@ Build('build.widget.user.UserListForm', [ 'build::build.ui.form.Form', 'build::b
 			this.userServiceConnection = userServiceConnection;
 		},
 		$prototype : {
+			build : function() {
+				$super().build(this)();
+			},
 			wrap : function(model) {
 				this.userTable.rows.removeAll();
 				for (var index = 0, length = model.length; index < length; index++) {
@@ -17,6 +20,23 @@ Build('build.widget.user.UserListForm', [ 'build::build.ui.form.Form', 'build::b
 					var editUserButton = build.ui.form.Button.create('Edit');
 					var deleteUserButton = build.ui.form.Button.create('Delete');
 					var buttonGroup = build.ui.form.ButtonGroup.create();
+					(function(user) {
+						viewUserButton.addEvent('click', function(button, event) {
+							event.preventDefault();
+							this.viewUser(user);
+							return false;
+						}, false, this);
+						editUserButton.addEvent('click', function(button, event) {
+							event.preventDefault();
+							this.editUser(user);
+							return false;
+						}, false, this);
+						deleteUserButton.addEvent('click', function(button, event) {
+							event.preventDefault();
+							this.deleteUser(user);
+							return false;
+						}, false, this);
+					}.bind(this))(user);
 					buttonGroup.addChild(viewUserButton);
 					buttonGroup.addChild(editUserButton);
 					buttonGroup.addChild(deleteUserButton);
@@ -27,6 +47,15 @@ Build('build.widget.user.UserListForm', [ 'build::build.ui.form.Form', 'build::b
 			},
 			clear : function() {
 				this.userTable.rows.removeAll();
+			},
+			viewUser : function(user) {
+				this.runCallbacks('viewUser', user);
+			},
+			editUser : function(user) {
+				this.runCallbacks('editUser', user);
+			},
+			deleteUser : function(user) {
+				this.runCallbacks('deleteUser', user);
 			}
 		}
 	});
