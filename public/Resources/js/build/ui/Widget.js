@@ -196,7 +196,7 @@ Build('build.ui.Widget', [ 'build::build.ui.Module' ], function(define, $super, 
 			},
 			addEvent : function(type, listener, useCapture, bind) {
 				if (bind) {
-					this.element.addEventListener(type, listener.bind(this, this.element), useCapture);
+					this.element.addEventListener(type, listener.bind(bind, this.element), useCapture);
 				} else {
 					this.element.addEventListener(type, listener, useCapture);
 				}
