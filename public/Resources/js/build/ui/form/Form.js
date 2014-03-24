@@ -34,6 +34,12 @@ Build('build.ui.form.Form', [ 'build::build.ui.Panel' ], function(define, $super
 					}
 				});
 			},
+			preventSubmit : function() {
+				this.element.addEventListener('submit', function(event) {
+					event.preventDefault();
+					return false;
+				});
+			},
 			wrap : function(model) {
 			},
 			unwrap : function(model) {
