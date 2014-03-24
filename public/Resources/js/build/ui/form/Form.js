@@ -10,7 +10,9 @@ Build('build.ui.form.Form', [ 'build::build.ui.Panel' ], function(define, $super
 			this.model = ko.computed({
 				read : function() {
 					model = modelHidden();
-					this.unwrap(model || {});
+					if (model) {
+						this.unwrap(model || {});
+					}
 					return model;
 				},
 				write : function(value) {
