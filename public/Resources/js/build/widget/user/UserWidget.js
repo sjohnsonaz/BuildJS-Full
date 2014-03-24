@@ -26,11 +26,13 @@ Build('build.widget.user.UserWidget', [ 'build::build.ui.SwitcherPanel', 'build:
 				this.user = null;
 				this.userEditForm.model(null);
 				this.active(0);
+				this.list();
 			}.bind(this));
 			this.userEditForm.addCallback('cancelUser', function(user) {
 				this.user = null;
 				this.userEditForm.model(null);
 				this.active(0);
+				this.list();
 			}.bind(this));
 			this.addChild(this.userEditForm);
 		},

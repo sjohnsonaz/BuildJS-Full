@@ -19,6 +19,19 @@ Build('build.service.UserServiceConnection', [ 'build::build.service.ServiceConn
 					};
 				}
 			});
+			this.addRoute({
+				name : 'put',
+				verb : 'PUT',
+				action : function(_id, user, success, error) {
+					return {
+						query : {
+							id : _id
+						},
+						data : user
+					};
+				}
+			});
+
 		}
 	});
 });

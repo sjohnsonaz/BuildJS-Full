@@ -56,10 +56,10 @@ Build('build.widget.user.UserEditForm', [ 'build::build.ui.form.Form', 'build::b
 				this.password.text(model.password);
 			},
 			unwrap : function(model) {
-				// model.username = this.username.text();
-				// model.firstName = this.firstName.text();
-				// model.lastName = this.lastName.text();
-				// model.password = this.password.text();
+				model.username = this.username.text();
+				model.firstName = this.firstName.text();
+				model.lastName = this.lastName.text();
+				model.password = this.password.text();
 			},
 			clear : function() {
 				this.message.text('');
@@ -70,7 +70,7 @@ Build('build.widget.user.UserEditForm', [ 'build::build.ui.form.Form', 'build::b
 			},
 			saveUser : function(success, error) {
 				// Change to PUT if editing, POST if creating.
-				this.userServiceConnection.post(this.model(), function(data, request) {
+				this.userServiceConnection.put(this.model()._id, this.model(), function(data, request) {
 					console.log(data);
 					if (data.error) {
 						this.message.text(data.message);
