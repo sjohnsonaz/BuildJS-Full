@@ -8,6 +8,7 @@ Build('build.ui.form.Button', [ 'build::build.ui.form.FormElement' ], function(d
 		},
 		$prototype : {
 			build : function() {
+				this.element.type = 'button';
 				ko.applyBindingsToNode(this.element, {
 					text : this.text
 				});
