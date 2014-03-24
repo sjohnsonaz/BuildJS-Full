@@ -22,6 +22,16 @@ Build('build.widget.user.UserWidget', [ 'build::build.ui.SwitcherPanel', 'build:
 			this.addChild(this.userListForm);
 
 			this.userEditForm = build.widget.user.UserEditForm.create(this.userServiceConnection);
+			this.userEditForm.addCallback('saveUser', function(user) {
+				this.user = null;
+				this.userEditForm.model(null);
+				this.active(0);
+			}.bind(this));
+			this.userEditForm.addCallback('cancelUser', function(user) {
+				this.user = null;
+				this.userEditForm.model(null);
+				this.active(0);
+			}.bind(this));
 			this.addChild(this.userEditForm);
 		},
 		$prototype : {

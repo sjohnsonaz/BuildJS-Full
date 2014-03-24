@@ -14,7 +14,9 @@ Build('build.service.UserServiceConnection', [ 'build::build.service.ServiceConn
 				name : 'post',
 				verb : 'POST',
 				action : function(user, success, error) {
-					return user;
+					return {
+						data : user
+					};
 				}
 			});
 		}
