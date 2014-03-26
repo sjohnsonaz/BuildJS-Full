@@ -1,5 +1,5 @@
 Build('demo.ui.form.WidgetForm', [ 'build::build.ui.form.Form', 'build::build.ui.form.Button', 'build::build.ui.form.ButtonGroup', 'build::build.ui.form.Header1', 'build::build.ui.form.Paragraph', 'build::build.ui.form.FieldSet',
-		'build::build.ui.form.FormControl', 'build::build.ui.form.Label', 'build::build.ui.form.Text', 'build::build.ui.form.TextArea', 'demo::demo.singleton.SingletonTest', 'demo::demo.alternatebase.ArrayBase' ], function(define, $super, merge) {
+		'build::build.ui.form.FormControl', 'build::build.ui.form.Label', 'build::build.ui.form.Text', 'build::build.ui.form.TextArea', 'demo::demo.singleton.SingletonTest', 'demo::demo.alternatebase.ArrayChild' ], function(define, $super, merge) {
 	define({
 		$extends : 'build.ui.form.Form',
 		$constructor : function() {
@@ -16,11 +16,16 @@ Build('demo.ui.form.WidgetForm', [ 'build::build.ui.form.Form', 'build::build.ui
 
 			this.addChild(build.ui.form.Paragraph.create(new demo.singleton.SingletonTest().data));
 			this.addChild(build.ui.form.Paragraph.create(new demo.singleton.SingletonTest().data));
-			this.addChild(build.ui.form.Paragraph.create(new demo.alternatebase.ArrayBase().toString()));
+			arrayBase = new demo.alternatebase.ArrayBase();
+			arrayChild = new demo.alternatebase.ArrayChild();
+			this.addChild(build.ui.form.Paragraph.create(arrayChild.toString()));
 
 			var fieldSet = build.ui.form.FieldSet.create('Text Field FieldSet');
 			var text = build.ui.form.Text.create();
 			text.placeholder('Text');
+			text.subscribe(function(value) {
+				console.log('Entered value: ' + value);
+			});
 			fieldSet.addChild(build.ui.form.FormControl.create(build.ui.form.Label.create('Text Field'), text));
 
 			this.wrap = function(model) {

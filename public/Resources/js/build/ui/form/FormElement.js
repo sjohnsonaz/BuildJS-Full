@@ -1,22 +1,23 @@
-Build('build.ui.form.FormElement', [ 'build::build.ui.Widget' ], function(define, $super) {
+Build('build.ui.form.FormElement', [ 'build::build.ui.element.Element' ], function(define, $super) {
 	define({
-		$extends : 'build.ui.Widget',
+		$extends : 'build.ui.element.Element',
 		$constructor : function() {
 			$super(this)();
 		},
 		$prototype : {
 			build : function() {
-				Object.defineProperty(this.element, 'val', {
+				Object.defineProperty(this, 'value', {
 					get : function() {
-						return this.value;
+						return this.element.value;
 					},
 					set : function(value) {
-						this.value = value;
+						this.element.value = value;
+						this.publish(value);
 					}
 				});
 				this.element.addEventListener('change', function() {
-					this.val = this.value;
-				});
+					this.value = this.element.value;
+				}.bind(this));
 			}
 		}
 	});

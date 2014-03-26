@@ -4,22 +4,14 @@ Build('build.ui.form.Text', [ 'build::build.ui.form.FormElement' ], function(def
 		$constructor : function(text) {
 			$super(this)(text);
 			this.type = 'input';
-			this.text = ko.observable(text || '');
-			this.placeholder = ko.observable('');
-			this.name = ko.observable('');
+			this.watchProperty('text', 'value');
+			this.watchAttribute('placeholder');
+			this.watchAttribute('name');
 		},
 		$prototype : {
 			build : function() {
+				$super().build(this)();
 				this.element.type = 'text';
-				ko.applyBindingsToNode(this.element, {
-					value : this.text
-				});
-				ko.applyBindingsToNode(this.element, {
-					attr : {
-						'placeholder' : this.placeholder,
-						'name' : this.name
-					}
-				});
 			}
 		}
 	});

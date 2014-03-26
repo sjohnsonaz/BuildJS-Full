@@ -123,6 +123,7 @@ var Build = build.Build = (function() {
 		return function() {
 			var base = $base.apply(this, arguments);
 			$constructor.apply(base, arguments);
+			return base;
 		};
 	}
 	function singleton($constructor) {
@@ -150,6 +151,7 @@ var Build = build.Build = (function() {
 		inherit($constructor, $parent, $prototype);
 
 		$constructor.$name = $name;
+		$constructor.$base = $base;
 
 		definitions[$name] = $constructor;
 		namespace($name, $constructor);
@@ -206,6 +208,8 @@ var Build = build.Build = (function() {
 						compileClass($definition.$extends);
 						$parent = definitions[$definition.$extends];
 					}
+				}
+				if ($parent && $parent.$base) {
 					$definition.$base = $definition.$base || $parent.$base;
 				}
 				$constructor = assemble($name, $definition.$constructor, $definition.$prototype, $definition.$static, $parent, $definition.$singleton, $definition.$base);

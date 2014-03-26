@@ -8,6 +8,16 @@ Build('build.ui.form.TextArea', [ 'build::build.ui.form.Text' ], function(define
 		$prototype : {
 			build : function() {
 				$super().build(this)();
+				this.element.type = 'text';
+				ko.applyBindingsToNode(this.element, {
+					value : this.text
+				});
+				ko.applyBindingsToNode(this.element, {
+					attr : {
+						'placeholder' : this.placeholder,
+						'name' : this.name
+					}
+				});
 			}
 		}
 	});
