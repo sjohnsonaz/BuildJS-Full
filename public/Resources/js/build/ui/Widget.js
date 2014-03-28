@@ -48,13 +48,15 @@ Build('build.ui.Widget', [ 'build::build.ui.Module', 'build::build.utility.Obser
 				}
 			},
 			childIterator : function(child, index, array) {
-				if (this.directAppend) {
-					this.element.appendChild(child.element || child);
-				} else {
-					var iterator = document.createElement('div');
-					iterator.appendChild(child.element || child);
-					iterator.className = 'panel-iterator';
-					this.element.appendChild(iterator);
+				if (child) {
+					if (this.directAppend) {
+						this.element.appendChild(child.element || child);
+					} else {
+						var iterator = document.createElement('div');
+						iterator.appendChild(child.element || child);
+						iterator.className = 'panel-iterator';
+						this.element.appendChild(iterator);
+					}
 				}
 			},
 			addChild : function(child) {

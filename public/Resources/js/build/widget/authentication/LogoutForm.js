@@ -11,8 +11,8 @@ Build('build.widget.authentication.LogoutForm', [ 'build::build.ui.form.Form', '
 			this.addChild(this.submit);
 		},
 		$prototype : {
-			build : function() {
-				$super().build(this)();
+			init : function() {
+				$super().init(this)();
 				this.method = 'POST';
 				this.action = '#';
 				this.addEvent('submit', function(form, event) {
@@ -28,7 +28,7 @@ Build('build.widget.authentication.LogoutForm', [ 'build::build.ui.form.Form', '
 
 			},
 			clear : function() {
-				this.username.text('');
+				this.username.text = '';
 			},
 			logout : function(success, error) {
 				this.authenticationServiceConnection.logout(function(data, request) {
