@@ -6,16 +6,18 @@ Build('build.ui.form.FormControl', [ 'build::build.ui.form.FormElement' ], funct
 			this.type = 'div';
 			this.watch('label', label, null, function(value) {
 				this.children.set(0, value);
-			});
+			}.bind(this));
 			this.watch('control', control, null, function(value) {
 				this.children.set(1, value);
-			});
+			}.bind(this));
 		},
 		$prototype : {
 			init : function(label, control) {
 				$super().init(this)();
+				this.label = label;
+				this.control = control;
 				label.control = control;
-			},
+			}/*,
 			refreshChildren : function() {
 				var element = this.element;
 				while (element.firstChild) {
@@ -32,7 +34,7 @@ Build('build.ui.form.FormControl', [ 'build::build.ui.form.FormElement' ], funct
 					controlDiv.appendChild(this.control.element || this.control);
 					this.element.appendChild(controlDiv);
 				}
-			}
+			}*/
 		}
 	});
 });

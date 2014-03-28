@@ -26,8 +26,8 @@ Build('build.widget.authentication.LoginForm', [ 'build::build.ui.form.Form', 'b
 				this.addEvent('submit', function(form, event) {
 					event.preventDefault();
 					// Force update for saved passwords.
-					this.username.text(this.username.element.value);
-					this.password.text(this.password.element.value);
+					//this.username.text = this.username.element.value;
+					//this.password.text = this.password.element.value;
 					this.login();
 					return false;
 				}, false, this);
@@ -46,13 +46,13 @@ Build('build.widget.authentication.LoginForm', [ 'build::build.ui.form.Form', 'b
 				this.password.text = '';
 			},
 			login : function(success, error) {
-				this.authenticationServiceConnection.login(this.username.text(), this.password.text(), function(data, request) {
+				this.authenticationServiceConnection.login(this.username.value, this.password.value, function(data, request) {
 					console.log(data);
 					if (data.success) {
 						this.runCallbacks('loginSuccess', data, request);
 						safe(success)(data, request);
 					} else {
-						this.message.text(data.message);
+						this.message.text = data.message;
 						console.log('not logged in');
 					}
 				}.bind(this), function(request) {

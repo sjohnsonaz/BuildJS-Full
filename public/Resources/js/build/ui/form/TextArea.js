@@ -4,7 +4,7 @@ Build('build.ui.form.TextArea', [ 'build::build.ui.form.FormElement' ], function
 		$constructor : function(text, value) {
 			$super(this)(text, value);
 			this.type = 'textarea';
-			this.watchProperty('innerHTML', 'value');
+			this.watchProperty('value', 'innerHTML');
 			this.watchAttribute('placeholder');
 			this.watchAttribute('name');
 		}

@@ -8,7 +8,7 @@ Build('build.ui.element.Element', [ 'build::build.ui.Widget' ], function(define,
 		$prototype : {
 			init : function(text) {
 				$super().init(this)(text);
-				this.text = text;
+				this.text = text || '';
 			}
 		}
 	});

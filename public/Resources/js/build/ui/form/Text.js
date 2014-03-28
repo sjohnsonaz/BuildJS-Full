@@ -4,6 +4,7 @@ Build('build.ui.form.Text', [ 'build::build.ui.form.FormElement' ], function(def
 		$constructor : function(text, value) {
 			$super(this)(text, value);
 			this.type = 'input';
+			this.watchProperty('value');
 			this.watchAttribute('placeholder');
 			this.watchAttribute('name');
 		},
