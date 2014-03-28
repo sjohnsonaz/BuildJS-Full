@@ -1,11 +1,9 @@
-Build('build.widget.authentication.LogoutForm', [ 'build::build.ui.form.Form', 'build::build.ui.form.Div', 'build::build.ui.form.Submit', 'build::build.ui.form.FormControl', 'build::build.ui.form.Label' ], function(define, $super, merge, safe) {
+Build('build.widget.authentication.LogoutForm', [ 'build::build.ui.form.Form', 'build::build.ui.element.Div', 'build::build.ui.form.Submit', 'build::build.ui.form.FormControl', 'build::build.ui.form.Label' ], function(define, $super, merge, safe) {
 	define({
 		$extends : 'build.ui.form.Form',
 		$constructor : function(authenticationServiceConnection) {
 			$super(this)(authenticationServiceConnection);
-			this.method('POST');
-			this.action('#');
-			this.username = build.ui.form.Div.create('');
+			this.username = build.ui.element.Div.create('');
 			this.submit = build.ui.form.Submit.create('Logout');
 			this.authenticationServiceConnection = authenticationServiceConnection;
 
@@ -15,6 +13,8 @@ Build('build.widget.authentication.LogoutForm', [ 'build::build.ui.form.Form', '
 		$prototype : {
 			build : function() {
 				$super().build(this)();
+				this.method = 'POST';
+				this.action = '#';
 				this.addEvent('submit', function(form, event) {
 					event.preventDefault();
 					this.logout();
@@ -22,7 +22,7 @@ Build('build.widget.authentication.LogoutForm', [ 'build::build.ui.form.Form', '
 				}, false, this);
 			},
 			wrap : function(model) {
-				this.username.text('Logged in as ' + model.username);
+				this.username.text = 'Logged in as ' + model.username;
 			},
 			unwrap : function(model) {
 

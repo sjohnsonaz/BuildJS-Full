@@ -1,18 +1,9 @@
-Build('build.ui.form.Span', [ 'build::build.ui.Widget' ], function(define, $super, merge) {
+Build('build.ui.form.Span', [ 'build::build.ui.element.Element' ], function(define, $super, merge) {
 	define({
-		$extends : 'build.ui.Widget',
-		$constructor : function(text) {
-			$super(this)();
+		$extends : 'build.ui.element.Element',
+		$constructor : function Span(text) {
+			$super(this)(text);
 			this.type = 'span';
-			this.text = ko.observable(text || '');
-		},
-		$prototype : {
-			build : function() {
-				$super().build(this)();
-				ko.applyBindingsToNode(this.element, {
-					text : this.text
-				});
-			}
 		}
 	});
 });

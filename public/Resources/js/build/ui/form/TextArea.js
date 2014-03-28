@@ -1,24 +1,12 @@
-Build('build.ui.form.TextArea', [ 'build::build.ui.form.Text' ], function(define, $super) {
+Build('build.ui.form.TextArea', [ 'build::build.ui.form.FormElement' ], function(define, $super) {
 	define({
-		$extends : 'build.ui.form.Text',
-		$constructor : function(text) {
-			$super(this)(text);
+		$extends : 'build.ui.form.FormElement',
+		$constructor : function(text, value) {
+			$super(this)(text, value);
 			this.type = 'textarea';
-		},
-		$prototype : {
-			build : function() {
-				$super().build(this)();
-				this.element.type = 'text';
-				ko.applyBindingsToNode(this.element, {
-					value : this.text
-				});
-				ko.applyBindingsToNode(this.element, {
-					attr : {
-						'placeholder' : this.placeholder,
-						'name' : this.name
-					}
-				});
-			}
+			this.watchProperty('innerHTML', 'value');
+			this.watchAttribute('placeholder');
+			this.watchAttribute('name');
 		}
 	});
 });

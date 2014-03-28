@@ -1,91 +1,17 @@
-Build('build.ui.Widget', [ 'build::build.ui.Module' ], function(define, $super, merge) {
-	ko.bindingHandlers.element = {
-		init : function(element, valueAccessor, allBindings, viewModel, bindingContext) {
-			var child = ko.unwrap(valueAccessor());
-			if (child) {
-				if (typeof child === 'string') {
-					element.innerHTML = child;
-				} else {
-					child = child.element || child;
-					element.appendChild(child);
-				}
-			}
-			return {
-				controlsDescendantBindings : true
-			};
-		},
-		update : function(element, valueAccessor, allBindings, viewModel, bindingContext) {
-			var child = ko.unwrap(valueAccessor());
-			while (element.lastChild) {
-				element.removeChild(element.lastChild);
-			}
-			if (child) {
-				if (typeof child === 'string') {
-					element.innerHTML = child;
-				} else {
-					child = child.element || child;
-					element.appendChild(child);
-				}
-			}
-		}
-	};
-
-	ko.bindingHandlers.foreachElement = {
-		init : function(element, valueAccessor, allBindings, viewModel, bindingContext) {
-			var children = ko.unwrap(valueAccessor());
-			if (children) {
-				for (var index = 0, length = children.length; index < length; index++) {
-					var child = children[index];
-					child = child.element || child;
-					element.appendChild(child);
-				}
-			}
-			return {
-				controlsDescendantBindings : true
-			};
-		},
-		update : function(element, valueAccessor, allBindings, viewModel, bindingContext) {
-			var children = ko.unwrap(valueAccessor());
-			while (element.lastChild) {
-				element.removeChild(element.lastChild);
-			}
-			if (children) {
-				for (var index = 0, length = children.length; index < length; index++) {
-					var child = children[index];
-					child = child.element || child;
-					element.appendChild(child);
-				}
-			}
-		}
-	};
-
-	// TODO: Make this sync method work, or remove it.
-	ko.extenders.sync = function(target, watch) {
-		var wrapped = watch || target;
-		var result = ko.computed({
-			read : function() {
-				return wrapped();
-			},
-			write : function(value) {
-				wrapped(value);
-			}
-		});
-		result.watch = function(watch) {
-			wrapped = watch || target;
-			result.notifySubscribers();
-		};
-		result(wrapped());
-		return result;
-	};
-
+Build('build.ui.Widget', [ 'build::build.ui.Module', 'build::build.utility.ObservableArray' ], function(define, $super, merge) {
 	var idCount = {};
 	define({
 		$extends : 'build.ui.Module',
 		$constructor : function() {
 			$super(this)();
 			this.type = 'div';
-			this.id = ko.observable(this.uniqueId());
-			this.cssClass = ko.observable(this.uniqueClass());
+			this.watchProperty('id');
+			this.watchProperty('className');
+			this.children = build.utility.ObservableArray();
+			this.children.subscribe(function() {
+				this.refreshChildren();
+			}.bind(this));
+			this.directAppend = false;
 			this.template = null;
 		},
 		$prototype : {
@@ -100,19 +26,45 @@ Build('build.ui.Widget', [ 'build::build.ui.Module' ], function(define, $super, 
 					});
 				});
 			},
-			build : function() {
+			init : function() {
+				this.id = this.uniqueId();
+				this.className = this.uniqueClass();
+				this.refreshChildren();
 			},
 			createElement : function() {
 				this.element = document.createElement(this.type);
 				// this.element.classList.add(this.uniqueClass());
 				this.element.controller = this;
-
-				ko.applyBindingsToNode(this.element, {
-					attr : {
-						id : this.id,
-						'class' : this.cssClass
+			},
+			refreshChildren : function() {
+				var element = this.element;
+				if (element) {
+					while (element.firstChild) {
+						element.removeChild(element.firstChild);
 					}
-				});
+					if (this.children) {
+						this.children.forEach(this.childIterator.bind(this));
+					}
+				}
+			},
+			childIterator : function(child, index, array) {
+				if (this.directAppend) {
+					this.element.appendChild(child.element || child);
+				} else {
+					var iterator = document.createElement('div');
+					iterator.appendChild(child.element || child);
+					iterator.className = 'panel-iterator';
+					this.element.appendChild(iterator);
+				}
+			},
+			addChild : function(child) {
+				this.children.push(child);
+			},
+			removeChild : function(child) {
+				var index = this.children.indexOf(child);
+				if (index != -1) {
+					this.children.splice(index, 1);
+				}
 			},
 			getText : function(fileName, callback) {
 				var xmlhttp;
@@ -176,21 +128,21 @@ Build('build.ui.Widget', [ 'build::build.ui.Module' ], function(define, $super, 
 			// },
 			addClass : function(cssClass) {
 				if (cssClass) {
-					var classes = this.cssClass().split(' ');
+					var classes = this.cssClass.split(' ');
 					var index = classes.indexOf(cssClass);
 					if (index == -1) {
 						classes.push(cssClass);
-						this.cssClass(classes.join(' '));
+						this.cssClass = classes.join(' ');
 					}
 				}
 			},
 			removeClass : function(cssClass) {
 				if (cssClass) {
-					var classes = this.cssClass().split(' ');
+					var classes = this.cssClass.split(' ');
 					var index = classes.indexOf(cssClass);
 					if (index != -1) {
 						classes.splice(index, 1);
-						this.cssClass(classes.join(' '));
+						this.cssClass = classes.join(' ');
 					}
 				}
 			},
@@ -203,7 +155,67 @@ Build('build.ui.Widget', [ 'build::build.ui.Module' ], function(define, $super, 
 			},
 			removeEvent : function(type, listener) {
 				this.element.removeEventListener(type, listener);
-			}
+			},
+			watchProperty : function(property, name) {
+				name = name || property;
+				Object.defineProperty(this, property, {
+					get : function() {
+						return this.element[name];
+					},
+					set : function(value) {
+						this.element[name] = value;
+						this.publish(property);
+					}
+				});
+			},
+			watchAttribute : function(property, attribute) {
+				attribute = attribute || property;
+				Object.defineProperty(this, property, {
+					get : function() {
+						return this.element.getAttribute(attribute);
+					},
+					set : function(value) {
+						this.element.setAttribute(attribute, value);
+						this.publish(property);
+					}
+				});
+			},
+			watchStyle : function(property, style, unit) {
+				style = style || property;
+				if (unit) {
+					Object.defineProperty(this, property, {
+						get : function() {
+							return parseFloat(this.element.style[style]);
+						},
+						set : function(value) {
+							this.element.style[style] = value + unit;
+							this.publish(property);
+						}
+					});
+				} else {
+					Object.defineProperty(this, property, {
+						get : function() {
+							return this.element.style[style];
+						},
+						set : function(value) {
+							this.element.style[style] = value;
+							this.publish(property);
+						}
+					});
+				}
+			},
+			watchData : function(property, data) {
+				data = data || property;
+				Object.defineProperty(this, property, {
+					get : function() {
+						return this.element.dataset[data];
+					},
+					set : function(value) {
+						this.element.dataset[data] = value;
+						this.publish(value);
+					}
+				});
+			},
 		},
 		$static : {
 			create : function() {
@@ -213,7 +225,7 @@ Build('build.ui.Widget', [ 'build::build.ui.Module' ], function(define, $super, 
 				if (result.template) {
 					result.buildTemplate();
 				} else {
-					result.build();
+					result.init.apply(result, arguments);
 				}
 				return result;
 			}

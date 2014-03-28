@@ -1,19 +1,15 @@
-Build('build.ui.form.FieldSet', [ 'build::build.ui.form.Form' ], function(define, $super, merge) {
+Build('build.ui.form.FieldSet', [ 'build::build.ui.form.Form', 'build::build.ui.form.Legend' ], function(define, $super, merge) {
 	define({
-		$extends : 'build.ui.form.Form',
-		$constructor : function(title) {
+		$extends : 'build.ui.element.Element',
+		$constructor : function(text) {
 			$super(this)();
 			this.type = 'fieldset';
-			this.title = ko.observable(title);
+			this.legend = build.ui.form.Legend.create(text);
 		},
 		$prototype : {
-			build : function() {
-				$super().build(this)();
-				var legend = document.createElement('legend');
-				ko.applyBindingsToNode(legend, {
-					text : this.title
-				});
-				this.element.insertBefore(legend, this.element.firstChild);
+			refreshChildren : function() {
+				$super().refreshChildren(this)();
+				this.element.insertBefore(this.legend.element, this.element.firstChild);
 			}
 		}
 	});

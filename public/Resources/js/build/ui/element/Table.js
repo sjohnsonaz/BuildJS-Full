@@ -1,7 +1,7 @@
-Build('build.ui.form.Table', [ 'build::build.ui.form.FormElement' ], function(define, $super, merge, safe) {
+Build('build.ui.element.Table', [ 'build::build.ui.element.Element' ], function(define, $super, merge, safe) {
 	define({
-		$extends : 'build.ui.form.FormElement',
-		$constructor : function() {
+		$extends : 'build.ui.element.Element',
+		$constructor : function Table() {
 			this.type = 'table';
 			this.headers = ko.observableArray();
 			this.rows = ko.observableArray();

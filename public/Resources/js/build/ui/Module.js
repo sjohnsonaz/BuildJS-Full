@@ -1,4 +1,4 @@
-Build('build.ui.Module', [], function(define, $super) {
+Build('build.ui.Module', [], function(define, $super, merge, safe) {
 	define({
 		$constructor : function() {
 			// this.callbacks = null;
@@ -33,63 +33,20 @@ Build('build.ui.Module', [], function(define, $super) {
 					}
 				}
 			},
-			watchProperty : function(property, name) {
-				name = name || property;
-				Object.defineProperty(this, property, {
+			watch : function(name, value, get, set) {
+				var hidden = value;
+				Object.defineProperty(this, name, {
 					get : function() {
-						return this.element[name];
+						safe(get)(this, hidden);
+						return hidden;
 					},
 					set : function(value) {
-						this.element[name] = value;
-						this.publish(value);
-					}
-				});
-			},
-			watchAttribute : function(property, attribute) {
-				attribute = attribute || property;
-				Object.defineProperty(this, property, {
-					get : function() {
-						return this.element.getAttribute(attribute);
-					},
-					set : function(value) {
-						this.element.setAttribute(attribute, value);
-						this.publish(value);
-					}
-				});
-			},
-			watchStyle : function(property, style, unit) {
-				style = style || property;
-				if (unit) {
-					Object.defineProperty(this, property, {
-						get : function() {
-							return parseFloat(this.element.style[style]);
-						},
-						set : function(value) {
-							this.element.style[style] = value + unit;
-							this.publish(value);
+						var override = safe(set)(value);
+						if (typeof override !== 'undefined') {
+							value = override;
 						}
-					});
-				} else {
-					Object.defineProperty(this, property, {
-						get : function() {
-							return this.element.style[style];
-						},
-						set : function(value) {
-							this.element.style[style] = value;
-							this.publish(value);
-						}
-					});
-				}
-			},
-			watchData : function(property, data) {
-				data = data || property;
-				Object.defineProperty(this, property, {
-					get : function() {
-						return this.element.dataset[data];
-					},
-					set : function(value) {
-						this.element.dataset[data] = value;
-						this.publish(value);
+						hidden = value;
+						this.publish(name);
 					}
 				});
 			},
@@ -98,6 +55,7 @@ Build('build.ui.Module', [], function(define, $super) {
 					this.subscribers = this.subscribers || {};
 					this.subscribers[property] = this.subscribers[property] || [];
 					this.subscribers[property].push(subscriber);
+					subscriber(this[property]);
 				}
 			},
 			unsubscribe : function(property, subscriber) {

@@ -1,12 +1,14 @@
-Build('build.ui.element.Element', [ 'build::build.ui.Widget' ], function(define, $super) {
+Build('build.ui.element.Element', [ 'build::build.ui.Widget' ], function(define, $super, merge, safe) {
 	define({
 		$extends : 'build.ui.Widget',
-		$constructor : function() {
-			$super(this)();
+		$constructor : function Element(text) {
+			$super(this)(text);
 			this.watchProperty('text', 'innerHTML');
 		},
 		$prototype : {
-			build : function() {
+			init : function(text) {
+				$super().init(this)(text);
+				this.text = text;
 			}
 		}
 	});

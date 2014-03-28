@@ -4,25 +4,34 @@ Build('build.ui.form.FormControl', [ 'build::build.ui.form.FormElement' ], funct
 		$constructor : function(label, control) {
 			$super(this)();
 			this.type = 'div';
-			label.control(control);
-			this.label = ko.observable(label);
-			this.control = ko.observable(control);
+			this.watch('label', label, null, function(value) {
+				this.children.set(0, value);
+			});
+			this.watch('control', control, null, function(value) {
+				this.children.set(1, value);
+			});
 		},
 		$prototype : {
-			build : function() {
-				$super().build(this)();
-				var labelDiv = document.createElement('div');
-				labelDiv.className = 'form-control-label';
-				var controlDiv = document.createElement('div');
-				controlDiv.className = 'form-control-control';
-				ko.applyBindingsToNode(labelDiv, {
-					element : this.label
-				});
-				ko.applyBindingsToNode(controlDiv, {
-					element : this.control
-				});
-				this.element.appendChild(labelDiv);
-				this.element.appendChild(controlDiv);
+			init : function(label, control) {
+				$super().init(this)();
+				label.control = control;
+			},
+			refreshChildren : function() {
+				var element = this.element;
+				while (element.firstChild) {
+					element.removeChild(element.firstChild);
+				}
+				if (this.children) {
+					var labelDiv = document.createElement('div');
+					labelDiv.className = 'form-control-label';
+					labelDiv.appendChild(this.label.element || this.label);
+					this.element.appendChild(labelDiv);
+
+					var controlDiv = document.createElement('div');
+					controlDiv.className = 'form-control-control';
+					controlDiv.appendChild(this.control.element || this.control);
+					this.element.appendChild(controlDiv);
+				}
 			}
 		}
 	});

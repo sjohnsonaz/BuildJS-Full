@@ -2,7 +2,7 @@ Build.paths.main = '/Resources/js/';
 Build.paths.build = '/Resources/js/';
 Build.paths.demo = '/DemoResources/js/';
 
-Build('demo.inheritance.Application', [ 'build::build.ui.Application', 'build::build.ui.form.Header1', 'build::build.ui.tab.TabContainer', 'build::build.ui.tab.TabPanel', 'build::build.widget.authentication.AuthenticationWidget',
+Build('demo.inheritance.Application', [ 'build::build.ui.Application', 'build::build.ui.element.Header1', 'build::build.ui.tab.TabContainer', 'build::build.ui.tab.TabPanel', 'build::build.widget.authentication.AuthenticationWidget',
 		'demo::demo.ui.form.WidgetForm', 'demo::demo.ui.form.TestForm', 'build::build.service.AuthenticationServiceConnection', 'demo::demo.service.TestServiceConnection' ], function(define, $super) {
 	define({
 		$extends : 'build.ui.Application',
@@ -11,7 +11,7 @@ Build('demo.inheritance.Application', [ 'build::build.ui.Application', 'build::b
 			this.user = undefined;
 
 			// Add title
-			var title = build.ui.form.Header1.create('BuildJS');
+			var title = build.ui.element.Header1.create('BuildJS');
 			this.addChild(title);
 
 			this.authenticationServiceConnection = new build.service.AuthenticationServiceConnection();
@@ -25,7 +25,7 @@ Build('demo.inheritance.Application', [ 'build::build.ui.Application', 'build::b
 				this.user = undefined;
 				this.removeChild(this.userWidget);
 			}.bind(this));
-			this.authenticationWidget.init();
+			this.authenticationWidget.run();
 
 			// Add tab container
 			var tabContainer = build.ui.tab.TabContainer.create();
@@ -40,7 +40,7 @@ Build('demo.inheritance.Application', [ 'build::build.ui.Application', 'build::b
 			tabPanel0.addChild(widgetForm);
 			var testServiceConnection = new demo.service.TestServiceConnection();
 			testServiceConnection.getRest(function(data, request) {
-				widgetForm.model(data);
+				widgetForm.model = data;
 			});
 
 			// Add testForm
@@ -60,8 +60,9 @@ Build('demo.inheritance.Application', [ 'build::build.ui.Application', 'build::b
 Build(function() {
 	console.log('Application started...');
 	application = demo.inheritance.Application.create();
-	ko.applyBindingsToNode(document.body, {
-		element : application
-	});
+	while (document.body.firstChild) {
+		document.body.removeChild(document.body.firstChild);
+	}
+	document.body.appendChild(application.element);
 	// Build.load([], function() {});
 });

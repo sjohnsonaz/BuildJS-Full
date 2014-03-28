@@ -1,6 +1,6 @@
-Build('build.ui.form.ButtonGroup', ['build::build.ui.Panel'], function(define, $super, merge) {
+Build('build.ui.form.ButtonGroup', ['build::build.ui.Widget'], function(define, $super, merge) {
 	define({
-		$extends: 'build.ui.Panel',
+		$extends: 'build.ui.Widget',
 		$constructor: function () {
 			$super(this)();
 			this.directAppend = true;

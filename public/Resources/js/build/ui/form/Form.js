@@ -4,37 +4,32 @@ Build('build.ui.form.Form', [ 'build::build.ui.Panel' ], function(define, $super
 		$constructor : function() {
 			$super(this)();
 			this.type = 'form';
-			this.method = ko.observable('GET');
-			this.action = ko.observable('');
-			var modelHidden = ko.observable();
-			this.model = ko.computed({
-				read : function() {
-					model = modelHidden();
-					if (model) {
-						this.unwrap(model || {});
+			this.watchProperty('method');
+			this.watchProperty('action');
+			var modelHidden = null;
+			Object.defineProperty(this, 'model', {
+				get : function() {
+					if (modelHidden) {
+						this.unwrap(modelHidden || {});
 					}
-					return model;
+					return modelHidden;
 				},
-				write : function(value) {
-					if (ko.unwrap(value)) {
-						this.wrap(ko.unwrap(value));
+				set : function(value) {
+					if (value) {
+						this.wrap(value);
 					} else {
 						this.clear();
 					}
-					modelHidden(value);
-				},
-				owner : this
+					modelHidden = value;
+					this.publish('model');
+				}
 			});
 		},
 		$prototype : {
-			build : function() {
-				$super().build(this)();
-				ko.applyBindingsToNode(this.element, {
-					attr : {
-						'method' : this.method,
-						'action' : this.action
-					}
-				});
+			init : function() {
+				$super().init(this)();
+				this.method = 'GET';
+				this.action = '';
 			},
 			preventSubmit : function() {
 				this.element.addEventListener('submit', function(event) {

@@ -1,16 +1,14 @@
-Build('build.widget.authentication.LoginForm', [ 'build::build.ui.form.Form', 'build::build.ui.form.Div', 'build::build.ui.form.Text', 'build::build.ui.form.Password', 'build::build.ui.form.Submit', 'build::build.ui.form.FormControl',
+Build('build.widget.authentication.LoginForm', [ 'build::build.ui.form.Form', 'build::build.ui.element.Div', 'build::build.ui.form.Text', 'build::build.ui.form.Password', 'build::build.ui.form.Submit', 'build::build.ui.form.FormControl',
 		'build::build.ui.form.Label' ], function(define, $super, merge, safe) {
 	define({
 		$extends : 'build.ui.form.Form',
 		$constructor : function(authenticationServiceConnection) {
 			$super(this)();
-			this.method('POST');
-			this.action('#');
-			this.message = build.ui.form.Div.create();
+			this.message = build.ui.element.Div.create();
 			this.username = build.ui.form.Text.create();
-			this.username.placeholder('Username');
+			this.username.placeholder = 'Username';
 			this.password = build.ui.form.Password.create();
-			this.password.placeholder('Password');
+			this.password.placeholder = 'Password';
 			this.submit = build.ui.form.Submit.create('Login');
 			this.authenticationServiceConnection = authenticationServiceConnection;
 
@@ -20,8 +18,11 @@ Build('build.widget.authentication.LoginForm', [ 'build::build.ui.form.Form', 'b
 			this.addChild(this.submit);
 		},
 		$prototype : {
-			build : function() {
-				$super().build(this)();
+			init : function() {
+				$super().init(this)();
+				this.method = 'POST';
+				this.action = '#';
+
 				this.addEvent('submit', function(form, event) {
 					event.preventDefault();
 					// Force update for saved passwords.
@@ -32,17 +33,17 @@ Build('build.widget.authentication.LoginForm', [ 'build::build.ui.form.Form', 'b
 				}, false, this);
 			},
 			wrap : function(model) {
-				this.username.text(model.username);
-				this.password.text(model.password);
+				this.username.text = model.username;
+				this.password.text = model.password;
 			},
 			unwrap : function(model) {
 				// model.username = this.username.text();
 				// model.password = this.password.text();
 			},
 			clear : function() {
-				this.message.text('');
-				this.username.text('');
-				this.password.text('');
+				this.message.text = '';
+				this.username.text = '';
+				this.password.text = '';
 			},
 			login : function(success, error) {
 				this.authenticationServiceConnection.login(this.username.text(), this.password.text(), function(data, request) {

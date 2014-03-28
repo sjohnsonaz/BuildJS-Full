@@ -1,14 +1,9 @@
-Build('build.ui.form.LineBreak', [ 'build::build.ui.Widget' ], function(define, $super, merge) {
+Build('build.ui.element.LineBreak', [ 'build::build.ui.element.Element' ], function(define, $super, merge) {
 	define({
-		$extends : 'build.ui.Widget',
-		$constructor : function(title) {
-			$super(this)();
+		$extends : 'build.ui.element.Element',
+		$constructor : function LineBreak(text) {
+			$super(this)(text);
 			this.type = 'br';
-		},
-		$prototype : {
-			build : function() {
-				$super().build(this)();
-			}
 		}
 	});
 });

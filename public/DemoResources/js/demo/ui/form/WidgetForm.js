@@ -1,10 +1,10 @@
-Build('demo.ui.form.WidgetForm', [ 'build::build.ui.form.Form', 'build::build.ui.form.Button', 'build::build.ui.form.ButtonGroup', 'build::build.ui.form.Header1', 'build::build.ui.form.Paragraph', 'build::build.ui.form.FieldSet',
+Build('demo.ui.form.WidgetForm', [ 'build::build.ui.form.Form', 'build::build.ui.form.Button', 'build::build.ui.form.ButtonGroup', 'build::build.ui.element.Header1', 'build::build.ui.element.Paragraph', 'build::build.ui.form.FieldSet',
 		'build::build.ui.form.FormControl', 'build::build.ui.form.Label', 'build::build.ui.form.Text', 'build::build.ui.form.TextArea', 'demo::demo.singleton.SingletonTest', 'demo::demo.alternatebase.ArrayChild' ], function(define, $super, merge) {
 	define({
 		$extends : 'build.ui.form.Form',
 		$constructor : function() {
 			$super(this)();
-			var header0 = build.ui.form.Header1.create('Widget Form');
+			var header0 = build.ui.element.Header1.create('Widget Form');
 			this.addChild(header0);
 			var button = build.ui.form.Button.create('Button 1');
 			this.addChild(button);
@@ -22,21 +22,21 @@ Build('demo.ui.form.WidgetForm', [ 'build::build.ui.form.Form', 'build::build.ui
 
 			var fieldSet = build.ui.form.FieldSet.create('Text Field FieldSet');
 			var text = build.ui.form.Text.create();
-			text.placeholder('Text');
+			text.placeholder = 'Text';
 			text.subscribe(function(value) {
 				console.log('Entered value: ' + value);
 			});
 			fieldSet.addChild(build.ui.form.FormControl.create(build.ui.form.Label.create('Text Field'), text));
 
 			this.wrap = function(model) {
-				text.text(model.text);
+				text.text = model.text;
 			};
 			this.unwrap = function(model) {
-				model.text = text.text();
+				model.text = text.text;
 			};
 
 			var textArea = build.ui.form.TextArea.create();
-			textArea.placeholder('Text');
+			textArea.placeholder = 'Text';
 			fieldSet.addChild(textArea);
 			this.addChild(fieldSet);
 		}
