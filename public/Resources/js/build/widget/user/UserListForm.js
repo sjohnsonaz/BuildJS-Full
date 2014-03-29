@@ -1,10 +1,10 @@
-Build('build.widget.user.UserListForm', [ 'build::build.ui.form.Form', 'build::build.ui.form.Table', 'build::build.ui.form.Button', 'build::build.ui.form.ButtonGroup' ], function(define, $super, merge, safe) {
+Build('build.widget.user.UserListForm', [ 'build::build.ui.form.Form', 'build::build.ui.element.Table', 'build::build.ui.form.Button', 'build::build.ui.form.ButtonGroup' ], function(define, $super, merge, safe) {
 	define({
 		$extends : 'build.ui.form.Form',
 		$constructor : function(userServiceConnection) {
 			$super(this)();
-			this.userTable = build.ui.form.Table.create();
-			this.userTable.headers([ 'Username', 'First Name', 'Last Name', '' ]);
+			this.userTable = build.ui.element.Table.create();
+			this.userTable.headers.push('Username', 'First Name', 'Last Name', '');
 			this.addChild(this.userTable);
 			this.userServiceConnection = userServiceConnection;
 		},
@@ -40,7 +40,7 @@ Build('build.widget.user.UserListForm', [ 'build::build.ui.form.Form', 'build::b
 					buttonGroup.addChild(viewUserButton);
 					buttonGroup.addChild(editUserButton);
 					buttonGroup.addChild(deleteUserButton);
-					this.userTable.rows.push([ user.username, user.firstName, user.lastName, buttonGroup ]);
+					this.userTable.children.push([ user.username, user.firstName, user.lastName, buttonGroup ]);
 				}
 			},
 			unwrap : function(model) {

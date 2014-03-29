@@ -1,30 +1,28 @@
-Build('build.widget.user.UserEditForm', [ 'build::build.ui.form.Form', 'build::build.ui.form.Div', 'build::build.ui.form.Text', 'build::build.ui.form.Password', 'build::build.ui.form.Button', 'build::build.ui.form.Submit',
+Build('build.widget.user.UserEditForm', [ 'build::build.ui.form.Form', 'build::build.ui.element.Div', 'build::build.ui.form.Text', 'build::build.ui.form.Password', 'build::build.ui.form.Button', 'build::build.ui.form.Submit',
 		'build::build.ui.form.ButtonGroup', 'build::build.ui.form.FormControl', 'build::build.ui.form.Label' ], function(define, $super, merge, safe) {
 	define({
 		$extends : 'build.ui.form.Form',
 		$constructor : function(userServiceConnection) {
 			$super(this)();
 			this.userServiceConnection = userServiceConnection;
-			this.method('POST');
-			this.action('#');
 
-			this.message = build.ui.form.Div.create();
+			this.message = build.ui.element.Div.create();
 			this.addChild(this.message);
 
 			this.username = build.ui.form.Text.create();
-			this.username.placeholder('Username');
+			this.username.placeholder = 'Username';
 			this.addChild(build.ui.form.FormControl.create(build.ui.form.Label.create('Username'), this.username));
 
 			this.firstName = build.ui.form.Text.create();
-			this.firstName.placeholder('First Name');
+			this.firstName.placeholder = 'First Name';
 			this.addChild(build.ui.form.FormControl.create(build.ui.form.Label.create('First Name'), this.firstName));
 
 			this.lastName = build.ui.form.Text.create();
-			this.lastName.placeholder('Last Name');
+			this.lastName.placeholder = 'Last Name';
 			this.addChild(build.ui.form.FormControl.create(build.ui.form.Label.create('Last Name'), this.lastName));
 
 			this.password = build.ui.form.Text.create();
-			this.password.placeholder('Password');
+			this.password.placeholder = 'Password';
 			this.addChild(build.ui.form.FormControl.create(build.ui.form.Label.create('Password'), this.password));
 
 			this.cancel = build.ui.form.Button.create('Cancel');
@@ -35,8 +33,11 @@ Build('build.widget.user.UserEditForm', [ 'build::build.ui.form.Form', 'build::b
 			this.addChild(buttonGroup);
 		},
 		$prototype : {
-			build : function() {
-				$super().build(this)();
+			init : function() {
+				$super().init(this)();
+				this.method = 'POST';
+				this.action = '#';
+
 				this.preventSubmit();
 				this.submit.addEvent('click', function(submit, event) {
 					event.preventDefault();
@@ -50,23 +51,23 @@ Build('build.widget.user.UserEditForm', [ 'build::build.ui.form.Form', 'build::b
 				}, false, this);
 			},
 			wrap : function(model) {
-				this.username.text(model.username);
-				this.firstName.text(model.firstName);
-				this.lastName.text(model.lastName);
-				this.password.text(model.password);
+				this.username.text = model.username;
+				this.firstName.text = model.firstName;
+				this.lastName.text = model.lastName;
+				this.password.text = model.password;
 			},
 			unwrap : function(model) {
-				model.username = this.username.text();
-				model.firstName = this.firstName.text();
-				model.lastName = this.lastName.text();
-				model.password = this.password.text();
+				model.username = this.username.text;
+				model.firstName = this.firstName.text;
+				model.lastName = this.lastName.text;
+				model.password = this.password.text;
 			},
 			clear : function() {
-				this.message.text('');
-				this.username.text('');
-				this.firstName.text('');
-				this.lastName.text('');
-				this.password.text('');
+				this.message.text = '';
+				this.username.text = '';
+				this.firstName.text = '';
+				this.lastName.text = '';
+				this.password.text = '';
 			},
 			saveUser : function(success, error) {
 				// Change to PUT if editing, POST if creating.
