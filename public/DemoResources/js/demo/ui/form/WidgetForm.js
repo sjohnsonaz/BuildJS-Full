@@ -29,10 +29,10 @@ Build('demo.ui.form.WidgetForm', [ 'build::build.ui.form.Form', 'build::build.ui
 			fieldSet.addChild(build.ui.form.FormControl.create(build.ui.form.Label.create('Text Field'), text));
 
 			this.wrap = function(model) {
-				text.text = model.text;
+				text.value = model.text;
 			};
 			this.unwrap = function(model) {
-				model.text = text.text;
+				model.text = text.value;
 			};
 
 			var textArea = build.ui.form.TextArea.create();
