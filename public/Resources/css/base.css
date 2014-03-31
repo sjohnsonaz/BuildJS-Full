@@ -265,7 +265,7 @@ html {
   margin: 0px;
   padding: 0px;
   border: 0px;
-  width: 8.333333333333334%;
+  width: 8.33333333%;
 }
 .container-fluid .span1 {
   display: block;
@@ -288,7 +288,7 @@ html {
   float: left;
   padding: 0px;
   border: 0px;
-  margin: 0px 0px 0px 8.333333333333334%;
+  margin: 0px 0px 0px 8.33333333%;
 }
 .container-fluid .offset1 {
   display: block;
@@ -978,6 +978,16 @@ fieldset {
   border-bottom-right-radius: 5px;
   -moz-border-radius-bottomleft: 5px;
   border-bottom-left-radius: 5px;
+}
+.spinner-full-page {
+  position: fixed;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
+  padding: 0;
+  margin: 0;
+  background: url('Resources/img/spinner0.gif') center center no-repeat;
 }
 .build-ui-form-ButtonGroup {
   display: inline-block;
