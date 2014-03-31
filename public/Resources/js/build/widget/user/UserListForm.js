@@ -13,7 +13,7 @@ Build('build.widget.user.UserListForm', [ 'build::build.ui.form.Form', 'build::b
 				$super().build(this)();
 			},
 			wrap : function(model) {
-				this.userTable.rows.removeAll();
+				this.userTable.children.removeAll();
 				for (var index = 0, length = model.length; index < length; index++) {
 					var user = model[index];
 					var viewUserButton = build.ui.form.Button.create('View');
