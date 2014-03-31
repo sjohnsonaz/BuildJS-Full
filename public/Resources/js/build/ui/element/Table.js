@@ -15,14 +15,34 @@ Build('build.ui.element.Table', [ 'build::build.ui.element.Element', 'build::bui
 				this.element.appendChild(this.head);
 				this.element.appendChild(this.body);
 				this.headers.subscribe(function() {
-					//var trHead = document.createElement('tr');
-					//trHead.dataset.bind = 'foreach: headers';
-					//thead.appendChild(trHead);
+					if (this.head) {
+						while (this.head.firstChild) {
+							this.head.removeChild(this.head.firstChild);
+						}
+						if (this.headers) {
+							var tr = document.createElement('tr');
+							for (var index = 0, length = this.headers.length; index < length; index++) {
+								var td = document.createElement('th');
+								var data = this.headers[index];
+								data = data.element || data;
+								if (typeof data == 'object') {
+									td.appendChild(data);
+								} else {
+									td.innerHTML = data;
+								}
+								tr.appendChild(td);
+							}
+							this.head.appendChild(tr);
+						}
+					}
+					// var trHead = document.createElement('tr');
+					// trHead.dataset.bind = 'foreach: headers';
+					// thead.appendChild(trHead);
 
-					//var th = document.createElement('th');
-					//th.dataset.bind = 'text: $data';
-					//trHead.appendChild(th);
-				});
+					// var th = document.createElement('th');
+					// th.dataset.bind = 'text: $data';
+					// trHead.appendChild(th);
+				}.bind(this));
 			},
 			childIterator : function(child, index, array) {
 				if (child) {
