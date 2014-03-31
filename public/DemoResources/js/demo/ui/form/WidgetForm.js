@@ -2,7 +2,7 @@ Build('demo.ui.form.WidgetForm', [ 'build::build.ui.form.Form', 'build::build.ui
 		'build::build.ui.form.FormControl', 'build::build.ui.form.Label', 'build::build.ui.form.Text', 'build::build.ui.form.TextArea', 'demo::demo.singleton.SingletonTest', 'demo::demo.alternatebase.ArrayChild' ], function(define, $super, merge) {
 	define({
 		$extends : 'build.ui.form.Form',
-		$constructor : function() {
+		$constructor : function WidgetForm() {
 			$super(this)();
 			var header0 = build.ui.element.Header1.create('Widget Form');
 			this.addChild(header0);

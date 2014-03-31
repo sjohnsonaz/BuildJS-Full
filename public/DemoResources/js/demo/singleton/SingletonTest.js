@@ -1,6 +1,6 @@
 Build('demo.singleton.SingletonTest', [], function(define, $super, merge) {
 	define({
-		$constructor : function() {
+		$constructor : function SingletonTest() {
 			this.data = Math.random();
 		},
 		$singleton : true

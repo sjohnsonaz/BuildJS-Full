@@ -6,7 +6,7 @@ Build('demo.inheritance.Application', [ 'build::build.ui.Application', 'build::b
 		'demo::demo.ui.form.WidgetForm', 'demo::demo.ui.form.TestForm', 'build::build.service.AuthenticationServiceConnection', 'demo::demo.service.TestServiceConnection' ], function(define, $super) {
 	define({
 		$extends : 'build.ui.Application',
-		$constructor : function() {
+		$constructor : function Application() {
 			$super(this)();
 			this.user = undefined;
 
@@ -19,11 +19,11 @@ Build('demo.inheritance.Application', [ 'build::build.ui.Application', 'build::b
 			this.addChild(this.authenticationWidget);
 			this.authenticationWidget.addCallback('loginSuccess', function(data, request) {
 				this.user = data.user;
-				//this.addChild(this.userWidget);
+				// this.addChild(this.userWidget);
 			}.bind(this));
 			this.authenticationWidget.addCallback('logoutSuccess', function(data, request) {
 				this.user = undefined;
-				//this.removeChild(this.userWidget);
+				// this.removeChild(this.userWidget);
 			}.bind(this));
 			this.authenticationWidget.run();
 
