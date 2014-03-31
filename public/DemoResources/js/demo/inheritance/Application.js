@@ -60,9 +60,5 @@ Build('demo.inheritance.Application', [ 'build::build.ui.Application', 'build::b
 Build(function() {
 	console.log('Application started...');
 	application = demo.inheritance.Application.create();
-	while (document.body.firstChild) {
-		document.body.removeChild(document.body.firstChild);
-	}
-	document.body.appendChild(application.element);
-	// Build.load([], function() {});
+	application.run(document.body);
 });
