@@ -1,7 +1,7 @@
 Build('build.ui.form.Submit', [ 'build::build.ui.form.Button' ], function(define, $super) {
 	define({
 		$extends : 'build.ui.form.Button',
-		$constructor : function(text, value) {
+		$constructor : function Submit(text, value) {
 			$super(this)(text, value);
 			this.type = 'button';
 		},

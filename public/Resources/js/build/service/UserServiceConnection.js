@@ -1,7 +1,7 @@
 Build('build.service.UserServiceConnection', [ 'build::build.service.ServiceConnection' ], function(define, $super, merge) {
 	define({
 		$extends : 'build.service.ServiceConnection',
-		$constructor : function(base) {
+		$constructor : function UserServiceConnection(base) {
 			$super(this)(base || '/api/user');
 			this.addRoute({
 				name : 'get',

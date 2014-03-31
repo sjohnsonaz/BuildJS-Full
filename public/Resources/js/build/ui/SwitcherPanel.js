@@ -1,7 +1,7 @@
 Build('build.ui.SwitcherPanel', [ 'build::build.ui.Panel' ], function(define, $super) {
 	define({
 		$extends : 'build.ui.Panel',
-		$constructor : function(active) {
+		$constructor : function SwitcherPanel(active) {
 			$super(this)();
 			/*
 			 * var activeHidden = ko.observable(); this.active = ko.computed({

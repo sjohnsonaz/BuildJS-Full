@@ -1,7 +1,7 @@
 Build('build.ui.form.FieldSet', [ 'build::build.ui.form.Form', 'build::build.ui.form.Legend' ], function(define, $super, merge) {
 	define({
 		$extends : 'build.ui.element.Element',
-		$constructor : function(text) {
+		$constructor : function FieldSet(text) {
 			$super(this)();
 			this.type = 'fieldset';
 			this.legend = build.ui.form.Legend.create(text);

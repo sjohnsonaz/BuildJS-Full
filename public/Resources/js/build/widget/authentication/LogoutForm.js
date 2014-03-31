@@ -1,7 +1,7 @@
 Build('build.widget.authentication.LogoutForm', [ 'build::build.ui.form.Form', 'build::build.ui.element.Div', 'build::build.ui.form.Submit', 'build::build.ui.form.FormControl', 'build::build.ui.form.Label' ], function(define, $super, merge, safe) {
 	define({
 		$extends : 'build.ui.form.Form',
-		$constructor : function(authenticationServiceConnection) {
+		$constructor : function LogoutForm(authenticationServiceConnection) {
 			$super(this)(authenticationServiceConnection);
 			this.username = build.ui.element.Div.create('');
 			this.submit = build.ui.form.Submit.create('Logout');

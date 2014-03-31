@@ -1,7 +1,7 @@
 Build('build.ui.tab.TabContainer', [ 'build::build.ui.SwitcherPanel' ], function(define, $super) {
 	define({
 		$extends : 'build.ui.SwitcherPanel',
-		$constructor : function() {
+		$constructor : function TabContainer() {
 			$super(this)();
 			var self = this;
 			this.openTab = function(tab) {
@@ -40,7 +40,9 @@ Build('build.ui.tab.TabContainer', [ 'build::build.ui.SwitcherPanel' ], function
 								li.className = '';
 							}
 						});
-						//li.dataset.bind = "css: { 'tab-active': $parent.active() == $index() }, attr: { 'data-index' : $index, 'data-parent' : $parent.active }";
+						// li.dataset.bind = "css: { 'tab-active':
+						// $parent.active() == $index() }, attr: { 'data-index'
+						// : $index, 'data-parent' : $parent.active }";
 						a.addEventListener('click', function() {
 							this.openTab(child);
 						}.bind(this));

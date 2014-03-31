@@ -2,7 +2,7 @@ Build('build.widget.user.UserEditForm', [ 'build::build.ui.form.Form', 'build::b
 		'build::build.ui.form.ButtonGroup', 'build::build.ui.form.FormControl', 'build::build.ui.form.Label' ], function(define, $super, merge, safe) {
 	define({
 		$extends : 'build.ui.form.Form',
-		$constructor : function(userServiceConnection) {
+		$constructor : function UserEditForm(userServiceConnection) {
 			$super(this)();
 			this.userServiceConnection = userServiceConnection;
 

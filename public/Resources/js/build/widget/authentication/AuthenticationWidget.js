@@ -1,7 +1,7 @@
 Build('build.widget.authentication.AuthenticationWidget', [ 'build::build.ui.SwitcherPanel', 'build::build.widget.authentication.LoginForm', 'build::build.widget.authentication.LogoutForm' ], function(define, $super, merge) {
 	define({
 		$extends : 'build.ui.SwitcherPanel',
-		$constructor : function(authenticationServiceConnection) {
+		$constructor : function AuthenticationWidget(authenticationServiceConnection) {
 			$super(this)();
 			this.loginForm = build.widget.authentication.LoginForm.create(authenticationServiceConnection);
 			this.logoutForm = build.widget.authentication.LogoutForm.create(authenticationServiceConnection);
@@ -34,8 +34,8 @@ Build('build.widget.authentication.AuthenticationWidget', [ 'build::build.ui.Swi
 				this.runCallbacks('logoutSuccess', data, request);
 			}.bind(this));
 		},
-		$prototype: {
-			init: function() {
+		$prototype : {
+			init : function() {
 				$super().init(this)();
 			}
 		}

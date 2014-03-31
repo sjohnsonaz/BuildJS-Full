@@ -2,7 +2,7 @@ Build('build.widget.user.UserWidget', [ 'build::build.ui.SwitcherPanel', 'build:
 		'build::build.widget.user.UserEditForm', 'build::build.widget.user.UserDeleteForm' ], function(define, $super, merge, safe) {
 	define({
 		$extends : 'build.ui.SwitcherPanel',
-		$constructor : function(userServiceConnection) {
+		$constructor : function UserWidget(userServiceConnection) {
 			$super(this)();
 			this.user = null;
 			this.userServiceConnection = userServiceConnection || new build.service.UserServiceConnection();

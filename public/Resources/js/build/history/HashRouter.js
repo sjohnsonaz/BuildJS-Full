@@ -5,7 +5,7 @@ Build('build.history.HashRouter', [], function(define, $super) {
 		return definition.slice(definition.indexOf('(') + 1, definition.indexOf(')')).match(/([^\s,]+)/g) || [];
 	}
 	define({
-		$constructor : function() {
+		$constructor : function HashRouter() {
 			var self = this;
 			this.routes = {};
 			this.handler = function(event) {

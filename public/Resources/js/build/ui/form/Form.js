@@ -1,7 +1,7 @@
 Build('build.ui.form.Form', [ 'build::build.ui.Panel' ], function(define, $super) {
 	define({
 		$extends : 'build.ui.Panel',
-		$constructor : function() {
+		$constructor : function Form() {
 			$super(this)();
 			this.type = 'form';
 			this.watchProperty('method');

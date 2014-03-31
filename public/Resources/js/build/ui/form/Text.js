@@ -1,7 +1,7 @@
 Build('build.ui.form.Text', [ 'build::build.ui.form.FormElement' ], function(define, $super) {
 	define({
 		$extends : 'build.ui.form.FormElement',
-		$constructor : function(text, value) {
+		$constructor : function Text(text, value) {
 			$super(this)(text, value);
 			this.type = 'input';
 			this.watchProperty('value');

@@ -1,7 +1,7 @@
 Build('build.widget.user.UserListForm', [ 'build::build.ui.form.Form', 'build::build.ui.element.Table', 'build::build.ui.form.Button', 'build::build.ui.form.ButtonGroup' ], function(define, $super, merge, safe) {
 	define({
 		$extends : 'build.ui.form.Form',
-		$constructor : function(userServiceConnection) {
+		$constructor : function UserListForm(userServiceConnection) {
 			$super(this)();
 			this.userTable = build.ui.element.Table.create();
 			this.userTable.headers.push('Username', 'First Name', 'Last Name', '');

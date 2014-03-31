@@ -2,7 +2,7 @@ Build('build.ui.Widget', [ 'build::build.ui.Module', 'build::build.utility.Obser
 	var idCount = {};
 	define({
 		$extends : 'build.ui.Module',
-		$constructor : function() {
+		$constructor : function Widget() {
 			$super(this)();
 			this.type = 'div';
 			this.watchProperty('id');

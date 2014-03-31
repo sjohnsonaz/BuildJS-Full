@@ -1,6 +1,6 @@
 Build('build.ui.Module', [], function(define, $super, merge, safe) {
 	define({
-		$constructor : function() {
+		$constructor : function Module() {
 			// this.callbacks = null;
 			// this.subscribers = null;
 		},

@@ -1,7 +1,7 @@
 Build('build.ui.form.Label', [ 'build::build.ui.form.FormElement' ], function(define, $super, merge) {
 	define({
 		$extends : 'build.ui.form.FormElement',
-		$constructor : function(text, control) {
+		$constructor : function Label(text, control) {
 			$super(this)(text);
 			this.type = 'label';
 			this.watch('control', control);
