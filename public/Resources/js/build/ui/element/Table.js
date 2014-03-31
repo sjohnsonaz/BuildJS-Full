@@ -5,7 +5,6 @@ Build('build.ui.element.Table', [ 'build::build.ui.element.Element', 'build::bui
 			$super(this)();
 			this.type = 'table';
 			this.headers = build.utility.ObservableArray();
-			this.rows = ko.observableArray();
 		},
 		$prototype : {
 			init : function() {

@@ -1,6 +1,6 @@
-Build('demo.ui.form.TestForm', [ 'build::build.ui.form.Form' ], function(define, $super) {
+Build('demo.ui.form.TestForm', [ 'build::build.ui.template.KnockoutWidget' ], function(define, $super) {
 	define({
-		$extends : 'build.ui.form.Form',
+		$extends : 'build.ui.template.KnockoutWidget',
 		$constructor : function TestForm() {
 			$super(this)();
 			this.template = true;

@@ -12,20 +12,8 @@ Build('build.ui.Widget', [ 'build::build.ui.Module', 'build::build.utility.Obser
 				this.refreshChildren();
 			}.bind(this));
 			this.directAppend = false;
-			this.template = null;
 		},
 		$prototype : {
-			buildTemplate : function() {
-				var self = this;
-				this.loadTemplate(this.template === true ? Build.nameToCss(this.constructor.$name) : this.template, null, function(script) {
-					ko.applyBindingsToNode(self.element, {
-						template : {
-							name : script.id,
-							data : self
-						}
-					});
-				});
-			},
 			init : function() {
 				this.id = this.uniqueId();
 				this.className = this.uniqueClass();
@@ -67,52 +55,6 @@ Build('build.ui.Widget', [ 'build::build.ui.Module', 'build::build.utility.Obser
 				if (index != -1) {
 					this.children.splice(index, 1);
 				}
-			},
-			getText : function(fileName, callback) {
-				var xmlhttp;
-				xmlhttp = new XMLHttpRequest();
-
-				xmlhttp.onreadystatechange = function() {
-					if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-						callback(xmlhttp.responseText);
-					}
-				};
-
-				xmlhttp.open("GET", fileName, true);
-				xmlhttp.send();
-			},
-			loadTemplate : function(name, id, callback) {
-				var script = document.getElementById(id) || document.getElementById(name + '-template');
-				if (script) {
-					callback(script);
-				} else {
-					if (name.endsWith('.html')) {
-
-					} else {
-						var widgetScript = document.getElementById(name);
-						if (widgetScript) {
-							var fileName = widgetScript.src.replace('.js', '.html');
-						} else {
-							// This is probably broken
-							var fileName = Build.paths.main + $name.replace(/\//g, '/') + '.html';
-						}
-						var script = document.createElement('script');
-						script.type = 'text/html';
-						script.id = id || (name + '-template');
-						this.getText(fileName, function(text) {
-							script.innerHTML = text;
-							document.getElementsByTagName("head")[0].appendChild(script);
-							callback(script);
-						});
-					}
-				}
-			},
-			renderTemplate : function(templateId, callback) {
-				ko.renderTemplate(templateId || (this.cssClass + '-template'), this, {
-					afterRender : function(element) {
-						callback(element);
-					}
-				}, this.element, "replaceNode");
 			},
 			uniqueId : function() {
 				var $name = this.constructor.$name;
@@ -224,11 +166,7 @@ Build('build.ui.Widget', [ 'build::build.ui.Module', 'build::build.utility.Obser
 				var result = Object.create(this.prototype);
 				result = this.apply(result, arguments) || result;
 				result.createElement();
-				if (result.template) {
-					result.buildTemplate();
-				} else {
-					result.init.apply(result, arguments);
-				}
+				result.init.apply(result, arguments);
 				return result;
 			}
 		}
