@@ -3,6 +3,7 @@ Build('build.ui.form.FormElement', [ 'build::build.ui.element.Element' ], functi
 		$extends : 'build.ui.element.Element',
 		$constructor : function FormElement(text, value) {
 			$super(this)(text);
+			this.textHelpers = true;
 		},
 		$prototype : {
 			init : function(text, value) {

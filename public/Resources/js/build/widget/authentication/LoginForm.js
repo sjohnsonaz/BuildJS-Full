@@ -10,6 +10,7 @@ Build('build.widget.authentication.LoginForm', [ 'build::build.ui.form.Form', 'b
 			this.password = build.ui.form.Password.create();
 			this.password.placeholder = 'Password';
 			this.submit = build.ui.form.Submit.create('{{i:user}} Login');
+			this.submit.textHelpers = true;
 			this.authenticationServiceConnection = authenticationServiceConnection;
 
 			this.addChild(this.message);
