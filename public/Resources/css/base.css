@@ -77,6 +77,44 @@ input[type="button"]:focus,
   border-color: #777777;
   box-shadow: 0px 0px 6px 0px #000033;
 }
+.submit,
+button[type="submit"],
+input[type="submit"] {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  display: inline-block;
+  margin: 2px;
+  padding: 10px;
+  border: 1px solid #aaaaaa;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  background-color: #dddddd;
+  color: #000000;
+  background-color: #c4c4c4;
+}
+.submit:hover,
+button[type="submit"]:hover,
+input[type="submit"]:hover {
+  color: #000000;
+  background-color: #eeeeee;
+}
+.submit:active,
+button[type="submit"]:active,
+input[type="submit"]:active {
+  color: #000000;
+  background-color: #cccccc;
+}
+.submit:focus,
+button[type="submit"]:focus,
+input[type="submit"]:focus {
+  outline: none;
+  border-color: #777777;
+  box-shadow: 0px 0px 6px 0px #000033;
+}
 .button-group {
   display: inline-block;
   margin: 2px;
@@ -117,68 +155,10 @@ input[type="button"]:focus,
   border-bottom-right-radius: 5px;
 }
 .text,
-.password {
-  margin: 2px;
-  padding: 10px;
-  -moz-border-radius: 5px;
-  border-radius: 5px;
-  border: 1px solid #aaaaaa;
-  font-family: Arial;
-}
-.text:focus,
-.password:focus {
-  outline: none;
-  border-color: #777777;
-  box-shadow: 0px 0px 6px 0px #000033;
-}
-.textarea {
-  margin: 2px;
-  padding: 10px;
-  -moz-border-radius: 5px;
-  border-radius: 5px;
-  border: 1px solid #aaaaaa;
-  font-family: Arial;
-}
-.textarea:focus {
-  outline: none;
-  border-color: #777777;
-  box-shadow: 0px 0px 6px 0px #000033;
-}
-.label {
-  font-weight: bold;
-}
-.fieldset {
-  -moz-border-radius: 5px;
-  border-radius: 5px;
-  border: 1px solid #aaaaaa;
-}
-/* Semantic Mapper Style */
-input[type="text"] {
-  margin: 2px;
-  padding: 10px;
-  -moz-border-radius: 5px;
-  border-radius: 5px;
-  border: 1px solid #aaaaaa;
-  font-family: Arial;
-}
-input[type="text"]:focus {
-  outline: none;
-  border-color: #777777;
-  box-shadow: 0px 0px 6px 0px #000033;
-}
-input[type="password"] {
-  margin: 2px;
-  padding: 10px;
-  -moz-border-radius: 5px;
-  border-radius: 5px;
-  border: 1px solid #aaaaaa;
-  font-family: Arial;
-}
-input[type="password"]:focus {
-  outline: none;
-  border-color: #777777;
-  box-shadow: 0px 0px 6px 0px #000033;
-}
+.password,
+.textarea,
+input[type="text"],
+input[type="password"],
 textarea {
   margin: 2px;
   padding: 10px;
@@ -187,14 +167,21 @@ textarea {
   border: 1px solid #aaaaaa;
   font-family: Arial;
 }
+.text:focus,
+.password:focus,
+.textarea:focus,
+input[type="text"]:focus,
+input[type="password"]:focus,
 textarea:focus {
   outline: none;
   border-color: #777777;
   box-shadow: 0px 0px 6px 0px #000033;
 }
+.label,
 label {
   font-weight: bold;
 }
+.fieldset,
 fieldset {
   -moz-border-radius: 5px;
   border-radius: 5px;
@@ -327,6 +314,7 @@ fieldset {
   margin: 0px;
   padding: 0px;
   border: 0px;
+  width: 100%;
 }
 .build-ui-Application > .panel-iterator:after,
 .demo-inheritance-Application > .panel-iterator:after {
@@ -372,6 +360,7 @@ fieldset {
   margin: 0px;
   padding: 0px;
   border: 0px;
+  width: 100%;
 }
 .build-ui-form-Form > .panel-iterator:after {
   display: table;
@@ -383,26 +372,41 @@ fieldset {
   display: block;
   float: left;
   margin: 0px;
-  width: 33.33333333%;
+  width: 20%;
+  margin: 0px 0px 0px 20%;
   padding: 10px 20px 10px 20px;
-  text-align: right;
 }
 .build-ui-form-FormControl > .form-control-iterator-label:after {
   display: table;
   content: '';
   clear: both;
 }
+@media only screen and (max-width: 767px) {
+  .build-ui-form-FormControl > .form-control-iterator-label {
+    width: 100%;
+  }
+}
+@media only screen and (max-width: 767px) {
+  .build-ui-form-FormControl > .form-control-iterator-label {
+    margin: 0px 0px 0px 0px;
+  }
+}
 .build-ui-form-FormControl > .form-control-iterator-control {
   zoom: 1;
   display: block;
   float: left;
   margin: 0px;
-  width: 66.66666667%;
+  width: 40%;
 }
 .build-ui-form-FormControl > .form-control-iterator-control:after {
   display: table;
   content: '';
   clear: both;
+}
+@media only screen and (max-width: 767px) {
+  .build-ui-form-FormControl > .form-control-iterator-control {
+    width: 100%;
+  }
 }
 .build-ui-form-ButtonGroup {
   display: inline-block;

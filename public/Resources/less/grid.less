@@ -30,6 +30,7 @@
 	margin: 0px;
 	padding: 0px;
 	border: 0px;
+	width: 100%;
 }
 
 .columns(@count, @total) {
@@ -40,10 +41,16 @@
     //padding: 0px;
     //border: 0px;
     width: (@count * 100% / @total);
+    @media only screen and (max-width : (@size0 - 1)) {
+        width: 100%;
+    }
 }
 
 .offset(@count, @total) {
     margin: 0px 0px 0px (@count * 100% / @total);
+    @media only screen and (max-width : (@size0 - 1)) {
+        margin: 0px 0px 0px 0px;
+    }
 }
 
 .make-columns(@width, @number, @index: 1) when (@index =< @number) {

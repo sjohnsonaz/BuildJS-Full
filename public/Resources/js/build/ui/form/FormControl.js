@@ -21,18 +21,24 @@ Build('build.ui.form.FormControl', [ 'build::build.ui.form.FormElement' ], funct
 				$super().init(this)();
 				this.label = label;
 				this.control = control;
-				label.control = control;
+				if (label) {
+					label.control = control;
+				}
 				this.element.appendChild(this.labelIterator);
 				this.element.appendChild(this.controlIterator);
 			},
-			refreshChildren:function() {
+			refreshChildren : function() {
 				var element = this.element;
 				if (element) {
-					//this.clearChildren(this.controlIterator);
-					//this.clearChildren(this.labelIterator);
-					this.controlIterator.appendChild(this.control.element);
-					this.labelIterator.appendChild(this.label.element);
-					this.label.control = this.control;
+					this.clearChildren(this.controlIterator);
+					this.clearChildren(this.labelIterator);
+					if (this.control) {
+						this.controlIterator.appendChild(this.control.element);
+					}
+					if (this.label) {
+						this.labelIterator.appendChild(this.label.element);
+						this.label.control = this.control;
+					}
 				}
 			}
 		}

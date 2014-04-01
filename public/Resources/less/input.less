@@ -19,7 +19,9 @@
     }
 }
 
-.button {
+.button,
+button,
+input[type="button"] {
     .noselect;
     display: inline-block;
     margin: @input-margin;
@@ -37,6 +39,14 @@
         background-color: @input-active;
     }
     .focus();
+}
+
+.submit,
+button[type="submit"],
+input[type="submit"] {
+    .button;
+    color: darken(@input-text-default, 10%);
+    background-color: darken(@input-default, 10%);
 }
 
 .button-group {
@@ -64,7 +74,11 @@
 }
 
 .text,
-.password {
+.password,
+.textarea,
+input[type="text"],
+input[type="password"],
+textarea {
     .focus();
     margin: @input-margin;
     padding: @input-padding;
@@ -73,39 +87,13 @@
     font-family: Arial;
 }
 
-.textarea {
-    .text;
-}
-
-.label {
+.label,
+label {
     font-weight: bold;
 }
 
-.fieldset {
+.fieldset,
+fieldset {
     .border-radius(@input-border-radius);
     border: @input-border-width solid @input-border;
-}
-
-/* Semantic Mapper Style */
-button:extend(.button all) {}
-input[type="button"]:extend(.button all) {}
-
-input[type="text"] {
-    .text;
-}
-
-input[type="password"] {
-    .text;
-}
-
-textarea {
-    .textarea;
-}
-
-label {
-    .label;
-}
-
-fieldset {
-    .fieldset;
 }
