@@ -1,12 +1,5 @@
 @import "grid.less";
 @import "input.less";
-.build-ui-Application {
-    &:extend(.container);
-    & > div {
-        &:extend(.row);
-    }
-}
-
 .spinner-full-page {
 	position: fixed;
 	top: 0px;
@@ -15,22 +8,27 @@
 	left: 0px;
 	padding: 0;
 	margin: 0;
-	background: url('Resources/img/spinner0.gif') center center no-repeat;
+	background: url('../img/spinner0.gif') center center no-repeat;
+}
+
+.build-ui-Application {
+    .container();
+    & > .panel-iterator {
+        .row();
+    }
 }
 
 .build-ui-form-Form {
-    &:extend(.container-fluid);
+    .container();
     & > .panel-iterator {
-        &:extend(.row);
+        .row();
     }
 }
 
 .build-ui-form-FormControl {
-    & > .form-control-label {
-        &:extend(.span6);
+    &:first-child {
     }
-    & > .form-control-label {
-        &:extend(.span6);
+    &:last-child {
     }
 }
 
