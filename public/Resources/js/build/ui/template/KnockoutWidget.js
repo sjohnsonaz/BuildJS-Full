@@ -7,10 +7,9 @@ Build('build.ui.template.KnockoutWidget', [ 'build::build.ui.Widget' ], function
 		},
 		$prototype : {
 			init : function() {
+				$super().init(this)();
 				if (this.template) {
 					this.buildTemplate();
-				} else {
-					$super().init(this)();
 				}
 			},
 			buildTemplate : function() {
