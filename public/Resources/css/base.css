@@ -378,6 +378,32 @@ fieldset {
   content: '';
   clear: both;
 }
+.build-ui-form-FormControl > .form-control-iterator-label {
+  zoom: 1;
+  display: block;
+  float: left;
+  margin: 0px;
+  width: 33.33333333%;
+  padding: 10px 20px 10px 20px;
+  text-align: right;
+}
+.build-ui-form-FormControl > .form-control-iterator-label:after {
+  display: table;
+  content: '';
+  clear: both;
+}
+.build-ui-form-FormControl > .form-control-iterator-control {
+  zoom: 1;
+  display: block;
+  float: left;
+  margin: 0px;
+  width: 66.66666667%;
+}
+.build-ui-form-FormControl > .form-control-iterator-control:after {
+  display: table;
+  content: '';
+  clear: both;
+}
 .build-ui-form-ButtonGroup {
   display: inline-block;
   margin: 2px;

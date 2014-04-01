@@ -26,9 +26,13 @@
 }
 
 .build-ui-form-FormControl {
-    &:first-child {
+    & > .form-control-iterator-label {
+        .columns(1, 3);
+        padding: 10px 20px 10px 20px;
+        text-align: right;
     }
-    &:last-child {
+    & > .form-control-iterator-control {
+        .columns(2, 3);
     }
 }
 

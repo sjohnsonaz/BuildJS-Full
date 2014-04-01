@@ -15,7 +15,7 @@ Build('build.widget.authentication.LoginForm', [ 'build::build.ui.form.Form', 'b
 			this.addChild(this.message);
 			this.addChild(build.ui.form.FormControl.create(build.ui.form.Label.create('Username'), this.username));
 			this.addChild(build.ui.form.FormControl.create(build.ui.form.Label.create('Password'), this.password));
-			this.addChild(this.submit);
+			this.addChild(build.ui.form.FormControl.create(build.ui.form.Label.create(''), this.submit));
 		},
 		$prototype : {
 			init : function() {

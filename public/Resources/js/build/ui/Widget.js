@@ -24,12 +24,17 @@ Build('build.ui.Widget', [ 'build::build.ui.Module', 'build::build.utility.Obser
 				// this.element.classList.add(this.uniqueClass());
 				this.element.controller = this;
 			},
-			refreshChildren : function() {
-				var element = this.element;
+			clearChildren:function(element) {
 				if (element) {
 					while (element.firstChild) {
 						element.removeChild(element.firstChild);
 					}
+				}
+			},
+			refreshChildren : function() {
+				var element = this.element;
+				if (element) {
+					this.clearChildren(element);
 					if (this.children) {
 						this.children.forEach(this.childIterator.bind(this));
 					}

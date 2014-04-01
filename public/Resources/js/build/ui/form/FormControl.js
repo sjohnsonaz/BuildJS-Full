@@ -4,12 +4,17 @@ Build('build.ui.form.FormControl', [ 'build::build.ui.form.FormElement' ], funct
 		$constructor : function FormControl(label, control) {
 			$super(this)();
 			this.type = 'div';
+			this.directAppend = true;
 			this.watch('label', label, null, function(value) {
 				this.children.set(0, value);
 			}.bind(this));
 			this.watch('control', control, null, function(value) {
 				this.children.set(1, value);
 			}.bind(this));
+			this.labelIterator = document.createElement('div');
+			this.labelIterator.className = 'form-control-iterator-label';
+			this.controlIterator = document.createElement('div');
+			this.controlIterator.className = 'form-control-iterator-control';
 		},
 		$prototype : {
 			init : function(label, control) {
@@ -17,24 +22,19 @@ Build('build.ui.form.FormControl', [ 'build::build.ui.form.FormElement' ], funct
 				this.label = label;
 				this.control = control;
 				label.control = control;
-			}/*,
-			refreshChildren : function() {
+				this.element.appendChild(this.labelIterator);
+				this.element.appendChild(this.controlIterator);
+			},
+			refreshChildren:function() {
 				var element = this.element;
-				while (element.firstChild) {
-					element.removeChild(element.firstChild);
+				if (element) {
+					//this.clearChildren(this.controlIterator);
+					//this.clearChildren(this.labelIterator);
+					this.controlIterator.appendChild(this.control.element);
+					this.labelIterator.appendChild(this.label.element);
+					this.label.control = this.control;
 				}
-				if (this.children) {
-					var labelDiv = document.createElement('div');
-					labelDiv.className = 'form-control-label';
-					labelDiv.appendChild(this.label.element || this.label);
-					this.element.appendChild(labelDiv);
-
-					var controlDiv = document.createElement('div');
-					controlDiv.className = 'form-control-control';
-					controlDiv.appendChild(this.control.element || this.control);
-					this.element.appendChild(controlDiv);
-				}
-			}*/
+			}
 		}
 	});
 });
