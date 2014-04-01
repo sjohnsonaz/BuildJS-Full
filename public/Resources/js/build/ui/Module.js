@@ -33,7 +33,7 @@ Build('build.ui.Module', [], function(define, $super, merge, safe) {
 					}
 				}
 			},
-			watch : function(name, value, get, set) {
+			watchValue : function(name, value, get, set) {
 				var hidden = value;
 				Object.defineProperty(this, name, {
 					get : function() {

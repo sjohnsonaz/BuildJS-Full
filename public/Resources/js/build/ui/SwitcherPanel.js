@@ -3,7 +3,7 @@ Build('build.ui.SwitcherPanel', [ 'build::build.ui.Panel' ], function(define, $s
 		$extends : 'build.ui.Panel',
 		$constructor : function SwitcherPanel(active) {
 			$super(this)();
-			this.watch('active', 0);
+			this.watchValue('active', 0);
 			this.subscribe('active', function(value) {
 				this.refreshChildren();
 			}.bind(this));

@@ -4,7 +4,7 @@ Build('build.ui.form.Label', [ 'build::build.ui.form.FormElement' ], function(de
 		$constructor : function Label(text, control) {
 			$super(this)(text);
 			this.type = 'label';
-			this.watch('control', control);
+			this.watchValue('control', control);
 			this.watchAttribute('for', 'forId');
 			this.subscribe('control', function(value) {
 				if (this.control) {

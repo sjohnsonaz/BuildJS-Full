@@ -5,10 +5,10 @@ Build('build.ui.form.FormControl', [ 'build::build.ui.form.FormElement' ], funct
 			$super(this)();
 			this.type = 'div';
 			this.directAppend = true;
-			this.watch('label', label, null, function(value) {
+			this.watchValue('label', label, null, function(value) {
 				this.children.set(0, value);
 			}.bind(this));
-			this.watch('control', control, null, function(value) {
+			this.watchValue('control', control, null, function(value) {
 				this.children.set(1, value);
 			}.bind(this));
 			this.labelIterator = document.createElement('div');

@@ -51,7 +51,7 @@ Build('demo.inheritance.Application', [ 'build::build.ui.Application', 'build::b
 			this.router.add('#/test/:id', function(id) {
 				console.log('test started: ' + id);
 			});
-			this.router.watch(tabContainer, 'openTabIndex', 'tab', tabContainer.openTabIndex);
+			this.router.watchMethod(tabContainer, 'openTabIndex', 'tab', tabContainer.openTabIndex);
 			this.router.listen();
 		}
 	});

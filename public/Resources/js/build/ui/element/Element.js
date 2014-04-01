@@ -3,7 +3,7 @@ Build('build.ui.element.Element', [ 'build::build.ui.Widget' ], function(define,
 		$extends : 'build.ui.Widget',
 		$constructor : function Element(text) {
 			$super(this)(text);
-			var regex;
+			var regex = null;
 			var textHelpers = false;
 			Object.defineProperty(this, 'textHelpers', {
 				get : function() {
@@ -15,7 +15,7 @@ Build('build.ui.element.Element', [ 'build::build.ui.Widget' ], function(define,
 						regex = new RegExp(/{{([^{}]+)}}/g);
 					}
 				}
-			})
+			});
 			this.watchProperty('text', 'innerHTML', null, function(value) {
 				if (regex) {
 					value = typeof value === 'string' ? value.replace(regex, function(match, value, all) {

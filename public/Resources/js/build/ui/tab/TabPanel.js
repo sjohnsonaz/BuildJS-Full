@@ -3,7 +3,7 @@ Build('build.ui.tab.TabPanel', [ 'build::build.ui.Panel' ], function(define, $su
 		$extends : 'build.ui.Panel',
 		$constructor : function TabPanel(title) {
 			$super(this)();
-			this.watch('title', title || 'Tab');
+			this.watchValue('title', title || 'Tab');
 		},
 		$prototype : {}
 	});

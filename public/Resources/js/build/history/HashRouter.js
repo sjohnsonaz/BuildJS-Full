@@ -41,7 +41,7 @@ Build('build.history.HashRouter', [], function(define, $super) {
 			remove : function(route) {
 				delete this.routes[route];
 			},
-			watch : function(scope, name, prefix, callback) {
+			watchMethod : function(scope, name, prefix, callback) {
 				var parameterNames = getParameterNames(callback);
 				parameterNames.unshift(prefix);
 				this.add('#/' + parameterNames.join('/:'), function() {
