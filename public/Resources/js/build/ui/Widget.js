@@ -24,7 +24,7 @@ Build('build.ui.Widget', [ 'build::build.ui.Module', 'build::build.utility.Obser
 				// this.element.classList.add(this.uniqueClass());
 				this.element.controller = this;
 			},
-			clearChildren:function(element) {
+			clearChildren : function(element) {
 				if (element) {
 					while (element.firstChild) {
 						element.removeChild(element.firstChild);
@@ -105,13 +105,18 @@ Build('build.ui.Widget', [ 'build::build.ui.Module', 'build::build.utility.Obser
 			removeEvent : function(type, listener) {
 				this.element.removeEventListener(type, listener);
 			},
-			watchProperty : function(property, name) {
+			watchProperty : function(property, name, get, set) {
 				name = name || property;
 				Object.defineProperty(this, property, {
-					get : function() {
+					get : get ? function() {
+						return get(this.element[name]);
+					} : function() {
 						return this.element[name];
 					},
-					set : function(value) {
+					set : set ? function(value) {
+						this.element[name] = set(value);
+						this.publish(property);
+					} : function(value) {
 						this.element[name] = value;
 						this.publish(property);
 					}
