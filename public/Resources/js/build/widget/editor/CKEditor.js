@@ -26,6 +26,7 @@ Build('build.widget.editor.CKEditor', [ 'build::build.ui.Widget' ], function(def
 			init : function(name) {
 				$super().init(this)();
 				this.element.appendChild(this.textArea);
+				this.replace();
 			},
 			replace : function() {
 				this.editor = CKEDITOR.replace(this.textArea);
