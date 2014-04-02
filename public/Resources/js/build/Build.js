@@ -164,9 +164,11 @@ var Build = build.Build = (function() {
 		}
 		var requiredRemaining = [];
 		for (var index = 0, length = $required.length; index < length; index++) {
-			var requiredName = $required[index];
-			if (!definitions[requiredName] && !defHandles[requiredName] && !loading[requiredName] && !preLoading[requiredName]) {
-				requiredRemaining.push(requiredName);
+			var requiredPath = $required[index];
+			var pathInformation = getPathInformation(requiredPath);
+			var requiredName = pathInformation.name;
+			if (!definitions[requiredName] && !defHandles[requiredName] && !loading[requiredName] && !preLoading[requiredPath]) {
+				requiredRemaining.push(requiredPath);
 			}
 		}
 		defHandles[$name] = $definition;
@@ -308,7 +310,7 @@ var Build = build.Build = (function() {
 	}
 	load.queue = new CallbackQueue();
 	var definitionPaths = {};
-	function loadSingle($name, callback) {
+	function getPathInformation($name) {
 		var path;
 		var pathParts = $name.split('::');
 		if (pathParts.length > 1) {
@@ -317,9 +319,26 @@ var Build = build.Build = (function() {
 		} else {
 			path = paths.main;
 		}
+		return {
+			name : $name,
+			path : path,
+			fileName : nameToFileName($name, path)
+		};
+	}
+	function getName($name) {
+		var pathParts = $name.split('::');
+		if (pathParts.length > 1) {
+			$name = pathParts[1];
+		}
+		return $name;
+	}
+	function loadSingle($name, callback) {
+		var pathInformation = getPathInformation($name);
+		var path = pathInformation.path
+		$name = pathInformation.name;
 		if (!definitions[$name]) {
 			definitionPaths[$name] = path;
-			var fileName = nameToFileName($name, path);
+			var fileName = pathInformation.fileName;
 			var id = nameToCss($name);
 			loading[$name] = true;
 			loadScript(id, fileName, function() {
