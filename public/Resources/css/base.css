@@ -364,6 +364,15 @@ fieldset {
   content: '';
   clear: both;
 }
+.build-ui-form-FormControl {
+  display: block;
+  zoom: 1;
+}
+.build-ui-form-FormControl:after {
+  display: table;
+  content: '';
+  clear: both;
+}
 .build-ui-form-FormControl > .form-control-iterator-label {
   zoom: 1;
   display: block;
