@@ -196,6 +196,11 @@ fieldset {
   height: 60px;
   background-color: #dddddd;
 }
+@media only screen and (max-width: 767px) {
+  .menu-fixed-top {
+    position: absolute;
+  }
+}
 .build-ui-tab-TabContainer {
   margin: .67em 0;
 }
