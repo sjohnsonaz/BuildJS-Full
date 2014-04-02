@@ -14,9 +14,13 @@ Build('demo.inheritance.Application', [ 'build::build.ui.Application', 'build::b
 			var menu = build.widget.menu.MenuWidget.create();
 			menu.addClass('menu-fixed-top');
 			var menuElement0 = build.widget.menu.MenuElement.create();
-			menuElement0.text = 'My Link';
+			menuElement0.text = 'My Link 0';
 			menuElement0.url = 'test.html';
 			menu.addChild(menuElement0);
+			var menuElement1 = build.widget.menu.MenuElement.create();
+			menuElement1.text = 'My Link 1';
+			menuElement1.url = 'test.html';
+			menu.addChild(menuElement1);
 			this.addChild(menu);
 
 			// Add title
@@ -66,7 +70,7 @@ Build('demo.inheritance.Application', [ 'build::build.ui.Application', 'build::b
 		$prototype : {
 			init : function() {
 				$super().init(this)();
-				this.marginTop = 60;
+				this.marginTop = 50;
 			}
 		}
 	});

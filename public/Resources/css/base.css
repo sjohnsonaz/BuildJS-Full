@@ -193,13 +193,41 @@ fieldset {
   top: 0px;
   right: 0px;
   left: 0px;
-  height: 60px;
-  background-color: #dddddd;
+  padding: 0;
+  margin: 0;
+  height: 50px;
+  background-color: #aaaaaa;
+  list-style-type: none;
+  z-index: 1000;
 }
 @media only screen and (max-width: 767px) {
   .menu-fixed-top {
     position: absolute;
   }
+}
+.menu-fixed-top li {
+  float: left;
+  display: block;
+  margin: 0;
+}
+.menu-fixed-top li a {
+  display: block;
+  padding: 15px;
+  text-decoration: none;
+  font-weight: bold;
+  color: #ffffff;
+}
+.menu-fixed-top li a:hover {
+  background-color: #919191;
+  color: #e6e6e6;
+}
+.menu-fixed-top li a.active-menu {
+  background-color: #777777;
+  color: #cccccc;
+}
+.menu-fixed-top li a.active-menu:hover {
+  background-color: #777777;
+  color: #cccccc;
 }
 .build-ui-tab-TabContainer {
   margin: .67em 0;
