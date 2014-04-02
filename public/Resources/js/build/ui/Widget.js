@@ -25,6 +25,7 @@ Build('build.ui.Widget', [ 'build::build.ui.Module', 'build::build.utility.Obser
 				this.element.controller = this;
 			},
 			clearChildren : function(element) {
+				element = element || this.element;
 				if (element) {
 					while (element.firstChild) {
 						element.removeChild(element.firstChild);

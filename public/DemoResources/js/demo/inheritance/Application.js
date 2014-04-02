@@ -2,17 +2,21 @@ Build.paths.main = '/Resources/js/';
 Build.paths.build = '/Resources/js/';
 Build.paths.demo = '/DemoResources/js/';
 
-Build('demo.inheritance.Application', [ 'build::build.ui.Application', 'build::build.ui.element.Div', 'build::build.ui.element.Header1', 'build::build.ui.tab.TabContainer', 'build::build.ui.tab.TabPanel',
-		'build::build.widget.authentication.AuthenticationWidget', 'demo::demo.ui.form.WidgetForm', 'demo::demo.ui.form.TestForm', 'build::build.service.AuthenticationServiceConnection', 'demo::demo.service.TestServiceConnection' ], function(define,
-		$super) {
+Build('demo.inheritance.Application', [ 'build::build.ui.Application', 'build::build.widget.menu.MenuWidget', 'build::build.widget.menu.MenuElement', 'build::build.ui.element.Header1', 'build::build.ui.tab.TabContainer',
+		'build::build.ui.tab.TabPanel', 'build::build.widget.authentication.AuthenticationWidget', 'demo::demo.ui.form.WidgetForm', 'demo::demo.ui.form.TestForm', 'build::build.service.AuthenticationServiceConnection',
+		'demo::demo.service.TestServiceConnection' ], function(define, $super) {
 	define({
 		$extends : 'build.ui.Application',
 		$constructor : function Application() {
 			$super(this)();
 			this.user = undefined;
 
-			var menu = build.ui.element.Div.create('menu');
+			var menu = build.widget.menu.MenuWidget.create();
 			menu.addClass('menu-fixed-top');
+			var menuElement0 = build.widget.menu.MenuElement.create();
+			menuElement0.text = 'My Link';
+			menuElement0.url = 'test.html';
+			menu.addChild(menuElement0);
 			this.addChild(menu);
 
 			// Add title

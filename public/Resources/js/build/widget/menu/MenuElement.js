@@ -1,7 +1,8 @@
-Build('build.ui.widget.menu.MenuWidget', [ 'build::build.ui.Widget', 'build::build.ui.element.Link' ], function(define, $super, merge, safe) {
+Build('build.widget.menu.MenuElement', [ 'build::build.ui.Widget', 'build::build.ui.element.Link' ], function(define, $super, merge, safe) {
 	define({
 		$extends : 'build.ui.Widget',
 		$constructor : function() {
+			$super(this)();
 			this.link = build.ui.element.Link.create();
 			Object.defineProperty(this, 'url', {
 				get : function() {
@@ -21,6 +22,12 @@ Build('build.ui.widget.menu.MenuWidget', [ 'build::build.ui.Widget', 'build::bui
 					this.publish('text');
 				}
 			});
+		},
+		$prototype : {
+			refreshChildren : function() {
+				this.clearChildren();
+				this.element.appendChild(this.link.element);
+			}
 		}
 	});
 });
