@@ -193,6 +193,14 @@ fieldset {
   top: 0px;
   right: 0px;
   left: 0px;
+}
+@media only screen and (max-width: 767px) {
+  .menu-fixed-top {
+    position: absolute;
+  }
+}
+.menu-widget {
+  display: block;
   padding: 0;
   margin: 0;
   height: 50px;
@@ -200,32 +208,27 @@ fieldset {
   list-style-type: none;
   z-index: 1000;
 }
-@media only screen and (max-width: 767px) {
-  .menu-fixed-top {
-    position: absolute;
-  }
-}
-.menu-fixed-top li {
+.menu-widget li {
   float: left;
   display: block;
   margin: 0;
 }
-.menu-fixed-top li a {
+.menu-widget li a {
   display: block;
   padding: 15px;
   text-decoration: none;
   font-weight: bold;
   color: #ffffff;
 }
-.menu-fixed-top li a:hover {
+.menu-widget li a:hover {
   background-color: #919191;
   color: #e6e6e6;
 }
-.menu-fixed-top li a.active-menu {
+.menu-widget li a.active-menu {
   background-color: #777777;
   color: #cccccc;
 }
-.menu-fixed-top li a.active-menu:hover {
+.menu-widget li a.active-menu:hover {
   background-color: #777777;
   color: #cccccc;
 }
@@ -494,4 +497,37 @@ fieldset {
   border-top-right-radius: 5px;
   -moz-border-radius-bottomright: 5px;
   border-bottom-right-radius: 5px;
+}
+.build-widget-menu-MenuWidget {
+  display: block;
+  padding: 0;
+  margin: 0;
+  height: 50px;
+  background-color: #aaaaaa;
+  list-style-type: none;
+  z-index: 1000;
+}
+.build-widget-menu-MenuWidget li {
+  float: left;
+  display: block;
+  margin: 0;
+}
+.build-widget-menu-MenuWidget li a {
+  display: block;
+  padding: 15px;
+  text-decoration: none;
+  font-weight: bold;
+  color: #ffffff;
+}
+.build-widget-menu-MenuWidget li a:hover {
+  background-color: #919191;
+  color: #e6e6e6;
+}
+.build-widget-menu-MenuWidget li a.active-menu {
+  background-color: #777777;
+  color: #cccccc;
+}
+.build-widget-menu-MenuWidget li a.active-menu:hover {
+  background-color: #777777;
+  color: #cccccc;
 }
