@@ -1,7 +1,7 @@
 Build('build.widget.menu.MenuElement', [ 'build::build.ui.Widget', 'build::build.ui.element.Link' ], function(define, $super, merge, safe) {
 	define({
 		$extends : 'build.ui.Widget',
-		$constructor : function() {
+		$constructor : function MenuElement() {
 			$super(this)();
 			this.link = build.ui.element.Link.create();
 			Object.defineProperty(this, 'url', {
