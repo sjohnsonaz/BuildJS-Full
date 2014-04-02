@@ -4,7 +4,7 @@ Build('build.widget.authentication.LogoutForm', [ 'build::build.ui.form.Form', '
 		$constructor : function LogoutForm(authenticationServiceConnection) {
 			$super(this)(authenticationServiceConnection);
 			this.username = build.ui.element.Div.create('');
-			this.submit = build.ui.form.Submit.create('Logout');
+			this.submit = build.ui.form.Submit.create('{{i:sign-out}} Logout');
 			this.authenticationServiceConnection = authenticationServiceConnection;
 
 			this.addChild(this.username);
