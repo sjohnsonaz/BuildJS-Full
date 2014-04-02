@@ -1,5 +1,6 @@
 Build('demo.ui.form.WidgetForm', [ 'build::build.ui.form.Form', 'build::build.ui.form.Button', 'build::build.ui.form.ButtonGroup', 'build::build.ui.element.Header1', 'build::build.ui.element.Paragraph', 'build::build.ui.form.FieldSet',
-		'build::build.ui.form.FormControl', 'build::build.ui.form.Label', 'build::build.ui.form.Text', 'build::build.ui.form.TextArea', 'demo::demo.singleton.SingletonTest', 'demo::demo.alternatebase.ArrayChild' ], function(define, $super, merge) {
+		'build::build.ui.form.FormControl', 'build::build.ui.form.Label', 'build::build.ui.form.Text', 'build::build.ui.form.TextArea', 'demo::demo.singleton.SingletonTest', 'demo::demo.alternatebase.ArrayChild',
+		'build::build.utility.TemplateParser' ], function(define, $super, merge) {
 	define({
 		$extends : 'build.ui.form.Form',
 		$constructor : function WidgetForm() {
@@ -14,11 +15,16 @@ Build('demo.ui.form.WidgetForm', [ 'build::build.ui.form.Form', 'build::build.ui
 			buttonGroup.addChild(build.ui.form.Button.create('Button 4'));
 			this.addChild(buttonGroup);
 
-			//this.addChild(build.ui.form.Paragraph.create(new demo.singleton.SingletonTest().data));
-			//this.addChild(build.ui.form.Paragraph.create(new demo.singleton.SingletonTest().data));
-			//arrayBase = new demo.alternatebase.ArrayBase();
-			//arrayChild = new demo.alternatebase.ArrayChild();
-			//this.addChild(build.ui.form.Paragraph.create(arrayChild.toString()));
+			// this.addChild(build.ui.form.Paragraph.create(new
+			// demo.singleton.SingletonTest().data));
+			// this.addChild(build.ui.form.Paragraph.create(new
+			// demo.singleton.SingletonTest().data));
+			// arrayBase = new demo.alternatebase.ArrayBase();
+			// arrayChild = new demo.alternatebase.ArrayChild();
+			// this.addChild(build.ui.form.Paragraph.create(arrayChild.toString()));
+			var templateParser = new build.utility.TemplateParser();
+			var parsedText = templateParser.parse('{{i:user}} test');
+			this.addChild(build.ui.form.Paragraph.create(parsedText));
 
 			var fieldSet = build.ui.form.FieldSet.create('Text Field FieldSet');
 			var text = build.ui.form.Text.create();
