@@ -10,8 +10,10 @@
 	margin: 0;
 	background: url('../img/spinner0.gif') center center no-repeat;
 }
-
-.build-ui-Application {
+.panel-iterator {
+    .row();
+}
+.panel() {
     .container();
     & > .panel-iterator {
         .row();
@@ -44,7 +46,13 @@
 
 .build-ui-form-Button:extend(.button all) {}
 .build-ui-form-Button:extend(.build-ui-form-ButtonGroup .button all) {}
-.demo-inheritance-Application:extend(.build-ui-Application all) {}
+
+.build-ui-Application {
+    .panel();
+}
+.demo-inheritance-Application {
+    .panel();
+}
 
 .build-widget-menu-MenuWidget {
     .menu-widget;
