@@ -4,6 +4,7 @@ Build('build.ui.Application', [ 'build::build.ui.Panel', 'build::build.history.H
 		$constructor : function Application() {
 			$super(this)();
 			this.router = new build.history.HashRouter();
+			this.watchStyle('marginTop', 'marginTop', 'px');
 		},
 		$prototype : {
 			run : function(parent) {

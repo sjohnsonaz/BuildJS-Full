@@ -187,6 +187,15 @@ fieldset {
   border-radius: 5px;
   border: 1px solid #aaaaaa;
 }
+.menu-fixed-top {
+  display: block;
+  position: fixed;
+  top: 0px;
+  right: 0px;
+  left: 0px;
+  height: 60px;
+  background-color: #dddddd;
+}
 .build-ui-tab-TabContainer {
   margin: .67em 0;
 }

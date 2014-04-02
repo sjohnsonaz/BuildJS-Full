@@ -2,13 +2,18 @@ Build.paths.main = '/Resources/js/';
 Build.paths.build = '/Resources/js/';
 Build.paths.demo = '/DemoResources/js/';
 
-Build('demo.inheritance.Application', [ 'build::build.ui.Application', 'build::build.ui.element.Header1', 'build::build.ui.tab.TabContainer', 'build::build.ui.tab.TabPanel', 'build::build.widget.authentication.AuthenticationWidget',
-		'demo::demo.ui.form.WidgetForm', 'demo::demo.ui.form.TestForm', 'build::build.service.AuthenticationServiceConnection', 'demo::demo.service.TestServiceConnection' ], function(define, $super) {
+Build('demo.inheritance.Application', [ 'build::build.ui.Application', 'build::build.ui.element.Div', 'build::build.ui.element.Header1', 'build::build.ui.tab.TabContainer', 'build::build.ui.tab.TabPanel',
+		'build::build.widget.authentication.AuthenticationWidget', 'demo::demo.ui.form.WidgetForm', 'demo::demo.ui.form.TestForm', 'build::build.service.AuthenticationServiceConnection', 'demo::demo.service.TestServiceConnection' ], function(define,
+		$super) {
 	define({
 		$extends : 'build.ui.Application',
 		$constructor : function Application() {
 			$super(this)();
 			this.user = undefined;
+
+			var menu = build.ui.element.Div.create('menu');
+			menu.addClass('menu-fixed-top');
+			this.addChild(menu);
 
 			// Add title
 			var title = build.ui.element.Header1.create('BuildJS');
@@ -53,6 +58,12 @@ Build('demo.inheritance.Application', [ 'build::build.ui.Application', 'build::b
 			});
 			this.router.watchMethod(tabContainer, 'openTabIndex', 'tab', tabContainer.openTabIndex);
 			this.router.listen();
+		},
+		$prototype : {
+			init : function() {
+				$super().init(this)();
+				this.marginTop = 60;
+			}
 		}
 	});
 });

@@ -75,23 +75,25 @@ Build('build.ui.Widget', [ 'build::build.ui.Module', 'build::build.utility.Obser
 			// removeChild : function(widget) {
 			// this.element.removeChild(widget.element);
 			// },
-			addClass : function(cssClass) {
-				if (cssClass) {
-					var classes = this.cssClass.split(' ');
-					var index = classes.indexOf(cssClass);
+			addClass : function(className) {
+				if (className) {
+					var classes = this.className || '';
+					classes = classes.split(' ');
+					var index = classes.indexOf(className);
 					if (index == -1) {
-						classes.push(cssClass);
-						this.cssClass = classes.join(' ');
+						classes.push(className);
+						this.className = classes.join(' ');
 					}
 				}
 			},
-			removeClass : function(cssClass) {
-				if (cssClass) {
-					var classes = this.cssClass.split(' ');
-					var index = classes.indexOf(cssClass);
+			removeClass : function(className) {
+				if (className) {
+					var classes = this.className || '';
+					classes = classes.split(' ');
+					var index = classes.indexOf(className);
 					if (index != -1) {
 						classes.splice(index, 1);
-						this.cssClass = classes.join(' ');
+						this.className = classes.join(' ');
 					}
 				}
 			},
@@ -139,7 +141,7 @@ Build('build.ui.Widget', [ 'build::build.ui.Module', 'build::build.utility.Obser
 				if (unit) {
 					Object.defineProperty(this, property, {
 						get : function() {
-							return parseFloat(this.element.style[style]);
+							return parseFloat(this.element.style[style] || 0);
 						},
 						set : function(value) {
 							this.element.style[style] = value + unit;
