@@ -433,11 +433,20 @@ var Build = build.Build = (function() {
 	return Build;
 })();
 
-// Polyfills
+// TODO: Remove polyfills
+// These polyfills are either required for browser support, or Harmony features.
+// They may be required by other portions of the library.
 (function() {
-	if (typeof String.prototype.endsWith !== 'function') {
-		String.prototype.endsWith = function(suffix) {
-			return this.indexOf(suffix, this.length - suffix.length) !== -1;
-		};
+	if (!String.prototype.endsWith) {
+		Object.defineProperty(String.prototype, 'endsWith', {
+			enumerable : false,
+			configurable : false,
+			writable : false,
+			value : function(searchString, position) {
+				position = (position || this.length) - searchString.length;
+				var lastIndex = this.lastIndexOf(searchString);
+				return lastIndex !== -1 && lastIndex === position;
+			}
+		});
 	}
 })();
