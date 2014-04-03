@@ -71,8 +71,8 @@ Build('demo.inheritance.Application', [ 'build::build.ui.Application', 'build::b
 		$prototype : {
 			init : function() {
 				$super().init(this)();
-				this.addClass('application-menu-fixed-top');
-				//this.marginTop = 50;
+				this.watchClass('menuFixedTop', 'application-menu-fixed-top');
+				this.menuFixedTop = true;
 			}
 		}
 	});

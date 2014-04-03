@@ -208,9 +208,9 @@ Build('build.ui.Widget', [ 'build::build.ui.Module', 'build::build.utility.Obser
 					},
 					set : function(value) {
 						if (value) {
-							this.element.classList.add(value);
+							this.element.classList.add(className);
 						} else {
-							this.element.classList.remove(value);
+							this.element.classList.remove(className);
 						}
 						this.publish(property);
 					}
