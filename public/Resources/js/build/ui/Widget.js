@@ -194,6 +194,7 @@ Build('build.ui.Widget', [ 'build::build.ui.Module', 'build::build.utility.Obser
 						return this.element.dataset ? this.element.dataset[data] : this.element.getAttribute('data-' + data);
 					},
 					set : function(value) {
+						value = value || '';
 						this.element.dataset ? this.element.dataset[data] = value : this.element.setAttribute('data-' + data, value);
 						this.publish(property);
 					}
