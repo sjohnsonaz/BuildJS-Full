@@ -1,9 +1,9 @@
-Build('build.ui.element.Element', [ 'build::build.ui.Widget' ], function(define, $super, merge, safe) {
+Build('build.ui.element.Element', [ 'build::build.ui.Widget', 'build::build.utility.TemplateParser' ], function(define, $super, merge, safe) {
 	define({
 		$extends : 'build.ui.Widget',
 		$constructor : function Element(text) {
 			$super(this)(text);
-			var regex = null;
+			var templateParser = null;
 			var textHelpers = false;
 			Object.defineProperty(this, 'textHelpers', {
 				get : function() {
@@ -12,18 +12,13 @@ Build('build.ui.element.Element', [ 'build::build.ui.Widget' ], function(define,
 				set : function(value) {
 					textHelpers = !!value;
 					if (textHelpers) {
+						templateParser = build.utility.TemplateParser();
 						regex = new RegExp(/{{([^{}]+)}}/g);
 					}
 				}
 			});
 			this.watchProperty('text', 'innerHTML', null, function(value) {
-				if (regex) {
-					value = typeof value === 'string' ? value.replace(regex, function(match, value, all) {
-						var data = value.split(':');
-						return '<' + data[0] + ' class="fa fa-' + data[1] + '"></' + data[0] + '>';
-					}) : value;
-				}
-				return value;
+				return templateParser ? templateParser.parse(value) : value;
 			});
 		},
 		$prototype : {

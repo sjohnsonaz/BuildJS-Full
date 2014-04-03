@@ -22,7 +22,7 @@ Build('demo.ui.form.WidgetForm', [ 'build::build.ui.form.Form', 'build::build.ui
 			// arrayBase = new demo.alternatebase.ArrayBase();
 			// arrayChild = new demo.alternatebase.ArrayChild();
 			// this.addChild(build.ui.form.Paragraph.create(arrayChild.toString()));
-			var templateParser = new build.utility.TemplateParser();
+			var templateParser = build.utility.TemplateParser();
 			var parsedText = templateParser.parse('{{i:user}} test');
 			this.addChild(build.ui.form.Paragraph.create(parsedText));
 
