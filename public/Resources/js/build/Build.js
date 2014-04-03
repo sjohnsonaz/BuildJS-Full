@@ -130,12 +130,8 @@ var Build = build.Build = (function() {
 		var result = undefined;
 		return function() {
 			if (!result) {
-				var args = arguments;
-				function F() {
-					return $constructor.apply(this, args);
-				}
-				F.prototype = $constructor.prototype;
-				result = new F();
+				result = Object.create($constructor.prototype);
+				$constructor.apply(result, arguments);
 			}
 			return result;
 		};
@@ -144,14 +140,14 @@ var Build = build.Build = (function() {
 	function assemble($name, $constructor, $prototype, $static, $parent, $singleton, $base) {
 		$constructor = $base ? base($constructor, $base) : $constructor;
 
-		$constructor = $singleton ? singleton($constructor) : $constructor;
-
 		copyNoReplace($constructor, $static);
 
 		inherit($constructor, $parent, $prototype);
 
 		$constructor.$name = $name;
 		$constructor.$base = $base;
+
+		$constructor = $singleton ? singleton($constructor) : $constructor;
 
 		definitions[$name] = $constructor;
 		namespace($name, $constructor);
