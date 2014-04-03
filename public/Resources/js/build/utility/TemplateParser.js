@@ -1,19 +1,41 @@
 Build('build.utility.TemplateParser', [], function(define, $super, merge, safe) {
 	define({
-		$constructor : function TemplateParser() {
-			this.regex = new RegExp(/{{([^{}]+)}}/g);
+		$constructor : function TemplateParser(regex) {
+			this.regex = regex || new RegExp(/{{([^{}]+)}}/g);
+			this.helpers = {};
+			this.helpers['i'] = function(value, text, context) {
+				return '<i class="fa fa-' + value + '"></i>';
+			};
 		},
 		$prototype : {
-			parse : function(value) {
-				var regex = this.regex;
-				if (regex) {
-					value = typeof value === 'string' ? value.replace(regex, function(match, value, all) {
+			parse : function(text, context) {
+				switch (typeof text) {
+				case 'string':
+					text = text.replace(this.regex, function(match, value, all) {
+						var escape = false;
+						if (value[0] == '{' && value[value.length] == '}') {
+							escape = true;
+							value = value.substring(1, value.length - 2);
+						}
 						var data = value.split(':');
-						return '<' + data[0] + ' class="fa fa-' + data[1] + '"></' + data[0] + '>';
-					}) : value;
+						if (data.length > 1) {
+							var helper = this.helpers[data[0]];
+							value = safe(helper)(data[1], text, context);
+						}
+						if (escape) {
+
+						}
+						return value;
+					}.bind(this));
+					break;
+				case 'object':
+				case 'function':
+					text = text.toString();
+					break;
 				}
-				return value;
+				return text;
 			}
-		}
+		},
+		$singleton : true
 	});
 });

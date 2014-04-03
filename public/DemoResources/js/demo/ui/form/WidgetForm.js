@@ -15,10 +15,10 @@ Build('demo.ui.form.WidgetForm', [ 'build::build.ui.form.Form', 'build::build.ui
 			buttonGroup.addChild(build.ui.form.Button.create('Button 4'));
 			this.addChild(buttonGroup);
 
-			// this.addChild(build.ui.form.Paragraph.create(new
-			// demo.singleton.SingletonTest().data));
-			// this.addChild(build.ui.form.Paragraph.create(new
-			// demo.singleton.SingletonTest().data));
+			this.addChild(build.ui.form.Paragraph.create(new
+			demo.singleton.SingletonTest().data));
+			this.addChild(build.ui.form.Paragraph.create(new
+			demo.singleton.SingletonTest().data));
 			// arrayBase = new demo.alternatebase.ArrayBase();
 			// arrayChild = new demo.alternatebase.ArrayChild();
 			// this.addChild(build.ui.form.Paragraph.create(arrayChild.toString()));
