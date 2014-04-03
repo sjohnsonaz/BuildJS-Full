@@ -19,7 +19,23 @@ Build('build.ui.Widget', [ 'build::build.ui.Module', 'build::build.utility.Obser
 				this.className = this.uniqueClass();
 				Object.defineProperty(this, 'classList', {
 					get : function() {
-						this.element.classList;
+						var classList = this.element.classList;
+						var add = classList.add;
+						classList.add = function() {
+							add.apply(this, arguments);
+							this.publish('classList');
+						};
+						var remove = classList.remove;
+						classList.remove = function() {
+							remove.apply(this, arguments);
+							this.publish('classList');
+						};
+						var toggle = classList.toggle;
+						classList.toggle = function() {
+							toggle.apply(this, arguments);
+							this.publish('classList');
+						};
+						return classList;
 					},
 					set : function(value) {
 						if (typeof value === 'string') {
@@ -27,6 +43,7 @@ Build('build.ui.Widget', [ 'build::build.ui.Module', 'build::build.utility.Obser
 						} else if (value instanceof Array) {
 							this.element.className = value.join(' ');
 						}
+						this.publish('classList');
 					}
 				});
 				this.refreshChildren();
