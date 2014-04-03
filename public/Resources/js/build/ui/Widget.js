@@ -20,20 +20,21 @@ Build('build.ui.Widget', [ 'build::build.ui.Module', 'build::build.utility.Obser
 				Object.defineProperty(this, 'classList', {
 					get : function() {
 						var classList = this.element.classList;
+						var self = this;
 						var add = classList.add;
 						classList.add = function() {
 							add.apply(this, arguments);
-							this.publish('classList');
+							self.publish('classList');
 						};
 						var remove = classList.remove;
 						classList.remove = function() {
 							remove.apply(this, arguments);
-							this.publish('classList');
+							self.publish('classList');
 						};
 						var toggle = classList.toggle;
 						classList.toggle = function() {
 							toggle.apply(this, arguments);
-							this.publish('classList');
+							self.publish('classList');
 						};
 						return classList;
 					},
@@ -107,24 +108,14 @@ Build('build.ui.Widget', [ 'build::build.ui.Module', 'build::build.utility.Obser
 			// },
 			addClass : function(className) {
 				if (className) {
-					var classes = this.className || '';
-					classes = classes.split(' ');
-					var index = classes.indexOf(className);
-					if (index == -1) {
-						classes.push(className);
-						this.className = classes.join(' ');
-					}
+					this.classList.add(className);
+					this.publish('className');
 				}
 			},
 			removeClass : function(className) {
 				if (className) {
-					var classes = this.className || '';
-					classes = classes.split(' ');
-					var index = classes.indexOf(className);
-					if (index != -1) {
-						classes.splice(index, 1);
-						this.className = classes.join(' ');
-					}
+					this.classList.remove(className);
+					this.publish('className');
 				}
 			},
 			addEvent : function(type, listener, useCapture, bind) {
