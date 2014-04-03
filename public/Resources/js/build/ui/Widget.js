@@ -17,6 +17,18 @@ Build('build.ui.Widget', [ 'build::build.ui.Module', 'build::build.utility.Obser
 			init : function() {
 				this.id = this.uniqueId();
 				this.className = this.uniqueClass();
+				Object.defineProperty(this, 'classList', {
+					get : function() {
+						this.element.classList;
+					},
+					set : function(value) {
+						if (typeof value === 'string') {
+							this.element.className = value;
+						} else if (value instanceof Array) {
+							this.element.className = value.join(' ');
+						}
+					}
+				});
 				this.refreshChildren();
 			},
 			createElement : function() {
@@ -125,13 +137,18 @@ Build('build.ui.Widget', [ 'build::build.ui.Module', 'build::build.utility.Obser
 					}
 				});
 			},
-			watchAttribute : function(property, attribute) {
+			watchAttribute : function(property, attribute, get, set) {
 				attribute = attribute || property;
 				Object.defineProperty(this, property, {
-					get : function() {
+					get : get ? function() {
+						return get(this.element.getAttribute(attribute));
+					} : function() {
 						return this.element.getAttribute(attribute);
 					},
-					set : function(value) {
+					set : set ? function(value) {
+						this.element.setAttribute(attribute, set(value));
+						this.publish(property);
+					} : function(value) {
 						this.element.setAttribute(attribute, value);
 						this.publish(property);
 					}
@@ -169,10 +186,26 @@ Build('build.ui.Widget', [ 'build::build.ui.Module', 'build::build.utility.Obser
 					},
 					set : function(value) {
 						this.element.dataset[data] = value;
-						this.publish(value);
+						this.publish(property);
 					}
 				});
 			},
+			watchClass : function(property, className) {
+				className = className || property;
+				Object.defineProperty(this, property, {
+					get : function() {
+						return this.element.classList.contains(className);
+					},
+					set : function(value) {
+						if (value) {
+							this.element.classList.add(value);
+						} else {
+							this.element.classList.remove(value);
+						}
+						this.publish(property);
+					}
+				});
+			}
 		},
 		$static : {
 			create : function() {
