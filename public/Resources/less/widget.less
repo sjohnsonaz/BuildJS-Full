@@ -27,22 +27,25 @@
     }
 }
 .menu-widget {
-    * {
-        display: inline-block;
-        width: auto;
-    }
     .panel-iterator {
         display: inline-block;
         width: auto;
-        
+        @media only screen and (max-width : (@size0 - 1)) {
+            display: block;
+            width: 100%;
+            clear: both;
+        }
     }
     .form-control-iterator-label {
-        display: inline-block;
+        display: none;//inline-block;
         width: auto;
         padding: 15px 5px 15px 15px;
         margin: 0;
         &:empty {
             padding: 0;
+        }
+        @media only screen and (max-width : (@size0 - 1)) {
+            display: block;
         }
     }
     .form-control-iterator-control {
@@ -52,6 +55,9 @@
         margin: 0;
         &:empty {
             padding: 0;
+        }
+        @media only screen and (max-width : (@size0 - 1)) {
+            display: block;
         }
     }
 }

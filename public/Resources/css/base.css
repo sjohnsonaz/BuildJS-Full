@@ -187,6 +187,14 @@ fieldset {
   border-radius: 5px;
   border: 1px solid #aaaaaa;
 }
+.application-menu-fixed-top {
+  margin-top: 50px !important;
+}
+@media only screen and (max-width: 767px) {
+  .application-menu-fixed-top {
+    margin-top: 0px !important;
+  }
+}
 .menu-fixed-top {
   display: block;
   position: fixed;
@@ -196,10 +204,15 @@ fieldset {
 }
 @media only screen and (max-width: 767px) {
   .menu-fixed-top {
-    position: absolute;
+    position: relative;
+    height: auto !important;
+  }
+  .menu-fixed-top .pull-right {
+    float: none;
   }
 }
 .menu-widget {
+  zoom: 1;
   display: block;
   padding: 0;
   margin: 0;
@@ -208,10 +221,20 @@ fieldset {
   list-style-type: none;
   z-index: 1000;
 }
+.menu-widget:after {
+  display: table;
+  content: '';
+  clear: both;
+}
 .menu-widget li {
   float: left;
   display: block;
   margin: 0;
+}
+@media only screen and (max-width: 767px) {
+  .menu-widget li {
+    width: 100%;
+  }
 }
 .menu-widget li a {
   display: block;
@@ -231,6 +254,11 @@ fieldset {
 .menu-widget li a.active-menu:hover {
   background-color: #777777;
   color: #cccccc;
+}
+@media only screen and (max-width: 767px) {
+  .menu-widget li a {
+    width: 100%;
+  }
 }
 .build-ui-tab-TabContainer {
   margin: .67em 0;
@@ -369,22 +397,30 @@ fieldset {
   content: '';
   clear: both;
 }
-.menu-widget * {
-  display: inline-block;
-  width: auto;
-}
 .menu-widget .panel-iterator {
   display: inline-block;
   width: auto;
 }
+@media only screen and (max-width: 767px) {
+  .menu-widget .panel-iterator {
+    display: block;
+    width: 100%;
+    clear: both;
+  }
+}
 .menu-widget .form-control-iterator-label {
-  display: inline-block;
+  display: none;
   width: auto;
   padding: 15px 5px 15px 15px;
   margin: 0;
 }
 .menu-widget .form-control-iterator-label:empty {
   padding: 0;
+}
+@media only screen and (max-width: 767px) {
+  .menu-widget .form-control-iterator-label {
+    display: block;
+  }
 }
 .menu-widget .form-control-iterator-control {
   display: inline-block;
@@ -394,6 +430,11 @@ fieldset {
 }
 .menu-widget .form-control-iterator-control:empty {
   padding: 0;
+}
+@media only screen and (max-width: 767px) {
+  .menu-widget .form-control-iterator-control {
+    display: block;
+  }
 }
 .build-ui-form-FormControl {
   display: block;
@@ -575,6 +616,7 @@ fieldset {
   clear: both;
 }
 .build-widget-menu-MenuWidget {
+  zoom: 1;
   display: block;
   padding: 0;
   margin: 0;
@@ -583,10 +625,20 @@ fieldset {
   list-style-type: none;
   z-index: 1000;
 }
+.build-widget-menu-MenuWidget:after {
+  display: table;
+  content: '';
+  clear: both;
+}
 .build-widget-menu-MenuWidget li {
   float: left;
   display: block;
   margin: 0;
+}
+@media only screen and (max-width: 767px) {
+  .build-widget-menu-MenuWidget li {
+    width: 100%;
+  }
 }
 .build-widget-menu-MenuWidget li a {
   display: block;
@@ -607,22 +659,35 @@ fieldset {
   background-color: #777777;
   color: #cccccc;
 }
-.build-widget-menu-MenuWidget * {
-  display: inline-block;
-  width: auto;
+@media only screen and (max-width: 767px) {
+  .build-widget-menu-MenuWidget li a {
+    width: 100%;
+  }
 }
 .build-widget-menu-MenuWidget .panel-iterator {
   display: inline-block;
   width: auto;
 }
+@media only screen and (max-width: 767px) {
+  .build-widget-menu-MenuWidget .panel-iterator {
+    display: block;
+    width: 100%;
+    clear: both;
+  }
+}
 .build-widget-menu-MenuWidget .form-control-iterator-label {
-  display: inline-block;
+  display: none;
   width: auto;
   padding: 15px 5px 15px 15px;
   margin: 0;
 }
 .build-widget-menu-MenuWidget .form-control-iterator-label:empty {
   padding: 0;
+}
+@media only screen and (max-width: 767px) {
+  .build-widget-menu-MenuWidget .form-control-iterator-label {
+    display: block;
+  }
 }
 .build-widget-menu-MenuWidget .form-control-iterator-control {
   display: inline-block;
@@ -632,4 +697,9 @@ fieldset {
 }
 .build-widget-menu-MenuWidget .form-control-iterator-control:empty {
   padding: 0;
+}
+@media only screen and (max-width: 767px) {
+  .build-widget-menu-MenuWidget .form-control-iterator-control {
+    display: block;
+  }
 }

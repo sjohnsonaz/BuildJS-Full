@@ -21,6 +21,8 @@ Build('build.utility.TemplateParser', [], function(define, $super, merge, safe) 
 						if (data.length > 1) {
 							var helper = this.helpers[data[0]];
 							value = safe(helper)(data[1], text, context);
+						} else {
+							value = context ? context[value] : value;
 						}
 						if (escape) {
 

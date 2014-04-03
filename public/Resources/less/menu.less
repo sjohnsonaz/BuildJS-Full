@@ -1,5 +1,12 @@
 @import "settings.less";
 
+.application-menu-fixed-top {
+    margin-top: 50px !important;
+    @media only screen and (max-width : (@size0 - 1)) {
+        margin-top: 0px !important;
+    }
+}
+
 .menu-fixed-top {
     display: block;
     position: fixed;
@@ -7,11 +14,16 @@
     right: 0px;
     left: 0px;
     @media only screen and (max-width : (@size0 - 1)) {
-        position: absolute;
+        position: relative;
+        height: auto !important;
+        .pull-right {
+            float: none;
+        }
     }
 }
 
 .menu-widget {
+    .clearfix;
     display: block;
     padding: 0;
     margin: 0;
@@ -23,6 +35,9 @@
         float: left;
         display: block;
         margin: 0;
+        @media only screen and (max-width : (@size0 - 1)) {
+            width: 100%;
+        }
         a {
             display: block;
             padding: 15px;
@@ -40,6 +55,9 @@
                     background-color: darken(@input-reverse-background, 20%);
                     color: darken(@input-reverse, 20%);
                 }
+            }
+            @media only screen and (max-width : (@size0 - 1)) {
+                width: 100%;
             }
         }
     }
