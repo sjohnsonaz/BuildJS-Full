@@ -178,14 +178,15 @@ Build('build.ui.Widget', [ 'build::build.ui.Module', 'build::build.utility.Obser
 					});
 				}
 			},
+			// TODO: Remove this polyfill once IE10 support is dropped.
 			watchData : function(property, data) {
 				data = data || property;
 				Object.defineProperty(this, property, {
 					get : function() {
-						return this.element.dataset[data];
+						return this.element.dataset ? this.element.dataset[data] : this.element.getAttribute('data-' + data);
 					},
 					set : function(value) {
-						this.element.dataset[data] = value;
+						this.element.dataset ? this.element.dataset[data] = value : this.element.setAttribute('data-' + data, value);
 						this.publish(property);
 					}
 				});
