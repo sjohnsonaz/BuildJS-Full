@@ -29,7 +29,8 @@ Build('demo.inheritance.Application', [ 'build::build.ui.Application', 'build::b
 
 			this.authenticationServiceConnection = new build.service.AuthenticationServiceConnection();
 			this.authenticationWidget = build.widget.authentication.AuthenticationWidget.create(this.authenticationServiceConnection);
-			this.addChild(this.authenticationWidget);
+			this.authenticationWidget.addClass('pull-right');
+			menu.addChild(this.authenticationWidget);
 			this.authenticationWidget.addCallback('loginSuccess', function(data, request) {
 				this.user = data.user;
 				// this.addChild(this.userWidget);

@@ -8,7 +8,7 @@ Build('build.widget.authentication.LogoutForm', [ 'build::build.ui.form.Form', '
 			this.authenticationServiceConnection = authenticationServiceConnection;
 
 			this.addChild(this.username);
-			this.addChild(this.submit);
+			this.addChild(build.ui.form.FormControl.create(null, this.submit));
 		},
 		$prototype : {
 			init : function() {

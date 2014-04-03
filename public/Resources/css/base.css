@@ -369,6 +369,32 @@ fieldset {
   content: '';
   clear: both;
 }
+.menu-widget * {
+  display: inline-block;
+  width: auto;
+}
+.menu-widget .panel-iterator {
+  display: inline-block;
+  width: auto;
+}
+.menu-widget .form-control-iterator-label {
+  display: inline-block;
+  width: auto;
+  padding: 15px 5px 15px 15px;
+  margin: 0;
+}
+.menu-widget .form-control-iterator-label:empty {
+  padding: 0;
+}
+.menu-widget .form-control-iterator-control {
+  display: inline-block;
+  width: auto;
+  padding: 4px;
+  margin: 0;
+}
+.menu-widget .form-control-iterator-control:empty {
+  padding: 0;
+}
 .build-ui-form-FormControl {
   display: block;
   zoom: 1;
@@ -580,4 +606,30 @@ fieldset {
 .build-widget-menu-MenuWidget li a.active-menu:hover {
   background-color: #777777;
   color: #cccccc;
+}
+.build-widget-menu-MenuWidget * {
+  display: inline-block;
+  width: auto;
+}
+.build-widget-menu-MenuWidget .panel-iterator {
+  display: inline-block;
+  width: auto;
+}
+.build-widget-menu-MenuWidget .form-control-iterator-label {
+  display: inline-block;
+  width: auto;
+  padding: 15px 5px 15px 15px;
+  margin: 0;
+}
+.build-widget-menu-MenuWidget .form-control-iterator-label:empty {
+  padding: 0;
+}
+.build-widget-menu-MenuWidget .form-control-iterator-control {
+  display: inline-block;
+  width: auto;
+  padding: 4px;
+  margin: 0;
+}
+.build-widget-menu-MenuWidget .form-control-iterator-control:empty {
+  padding: 0;
 }
