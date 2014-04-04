@@ -269,6 +269,12 @@ fieldset {
     width: 100%;
   }
 }
+.menu-title {
+  padding: 10px;
+  font-size: 24px;
+  font-weight: bold;
+  float: left;
+}
 .build-ui-tab-TabContainer {
   margin: .67em 0;
 }
@@ -750,6 +756,12 @@ fieldset {
   float: right;
   padding: 10px 15px 10px 15px;
   margin: 6px;
+}
+.build-widget-menu-MenuTitle {
+  padding: 10px;
+  font-size: 24px;
+  font-weight: bold;
+  float: left;
 }
 .build-widget-menu-ExpandableMenuWidget {
   zoom: 1;

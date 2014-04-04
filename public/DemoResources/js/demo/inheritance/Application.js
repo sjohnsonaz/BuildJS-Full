@@ -2,9 +2,9 @@ Build.paths.main = '/Resources/js/';
 Build.paths.build = '/Resources/js/';
 Build.paths.demo = '/DemoResources/js/';
 
-Build('demo.inheritance.Application', [ 'build::build.ui.Application', 'build::build.widget.menu.ExpandableMenuWidget', 'build::build.widget.menu.MenuElement', 'build::build.ui.element.Header1', 'build::build.ui.tab.TabContainer',
-		'build::build.ui.tab.TabPanel', 'build::build.widget.authentication.AuthenticationWidget', 'demo::demo.ui.form.WidgetForm', 'demo::demo.ui.form.TestForm', 'build::build.service.AuthenticationServiceConnection',
-		'demo::demo.service.TestServiceConnection' ], function(define, $super) {
+Build('demo.inheritance.Application', [ 'build::build.ui.Application', 'build::build.widget.menu.ExpandableMenuWidget', 'build::build.widget.menu.MenuElement', 'build::build.widget.menu.MenuTitle', 'build::build.ui.element.Div',
+		'build::build.ui.tab.TabContainer', 'build::build.ui.tab.TabPanel', 'build::build.widget.authentication.AuthenticationWidget', 'demo::demo.ui.form.WidgetForm', 'demo::demo.ui.form.TestForm',
+		'build::build.service.AuthenticationServiceConnection', 'demo::demo.service.TestServiceConnection' ], function(define, $super) {
 	define({
 		$extends : 'build.ui.Application',
 		$constructor : function Application() {
@@ -13,6 +13,9 @@ Build('demo.inheritance.Application', [ 'build::build.ui.Application', 'build::b
 
 			var menu = build.widget.menu.ExpandableMenuWidget.create();
 			menu.addClass('menu-fixed-top');
+			// Add title
+			var title = build.widget.menu.MenuTitle.create('BuildJS');
+			menu.addChild(title);
 			var menuElement0 = build.widget.menu.MenuElement.create();
 			menuElement0.text = 'My Link 0';
 			menuElement0.url = 'test.html';
@@ -22,10 +25,6 @@ Build('demo.inheritance.Application', [ 'build::build.ui.Application', 'build::b
 			menuElement1.url = 'test.html';
 			menu.addChild(menuElement1);
 			this.addChild(menu);
-
-			// Add title
-			var title = build.ui.element.Header1.create('BuildJS');
-			this.addChild(title);
 
 			this.authenticationServiceConnection = new build.service.AuthenticationServiceConnection();
 			this.authenticationWidget = build.widget.authentication.AuthenticationWidget.create(this.authenticationServiceConnection);
