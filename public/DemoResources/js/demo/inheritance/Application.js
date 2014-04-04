@@ -2,7 +2,7 @@ Build.paths.main = '/Resources/js/';
 Build.paths.build = '/Resources/js/';
 Build.paths.demo = '/DemoResources/js/';
 
-Build('demo.inheritance.Application', [ 'build::build.ui.Application', 'build::build.widget.menu.MenuWidget', 'build::build.widget.menu.MenuElement', 'build::build.ui.element.Header1', 'build::build.ui.tab.TabContainer',
+Build('demo.inheritance.Application', [ 'build::build.ui.Application', 'build::build.widget.menu.ExpandableMenuWidget', 'build::build.widget.menu.MenuElement', 'build::build.ui.element.Header1', 'build::build.ui.tab.TabContainer',
 		'build::build.ui.tab.TabPanel', 'build::build.widget.authentication.AuthenticationWidget', 'demo::demo.ui.form.WidgetForm', 'demo::demo.ui.form.TestForm', 'build::build.service.AuthenticationServiceConnection',
 		'demo::demo.service.TestServiceConnection' ], function(define, $super) {
 	define({
@@ -11,7 +11,7 @@ Build('demo.inheritance.Application', [ 'build::build.ui.Application', 'build::b
 			$super(this)();
 			this.user = undefined;
 
-			var menu = build.widget.menu.MenuWidget.create();
+			var menu = build.widget.menu.ExpandableMenuWidget.create();
 			menu.addClass('menu-fixed-top');
 			var menuElement0 = build.widget.menu.MenuElement.create();
 			menuElement0.text = 'My Link 0';
