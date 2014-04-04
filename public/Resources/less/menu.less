@@ -7,21 +7,6 @@
     }
 }
 
-.menu-fixed-top {
-    display: block;
-    position: fixed;
-    top: 0px;
-    right: 0px;
-    left: 0px;
-    @media only screen and (max-width : (@size0 - 1)) {
-        position: relative;
-        height: auto !important;
-        .pull-right {
-            float: none;
-        }
-    }
-}
-
 .menu-widget {
     .clearfix;
     display: block;
@@ -31,6 +16,29 @@
     background-color: @input-reverse-background;
     list-style-type: none;
     z-index: 1000;
+    &.menu-fixed-top {
+        display: block;
+        position: fixed;
+        top: 0px;
+        right: 0px;
+        left: 0px;
+        .expand-button {
+            display: none;
+        }
+        @media only screen and (max-width : (@size0 - 1)) {
+            position: relative;
+            overflow: hidden;
+            &.expandable-menu-widget-expand {
+                height: auto;
+            }
+            .pull-right {
+                float: none;
+            }
+            .expand-button {
+                display: inline-block;
+            }
+        }
+    }
     li {
         float: left;
         display: block;

@@ -195,22 +195,6 @@ fieldset {
     margin-top: 0px !important;
   }
 }
-.menu-fixed-top {
-  display: block;
-  position: fixed;
-  top: 0px;
-  right: 0px;
-  left: 0px;
-}
-@media only screen and (max-width: 767px) {
-  .menu-fixed-top {
-    position: relative;
-    height: auto !important;
-  }
-  .menu-fixed-top .pull-right {
-    float: none;
-  }
-}
 .menu-widget {
   zoom: 1;
   display: block;
@@ -225,6 +209,31 @@ fieldset {
   display: table;
   content: '';
   clear: both;
+}
+.menu-widget.menu-fixed-top {
+  display: block;
+  position: fixed;
+  top: 0px;
+  right: 0px;
+  left: 0px;
+}
+.menu-widget.menu-fixed-top .expand-button {
+  display: none;
+}
+@media only screen and (max-width: 767px) {
+  .menu-widget.menu-fixed-top {
+    position: relative;
+    overflow: hidden;
+  }
+  .menu-widget.menu-fixed-top.expandable-menu-widget-expand {
+    height: auto;
+  }
+  .menu-widget.menu-fixed-top .pull-right {
+    float: none;
+  }
+  .menu-widget.menu-fixed-top .expand-button {
+    display: inline-block;
+  }
 }
 .menu-widget li {
   float: left;
@@ -637,6 +646,31 @@ fieldset {
   content: '';
   clear: both;
 }
+.build-widget-menu-MenuWidget.menu-fixed-top {
+  display: block;
+  position: fixed;
+  top: 0px;
+  right: 0px;
+  left: 0px;
+}
+.build-widget-menu-MenuWidget.menu-fixed-top .expand-button {
+  display: none;
+}
+@media only screen and (max-width: 767px) {
+  .build-widget-menu-MenuWidget.menu-fixed-top {
+    position: relative;
+    overflow: hidden;
+  }
+  .build-widget-menu-MenuWidget.menu-fixed-top.expandable-menu-widget-expand {
+    height: auto;
+  }
+  .build-widget-menu-MenuWidget.menu-fixed-top .pull-right {
+    float: none;
+  }
+  .build-widget-menu-MenuWidget.menu-fixed-top .expand-button {
+    display: inline-block;
+  }
+}
 .build-widget-menu-MenuWidget li {
   float: left;
   display: block;
@@ -731,6 +765,31 @@ fieldset {
   display: table;
   content: '';
   clear: both;
+}
+.build-widget-menu-ExpandableMenuWidget.menu-fixed-top {
+  display: block;
+  position: fixed;
+  top: 0px;
+  right: 0px;
+  left: 0px;
+}
+.build-widget-menu-ExpandableMenuWidget.menu-fixed-top .expand-button {
+  display: none;
+}
+@media only screen and (max-width: 767px) {
+  .build-widget-menu-ExpandableMenuWidget.menu-fixed-top {
+    position: relative;
+    overflow: hidden;
+  }
+  .build-widget-menu-ExpandableMenuWidget.menu-fixed-top.expandable-menu-widget-expand {
+    height: auto;
+  }
+  .build-widget-menu-ExpandableMenuWidget.menu-fixed-top .pull-right {
+    float: none;
+  }
+  .build-widget-menu-ExpandableMenuWidget.menu-fixed-top .expand-button {
+    display: inline-block;
+  }
 }
 .build-widget-menu-ExpandableMenuWidget li {
   float: left;
