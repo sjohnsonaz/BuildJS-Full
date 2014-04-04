@@ -36,7 +36,7 @@ Build('build.widget.authentication.LogoutForm', [ 'build::build.ui.form.Form', '
 					this.runCallbacks('logoutSuccess', data, request);
 					safe(success)(data, request);
 				}.bind(this), function(request) {
-					safe(error)(data, request);
+					safe(error)(request);
 				}.bind(this));
 			}
 		}
