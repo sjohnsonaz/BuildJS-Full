@@ -410,6 +410,7 @@ fieldset {
 }
 .menu-widget .form-control-iterator-label {
   display: none;
+  float: none;
   width: auto;
   padding: 15px 5px 15px 15px;
   margin: 0;
@@ -424,6 +425,7 @@ fieldset {
 }
 .menu-widget .form-control-iterator-control {
   display: inline-block;
+  float: none;
   width: auto;
   padding: 4px;
   margin: 0;
@@ -677,6 +679,7 @@ fieldset {
 }
 .build-widget-menu-MenuWidget .form-control-iterator-label {
   display: none;
+  float: none;
   width: auto;
   padding: 15px 5px 15px 15px;
   margin: 0;
@@ -691,6 +694,7 @@ fieldset {
 }
 .build-widget-menu-MenuWidget .form-control-iterator-control {
   display: inline-block;
+  float: none;
   width: auto;
   padding: 4px;
   margin: 0;
