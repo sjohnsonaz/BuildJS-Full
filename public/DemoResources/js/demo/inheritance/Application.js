@@ -2,43 +2,25 @@ Build.paths.main = '/Resources/js/';
 Build.paths.build = '/Resources/js/';
 Build.paths.demo = '/DemoResources/js/';
 
-Build('demo.inheritance.Application', [ 'build::build.ui.Application', 'build::build.widget.menu.ExpandableMenuWidget', 'build::build.widget.menu.MenuElement', 'build::build.widget.menu.MenuTitle', 'build::build.ui.element.Div',
-		'build::build.ui.tab.TabContainer', 'build::build.ui.tab.TabPanel', 'build::build.widget.authentication.AuthenticationWidget', 'demo::demo.ui.form.WidgetForm', 'demo::demo.ui.form.TestForm',
+Build('demo.inheritance.Application', [ 'build::build.ui.application.AuthenticatedApplication', 'build::build.widget.menu.ExpandableMenuWidget', 'build::build.widget.menu.MenuElement', 'build::build.widget.menu.MenuTitle',
+		'build::build.ui.element.Div', 'build::build.ui.tab.TabContainer', 'build::build.ui.tab.TabPanel', 'build::build.widget.authentication.AuthenticationWidget', 'demo::demo.ui.form.WidgetForm', 'demo::demo.ui.form.TestForm',
 		'build::build.service.AuthenticationServiceConnection', 'demo::demo.service.TestServiceConnection' ], function(define, $super) {
 	define({
-		$extends : 'build.ui.Application',
+		$extends : 'build.ui.application.AuthenticatedApplication',
 		$constructor : function Application() {
 			$super(this)();
-			this.user = undefined;
 
-			var menu = build.widget.menu.ExpandableMenuWidget.create();
-			menu.addClass('menu-fixed-top');
 			// Add title
-			var title = build.widget.menu.MenuTitle.create('BuildJS');
-			menu.addChild(title);
+			this.title = 'BuildJS';
+
 			var menuElement0 = build.widget.menu.MenuElement.create();
 			menuElement0.text = 'My Link 0';
 			menuElement0.url = 'test.html';
-			menu.addChild(menuElement0);
+			this.menu.addChild(menuElement0);
 			var menuElement1 = build.widget.menu.MenuElement.create();
 			menuElement1.text = 'My Link 1';
 			menuElement1.url = 'test.html';
-			menu.addChild(menuElement1);
-			this.addChild(menu);
-
-			this.authenticationServiceConnection = new build.service.AuthenticationServiceConnection();
-			this.authenticationWidget = build.widget.authentication.AuthenticationWidget.create(this.authenticationServiceConnection);
-			this.authenticationWidget.addClass('pull-right');
-			menu.addChild(this.authenticationWidget);
-			this.authenticationWidget.addCallback('loginSuccess', function(data, request) {
-				this.user = data.user;
-				// this.addChild(this.userWidget);
-			}.bind(this));
-			this.authenticationWidget.addCallback('logoutSuccess', function(data, request) {
-				this.user = undefined;
-				// this.removeChild(this.userWidget);
-			}.bind(this));
-			this.authenticationWidget.run();
+			this.menu.addChild(menuElement1);
 
 			// Add tab container
 			var tabContainer = build.ui.tab.TabContainer.create();
@@ -70,8 +52,6 @@ Build('demo.inheritance.Application', [ 'build::build.ui.Application', 'build::b
 		$prototype : {
 			init : function() {
 				$super().init(this)();
-				this.watchClass('menuFixedTop', 'application-menu-fixed-top');
-				this.menuFixedTop = true;
 			}
 		}
 	});
