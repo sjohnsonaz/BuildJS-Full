@@ -20,7 +20,6 @@ Build('build.ui.application.AuthenticatedApplication', [ 'build::build.ui.Applic
 				this.user = undefined;
 				// this.removeChild(this.userWidget);
 			}.bind(this));
-			this.authenticationWidget.run();
 
 			Object.defineProperty(this, 'title', {
 				get : function() {
@@ -37,6 +36,7 @@ Build('build.ui.application.AuthenticatedApplication', [ 'build::build.ui.Applic
 				$super().init(this)();
 				this.watchClass('menuFixedTop', 'application-menu-fixed-top');
 				this.menuFixedTop = true;
+				this.authenticationWidget.run();
 			}
 		}
 	});

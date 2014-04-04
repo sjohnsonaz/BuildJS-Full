@@ -2,11 +2,11 @@ Build.paths.main = '/Resources/js/';
 Build.paths.build = '/Resources/js/';
 Build.paths.demo = '/DemoResources/js/';
 
-Build('demo.inheritance.Application', [ 'build::build.ui.application.AuthenticatedApplication', 'build::build.widget.menu.ExpandableMenuWidget', 'build::build.widget.menu.MenuElement', 'build::build.widget.menu.MenuTitle',
-		'build::build.ui.element.Div', 'build::build.ui.tab.TabContainer', 'build::build.ui.tab.TabPanel', 'build::build.widget.authentication.AuthenticationWidget', 'demo::demo.ui.form.WidgetForm', 'demo::demo.ui.form.TestForm',
+Build('demo.inheritance.Application', [ 'build::build.ui.application.AdminApplication', 'build::build.widget.menu.ExpandableMenuWidget', 'build::build.widget.menu.MenuElement', 'build::build.widget.menu.MenuTitle', 'build::build.ui.element.Div',
+		'build::build.ui.tab.TabContainer', 'build::build.ui.tab.TabPanel', 'build::build.widget.authentication.AuthenticationWidget', 'demo::demo.ui.form.WidgetForm', 'demo::demo.ui.form.TestForm',
 		'build::build.service.AuthenticationServiceConnection', 'demo::demo.service.TestServiceConnection' ], function(define, $super) {
 	define({
-		$extends : 'build.ui.application.AuthenticatedApplication',
+		$extends : 'build.ui.application.AdminApplication',
 		$constructor : function Application() {
 			$super(this)();
 
