@@ -1,5 +1,8 @@
 Build('build.ui.Widget', [ 'build::build.ui.Module', 'build::build.utility.ObservableArray' ], function(define, $super, merge) {
 	var idCount = {};
+	function preventDefault(event) {
+		event.preventDefault();
+	}
 	define({
 		$extends : 'build.ui.Module',
 		$constructor : function Widget() {
@@ -127,6 +130,12 @@ Build('build.ui.Widget', [ 'build::build.ui.Module', 'build::build.utility.Obser
 			},
 			removeEvent : function(type, listener) {
 				this.element.removeEventListener(type, listener);
+			},
+			preventDefault : function(type) {
+				this.element.addEventListener(type || 'click', preventDefault);
+			},
+			allowDefault : function(type) {
+				this.element.removeEventListener(type || 'click', preventDefault);
 			},
 			watchProperty : function(property, name, get, set) {
 				name = name || property;

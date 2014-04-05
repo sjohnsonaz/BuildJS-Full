@@ -41,13 +41,6 @@ Build('demo.inheritance.Application', [ 'build::build.ui.application.AdminApplic
 			// Add testForm
 			var testForm = demo.ui.form.TestForm.create();
 			tabPanel1.addChild(testForm);
-
-			// Add routes
-			this.router.add('#/test/:id', function(id) {
-				console.log('test started: ' + id);
-			});
-			this.router.watchMethod(tabContainer, 'openTabIndex', 'tab', tabContainer.openTabIndex);
-			this.router.listen();
 		},
 		$prototype : {
 			init : function() {

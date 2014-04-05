@@ -1,12 +1,25 @@
-Build('build.ui.application.AuthenticatedApplication', [ 'build::build.ui.Application', 'build::build.widget.menu.ExpandableMenuWidget', 'build::build.widget.authentication.AuthenticationWidget' ], function(define, $super, merge, safe) {
+Build('build.ui.application.AuthenticatedApplication', [ 'build::build.ui.Application', 'build::build.widget.menu.ExpandableMenuWidget', 'build::build.widget.menu.MenuElement', 'build::build.widget.authentication.AuthenticationWidget' ], function(
+		define, $super, merge, safe) {
 	define({
 		$extends : 'build.ui.Application',
 		$constructor : function AuthenticatedApplication() {
 			$super(this)();
+
 			this.user = null;
 			this.menu = build.widget.menu.ExpandableMenuWidget.create();
 			this.menu.addClass('menu-fixed-top');
+			this.menu.openElement = function(element, event) {
+				event.preventDefault;
+				console.log('open element: ' + element.url);
+			};
+			this.router.watchMethod(this, 'section', 'section', this.menu.openElement);
 			this.addChild(this.menu);
+
+			this.adminMenuElement = build.widget.menu.MenuElement.create();
+			this.adminMenuElement.text = 'Admin';
+			this.adminMenuElement.url = 'admin';
+			this.adminMenuElement.action = this.section;
+			this.menu.addChild(this.adminMenuElement);
 
 			this.authenticationServiceConnection = new build.service.AuthenticationServiceConnection();
 			this.authenticationWidget = build.widget.authentication.AuthenticationWidget.create(this.authenticationServiceConnection);
@@ -30,6 +43,12 @@ Build('build.ui.application.AuthenticatedApplication', [ 'build::build.ui.Applic
 					this.publish('title');
 				}
 			});
+
+			// Add routes
+			// this.router.add('#/test/:id', function(id) {
+			// console.log('test started: ' + id);
+			// });
+			this.router.listen();
 		},
 		$prototype : {
 			init : function() {
