@@ -30,6 +30,7 @@ Build('build.widget.menu.MenuElement', [ 'build::build.ui.Widget', 'build::build
 		},
 		$prototype : {
 			init : function() {
+				$super().init(this)();
 				this.subscribe('action', function(action) {
 					if (action) {
 						this.preventDefault();
