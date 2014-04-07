@@ -1,5 +1,5 @@
-Build('build.ui.application.AuthenticatedApplication', [ 'build::build.ui.Application', 'build::build.widget.menu.ExpandableMenuWidget', 'build::build.widget.menu.MenuElement', 'build::build.widget.authentication.AuthenticationWidget' ], function(
-		define, $super, merge, safe) {
+Build('build.ui.application.AuthenticatedApplication', [ 'build::build.ui.Application', 'build::build.ui.SwitcherPanel', 'build::build.widget.menu.ExpandableMenuWidget', 'build::build.widget.menu.MenuElement',
+		'build::build.widget.authentication.AuthenticationWidget' ], function(define, $super, merge, safe) {
 	define({
 		$extends : 'build.ui.Application',
 		$constructor : function AuthenticatedApplication() {
@@ -12,14 +12,15 @@ Build('build.ui.application.AuthenticatedApplication', [ 'build::build.ui.Applic
 				event.preventDefault;
 				console.log('open element: ' + element.url);
 			};
-			this.router.watchMethod(this, 'section', 'section', this.menu.openElement);
+			this.router.watchMethod(this, 'section', 'section', function(sectionName) {
+				console.log('open section: ' + sectionName);
+				switch (sectionName) {
+				case 'admin':
+					this.sections.active = 0;
+					break;
+				}
+			});
 			this.addChild(this.menu);
-
-			this.adminMenuElement = build.widget.menu.MenuElement.create();
-			this.adminMenuElement.text = 'Admin';
-			this.adminMenuElement.url = 'admin';
-			this.adminMenuElement.action = this.section;
-			this.menu.addChild(this.adminMenuElement);
 
 			this.authenticationServiceConnection = new build.service.AuthenticationServiceConnection();
 			this.authenticationWidget = build.widget.authentication.AuthenticationWidget.create(this.authenticationServiceConnection);
@@ -43,6 +44,9 @@ Build('build.ui.application.AuthenticatedApplication', [ 'build::build.ui.Applic
 					this.publish('title');
 				}
 			});
+
+			this.sections = build.ui.SwitcherPanel.create();
+			this.addChild(this.sections);
 
 			// Add routes
 			// this.router.add('#/test/:id', function(id) {

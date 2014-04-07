@@ -28,7 +28,7 @@ Build('demo.inheritance.Application', [ 'build::build.ui.application.AdminApplic
 			var tabPanel1 = build.ui.tab.TabPanel.create('Template Form');
 			tabContainer.addChild(tabPanel0);
 			tabContainer.addChild(tabPanel1);
-			this.addChild(tabContainer);
+			this.homePanel.addChild(tabContainer);
 
 			// Add form and button
 			var widgetForm = demo.ui.form.WidgetForm.create();

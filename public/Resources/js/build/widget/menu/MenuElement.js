@@ -24,7 +24,7 @@ Build('build.widget.menu.MenuElement', [ 'build::build.ui.Widget', 'build::build
 				}
 			});
 			this.watchValue('action');
-			this.link.addEvent('click', function(element, event) {
+			this.link.addEvent('click', function(event) {
 				safe(this.action)(this, event);
 			}.bind(this));
 		},
@@ -33,9 +33,9 @@ Build('build.widget.menu.MenuElement', [ 'build::build.ui.Widget', 'build::build
 				$super().init(this)();
 				this.subscribe('action', function(action) {
 					if (action) {
-						this.preventDefault();
+						this.link.preventDefault();
 					} else {
-						this.allowDefault();
+						this.link.allowDefault();
 					}
 				}.bind(this));
 			},
