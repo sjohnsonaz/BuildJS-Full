@@ -5,7 +5,7 @@
 .focus() {
     &:focus {
         outline: none;
-        border-color: @input-border-focus;
+        border-color: @input-default-border-color-focus;
         box-shadow: @input-focus-box-shadow;
     }
 }
@@ -13,8 +13,8 @@
 .focus-tight() {
     &:focus {
         outline: none;
-        background-color: @input-active;
-        border-color: @input-border;
+        background-color: darken(@input-default-background-color, @darker);
+        border-color: @input-default-border-color;
         box-shadow: inherit;
     }
 }
@@ -26,27 +26,54 @@ input[type="button"] {
     display: inline-block;
     margin: @input-margin;
     padding: @input-padding;
-    border: @input-border-width solid @input-border;
+    border: @input-border-width solid @input-default-border-color;
+    color: @input-default-color;
+    background-color: @input-default-background-color;
     .border-radius(@input-border-radius);
-    color: @input-text-default;
-    background-color: @input-default;
     &:hover {
-        color: @input-text-hover;
-        background-color: @input-hover;
+        color: lighten(@input-default-color, @lighter);
+        background-color: lighten(@input-default-background-color, @lighter);
     }
     &:active {
-        color: @input-text-active;
-        background-color: @input-active;
+        color: darken(@input-default-color, @darker);
+        background-color: darken(@input-default-background-color, @darker);
     }
     .focus();
+}
+
+.button-primary {
+    border: @input-border-width solid @input-primary-border-color;
+    color: @input-primary-color;
+    background-color: @input-primary-background-color;
+    &:hover {
+        color: lighten(@input-primary-color, @lighter);
+        background-color: lighten(@input-primary-background-color, @lighter);
+    }
+    &:active {
+        color: darken(@input-primary-color, @darker);
+        background-color: darken(@input-primary-background-color, @darker);
+    }
+}
+
+.button-danger {
+    border: @input-border-width solid @input-danger-border-color;
+    color: @input-danger-color;
+    background-color: @input-danger-background-color;
+    &:hover {
+        color: lighten(@input-danger-color, @lighter);
+        background-color: lighten(@input-danger-background-color, @lighter);
+    }
+    &:active {
+        color: darken(@input-danger-color, @darker);
+        background-color: darken(@input-danger-background-color, @darker);
+    }
 }
 
 .submit,
 button[type="submit"],
 input[type="submit"] {
     .button;
-    color: darken(@input-text-default, 10%);
-    background-color: darken(@input-default, 10%);
+    .button-primary;
 }
 
 .button-group {
@@ -54,6 +81,8 @@ input[type="submit"] {
     margin: @input-margin;
     padding: 0px;
     .clearfix;
+    & > button,
+    & > input,
     & > * {
         display: block;
         .pull-left;
@@ -83,7 +112,7 @@ textarea {
     margin: @input-margin;
     padding: @input-padding;
     .border-radius(@input-border-radius);
-    border: @input-border-width solid @input-border;
+    border: @input-border-width solid @input-default-border-color;
     font-family: Arial;
 }
 
@@ -95,5 +124,5 @@ label {
 .fieldset,
 fieldset {
     .border-radius(@input-border-radius);
-    border: @input-border-width solid @input-border;
+    border: @input-border-width solid @input-default-border-color;
 }

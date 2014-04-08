@@ -50,24 +50,24 @@ input[type="button"],
   margin: 2px;
   padding: 10px;
   border: 1px solid #aaaaaa;
-  -moz-border-radius: 5px;
-  border-radius: 5px;
   color: #000000;
   background-color: #dddddd;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
 }
 .button:hover,
 button:hover,
 input[type="button"]:hover,
 .build-ui-form-Button:hover {
-  color: #000000;
-  background-color: #eeeeee;
+  color: #1a1a1a;
+  background-color: #f7f7f7;
 }
 .button:active,
 button:active,
 input[type="button"]:active,
 .build-ui-form-Button:active {
   color: #000000;
-  background-color: #cccccc;
+  background-color: #c4c4c4;
 }
 .button:focus,
 button:focus,
@@ -76,6 +76,32 @@ input[type="button"]:focus,
   outline: none;
   border-color: #777777;
   box-shadow: 0px 0px 6px 0px #000033;
+}
+.button-primary {
+  border: 1px solid #0000aa;
+  color: #ffffff;
+  background-color: #0000dd;
+}
+.button-primary:hover {
+  color: #ffffff;
+  background-color: #1111ff;
+}
+.button-primary:active {
+  color: #e6e6e6;
+  background-color: #0000aa;
+}
+.button-danger {
+  border: 1px solid #aa0000;
+  color: #ffffff;
+  background-color: #dd0000;
+}
+.button-danger:hover {
+  color: #ffffff;
+  background-color: #ff1111;
+}
+.button-danger:active {
+  color: #e6e6e6;
+  background-color: #aa0000;
 }
 .submit,
 button[type="submit"],
@@ -90,23 +116,25 @@ input[type="submit"] {
   margin: 2px;
   padding: 10px;
   border: 1px solid #aaaaaa;
+  color: #000000;
+  background-color: #dddddd;
   -moz-border-radius: 5px;
   border-radius: 5px;
-  background-color: #dddddd;
-  color: #000000;
-  background-color: #c4c4c4;
+  border: 1px solid #0000aa;
+  color: #ffffff;
+  background-color: #0000dd;
 }
 .submit:hover,
 button[type="submit"]:hover,
 input[type="submit"]:hover {
-  color: #000000;
-  background-color: #eeeeee;
+  color: #1a1a1a;
+  background-color: #f7f7f7;
 }
 .submit:active,
 button[type="submit"]:active,
 input[type="submit"]:active {
   color: #000000;
-  background-color: #cccccc;
+  background-color: #c4c4c4;
 }
 .submit:focus,
 button[type="submit"]:focus,
@@ -114,6 +142,18 @@ input[type="submit"]:focus {
   outline: none;
   border-color: #777777;
   box-shadow: 0px 0px 6px 0px #000033;
+}
+.submit:hover,
+button[type="submit"]:hover,
+input[type="submit"]:hover {
+  color: #ffffff;
+  background-color: #1111ff;
+}
+.submit:active,
+button[type="submit"]:active,
+input[type="submit"]:active {
+  color: #e6e6e6;
+  background-color: #0000aa;
 }
 .button-group {
   display: inline-block;
@@ -127,6 +167,8 @@ input[type="submit"]:focus {
   content: '';
   clear: both;
 }
+.button-group > button,
+.button-group > input,
 .button-group > * {
   display: block;
   float: left;
@@ -135,18 +177,24 @@ input[type="submit"]:focus {
   -moz-border-radius: 0px;
   border-radius: 0px;
 }
+.button-group > button:focus,
+.button-group > input:focus,
 .button-group > *:focus {
   outline: none;
-  background-color: #cccccc;
+  background-color: #c4c4c4;
   border-color: #aaaaaa;
   box-shadow: inherit;
 }
+.button-group > button:first-child,
+.button-group > input:first-child,
 .button-group > *:first-child {
   -moz-border-radius-topleft: 5px;
   border-top-left-radius: 5px;
   -moz-border-radius-bottomleft: 5px;
   border-bottom-left-radius: 5px;
 }
+.button-group > button:last-child,
+.button-group > input:last-child,
 .button-group > *:last-child {
   border-right-width: 1px;
   -moz-border-radius-topright: 5px;
@@ -318,10 +366,12 @@ fieldset {
   color: #000000;
 }
 .build-ui-tab-TabContainer > ul > li:hover {
-  background-color: #eeeeee;
+  color: #1a1a1a;
+  background-color: #f7f7f7;
 }
 .build-ui-tab-TabContainer > ul > li:active {
-  background-color: #cccccc;
+  color: #000000;
+  background-color: #c4c4c4;
 }
 .build-ui-tab-TabContainer > ul > li.tab-active {
   border-bottom: 1px solid #ffffff;
@@ -379,7 +429,7 @@ fieldset {
   content: '';
   clear: both;
 }
-@media only screen and (max-width: 767px) {
+@media only screen and (max-width : (@size0 - 1)) {
   .build-ui-form-Form {
     width: 100%;
   }
@@ -520,6 +570,8 @@ fieldset {
   content: '';
   clear: both;
 }
+.build-ui-form-ButtonGroup > button,
+.build-ui-form-ButtonGroup > input,
 .build-ui-form-ButtonGroup > * {
   display: block;
   float: left;
@@ -528,18 +580,24 @@ fieldset {
   -moz-border-radius: 0px;
   border-radius: 0px;
 }
+.build-ui-form-ButtonGroup > button:focus,
+.build-ui-form-ButtonGroup > input:focus,
 .build-ui-form-ButtonGroup > *:focus {
   outline: none;
-  background-color: #cccccc;
+  background-color: #c4c4c4;
   border-color: #aaaaaa;
   box-shadow: inherit;
 }
+.build-ui-form-ButtonGroup > button:first-child,
+.build-ui-form-ButtonGroup > input:first-child,
 .build-ui-form-ButtonGroup > *:first-child {
   -moz-border-radius-topleft: 5px;
   border-top-left-radius: 5px;
   -moz-border-radius-bottomleft: 5px;
   border-bottom-left-radius: 5px;
 }
+.build-ui-form-ButtonGroup > button:last-child,
+.build-ui-form-ButtonGroup > input:last-child,
 .build-ui-form-ButtonGroup > *:last-child {
   border-right-width: 1px;
   -moz-border-radius-topright: 5px;
@@ -559,7 +617,7 @@ fieldset {
   content: '';
   clear: both;
 }
-@media only screen and (max-width: 767px) {
+@media only screen and (max-width : (@size0 - 1)) {
   .build-ui-Application {
     width: 100%;
   }
@@ -604,7 +662,7 @@ fieldset {
   content: '';
   clear: both;
 }
-@media only screen and (max-width: 767px) {
+@media only screen and (max-width : (@size0 - 1)) {
   .demo-inheritance-Application {
     width: 100%;
   }
