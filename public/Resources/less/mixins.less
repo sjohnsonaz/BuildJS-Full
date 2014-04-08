@@ -1,5 +1,30 @@
 @import "settings.less";
 
+.hidden {
+    display: none;
+}
+
+.hidden-soft {
+    position: absolute !important;
+    overflow: hidden;
+    top: -9999px !important;
+    left: -9999px !important;
+    visibility: hidden;
+    height: 0px;
+    width: 0px;
+}
+
+.hidden-visually { 
+    position: absolute; 
+    overflow: hidden; 
+    clip: rect(0 0 0 0); 
+    height: 1px;
+    width: 1px; 
+    margin: -1px;
+    padding: 0;
+    border: 0; 
+}
+
 .clearfix {
     display: block;
     zoom: 1;

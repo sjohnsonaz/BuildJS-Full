@@ -10,15 +10,18 @@ Build('demo.ui.form.WidgetForm', [ 'build::build.ui.form.Form', 'build::build.ui
 			var button = build.ui.form.Button.create('Button 1');
 			this.addChild(button);
 			var buttonGroup = build.ui.form.ButtonGroup.create();
-			buttonGroup.addChild(build.ui.form.Button.create('Button 2'));
-			buttonGroup.addChild(build.ui.form.Button.create('Button 3'));
-			buttonGroup.addChild(build.ui.form.Button.create('Button 4'));
+			var button2 = build.ui.form.Button.create('Button 2');
+			buttonGroup.addChild(button2);
+			var button3 = build.ui.form.Button.create('Button 3');
+			button3.addClass('button-danger');
+			buttonGroup.addChild(button3);
+			var button4 = build.ui.form.Button.create('Button 4');
+			button4.addClass('button-primary');
+			buttonGroup.addChild(button4);
 			this.addChild(buttonGroup);
 
-			this.addChild(build.ui.form.Paragraph.create(new
-			demo.singleton.SingletonTest().data));
-			this.addChild(build.ui.form.Paragraph.create(new
-			demo.singleton.SingletonTest().data));
+			this.addChild(build.ui.form.Paragraph.create(new demo.singleton.SingletonTest().data));
+			this.addChild(build.ui.form.Paragraph.create(new demo.singleton.SingletonTest().data));
 			// arrayBase = new demo.alternatebase.ArrayBase();
 			// arrayChild = new demo.alternatebase.ArrayChild();
 			// this.addChild(build.ui.form.Paragraph.create(arrayChild.toString()));

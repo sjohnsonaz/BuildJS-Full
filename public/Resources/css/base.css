@@ -12,6 +12,28 @@ body {
 html {
   font-family: Arial, Helvetica, sans-serif;
 }
+.hidden {
+  display: none;
+}
+.hidden-soft {
+  position: absolute !important;
+  overflow: hidden;
+  top: -9999px !important;
+  left: -9999px !important;
+  visibility: hidden;
+  height: 0px;
+  width: 0px;
+}
+.hidden-visually {
+  position: absolute;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  width: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+}
 .clearfix {
   display: block;
   zoom: 1;
@@ -59,15 +81,15 @@ input[type="button"],
 button:hover,
 input[type="button"]:hover,
 .build-ui-form-Button:hover {
-  color: #1a1a1a;
-  background-color: #f7f7f7;
+  color: #333333;
+  background-color: #ffffff;
 }
 .button:active,
 button:active,
 input[type="button"]:active,
 .build-ui-form-Button:active {
   color: #000000;
-  background-color: #c4c4c4;
+  background-color: #aaaaaa;
 }
 .button:focus,
 button:focus,
@@ -84,11 +106,11 @@ input[type="button"]:focus,
 }
 .button-primary:hover {
   color: #ffffff;
-  background-color: #1111ff;
+  background-color: #4444ff;
 }
 .button-primary:active {
-  color: #e6e6e6;
-  background-color: #0000aa;
+  color: #cccccc;
+  background-color: #000077;
 }
 .button-danger {
   border: 1px solid #aa0000;
@@ -97,11 +119,11 @@ input[type="button"]:focus,
 }
 .button-danger:hover {
   color: #ffffff;
-  background-color: #ff1111;
+  background-color: #ff4444;
 }
 .button-danger:active {
-  color: #e6e6e6;
-  background-color: #aa0000;
+  color: #cccccc;
+  background-color: #770000;
 }
 .submit,
 button[type="submit"],
@@ -127,14 +149,14 @@ input[type="submit"] {
 .submit:hover,
 button[type="submit"]:hover,
 input[type="submit"]:hover {
-  color: #1a1a1a;
-  background-color: #f7f7f7;
+  color: #333333;
+  background-color: #ffffff;
 }
 .submit:active,
 button[type="submit"]:active,
 input[type="submit"]:active {
   color: #000000;
-  background-color: #c4c4c4;
+  background-color: #aaaaaa;
 }
 .submit:focus,
 button[type="submit"]:focus,
@@ -147,13 +169,13 @@ input[type="submit"]:focus {
 button[type="submit"]:hover,
 input[type="submit"]:hover {
   color: #ffffff;
-  background-color: #1111ff;
+  background-color: #4444ff;
 }
 .submit:active,
 button[type="submit"]:active,
 input[type="submit"]:active {
-  color: #e6e6e6;
-  background-color: #0000aa;
+  color: #cccccc;
+  background-color: #000077;
 }
 .button-group {
   display: inline-block;
@@ -181,7 +203,7 @@ input[type="submit"]:active {
 .button-group > input:focus,
 .button-group > *:focus {
   outline: none;
-  background-color: #c4c4c4;
+  background-color: #aaaaaa;
   border-color: #aaaaaa;
   box-shadow: inherit;
 }
@@ -366,12 +388,12 @@ fieldset {
   color: #000000;
 }
 .build-ui-tab-TabContainer > ul > li:hover {
-  color: #1a1a1a;
-  background-color: #f7f7f7;
+  color: #333333;
+  background-color: #ffffff;
 }
 .build-ui-tab-TabContainer > ul > li:active {
   color: #000000;
-  background-color: #c4c4c4;
+  background-color: #aaaaaa;
 }
 .build-ui-tab-TabContainer > ul > li.tab-active {
   border-bottom: 1px solid #ffffff;
@@ -584,7 +606,7 @@ fieldset {
 .build-ui-form-ButtonGroup > input:focus,
 .build-ui-form-ButtonGroup > *:focus {
   outline: none;
-  background-color: #c4c4c4;
+  background-color: #aaaaaa;
   border-color: #aaaaaa;
   box-shadow: inherit;
 }

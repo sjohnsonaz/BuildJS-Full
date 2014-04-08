@@ -24,6 +24,7 @@ Build('build.widget.menu.MenuElement', [ 'build::build.ui.Widget', 'build::build
 				}
 			});
 			this.watchValue('action');
+			this.watchClass('hidden');
 			this.link.addEvent('click', function(event) {
 				safe(this.action)(this, event);
 			}.bind(this));
