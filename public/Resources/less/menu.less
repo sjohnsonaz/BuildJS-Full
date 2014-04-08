@@ -1,4 +1,5 @@
 @import "settings.less";
+@import "mixins.less";
 
 .application-menu-fixed-top {
     margin-top: 50px !important;
@@ -13,7 +14,7 @@
     padding: 0;
     margin: 0;
     height: 50px;
-    background-color: @input-reverse-background;
+    background-color: @input-menu-background-color;
     list-style-type: none;
     z-index: 1000;
     &.menu-fixed-top {
@@ -22,8 +23,27 @@
         top: 0px;
         right: 0px;
         left: 0px;
+        background-color: @input-menu-fixed-background-color;
+        box-shadow: -2px 0px 5px 2px #000;
         .expand-button {
             display: none;
+        }
+        li {
+            a {
+                color: @input-menu-fixed-color;
+                &:hover {
+                    background-color: lighten(@input-menu-fixed-background-color, @lighter);
+                    color: lighten(@input-menu-fixed-color, @lighter);
+                }
+                &.active-menu {
+                    background-color: darken(@input-menu-fixed-background-color, @darker);
+                    color: darken(@input-menu-fixed-color, @darker);
+                    &:hover {
+                        background-color: darken(@input-menu-fixed-background-color, @darker + 10);
+                        color: darken(@input-menu-fixed-color, @darker + 10);
+                    }
+                }
+            }
         }
         @media only screen and (max-width : (@size0 - 1)) {
             position: relative;
@@ -51,17 +71,17 @@
             padding: 15px;
             text-decoration: none;
             font-weight: bold;
-            color: @input-reverse;
+            color: @input-menu-color;
             &:hover {
-                background-color: darken(@input-reverse-background, 10%);
-                color: darken(@input-reverse, 10%);
+                background-color: lighten(@input-menu-background-color, @lighter);
+                color: lighten(@input-menu-color, @lighter);
             }
             &.active-menu {
-                background-color: darken(@input-reverse-background, 20%);
-                color: darken(@input-reverse, 20%);
+                background-color: darken(@input-menu-background-color, @darker);
+                color: darken(@input-menu-color, @darker);
                 &:hover {
-                    background-color: darken(@input-reverse-background, 20%);
-                    color: darken(@input-reverse, 20%);
+                    background-color: darken(@input-menu-background-color, @darker + 10);
+                    color: darken(@input-menu-color, @darker + 10);
                 }
             }
             @media only screen and (max-width : (@size0 - 1)) {

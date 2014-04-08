@@ -286,9 +286,26 @@ fieldset {
   top: 0px;
   right: 0px;
   left: 0px;
+  background-color: #000055;
+  box-shadow: -2px 0px 5px 2px #000000;
 }
 .menu-widget.menu-fixed-top .expand-button {
   display: none;
+}
+.menu-widget.menu-fixed-top li a {
+  color: #ffffff;
+}
+.menu-widget.menu-fixed-top li a:hover {
+  background-color: #0000bb;
+  color: #ffffff;
+}
+.menu-widget.menu-fixed-top li a.active-menu {
+  background-color: #000000;
+  color: #cccccc;
+}
+.menu-widget.menu-fixed-top li a.active-menu:hover {
+  background-color: #000000;
+  color: #b3b3b3;
 }
 @media only screen and (max-width: 767px) {
   .menu-widget.menu-fixed-top {
@@ -323,16 +340,16 @@ fieldset {
   color: #ffffff;
 }
 .menu-widget li a:hover {
-  background-color: #919191;
-  color: #e6e6e6;
+  background-color: #dddddd;
+  color: #ffffff;
 }
 .menu-widget li a.active-menu {
   background-color: #777777;
   color: #cccccc;
 }
 .menu-widget li a.active-menu:hover {
-  background-color: #777777;
-  color: #cccccc;
+  background-color: #5e5e5e;
+  color: #b3b3b3;
 }
 @media only screen and (max-width: 767px) {
   .menu-widget li a {
@@ -738,9 +755,26 @@ fieldset {
   top: 0px;
   right: 0px;
   left: 0px;
+  background-color: #000055;
+  box-shadow: -2px 0px 5px 2px #000000;
 }
 .build-widget-menu-MenuWidget.menu-fixed-top .expand-button {
   display: none;
+}
+.build-widget-menu-MenuWidget.menu-fixed-top li a {
+  color: #ffffff;
+}
+.build-widget-menu-MenuWidget.menu-fixed-top li a:hover {
+  background-color: #0000bb;
+  color: #ffffff;
+}
+.build-widget-menu-MenuWidget.menu-fixed-top li a.active-menu {
+  background-color: #000000;
+  color: #cccccc;
+}
+.build-widget-menu-MenuWidget.menu-fixed-top li a.active-menu:hover {
+  background-color: #000000;
+  color: #b3b3b3;
 }
 @media only screen and (max-width: 767px) {
   .build-widget-menu-MenuWidget.menu-fixed-top {
@@ -775,16 +809,16 @@ fieldset {
   color: #ffffff;
 }
 .build-widget-menu-MenuWidget li a:hover {
-  background-color: #919191;
-  color: #e6e6e6;
+  background-color: #dddddd;
+  color: #ffffff;
 }
 .build-widget-menu-MenuWidget li a.active-menu {
   background-color: #777777;
   color: #cccccc;
 }
 .build-widget-menu-MenuWidget li a.active-menu:hover {
-  background-color: #777777;
-  color: #cccccc;
+  background-color: #5e5e5e;
+  color: #b3b3b3;
 }
 @media only screen and (max-width: 767px) {
   .build-widget-menu-MenuWidget li a {
@@ -864,9 +898,26 @@ fieldset {
   top: 0px;
   right: 0px;
   left: 0px;
+  background-color: #000055;
+  box-shadow: -2px 0px 5px 2px #000000;
 }
 .build-widget-menu-ExpandableMenuWidget.menu-fixed-top .expand-button {
   display: none;
+}
+.build-widget-menu-ExpandableMenuWidget.menu-fixed-top li a {
+  color: #ffffff;
+}
+.build-widget-menu-ExpandableMenuWidget.menu-fixed-top li a:hover {
+  background-color: #0000bb;
+  color: #ffffff;
+}
+.build-widget-menu-ExpandableMenuWidget.menu-fixed-top li a.active-menu {
+  background-color: #000000;
+  color: #cccccc;
+}
+.build-widget-menu-ExpandableMenuWidget.menu-fixed-top li a.active-menu:hover {
+  background-color: #000000;
+  color: #b3b3b3;
 }
 @media only screen and (max-width: 767px) {
   .build-widget-menu-ExpandableMenuWidget.menu-fixed-top {
@@ -901,16 +952,16 @@ fieldset {
   color: #ffffff;
 }
 .build-widget-menu-ExpandableMenuWidget li a:hover {
-  background-color: #919191;
-  color: #e6e6e6;
+  background-color: #dddddd;
+  color: #ffffff;
 }
 .build-widget-menu-ExpandableMenuWidget li a.active-menu {
   background-color: #777777;
   color: #cccccc;
 }
 .build-widget-menu-ExpandableMenuWidget li a.active-menu:hover {
-  background-color: #777777;
-  color: #cccccc;
+  background-color: #5e5e5e;
+  color: #b3b3b3;
 }
 @media only screen and (max-width: 767px) {
   .build-widget-menu-ExpandableMenuWidget li a {
