@@ -287,7 +287,7 @@ fieldset {
   right: 0px;
   left: 0px;
   background-color: #000055;
-  box-shadow: -2px 0px 5px 2px #000000;
+  box-shadow: 0 0px 5px 2px #000;
 }
 .menu-widget.menu-fixed-top .expand-button {
   display: none;
@@ -756,7 +756,7 @@ fieldset {
   right: 0px;
   left: 0px;
   background-color: #000055;
-  box-shadow: -2px 0px 5px 2px #000000;
+  box-shadow: 0 0px 5px 2px #000;
 }
 .build-widget-menu-MenuWidget.menu-fixed-top .expand-button {
   display: none;
@@ -899,7 +899,7 @@ fieldset {
   right: 0px;
   left: 0px;
   background-color: #000055;
-  box-shadow: -2px 0px 5px 2px #000000;
+  box-shadow: 0 0px 5px 2px #000;
 }
 .build-widget-menu-ExpandableMenuWidget.menu-fixed-top .expand-button {
   display: none;
