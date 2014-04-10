@@ -3,14 +3,20 @@ Build('build.widget.user.UserListForm', [ 'build::build.ui.form.Form', 'build::b
 		$extends : 'build.ui.form.Form',
 		$constructor : function UserListForm(userServiceConnection) {
 			$super(this)();
+			this.createButton = build.ui.form.Button.create('create');
+			this.createButton.addClass('pull-right');
+			this.addChild(this.createButton);
 			this.userTable = build.ui.element.Table.create();
 			this.userTable.headers.push('Username', 'First Name', 'Last Name', '');
 			this.addChild(this.userTable);
 			this.userServiceConnection = userServiceConnection;
 		},
 		$prototype : {
-			build : function() {
-				$super().build(this)();
+			init : function() {
+				$super().init(this)();
+				this.createButton.addEvent('click', function(event) {
+
+				});
 			},
 			wrap : function(model) {
 				this.userTable.children.removeAll();
