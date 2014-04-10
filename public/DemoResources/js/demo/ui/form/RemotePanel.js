@@ -8,10 +8,10 @@ Build('demo.ui.form.RemotePanel', [ 'build::build.ui.Panel', 'build::build.utili
 			init : function() {
 				$super().init(this)();
 				this.element.src = 'inner.html';
-				this.postMessage = new build.utility.PostMessage(this.element.contentWindow, 'test');
-				window.setTimeout(function() {
+				this.element.onload = function() {
+					this.postMessage = new build.utility.PostMessage(this.element.contentWindow, 'test');
 					this.postMessage.send('Here is some data');
-				}.bind(this), 1000);
+				}.bind(this);
 			}
 		}
 	});
