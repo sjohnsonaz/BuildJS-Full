@@ -69,6 +69,7 @@ var Build = build.Build = (function() {
 	function copyNoReplace(destination, source) {
 		for ( var member in source) {
 			if (source.hasOwnProperty(member)) {
+				// TODO: Test if this can override with a false or null.
 				destination[member] = destination[member] || source[member];
 			}
 		}
@@ -82,7 +83,7 @@ var Build = build.Build = (function() {
 		}
 		return destination;
 	}
-	function inherit($child, $parent, $prototype) {
+	function inherit($child, $parent, $prototype, $lockParent) {
 		if ($parent) {
 			$prototype = $prototype || {};
 			if (Object.keys($child.prototype).length) {
@@ -96,17 +97,27 @@ var Build = build.Build = (function() {
 
 			$child.$parent = $parent;
 			$child.$super = {};
-			for ( var member in $parent.prototype) {
-				// We do not want to check hasOwnProperty
-				var method = $parent.prototype[member];
-				if (typeof method == 'function') {
+			if ($lockParent) {
+				for ( var member in $parent.prototype) {
+					// We do not want to check hasOwnProperty
 					(function(member, method) {
 						$child.$super[member] = function(scope) {
 							return function() {
 								method.apply(scope, arguments);
 							};
 						};
-					})(member, method);
+					})(member, $parent.prototype[member]);
+				}
+			} else {
+				for ( var member in $parent.prototype) {
+					// We do not want to check hasOwnProperty
+					(function(member, proto) {
+						$child.$super[member] = function(scope) {
+							return function() {
+								proto[member].apply(scope, arguments);
+							};
+						};
+					})(member, $parent.prototype);
 				}
 			}
 
@@ -137,12 +148,12 @@ var Build = build.Build = (function() {
 		};
 	}
 	var definitions = {};
-	function assemble($name, $constructor, $prototype, $static, $parent, $singleton, $base) {
+	function assemble($name, $constructor, $prototype, $static, $parent, $singleton, $base, $lockParent) {
 		$constructor = $base ? base($constructor, $base) : $constructor;
 
 		copyNoReplace($constructor, $static);
 
-		inherit($constructor, $parent, $prototype);
+		inherit($constructor, $parent, $prototype, $lockParent);
 
 		$constructor.$name = $name;
 		$constructor.$base = $base;
@@ -210,7 +221,7 @@ var Build = build.Build = (function() {
 				if ($parent && $parent.$base) {
 					$definition.$base = $definition.$base || $parent.$base;
 				}
-				$constructor = assemble($name, $definition.$constructor, $definition.$prototype, $definition.$static, $parent, $definition.$singleton, $definition.$base);
+				$constructor = assemble($name, $definition.$constructor, $definition.$prototype, $definition.$static, $parent, $definition.$singleton, $definition.$base, $definition.$lockParent);
 			}, function(scope) {
 				if (scope) {
 					return function() {
