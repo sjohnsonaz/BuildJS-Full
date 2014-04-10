@@ -10,10 +10,10 @@ Build('build.ui.application.AdminApplication', [ 'build::build.ui.application.Au
 			this.homeMenuElement.text = 'Home';
 			this.homeMenuElement.url = 'home';
 			this.homeMenuElement.action = function(MenuElement, event) {
-				this.sections.active = 0;//('admin');
+				this.sections.active = 0;// ('admin');
 			}.bind(this);
 			this.menu.addChild(this.homeMenuElement);
-			
+
 			this.userSeriveConnection = new build.service.UserServiceConnection();
 			this.adminPanel = build.ui.tab.TabContainer.create();
 
@@ -37,7 +37,7 @@ Build('build.ui.application.AdminApplication', [ 'build::build.ui.application.Au
 			this.adminMenuElement.text = 'Admin';
 			this.adminMenuElement.url = 'admin';
 			this.adminMenuElement.action = function(MenuElement, event) {
-				this.sections.active = 1;//('admin');
+				this.sections.active = 1;// ('admin');
 			}.bind(this);
 			this.menu.addChild(this.adminMenuElement);
 		},

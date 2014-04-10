@@ -101,7 +101,15 @@ Build('build.ui.Widget', [ 'build::build.ui.Module', 'build::build.utility.Obser
 				return Build.nameToCss($name + '-' + idCount[$name]);
 			},
 			uniqueClass : function() {
-				return Build.nameToCss(this.constructor.$name);
+				var className = Build.nameToCss(this.constructor.$name);
+				if (this.constructor.deferClassName && this.constructor.$parent) {
+					var parent = this.constructor.$parent;
+					while (parent.deferClassName) {
+						parent = parent.$parent;
+					}
+					className += ' ' + Build.nameToCss(parent.$name);
+				}
+				return className;
 			},
 			// appendChild : function(widget) {
 			// this.element.appendChild(widget.element);
@@ -233,7 +241,8 @@ Build('build.ui.Widget', [ 'build::build.ui.Module', 'build::build.utility.Obser
 				result.createElement();
 				result.init.apply(result, arguments);
 				return result;
-			}
+			},
+			deferClassName : false
 		}
 	});
 });

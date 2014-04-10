@@ -61,6 +61,9 @@ Build('build.ui.application.AuthenticatedApplication', [ 'build::build.ui.Applic
 				this.menuFixedTop = true;
 				this.authenticationWidget.run();
 			}
+		},
+		$static : {
+			deferClassName : true
 		}
 	});
 });
