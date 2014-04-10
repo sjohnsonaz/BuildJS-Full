@@ -859,51 +859,6 @@ fieldset {
   content: '';
   clear: both;
 }
-.demo-inheritance-Application {
-  display: block;
-  zoom: 1;
-  margin: 0 auto;
-  padding: 0px;
-  border: 0px;
-}
-.demo-inheritance-Application:after {
-  display: table;
-  content: '';
-  clear: both;
-}
-@media only screen and (max-width : (@size0 - 1)) {
-  .demo-inheritance-Application {
-    width: 100%;
-  }
-}
-@media only screen and (min-width: 768px) and (max-width: 991px) {
-  .demo-inheritance-Application {
-    width: 753px;
-  }
-}
-@media only screen and (min-width: 992px) and (max-width: 1199px) {
-  .demo-inheritance-Application {
-    width: 977px;
-  }
-}
-@media only screen and (min-width: 1200px) {
-  .demo-inheritance-Application {
-    width: 1185px;
-  }
-}
-.demo-inheritance-Application > .panel-iterator {
-  display: block;
-  zoom: 1;
-  margin: 0px;
-  padding: 0px;
-  border: 0px;
-  width: 100%;
-}
-.demo-inheritance-Application > .panel-iterator:after {
-  display: table;
-  content: '';
-  clear: both;
-}
 .build-widget-menu-MenuWidget {
   zoom: 1;
   display: block;
