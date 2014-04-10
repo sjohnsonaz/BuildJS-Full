@@ -79,6 +79,6 @@ build.utility.PostMessage = (function() {
 	return PostMessage;
 })();
 
-if (Build) {
+if (typeof Build !== 'undefined') {
 	Build.definitions['build.utility.PostMessage'] = build.utility.PostMessage;
 }

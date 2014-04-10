@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Inner</title>
+<script type="text/javascript"
+	src="Resources/js/build/utility/PostMessage.js"></script>
+<script type="text/javascript">
+	window.onload = function() {
+		postMessage = new build.utility.PostMessage(window, 'test');
+		postMessage.addListener(function(data) {
+			console.log(data);
+		});
+		postMessage.listen()
+	};
+</script>
+</head>
+<body>
+	<h1>Inner</h1>
+</body>
+</html>
