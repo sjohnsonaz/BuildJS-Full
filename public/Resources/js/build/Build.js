@@ -172,10 +172,14 @@ var Build = build.Build = (function() {
 		var requiredRemaining = [];
 		for (var index = 0, length = $required.length; index < length; index++) {
 			var requiredPath = $required[index];
-			var pathInformation = getPathInformation(requiredPath);
-			var requiredName = pathInformation.name;
-			if (!definitions[requiredName] && !defHandles[requiredName] && !loading[requiredName] && !preLoading[requiredPath]) {
-				requiredRemaining.push(requiredPath);
+			// required may be commented out with a #.
+			// This may be used for lazy load classes when compiling.
+			if (requiredPath[0] != '#') {
+				var pathInformation = getPathInformation(requiredPath);
+				var requiredName = pathInformation.name;
+				if (!definitions[requiredName] && !defHandles[requiredName] && !loading[requiredName] && !preLoading[requiredPath]) {
+					requiredRemaining.push(requiredPath);
+				}
 			}
 		}
 		defHandles[$name] = $definition;
