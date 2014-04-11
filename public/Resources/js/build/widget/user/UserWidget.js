@@ -9,6 +9,7 @@ Build('build.widget.user.UserWidget', [ 'build::build.ui.SwitcherPanel', 'build:
 			this.userListForm = build.widget.user.UserListForm.create(this.userServiceConnection);
 			this.userListForm.addCallback('createUser', function() {
 				this.active = 1;
+				this.userCreateForm.model = {};
 			}.bind(this));
 			this.userListForm.addCallback('viewUser', function(user) {
 				console.log(user);

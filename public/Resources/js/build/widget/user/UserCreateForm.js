@@ -71,7 +71,7 @@ Build('build.widget.user.UserCreateForm', [ 'build::build.ui.form.Form', 'build:
 			},
 			saveUser : function(success, error) {
 				// Change to PUT if editing, POST if creating.
-				this.userServiceConnection.post(this.model._id, this.model, function(data, request) {
+				this.userServiceConnection.post(this.model, function(data, request) {
 					console.log(data);
 					if (data.error) {
 						this.message.text(data.message);

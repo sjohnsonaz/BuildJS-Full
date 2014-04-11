@@ -154,10 +154,10 @@ Build('build.ui.Widget', [ 'build::build.ui.Module', 'build::build.utility.Obser
 						return this.element[name];
 					},
 					set : set ? function(value) {
-						this.element[name] = set(value);
+						this.element[name] = set(value) || '';
 						this.publish(property);
 					} : function(value) {
-						this.element[name] = value;
+						this.element[name] = value || '';
 						this.publish(property);
 					}
 				});
@@ -171,10 +171,10 @@ Build('build.ui.Widget', [ 'build::build.ui.Module', 'build::build.utility.Obser
 						return this.element.getAttribute(attribute);
 					},
 					set : set ? function(value) {
-						this.element.setAttribute(attribute, set(value));
+						this.element.setAttribute(attribute, set(value) || '');
 						this.publish(property);
 					} : function(value) {
-						this.element.setAttribute(attribute, value);
+						this.element.setAttribute(attribute, value || '');
 						this.publish(property);
 					}
 				});
@@ -187,7 +187,7 @@ Build('build.ui.Widget', [ 'build::build.ui.Module', 'build::build.utility.Obser
 							return parseFloat(this.element.style[style] || 0);
 						},
 						set : function(value) {
-							this.element.style[style] = value + unit;
+							this.element.style[style] = (value || 0) + unit;
 							this.publish(property);
 						}
 					});
