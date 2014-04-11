@@ -1,4 +1,7 @@
 Build('build.ui.Module', [], function(define, $super, merge, safe) {
+	var cancel = {
+		cancel : true
+	};
 	define({
 		$constructor : function Module() {
 			// this.callbacks = null;
@@ -37,16 +40,14 @@ Build('build.ui.Module', [], function(define, $super, merge, safe) {
 				var hidden = value;
 				Object.defineProperty(this, name, {
 					get : function() {
-						safe(get)(this, hidden);
-						return hidden;
+						return typeof get == 'function' ? get(hidden, this) : hidden;
 					},
 					set : function(value) {
-						var override = safe(set)(value);
-						if (typeof override !== 'undefined') {
-							value = override;
+						value = typeof set == 'function' ? set(value, cancel) : value;
+						if (value !== cancel) {
+							hidden = value;
+							this.publish(name);
 						}
-						hidden = value;
-						this.publish(name);
 					}
 				});
 			},

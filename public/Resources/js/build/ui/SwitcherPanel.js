@@ -1,9 +1,13 @@
-Build('build.ui.SwitcherPanel', [ 'build::build.ui.Panel' ], function(define, $super) {
+Build('build.ui.SwitcherPanel', [ 'build::build.ui.Panel', 'build::build.utility.Navigation' ], function(define, $super) {
 	define({
 		$extends : 'build.ui.Panel',
 		$constructor : function SwitcherPanel(active) {
 			$super(this)();
-			this.watchValue('active', 0);
+			this.lockable = false;
+			var Navigation = build.utility.Navigation;
+			this.watchValue('active', 0, null, function(value, cancel) {
+				return (this.lockable && Navigation.locked) ? (window.confirm(Navigation.message) ? value : cancel) : value;
+			}.bind(this));
 			this.subscribe('active', function(value) {
 				this.refreshChildren();
 			}.bind(this));
