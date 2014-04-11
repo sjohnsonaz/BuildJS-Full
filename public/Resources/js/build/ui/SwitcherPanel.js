@@ -4,7 +4,7 @@ Build('build.ui.SwitcherPanel', [ 'build::build.ui.Panel', 'build::build.utility
 		$constructor : function SwitcherPanel(active) {
 			$super(this)();
 			this.lockable = false;
-			var Navigation = build.utility.Navigation;
+			var Navigation = build.utility.Navigation();
 			this.watchValue('active', 0, null, function(value, cancel) {
 				return (this.lockable && Navigation.locked) ? (window.confirm(Navigation.message) ? value : cancel) : value;
 			}.bind(this));
