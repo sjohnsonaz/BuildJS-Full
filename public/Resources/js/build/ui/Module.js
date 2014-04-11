@@ -3,11 +3,23 @@ Build('build.ui.Module', [], function(define, $super, merge, safe) {
 		cancel : true
 	};
 	define({
+		/**
+		 * @class build.ui.Module
+		 * Base class for UI components.
+		 * 
+		 * @constructor
+		 * Creates a new Module instance.
+		 */
 		$constructor : function Module() {
 			// this.callbacks = null;
 			// this.subscribers = null;
 		},
 		$prototype : {
+			/**
+			 * @method addCallback
+			 * @param {String} type
+			 * @param {Function} callback
+			 */
 			addCallback : function(type, callback) {
 				this.callbacks = this.callbacks || {};
 				var callbacks = this.callbacks[type] = this.callbacks[type] || [];
@@ -15,6 +27,11 @@ Build('build.ui.Module', [], function(define, $super, merge, safe) {
 					callbacks.push(callback);
 				}
 			},
+			/**
+			 * @method removeCallback
+			 * @param {String} type
+			 * @param {Function} callback
+			 */
 			removeCallback : function(type, callback) {
 				if (this.callbacks && this.callbacks[type]) {
 					var callbacks = this.callbacks[type];
@@ -24,6 +41,10 @@ Build('build.ui.Module', [], function(define, $super, merge, safe) {
 					}
 				}
 			},
+			/**
+			 * @method runCallbacks
+			 * @param {String} type
+			 */
 			runCallbacks : function(type) {
 				if (this.callbacks) {
 					var callbacks = this.callbacks[type];

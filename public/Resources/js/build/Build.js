@@ -1,5 +1,15 @@
 var build = build || {};
 var Build = build.Build = (function() {
+	/**
+	 * @class build.Build
+	 * @alternateClassName Build
+	 * 
+	 */
+	/**
+	 * @method Build
+	 * @param value
+	 * Switches to {@link Build#onload onload} or {@link Build#define define} methods.
+	 */
 	function Build(value) {
 		switch (typeof value) {
 		case 'function':
@@ -51,6 +61,11 @@ var Build = build.Build = (function() {
 			};
 		}
 	})();
+	/**
+	 * @method namespace
+	 * @param {String} $name The dot delimited name of the constructor or object.
+	 * @param {Function} $constructor The constructor or object to be namespaced.
+	 */
 	function namespace($name, $constructor) {
 		var parts = $name.split('.');
 		var parent = environment.root;
@@ -164,6 +179,12 @@ var Build = build.Build = (function() {
 		namespace($name, $constructor);
 		return $constructor;
 	}
+	/**
+	 * @method define
+	 * @param $name
+	 * @param $required
+	 * @param $definition
+	 */
 	function define($name, $required, $definition) {
 		compiled = false;
 		if (!loaded) {
@@ -384,6 +405,11 @@ var Build = build.Build = (function() {
 			onload.queue.clear();
 		}
 	}
+	/**
+	 * @method onload
+	 * @param {Function} callback
+	 * Runs the callback function when the compilation process is complete.
+	 */
 	function onload(callback) {
 		if (onload.queue) {
 			onload.queue.add(callback);
