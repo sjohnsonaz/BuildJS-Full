@@ -7,12 +7,15 @@ Build('build.widget.user.UserWidget', [ 'build::build.ui.SwitcherPanel', 'build:
 			this.user = null;
 			this.userServiceConnection = userServiceConnection || new build.service.UserServiceConnection();
 			this.userListForm = build.widget.user.UserListForm.create(this.userServiceConnection);
+			this.userListForm.addCallback('createUser', function() {
+				this.active = 1;
+			}.bind(this));
 			this.userListForm.addCallback('viewUser', function(user) {
 				console.log(user);
 			});
 			this.userListForm.addCallback('editUser', function(user) {
 				this.user = user;
-				this.active = 1;
+				this.active = 2;
 				this.userEditForm.model = user;
 				console.log(user);
 			}.bind(this));
@@ -20,6 +23,21 @@ Build('build.widget.user.UserWidget', [ 'build::build.ui.SwitcherPanel', 'build:
 				console.log(user);
 			});
 			this.addChild(this.userListForm);
+
+			this.userCreateForm = build.widget.user.UserCreateForm.create(this.userServiceConnection);
+			this.userCreateForm.addCallback('saveUser', function(user) {
+				this.user = null;
+				this.userEditForm.model = null;
+				this.active = 0;
+				this.list();
+			}.bind(this));
+			this.userCreateForm.addCallback('cancelUser', function(user) {
+				this.user = null;
+				this.userEditForm.model = null;
+				this.active = 0;
+				this.list();
+			}.bind(this));
+			this.addChild(this.userCreateForm);
 
 			this.userEditForm = build.widget.user.UserEditForm.create(this.userServiceConnection);
 			this.userEditForm.addCallback('saveUser', function(user) {

@@ -3,7 +3,7 @@ Build('build.widget.user.UserListForm', [ 'build::build.ui.form.Form', 'build::b
 		$extends : 'build.ui.form.Form',
 		$constructor : function UserListForm(userServiceConnection) {
 			$super(this)();
-			this.createButton = build.ui.form.Button.create('create');
+			this.createButton = build.ui.form.Button.create('New User');
 			this.createButton.addClass('pull-right');
 			this.addChild(this.createButton);
 			this.userTable = build.ui.element.Table.create();
@@ -14,9 +14,11 @@ Build('build.widget.user.UserListForm', [ 'build::build.ui.form.Form', 'build::b
 		$prototype : {
 			init : function() {
 				$super().init(this)();
-				this.createButton.addEvent('click', function(event) {
-
-				});
+				this.createButton.addEvent('click', function(button, event) {
+					event.preventDefault();
+					this.createUser();
+					return false;
+				}, false, this);
 			},
 			wrap : function(model) {
 				this.userTable.children.removeAll();
@@ -53,6 +55,9 @@ Build('build.widget.user.UserListForm', [ 'build::build.ui.form.Form', 'build::b
 			},
 			clear : function() {
 				this.userTable.rows.removeAll();
+			},
+			createUser : function() {
+				this.runCallbacks('createUser');
 			},
 			viewUser : function(user) {
 				this.runCallbacks('viewUser', user);
