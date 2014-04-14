@@ -57,6 +57,13 @@ Build('build.ui.Module', [], function(define, $super, merge, safe) {
 					}
 				}
 			},
+			/**
+			 * @method watchValue
+			 * @param name
+			 * @param value
+			 * @param get
+			 * @param set
+			 */
 			watchValue : function(name, value, get, set) {
 				var hidden = value;
 				Object.defineProperty(this, name, {
@@ -72,6 +79,11 @@ Build('build.ui.Module', [], function(define, $super, merge, safe) {
 					}
 				});
 			},
+			/**
+			 * @method subscribe
+			 * @param property
+			 * @param subscriber
+			 */
 			subscribe : function(property, subscriber) {
 				if (typeof subscriber === 'function') {
 					this.subscribers = this.subscribers || {};
@@ -80,6 +92,11 @@ Build('build.ui.Module', [], function(define, $super, merge, safe) {
 					subscriber(this[property]);
 				}
 			},
+			/**
+			 * @method unsubscribe
+			 * @param property
+			 * @param subscriber
+			 */
 			unsubscribe : function(property, subscriber) {
 				if (this.subscribers && this.subscribers[property]) {
 					var index = this.subscribers[property].indexOf(subscriber);
@@ -91,6 +108,10 @@ Build('build.ui.Module', [], function(define, $super, merge, safe) {
 					}
 				}
 			},
+			/**
+			 * @method publish
+			 * @param property
+			 */
 			publish : function(property) {
 				if (this.subscribers && this.subscribers[property]) {
 					var subscribers = this.subscribers[property];

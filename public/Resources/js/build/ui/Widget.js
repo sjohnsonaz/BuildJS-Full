@@ -5,6 +5,12 @@ Build('build.ui.Widget', [ 'build::build.ui.Module', 'build::build.utility.Obser
 	}
 	define({
 		$extends : 'build.ui.Module',
+		/**
+		 * @class build.ui.Widget
+		 * @extends build.ui.Module
+		 * 
+		 * @constructor
+		 */
 		$constructor : function Widget() {
 			$super(this)();
 			this.type = 'div';
@@ -17,6 +23,9 @@ Build('build.ui.Widget', [ 'build::build.ui.Module', 'build::build.utility.Obser
 			this.directAppend = false;
 		},
 		$prototype : {
+			/**
+			 * @method init
+			 */
 			init : function() {
 				this.id = this.uniqueId();
 				this.className = this.uniqueClass();
@@ -52,11 +61,17 @@ Build('build.ui.Widget', [ 'build::build.ui.Module', 'build::build.utility.Obser
 				});
 				this.refreshChildren();
 			},
+			/**
+			 * @method createElement
+			 */
 			createElement : function() {
 				this.element = document.createElement(this.type);
 				// this.element.classList.add(this.uniqueClass());
 				this.element.controller = this;
 			},
+			/**
+			 * @method clearChildren
+			 */
 			clearChildren : function(element) {
 				element = element || this.element;
 				if (element) {
@@ -65,6 +80,9 @@ Build('build.ui.Widget', [ 'build::build.ui.Module', 'build::build.utility.Obser
 					}
 				}
 			},
+			/**
+			 * @method refreshChildren
+			 */
 			refreshChildren : function() {
 				var element = this.element;
 				if (element) {
@@ -74,6 +92,9 @@ Build('build.ui.Widget', [ 'build::build.ui.Module', 'build::build.utility.Obser
 					}
 				}
 			},
+			/**
+			 * @method childIterator
+			 */
 			childIterator : function(child, index, array) {
 				if (child) {
 					if (this.directAppend) {
@@ -86,20 +107,32 @@ Build('build.ui.Widget', [ 'build::build.ui.Module', 'build::build.utility.Obser
 					}
 				}
 			},
+			/**
+			 * @method addChild
+			 */
 			addChild : function(child) {
 				this.children.push(child);
 			},
+			/**
+			 * @method removeChild
+			 */
 			removeChild : function(child) {
 				var index = this.children.indexOf(child);
 				if (index != -1) {
 					this.children.splice(index, 1);
 				}
 			},
+			/**
+			 * @method uniqueId
+			 */
 			uniqueId : function() {
 				var $name = this.constructor.$name;
 				idCount[$name] = idCount[$name] !== undefined ? idCount[$name] + 1 : 0;
 				return Build.nameToCss($name + '-' + idCount[$name]);
 			},
+			/**
+			 * @method uniqueClass
+			 */
 			uniqueClass : function() {
 				var className = Build.nameToCss(this.constructor.$name);
 				if (this.constructor.deferClassName && this.constructor.$parent) {
@@ -117,18 +150,27 @@ Build('build.ui.Widget', [ 'build::build.ui.Module', 'build::build.utility.Obser
 			// removeChild : function(widget) {
 			// this.element.removeChild(widget.element);
 			// },
+			/**
+			 * @method addClass
+			 */
 			addClass : function(className) {
 				if (className) {
 					this.classList.add(className);
 					this.publish('className');
 				}
 			},
+			/**
+			 * @method removeClass
+			 */
 			removeClass : function(className) {
 				if (className) {
 					this.classList.remove(className);
 					this.publish('className');
 				}
 			},
+			/**
+			 * @method addEvent
+			 */
 			addEvent : function(type, listener, useCapture, bind) {
 				if (bind) {
 					this.element.addEventListener(type, listener.bind(bind, this.element), useCapture);
@@ -136,15 +178,28 @@ Build('build.ui.Widget', [ 'build::build.ui.Module', 'build::build.utility.Obser
 					this.element.addEventListener(type, listener, useCapture);
 				}
 			},
+			/**
+			 * @method removeEvent
+			 */
 			removeEvent : function(type, listener) {
 				this.element.removeEventListener(type, listener);
 			},
+			/**
+			 * @method preventDefault
+			 * @param type
+			 */
 			preventDefault : function(type) {
 				this.element.addEventListener(type || 'click', preventDefault);
 			},
+			/**
+			 * @method allowDefault
+			 */
 			allowDefault : function(type) {
 				this.element.removeEventListener(type || 'click', preventDefault);
 			},
+			/**
+			 * @method watchProperty
+			 */
 			watchProperty : function(property, name, get, set) {
 				name = name || property;
 				Object.defineProperty(this, property, {
@@ -162,6 +217,9 @@ Build('build.ui.Widget', [ 'build::build.ui.Module', 'build::build.utility.Obser
 					}
 				});
 			},
+			/**
+			 * @method watchAttribute
+			 */
 			watchAttribute : function(property, attribute, get, set) {
 				attribute = attribute || property;
 				Object.defineProperty(this, property, {
@@ -179,6 +237,9 @@ Build('build.ui.Widget', [ 'build::build.ui.Module', 'build::build.utility.Obser
 					}
 				});
 			},
+			/**
+			 * @method watchStyle
+			 */
 			watchStyle : function(property, style, unit) {
 				style = style || property;
 				if (unit) {
@@ -204,6 +265,9 @@ Build('build.ui.Widget', [ 'build::build.ui.Module', 'build::build.utility.Obser
 				}
 			},
 			// TODO: Remove this polyfill once IE10 support is dropped.
+			/**
+			 * @method watchData
+			 */
 			watchData : function(property, data) {
 				data = data || property;
 				Object.defineProperty(this, property, {
@@ -217,6 +281,9 @@ Build('build.ui.Widget', [ 'build::build.ui.Module', 'build::build.utility.Obser
 					}
 				});
 			},
+			/**
+			 * @method watchClass
+			 */
 			watchClass : function(property, className) {
 				className = className || property;
 				Object.defineProperty(this, property, {
@@ -235,6 +302,10 @@ Build('build.ui.Widget', [ 'build::build.ui.Module', 'build::build.utility.Obser
 			}
 		},
 		$static : {
+			/**
+			 * @method create
+			 * @static
+			 */
 			create : function() {
 				var result = Object.create(this.prototype);
 				result = this.apply(result, arguments) || result;
@@ -242,6 +313,9 @@ Build('build.ui.Widget', [ 'build::build.ui.Module', 'build::build.utility.Obser
 				result.init.apply(result, arguments);
 				return result;
 			},
+			/**
+			 * @static
+			 */
 			deferClassName : false
 		}
 	});
