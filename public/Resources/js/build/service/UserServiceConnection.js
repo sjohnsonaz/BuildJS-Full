@@ -1,8 +1,22 @@
+/**
+ * @class build.service.UserServiceConnection
+ * @extends build.service.ServiceConnection
+ */
 Build('build.service.UserServiceConnection', [ 'build::build.service.ServiceConnection' ], function(define, $super, merge) {
 	define({
 		$extends : 'build.service.ServiceConnection',
+		/**
+		 * @constructor
+		 * @param base
+		 */
 		$constructor : function UserServiceConnection(base) {
 			$super(this)(base || '/api/user');
+			/**
+			 * @method get
+			 * @param id
+			 * @param success
+			 * @param error
+			 */
 			this.addRoute({
 				name : 'get',
 				verb : 'GET',
@@ -10,6 +24,12 @@ Build('build.service.UserServiceConnection', [ 'build::build.service.ServiceConn
 				action : function(id, success, error) {
 				}
 			});
+			/**
+			 * @method post
+			 * @param user
+			 * @param success
+			 * @param error
+			 */
 			this.addRoute({
 				name : 'post',
 				verb : 'POST',
@@ -19,6 +39,13 @@ Build('build.service.UserServiceConnection', [ 'build::build.service.ServiceConn
 					};
 				}
 			});
+			/**
+			 * @method put
+			 * @param _id
+			 * @param user
+			 * @param success
+			 * @param error
+			 */
 			this.addRoute({
 				name : 'put',
 				verb : 'PUT',

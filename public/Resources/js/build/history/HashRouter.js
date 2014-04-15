@@ -1,3 +1,6 @@
+/**
+ * @class build.history.HashRouter
+ */
 Build('build.history.HashRouter', [], function(define, $super) {
 	var STRIP_COMMENTS = /((\/\/.*$)|(\/\*[\s\S]*?\*\/))/mg;
 	function getParameterNames(functionHandle) {
@@ -5,6 +8,11 @@ Build('build.history.HashRouter', [], function(define, $super) {
 		return definition.slice(definition.indexOf('(') + 1, definition.indexOf(')')).match(/([^\s,]+)/g) || [];
 	}
 	define({
+		/**
+		 * @constructor
+		 * @property routes
+		 * @property handler
+		 */
 		$constructor : function HashRouter() {
 			var self = this;
 			this.routes = {};
@@ -23,13 +31,22 @@ Build('build.history.HashRouter', [], function(define, $super) {
 			};
 		},
 		$prototype : {
+			/**
+			 * @method listen
+			 */
 			listen : function() {
 				window.addEventListener('hashchange', this.handler);
 				this.handler();
 			},
+			/**
+			 * @method stop
+			 */
 			stop : function() {
 				window.removeEventListener('hashchange', this.handler);
 			},
+			/**
+			 * @method add
+			 */
 			add : function(route, enter, exit) {
 				this.routes[route] = {
 					route : route,
@@ -38,9 +55,15 @@ Build('build.history.HashRouter', [], function(define, $super) {
 					regex : new RegExp(route.replace(/\//g, "\\/").replace(/:(\w*)/g, "(\\w*)"))
 				};
 			},
+			/**
+			 * @method remove
+			 */
 			remove : function(route) {
 				delete this.routes[route];
 			},
+			/**
+			 * @method watchMethod
+			 */
 			watchMethod : function(scope, name, prefix, callback) {
 				var parameterNames = getParameterNames(callback);
 				parameterNames.unshift(prefix);
@@ -56,6 +79,9 @@ Build('build.history.HashRouter', [], function(define, $super) {
 				scope[name] = handle;
 				return handle;
 			},
+			/**
+			 * @method go
+			 */
 			go : function() {
 
 			}

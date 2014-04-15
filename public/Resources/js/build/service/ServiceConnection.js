@@ -1,5 +1,12 @@
+/**
+ * @class build.service.ServiceConnection
+ */
 var build = build || {};
 build.service = build.service || {};
+/**
+ * @constructor
+ * @property base
+ */
 build.service.ServiceConnection = (function() {
 	function ServiceConnection(base) {
 		this.base = base;
@@ -11,6 +18,20 @@ build.service.ServiceConnection = (function() {
 		return definition.slice(definition.indexOf('(') + 1, definition.indexOf(')')).match(/([^\s,]+)/g) || [];
 	}
 
+	/**
+	 * @method call
+	 * @param verb
+	 * @param url
+	 * @param sync
+	 * @param user
+	 * @param password
+	 * @param data
+	 * @param unsent
+	 * @param opened
+	 * @param headersReceived
+	 * @param loading
+	 * @param done
+	 */
 	function call(verb, url, sync, user, password, data, unsent, opened, headersReceived, loading, done) {
 		var request = new XMLHttpRequest();
 		if (sync) {
@@ -88,6 +109,10 @@ build.service.ServiceConnection = (function() {
 		return a;
 	}
 
+	/**
+	 * @method run
+	 * @param parameters
+	 */
 	function run(parameters) {
 		parameters = merge({
 			verb : 'GET',
@@ -117,30 +142,54 @@ build.service.ServiceConnection = (function() {
 		call(parameters.verb.toUpperCase(), parameters.buildUrl(), parameters.sync, parameters.user, parameters.password, parameters.data, parameters.unsent, parameters.opened, parameters.headersReceived, parameters.loading, parameters.done);
 	}
 
+	/**
+	 * @method Get
+	 * @param parameters
+	 */
 	function Get(parameters) {
 		parameters = parameters || {};
 		parameters.verb = parameters.verb || 'GET';
 		run(parameters);
 	}
 
+	/**
+	 * @method Post
+	 * @param parameters
+	 */
 	function Post(parameters) {
 		parameters = parameters || {};
 		parameters.verb = parameters.verb || 'POST';
 		run(parameters);
 	}
 
+	/**
+	 * @method Put
+	 * @param parameters
+	 */
 	function Put(parameters) {
 		parameters = parameters || {};
 		parameters.verb = parameters.verb || 'PUT';
 		run(parameters);
 	}
 
+	/**
+	 * @method Delete
+	 * @param parameters
+	 */
 	function Delete(parameters) {
 		parameters = parameters || {};
 		parameters.verb = parameters.verb || 'DELETE';
 		run(parameters);
 	}
 
+	/**
+	 * @method formatUrl
+	 * @param url
+	 * @param params
+	 * @param query
+	 * @param regex
+	 * @returns {String}
+	 */
 	function formatUrl(url, params, query, regex) {
 		var output;
 		if (url) {
@@ -176,6 +225,10 @@ build.service.ServiceConnection = (function() {
 		return output;
 	}
 
+	/**
+	 * @method addRoute
+	 * @param parameters
+	 */
 	function addRoute(parameters) {
 		parameters = merge({
 			name : '',
