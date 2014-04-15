@@ -1,7 +1,25 @@
+/**
+ * @class build.widget.user.UserEditForm
+ * @extends build.ui.form.Form
+ */
 Build('build.widget.user.UserEditForm', [ 'build::build.ui.form.Form', 'build::build.ui.element.Div', 'build::build.ui.form.Text', 'build::build.ui.form.Password', 'build::build.ui.form.Button', 'build::build.ui.form.Submit',
 		'build::build.ui.form.ButtonGroup', 'build::build.ui.form.FormControl', 'build::build.ui.form.Label' ], function(define, $super, merge, safe) {
 	define({
 		$extends : 'build.ui.form.Form',
+		/**
+		 * @constructor
+		 * @param userServiceConnection
+		 */
+		/**
+		 * @property userServiceConnection
+		 * @property message
+		 * @property username
+		 * @property firstName
+		 * @property lastName
+		 * @property password
+		 * @property cancel
+		 * @property submit
+		 */
 		$constructor : function UserEditForm(userServiceConnection) {
 			$super(this)();
 			this.userServiceConnection = userServiceConnection;
@@ -33,6 +51,9 @@ Build('build.widget.user.UserEditForm', [ 'build::build.ui.form.Form', 'build::b
 			this.addChild(buttonGroup);
 		},
 		$prototype : {
+			/**
+			 * 
+			 */
 			init : function() {
 				$super().init(this)();
 				this.method = 'POST';
@@ -50,18 +71,27 @@ Build('build.widget.user.UserEditForm', [ 'build::build.ui.form.Form', 'build::b
 					return false;
 				}, false, this);
 			},
+			/**
+			 * 
+			 */
 			wrap : function(model) {
 				this.username.value = model.username;
 				this.firstName.value = model.firstName;
 				this.lastName.value = model.lastName;
 				this.password.value = model.password;
 			},
+			/**
+			 * 
+			 */
 			unwrap : function(model) {
 				model.username = this.username.value;
 				model.firstName = this.firstName.value;
 				model.lastName = this.lastName.value;
 				model.password = this.password.value;
 			},
+			/**
+			 * 
+			 */
 			clear : function() {
 				this.message.text = '';
 				this.username.text = '';
@@ -69,6 +99,9 @@ Build('build.widget.user.UserEditForm', [ 'build::build.ui.form.Form', 'build::b
 				this.lastName.text = '';
 				this.password.text = '';
 			},
+			/**
+			 * 
+			 */
 			saveUser : function(success, error) {
 				// Change to PUT if editing, POST if creating.
 				this.userServiceConnection.put(this.model._id, this.model, function(data, request) {
@@ -84,6 +117,9 @@ Build('build.widget.user.UserEditForm', [ 'build::build.ui.form.Form', 'build::b
 					safe(error)(request);
 				}.bind(this));
 			},
+			/**
+			 * 
+			 */
 			cancelUser : function() {
 				this.runCallbacks('cancelUser');
 			}

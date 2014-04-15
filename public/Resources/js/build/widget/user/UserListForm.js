@@ -1,6 +1,19 @@
+/**
+ * @class build.widget.user.UserListForm
+ * @extends build.ui.form.Form 
+ */
 Build('build.widget.user.UserListForm', [ 'build::build.ui.form.Form', 'build::build.ui.element.Table', 'build::build.ui.form.Button', 'build::build.ui.form.ButtonGroup' ], function(define, $super, merge, safe) {
 	define({
 		$extends : 'build.ui.form.Form',
+		/**
+		 * @constructor
+		 * @param userServiceConnection
+		 */
+		/**
+		 * @property userServiceConnection
+		 * @property createButton
+		 * @property userTable
+		 */
 		$constructor : function UserListForm(userServiceConnection) {
 			$super(this)();
 			this.createButton = build.ui.form.Button.create('New User');
@@ -12,6 +25,9 @@ Build('build.widget.user.UserListForm', [ 'build::build.ui.form.Form', 'build::b
 			this.userServiceConnection = userServiceConnection;
 		},
 		$prototype : {
+			/**
+			 * 
+			 */
 			init : function() {
 				$super().init(this)();
 				this.createButton.addEvent('click', function(button, event) {
@@ -20,6 +36,9 @@ Build('build.widget.user.UserListForm', [ 'build::build.ui.form.Form', 'build::b
 					return false;
 				}, false, this);
 			},
+			/**
+			 * 
+			 */
 			wrap : function(model) {
 				this.userTable.children.removeAll();
 				for (var index = 0, length = model.length; index < length; index++) {
@@ -51,20 +70,38 @@ Build('build.widget.user.UserListForm', [ 'build::build.ui.form.Form', 'build::b
 					this.userTable.children.push([ user.username, user.firstName, user.lastName, buttonGroup ]);
 				}
 			},
+			/**
+			 * 
+			 */
 			unwrap : function(model) {
 			},
+			/**
+			 * 
+			 */
 			clear : function() {
 				this.userTable.rows.removeAll();
 			},
+			/**
+			 * 
+			 */
 			createUser : function() {
 				this.runCallbacks('createUser');
 			},
+			/**
+			 * 
+			 */
 			viewUser : function(user) {
 				this.runCallbacks('viewUser', user);
 			},
+			/**
+			 * 
+			 */
 			editUser : function(user) {
 				this.runCallbacks('editUser', user);
 			},
+			/**
+			 * 
+			 */
 			deleteUser : function(user) {
 				this.runCallbacks('deleteUser', user);
 			}

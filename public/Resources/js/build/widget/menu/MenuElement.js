@@ -1,6 +1,21 @@
+/**
+ * @class build.widget.menu.MenuElement
+ * @extends build.ui.Widget
+ */
 Build('build.widget.menu.MenuElement', [ 'build::build.ui.Widget', 'build::build.ui.element.Link' ], function(define, $super, merge, safe) {
 	define({
 		$extends : 'build.ui.Widget',
+		/**
+		 * @constructor
+		 */
+		/**
+		 * @property type
+		 * @property link
+		 * @property url
+		 * @property text
+		 * @property action
+		 * @property hidden
+		 */
 		$constructor : function MenuElement() {
 			$super(this)();
 			this.type = 'li';
@@ -30,6 +45,9 @@ Build('build.widget.menu.MenuElement', [ 'build::build.ui.Widget', 'build::build
 			}.bind(this));
 		},
 		$prototype : {
+			/**
+			 * 
+			 */
 			init : function() {
 				$super().init(this)();
 				this.subscribe('action', function(action) {
@@ -40,14 +58,23 @@ Build('build.widget.menu.MenuElement', [ 'build::build.ui.Widget', 'build::build
 					}
 				}.bind(this));
 			},
+			/**
+			 * 
+			 */
 			refreshChildren : function() {
 				this.clearChildren();
 				this.element.appendChild(this.link.element);
 			},
+			/**
+			 * 
+			 */
 			preventDefault : function(type) {
 				$super().preventDefault(this)(type);
 				this.link.preventDefault(type);
 			},
+			/**
+			 * 
+			 */
 			allowDefault : function(type) {
 				$super().allowDefault(this)(type);
 				this.link.allowDefault(type);

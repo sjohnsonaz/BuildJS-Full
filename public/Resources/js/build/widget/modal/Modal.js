@@ -1,6 +1,17 @@
+/**
+ * @class build.widget.modal.Modal
+ * @extends build.ui.Widget
+ */
 Build('build.widget.modal.Modal', [ 'build::build.ui.Widget' ], function(define, $super, merge, safe) {
 	define({
 		$extends : 'build.ui.Widget',
+		/**
+		 * @constructor
+		 */
+		/**
+		 * @property mask
+		 * @property body
+		 */
 		$constructor : function() {
 			$super(this)();
 			this.mask = document.createElement('div');
@@ -9,10 +20,16 @@ Build('build.widget.modal.Modal', [ 'build::build.ui.Widget' ], function(define,
 			this.body.className = 'modal-body';
 		},
 		$prototype : {
+			/**
+			 * 
+			 */
 			init : function() {
 				$super().init(this)();
 				this.mask.appendChild(this.body);
 			},
+			/**
+			 * 
+			 */
 			refreshChildren : function() {
 				var element = this.body;
 				if (element) {
@@ -22,9 +39,15 @@ Build('build.widget.modal.Modal', [ 'build::build.ui.Widget' ], function(define,
 					}
 				}
 			},
+			/**
+			 * 
+			 */
 			show : function() {
 				document.body.appendChild(this.body);
 			},
+			/**
+			 * 
+			 */
 			hide : function() {
 				document.body.removeChild(this.body);
 			}

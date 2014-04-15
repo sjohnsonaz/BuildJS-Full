@@ -1,7 +1,22 @@
+/**
+ * @class build.widget.authentication.LoginForm
+ * @extends build.ui.form.Form
+ */
 Build('build.widget.authentication.LoginForm', [ 'build::build.ui.form.Form', 'build::build.ui.element.Div', 'build::build.ui.form.Text', 'build::build.ui.form.Password', 'build::build.ui.form.Submit', 'build::build.ui.form.FormControl',
 		'build::build.ui.form.Label' ], function(define, $super, merge, safe) {
 	define({
 		$extends : 'build.ui.form.Form',
+		/**
+		 * @constructor
+		 * @params authenticationServiceConnection
+		 */
+		/**
+		 * @property message
+		 * @property username
+		 * @property password
+		 * @property submit
+		 * @property authenticationServiceConnection
+		 */
 		$constructor : function LoginForm(authenticationServiceConnection) {
 			$super(this)();
 			this.message = build.ui.element.Div.create();
@@ -19,6 +34,9 @@ Build('build.widget.authentication.LoginForm', [ 'build::build.ui.form.Form', 'b
 			this.addChild(build.ui.form.FormControl.create(null, this.submit));
 		},
 		$prototype : {
+			/**
+			 * 
+			 */
 			init : function() {
 				$super().init(this)();
 				this.method = 'POST';
@@ -33,19 +51,31 @@ Build('build.widget.authentication.LoginForm', [ 'build::build.ui.form.Form', 'b
 					return false;
 				}, false, this);
 			},
+			/**
+			 * 
+			 */
 			wrap : function(model) {
 				this.username.text = model.username;
 				this.password.text = model.password;
 			},
+			/**
+			 * 
+			 */
 			unwrap : function(model) {
 				// model.username = this.username.text();
 				// model.password = this.password.text();
 			},
+			/**
+			 * 
+			 */
 			clear : function() {
 				this.message.text = '';
 				this.username.text = '';
 				this.password.text = '';
 			},
+			/**
+			 * 
+			 */
 			login : function(success, error) {
 				this.authenticationServiceConnection.login(this.username.value, this.password.value, function(data, request) {
 					console.log(data);

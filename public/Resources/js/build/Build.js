@@ -342,7 +342,7 @@ var Build = build.Build = (function() {
 		}
 	}
 	/**
-	 * @class CallbackQueue
+	 * @class build.Build.CallbackQueue
 	 */
 	function CallbackQueue() {
 		this.done = false;
@@ -351,6 +351,7 @@ var Build = build.Build = (function() {
 	CallbackQueue.prototype = {
 		/**
 		 * @method add
+		 * @member build.Build.CallbackQueue
 		 */
 		add : function(callback) {
 			if (this.done) {
@@ -375,6 +376,7 @@ var Build = build.Build = (function() {
 	var waiting = 0;
 	/**
 	 * @method load
+	 * @member build.Build
 	 * @param names
 	 * @param callback
 	 */
@@ -445,6 +447,7 @@ var Build = build.Build = (function() {
 	}
 	/**
 	 * @method loadScript
+	 * @member build.Build
 	 * @param id
 	 * @param fileName
 	 * @param callback
@@ -475,6 +478,7 @@ var Build = build.Build = (function() {
 	}
 	/**
 	 * @method onload
+	 * @member build.Build
 	 * @param {Function} callback
 	 * Runs the callback function when the compilation process is complete.
 	 */

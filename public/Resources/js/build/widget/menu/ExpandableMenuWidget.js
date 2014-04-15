@@ -1,6 +1,17 @@
+/**
+ * @class build.widget.menu.ExpandableMenuWidget
+ * @extends build.widget.menu.MenuWidget
+ */
 Build('build.widget.menu.ExpandableMenuWidget', [ 'build::build.widget.menu.MenuWidget', 'build::build.ui.form.Button', 'build::build.widget.menu.MenuTitle' ], function(define, $super, merge, safe) {
 	define({
 		$extends : 'build.widget.menu.MenuWidget',
+		/**
+		 * @constructor
+		 */
+		/**
+		 * @property title
+		 * @property expandButton
+		 */
 		$constructor : function ExpandableMenuWidget() {
 			$super(this)();
 			this.title = build.widget.menu.MenuTitle.create();
@@ -11,11 +22,17 @@ Build('build.widget.menu.ExpandableMenuWidget', [ 'build::build.widget.menu.Menu
 			}.bind(this));
 		},
 		$prototype : {
+			/**
+			 * 
+			 */
 			init : function() {
 				$super().init(this)();
 				this.watchClass('expand', 'expandable-menu-widget-expand');
 				this.expand = false;
 			},
+			/**
+			 * 
+			 */
 			refreshChildren : function() {
 				$super().refreshChildren(this)();
 				this.element.insertBefore(this.title.element, this.element.firstChild);

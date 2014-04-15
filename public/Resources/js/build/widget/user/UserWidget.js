@@ -1,7 +1,24 @@
+/**
+ * @class build.widget.user.UserWidget
+ * @extends build.ui.SwitcherPanel 
+ */
 Build('build.widget.user.UserWidget', [ 'build::build.ui.SwitcherPanel', 'build::build.service.UserServiceConnection', 'build::build.widget.user.UserListForm', 'build::build.widget.user.UserViewForm', 'build::build.widget.user.UserCreateForm',
 		'build::build.widget.user.UserEditForm', 'build::build.widget.user.UserDeleteForm' ], function(define, $super, merge, safe) {
 	define({
 		$extends : 'build.ui.SwitcherPanel',
+		/**
+		 * @constructor
+		 * @param userServiceConnection
+		 */
+		/**
+		 * @property user
+		 * @property userServiceConnection
+		 * @property userListForm
+		 * @property userCreateForm
+		 * @property userEditForm
+		 * @property userViewForm
+		 * @property userDeleteForm
+		 */
 		$constructor : function UserWidget(userServiceConnection) {
 			$super(this)();
 			this.user = null;
@@ -56,6 +73,9 @@ Build('build.widget.user.UserWidget', [ 'build::build.ui.SwitcherPanel', 'build:
 			this.addChild(this.userEditForm);
 		},
 		$prototype : {
+			/**
+			 * 
+			 */
 			list : function() {
 				this.userServiceConnection.get(undefined, function(data, request) {
 					this.userListForm.model = data;
