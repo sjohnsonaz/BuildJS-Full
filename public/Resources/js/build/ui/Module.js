@@ -1,10 +1,25 @@
 Build('build.ui.Module', [], function(define, $super, merge, safe) {
+	var cancel = {
+		cancel : true
+	};
 	define({
+		/**
+		 * @class build.ui.Module
+		 * Base class for UI components.
+		 * 
+		 * @constructor
+		 * Creates a new Module instance.
+		 */
 		$constructor : function Module() {
 			// this.callbacks = null;
 			// this.subscribers = null;
 		},
 		$prototype : {
+			/**
+			 * @method addCallback
+			 * @param {String} type
+			 * @param {Function} callback
+			 */
 			addCallback : function(type, callback) {
 				this.callbacks = this.callbacks || {};
 				var callbacks = this.callbacks[type] = this.callbacks[type] || [];
@@ -12,6 +27,11 @@ Build('build.ui.Module', [], function(define, $super, merge, safe) {
 					callbacks.push(callback);
 				}
 			},
+			/**
+			 * @method removeCallback
+			 * @param {String} type
+			 * @param {Function} callback
+			 */
 			removeCallback : function(type, callback) {
 				if (this.callbacks && this.callbacks[type]) {
 					var callbacks = this.callbacks[type];
@@ -21,6 +41,10 @@ Build('build.ui.Module', [], function(define, $super, merge, safe) {
 					}
 				}
 			},
+			/**
+			 * @method runCallbacks
+			 * @param {String} type
+			 */
 			runCallbacks : function(type) {
 				if (this.callbacks) {
 					var callbacks = this.callbacks[type];
@@ -33,23 +57,33 @@ Build('build.ui.Module', [], function(define, $super, merge, safe) {
 					}
 				}
 			},
+			/**
+			 * @method watchValue
+			 * @param name
+			 * @param value
+			 * @param get
+			 * @param set
+			 */
 			watchValue : function(name, value, get, set) {
 				var hidden = value;
 				Object.defineProperty(this, name, {
 					get : function() {
-						safe(get)(this, hidden);
-						return hidden;
+						return typeof get == 'function' ? get(hidden, this) : hidden;
 					},
 					set : function(value) {
-						var override = safe(set)(value);
-						if (typeof override !== 'undefined') {
-							value = override;
+						value = typeof set == 'function' ? set(value, cancel) : value;
+						if (value !== cancel) {
+							hidden = value;
+							this.publish(name);
 						}
-						hidden = value;
-						this.publish(name);
 					}
 				});
 			},
+			/**
+			 * @method subscribe
+			 * @param property
+			 * @param subscriber
+			 */
 			subscribe : function(property, subscriber) {
 				if (typeof subscriber === 'function') {
 					this.subscribers = this.subscribers || {};
@@ -58,6 +92,11 @@ Build('build.ui.Module', [], function(define, $super, merge, safe) {
 					subscriber(this[property]);
 				}
 			},
+			/**
+			 * @method unsubscribe
+			 * @param property
+			 * @param subscriber
+			 */
 			unsubscribe : function(property, subscriber) {
 				if (this.subscribers && this.subscribers[property]) {
 					var index = this.subscribers[property].indexOf(subscriber);
@@ -69,6 +108,10 @@ Build('build.ui.Module', [], function(define, $super, merge, safe) {
 					}
 				}
 			},
+			/**
+			 * @method publish
+			 * @param property
+			 */
 			publish : function(property) {
 				if (this.subscribers && this.subscribers[property]) {
 					var subscribers = this.subscribers[property];

@@ -1,5 +1,15 @@
 var build = build || {};
 var Build = build.Build = (function() {
+	/**
+	 * @class build.Build
+	 * @alternateClassName Build
+	 * 
+	 */
+	/**
+	 * @method Build
+	 * @param value
+	 * Switches to {@link Build#onload onload} or {@link Build#define define} methods.
+	 */
 	function Build(value) {
 		switch (typeof value) {
 		case 'function':
@@ -51,6 +61,11 @@ var Build = build.Build = (function() {
 			};
 		}
 	})();
+	/**
+	 * @method namespace
+	 * @param {String} $name The dot delimited name of the constructor or object.
+	 * @param {Function} $constructor The constructor or object to be namespaced.
+	 */
 	function namespace($name, $constructor) {
 		var parts = $name.split('.');
 		var parent = environment.root;
@@ -66,6 +81,12 @@ var Build = build.Build = (function() {
 		root[parts[0]] = environment.root[parts[0]];
 		return grandParent[currentPart] = $constructor;
 	}
+	/**
+	 * @method copyNoReplace
+	 * @param {Object} destination
+	 * @param {Object} source
+	 * @returns {Object} 
+	 */
 	function copyNoReplace(destination, source) {
 		for ( var member in source) {
 			if (source.hasOwnProperty(member)) {
@@ -75,6 +96,12 @@ var Build = build.Build = (function() {
 		}
 		return destination;
 	}
+	/**
+	 * @method copyReplace
+	 * @param {Object} destination
+	 * @param {Object} source
+	 * @returns
+	 */
 	function copyReplace(destination, source) {
 		for ( var member in source) {
 			if (source.hasOwnProperty(member)) {
@@ -83,6 +110,13 @@ var Build = build.Build = (function() {
 		}
 		return destination;
 	}
+	/**
+	 * @method inherit
+	 * @param {Object} $child
+	 * @param {Object} $parent
+	 * @param {Object} $prototype
+	 * @param {Boolean} $lockParent
+	 */
 	function inherit($child, $parent, $prototype, $lockParent) {
 		if ($parent) {
 			$prototype = $prototype || {};
@@ -137,6 +171,11 @@ var Build = build.Build = (function() {
 			return base;
 		};
 	}
+	/**
+	 * @method singleton
+	 * @param {Function} $constructor
+	 * @returns {Function}
+	 */
 	function singleton($constructor) {
 		var result = undefined;
 		return function() {
@@ -148,6 +187,18 @@ var Build = build.Build = (function() {
 		};
 	}
 	var definitions = {};
+	/**
+	 * @method assemble
+	 * @param {String} $name
+	 * @param {Function} $constructor
+	 * @param {Object} $prototype
+	 * @param {Object} $static
+	 * @param {Function} $parent
+	 * @param {Boolean} $singleton
+	 * @param {Object} $base
+	 * @param {Boolean} $lockParent
+	 * @returns {Function}
+	 */
 	function assemble($name, $constructor, $prototype, $static, $parent, $singleton, $base, $lockParent) {
 		$constructor = $base ? base($constructor, $base) : $constructor;
 
@@ -164,6 +215,12 @@ var Build = build.Build = (function() {
 		namespace($name, $constructor);
 		return $constructor;
 	}
+	/**
+	 * @method define
+	 * @param $name
+	 * @param $required
+	 * @param $definition
+	 */
 	function define($name, $required, $definition) {
 		compiled = false;
 		if (!loaded) {
@@ -172,10 +229,14 @@ var Build = build.Build = (function() {
 		var requiredRemaining = [];
 		for (var index = 0, length = $required.length; index < length; index++) {
 			var requiredPath = $required[index];
-			var pathInformation = getPathInformation(requiredPath);
-			var requiredName = pathInformation.name;
-			if (!definitions[requiredName] && !defHandles[requiredName] && !loading[requiredName] && !preLoading[requiredPath]) {
-				requiredRemaining.push(requiredPath);
+			// required may be commented out with a #.
+			// This may be used for lazy load classes when compiling.
+			if (requiredPath[0] != '#') {
+				var pathInformation = getPathInformation(requiredPath);
+				var requiredName = pathInformation.name;
+				if (!definitions[requiredName] && !defHandles[requiredName] && !loading[requiredName] && !preLoading[requiredPath]) {
+					requiredRemaining.push(requiredPath);
+				}
 			}
 		}
 		defHandles[$name] = $definition;
@@ -190,6 +251,9 @@ var Build = build.Build = (function() {
 			}
 		}
 	}
+	/**
+	 * @method compile
+	 */
 	function compile() {
 		var defHandlesNames = Object.keys(defHandles);
 		while (defHandlesNames.length) {
@@ -201,6 +265,9 @@ var Build = build.Build = (function() {
 		compiled = true;
 		loadPhaseComplete();
 	}
+	/**
+	 * @method compileClass
+	 */
 	function compileClass($name) {
 		var defHandle = defHandles[$name];
 		delete defHandles[$name];
@@ -253,11 +320,21 @@ var Build = build.Build = (function() {
 				};
 			});
 		}
-
 	}
+	/**
+	 * @method nameToCss
+	 * @param $name
+	 * @returns
+	 */
 	function nameToCss($name) {
 		return $name.replace(/\./g, '-');
 	}
+	/**
+	 * @method nameToFileName
+	 * @param $name
+	 * @param path
+	 * @returns
+	 */
 	function nameToFileName($name, path) {
 		if ($name.endsWith('.js')) {
 			return path + name;
@@ -265,11 +342,17 @@ var Build = build.Build = (function() {
 			return path + $name.replace(/\./g, '/') + '.js';
 		}
 	}
+	/**
+	 * @class CallbackQueue
+	 */
 	function CallbackQueue() {
 		this.done = false;
 		this.queue = [];
 	}
 	CallbackQueue.prototype = {
+		/**
+		 * @method add
+		 */
 		add : function(callback) {
 			if (this.done) {
 				callback();
@@ -291,6 +374,11 @@ var Build = build.Build = (function() {
 		}
 	};
 	var waiting = 0;
+	/**
+	 * @method load
+	 * @param names
+	 * @param callback
+	 */
 	function load(names, callback) {
 		load.queue.add(callback);
 		function finishLoad() {
@@ -356,6 +444,12 @@ var Build = build.Build = (function() {
 			callback();
 		}
 	}
+	/**
+	 * @method loadScript
+	 * @param id
+	 * @param fileName
+	 * @param callback
+	 */
 	function loadScript(id, fileName, callback) {
 		switch (environment.name) {
 		case 'browser':
@@ -380,6 +474,11 @@ var Build = build.Build = (function() {
 			onload.queue.clear();
 		}
 	}
+	/**
+	 * @method onload
+	 * @param {Function} callback
+	 * Runs the callback function when the compilation process is complete.
+	 */
 	function onload(callback) {
 		if (onload.queue) {
 			onload.queue.add(callback);
