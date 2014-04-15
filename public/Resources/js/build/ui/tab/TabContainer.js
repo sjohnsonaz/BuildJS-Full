@@ -1,9 +1,20 @@
+/**
+ * @class build.ui.tab.TabContainer
+ * @extends build.ui.SwitcherPanel
+ */
 Build('build.ui.tab.TabContainer', [ 'build::build.ui.SwitcherPanel' ], function(define, $super) {
 	define({
 		$extends : 'build.ui.SwitcherPanel',
+		/**
+		 * @constructor
+		 */
 		$constructor : function TabContainer() {
 			$super(this)();
 			var self = this;
+			/**
+			 * @method openTab
+			 * @param tab
+			 */
 			this.openTab = function(tab) {
 				var children = self.children;
 				for (var index = 0, length = children.length; index < length; index++) {
@@ -13,14 +24,24 @@ Build('build.ui.tab.TabContainer', [ 'build::build.ui.SwitcherPanel' ], function
 					}
 				}
 			};
+			/**
+			 * @method openTabIndex
+			 * @param index
+			 */
 			this.openTabIndex = function(index) {
 				self.active = index;
 			};
 		},
 		$prototype : {
+			/**
+			 * @method init
+			 */
 			init : function() {
 				$super().init(this)();
 			},
+			/**
+			 * @method refreshChildren
+			 */
 			refreshChildren : function() {
 				$super().refreshChildren(this)();
 				if (this.element) {

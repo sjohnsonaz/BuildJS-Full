@@ -1,6 +1,6 @@
 /**
  * @class build.ui.form.Button
- * @extends build.ui.Widget
+ * @extends build.ui.form.FormElement
  */
 Build('build.ui.form.Button', [ 'build::build.ui.form.FormElement' ], function(define, $super) {
 	define({

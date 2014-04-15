@@ -1,6 +1,21 @@
+/**
+ * @class build.ui.form.FormControl
+ * @extends build.ui.form.FormElement
+ */
 Build('build.ui.form.FormControl', [ 'build::build.ui.form.FormElement' ], function(define, $super, merge) {
 	define({
 		$extends : 'build.ui.form.FormElement',
+		/**
+		 * @constructor
+		 */
+		/**
+		 * @property type
+		 * @property directAppend
+		 * @property label
+		 * @property control
+		 * @property labelIterator
+		 * @property controlIterator
+		 */
 		$constructor : function FormControl(label, control) {
 			$super(this)();
 			this.type = 'div';
@@ -17,6 +32,11 @@ Build('build.ui.form.FormControl', [ 'build::build.ui.form.FormElement' ], funct
 			this.controlIterator.className = 'form-control-iterator-control';
 		},
 		$prototype : {
+			/**
+			 * @method init
+			 * @param label
+			 * @param control
+			 */
 			init : function(label, control) {
 				$super().init(this)();
 				this.label = label;
@@ -27,6 +47,9 @@ Build('build.ui.form.FormControl', [ 'build::build.ui.form.FormElement' ], funct
 				this.element.appendChild(this.labelIterator);
 				this.element.appendChild(this.controlIterator);
 			},
+			/**
+			 * @method refreshChildren
+			 */
 			refreshChildren : function() {
 				var element = this.element;
 				if (element) {

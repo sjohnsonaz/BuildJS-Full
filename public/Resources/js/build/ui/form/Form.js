@@ -1,6 +1,6 @@
 /**
  * @class build.ui.form.Form
- * @extends build.ui.Widget
+ * @extends build.ui.Panel
  */
 Build('build.ui.form.Form', [ 'build::build.ui.Panel' ], function(define, $super) {
 	// TODO: Create navigation prevention on form change.
