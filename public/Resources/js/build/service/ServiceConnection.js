@@ -5,6 +5,8 @@ var build = build || {};
 build.service = build.service || {};
 /**
  * @constructor
+ */
+/**
  * @property base
  */
 build.service.ServiceConnection = (function() {

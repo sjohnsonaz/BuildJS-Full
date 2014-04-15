@@ -1,13 +1,14 @@
+/**
+ * @class build.ui.Application
+ * @extends build.ui.Panel
+ */
 Build('build.ui.Application', [ 'build::build.ui.Panel', 'build::build.history.HashRouter' ], function(define, $super) {
 	define({
 		$extends : 'build.ui.Panel',
-		/**
-		 * @class build.ui.Application
-		 * @extends build.ui.Panel
-		 * 
+		/** 
 		 * @constructor
-		 * @member router
-		 * @member marginTop
+		 * @property router
+		 * @property marginTop
 		 */
 		$constructor : function Application() {
 			$super(this)();

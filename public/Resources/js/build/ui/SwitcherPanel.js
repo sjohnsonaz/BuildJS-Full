@@ -1,6 +1,18 @@
+/**
+ * @class build.ui.SwitcherPanel
+ * @extends build.ui.Panel
+ */
 Build('build.ui.SwitcherPanel', [ 'build::build.ui.Panel', 'build::build.utility.Navigation' ], function(define, $super) {
 	define({
 		$extends : 'build.ui.Panel',
+		/**
+		 * @constructor
+		 */
+		/**
+		 * @property lockable
+		 * @property active
+		 * @property hideMode
+		 */
 		$constructor : function SwitcherPanel(active) {
 			$super(this)();
 			this.lockable = false;
@@ -14,9 +26,16 @@ Build('build.ui.SwitcherPanel', [ 'build::build.ui.Panel', 'build::build.utility
 			this.watchValue('hideMode', 'DOM');
 		},
 		$prototype : {
+			/**
+			 * @method init
+			 * @param active
+			 */
 			init : function(active) {
 				$super().init(this)(active);
 			},
+			/**
+			 * @method refreshChildren
+			 */
 			refreshChildren : function() {
 				var element = this.element;
 				if (element) {
@@ -41,6 +60,10 @@ Build('build.ui.SwitcherPanel', [ 'build::build.ui.Panel', 'build::build.utility
 			},
 		},
 		$static : {
+			/**
+			 * @property HideMode
+			 * @static
+			 */
 			HideMode : {
 				'DOM' : 'DOM',
 				'DISPLAY' : 'DISPLAY',

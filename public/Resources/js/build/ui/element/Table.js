@@ -1,12 +1,26 @@
+/**
+ * @class build.ui.element.Table
+ * @extends build.ui.Widget
+ */
 Build('build.ui.element.Table', [ 'build::build.ui.element.Element', 'build::build.utility.ObservableArray' ], function(define, $super, merge, safe) {
 	define({
 		$extends : 'build.ui.element.Element',
+		/**
+		 * @constructor
+		 */
+		/**
+		 * @property type
+		 * @property headers
+		 */
 		$constructor : function Table() {
 			$super(this)();
 			this.type = 'table';
 			this.headers = build.utility.ObservableArray();
 		},
 		$prototype : {
+			/**
+			 * @method init
+			 */
 			init : function() {
 				$super().init(this)();
 				this.head = document.createElement('thead');
@@ -43,6 +57,12 @@ Build('build.ui.element.Table', [ 'build::build.ui.element.Element', 'build::bui
 					// trHead.appendChild(th);
 				}.bind(this));
 			},
+			/**
+			 * @method childIterator
+			 * @param child
+			 * @param index
+			 * @param array
+			 */
 			childIterator : function(child, index, array) {
 				if (child) {
 					var tr = document.createElement('tr');
@@ -62,6 +82,9 @@ Build('build.ui.element.Table', [ 'build::build.ui.element.Element', 'build::bui
 					this.body.appendChild(tr);
 				}
 			},
+			/**
+			 * @method refreshChildren
+			 */
 			refreshChildren : function() {
 				if (this.body) {
 					while (this.body.firstChild) {
@@ -72,6 +95,9 @@ Build('build.ui.element.Table', [ 'build::build.ui.element.Element', 'build::bui
 					}
 				}
 			},
+			/**
+			 * @method addRow
+			 */
 			addRow : function() {
 
 			}

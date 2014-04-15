@@ -1,14 +1,17 @@
+/**
+ * @class build.ui.Module
+ * Base class for UI components.
+ */
 Build('build.ui.Module', [], function(define, $super, merge, safe) {
 	var cancel = {
 		cancel : true
 	};
 	define({
 		/**
-		 * @class build.ui.Module
-		 * Base class for UI components.
-		 * 
 		 * @constructor
 		 * Creates a new Module instance.
+		 * @property callbacks
+		 * @property subscribers
 		 */
 		$constructor : function Module() {
 			// this.callbacks = null;

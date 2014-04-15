@@ -1,10 +1,9 @@
+/**
+ * @class build.Build
+ * @alternateClassName Build
+ */
 var build = build || {};
 var Build = build.Build = (function() {
-	/**
-	 * @class build.Build
-	 * @alternateClassName Build
-	 * 
-	 */
 	/**
 	 * @method Build
 	 * @param value
