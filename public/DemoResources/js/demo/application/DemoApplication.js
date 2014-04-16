@@ -2,7 +2,7 @@ Build.paths.main = '/Resources/js/';
 Build.paths.build = '/Resources/js/';
 Build.paths.demo = '/DemoResources/js/';
 
-Build('demo.inheritance.Application', [ 'build::build.ui.application.AdminApplication', 'build::build.widget.menu.ExpandableMenuWidget', 'build::build.widget.menu.MenuElement', 'build::build.widget.menu.MenuTitle', 'build::build.ui.element.Div',
+Build('demo.application.DemoApplication', [ 'build::build.ui.application.AdminApplication', 'build::build.widget.menu.ExpandableMenuWidget', 'build::build.widget.menu.MenuElement', 'build::build.widget.menu.MenuTitle', 'build::build.ui.element.Div',
 		'build::build.ui.tab.TabContainer', 'build::build.ui.tab.TabPanel', 'build::build.widget.authentication.AuthenticationWidget', 'demo::demo.ui.form.WidgetForm', 'demo::demo.ui.form.TestForm', 'demo::demo.ui.form.RemotePanel',
 		'build::build.service.AuthenticationServiceConnection', 'demo::demo.service.TestServiceConnection' ], function(define, $super, helper) {
 	define({
@@ -57,6 +57,6 @@ Build('demo.inheritance.Application', [ 'build::build.ui.application.AdminApplic
 
 Build(function() {
 	console.log('Application started...');
-	application = demo.inheritance.Application.create();
+	application = demo.application.DemoApplication.create();
 	application.run(document.body);
 });
