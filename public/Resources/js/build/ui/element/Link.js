@@ -2,7 +2,7 @@
  * @class build.ui.element.Link
  * @extends build.ui.Widget
  */
-Build('build.ui.element.Link', [ 'build::build.ui.element.Element' ], function(define, $super, merge, safe) {
+Build('build.ui.element.Link', [ 'build::build.ui.element.Element' ], function(define, $super, helper) {
 	define({
 		$extends : 'build.ui.element.Element',
 		/**

@@ -2,7 +2,7 @@
  * @class build.ui.Module
  * Base class for UI components.
  */
-Build('build.ui.Module', [], function(define, $super, merge, safe) {
+Build('build.ui.Module', [], function(define, $super, helper) {
 	var cancel = {
 		cancel : true
 	};

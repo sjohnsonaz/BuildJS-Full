@@ -2,7 +2,7 @@
  * @class build.widget.menu.MenuElement
  * @extends build.ui.Widget
  */
-Build('build.widget.menu.MenuElement', [ 'build::build.ui.Widget', 'build::build.ui.element.Link' ], function(define, $super, merge, safe) {
+Build('build.widget.menu.MenuElement', [ 'build::build.ui.Widget', 'build::build.ui.element.Link' ], function(define, $super, helper) {
 	define({
 		$extends : 'build.ui.Widget',
 		/**
@@ -41,7 +41,7 @@ Build('build.widget.menu.MenuElement', [ 'build::build.ui.Widget', 'build::build
 			this.watchValue('action');
 			this.watchClass('hidden');
 			this.link.addEvent('click', function(event) {
-				safe(this.action)(this, event);
+				helper.safe(this.action)(this, event);
 			}.bind(this));
 		},
 		$prototype : {

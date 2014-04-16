@@ -1,6 +1,6 @@
 Build('demo.ui.form.WidgetForm', [ 'build::build.ui.form.Form', 'build::build.ui.form.Button', 'build::build.ui.form.ButtonGroup', 'build::build.ui.element.Header1', 'build::build.ui.element.Paragraph', 'build::build.ui.form.FieldSet',
 		'build::build.ui.form.FormControl', 'build::build.ui.form.Label', 'build::build.ui.form.Text', 'build::build.ui.form.TextArea', 'demo::demo.singleton.SingletonTest', 'demo::demo.alternatebase.ArrayChild',
-		'build::build.utility.TemplateParser' ], function(define, $super, merge) {
+		'build::build.utility.TemplateParser' ], function(define, $super, helper) {
 	define({
 		$extends : 'build.ui.form.Form',
 		$constructor : function WidgetForm() {

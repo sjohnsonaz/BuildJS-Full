@@ -2,7 +2,7 @@
  * @class build.widget.editor.CKEditor
  * @extends build.ui.Widget
  */
-Build('build.widget.editor.CKEditor', [ 'build::build.ui.Widget' ], function(define, $super, merge, safe) {
+Build('build.widget.editor.CKEditor', [ 'build::build.ui.Widget' ], function(define, $super, helper) {
 	define({
 		$extends : 'build.ui.Widget',
 		/**

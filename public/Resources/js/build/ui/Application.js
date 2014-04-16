@@ -2,7 +2,7 @@
  * @class build.ui.Application
  * @extends build.ui.Panel
  */
-Build('build.ui.Application', [ 'build::build.ui.Panel', 'build::build.history.HashRouter' ], function(define, $super, merge, safe) {
+Build('build.ui.Application', [ 'build::build.ui.Panel', 'build::build.history.HashRouter' ], function(define, $super, helper) {
 	define({
 		$extends : 'build.ui.Panel',
 		/** 

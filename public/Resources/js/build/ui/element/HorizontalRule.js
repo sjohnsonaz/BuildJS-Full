@@ -2,7 +2,7 @@
  * @class build.ui.element.HorizontalRule
  * @extends build.ui.Widget
  */
-Build('build.ui.element.HorizontalRule', [ 'build::build.ui.element.Element' ], function(define, $super, merge, safe) {
+Build('build.ui.element.HorizontalRule', [ 'build::build.ui.element.Element' ], function(define, $super, helper) {
 	define({
 		$extends : 'build.ui.element.Element',
 		/**

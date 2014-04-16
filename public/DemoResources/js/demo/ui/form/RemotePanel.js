@@ -1,4 +1,4 @@
-Build('demo.ui.form.RemotePanel', [ 'build::build.ui.Panel', 'build::build.utility.PostMessage' ], function(define, $super, merge, safe) {
+Build('demo.ui.form.RemotePanel', [ 'build::build.ui.Panel', 'build::build.utility.PostMessage' ], function(define, $super, helper) {
 	define({
 		$extends : 'build.ui.Panel',
 		$constructor : function() {

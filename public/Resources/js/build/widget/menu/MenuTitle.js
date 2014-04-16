@@ -2,7 +2,7 @@
  * @class build.widget.menu.MenuTitle
  * @extends build.widget.menu.MenuText
  */
-Build('build.widget.menu.MenuTitle', [ 'build::build.widget.menu.MenuText' ], function(define, $super, merge, safe) {
+Build('build.widget.menu.MenuTitle', [ 'build::build.widget.menu.MenuText' ], function(define, $super, helper) {
 	define({
 		$extends : 'build.widget.menu.MenuText',
 		/**

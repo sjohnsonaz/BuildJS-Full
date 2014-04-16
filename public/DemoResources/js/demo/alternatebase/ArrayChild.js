@@ -1,4 +1,4 @@
-Build('demo.alternatebase.ArrayChild', [ 'demo::demo.alternatebase.ArrayBase' ], function(define, $super, merge, safe) {
+Build('demo.alternatebase.ArrayChild', [ 'demo::demo.alternatebase.ArrayBase' ], function(define, $super, helper) {
 	define({
 		$extends : 'demo.alternatebase.ArrayBase',
 		$constructor : function ArrayChild() {

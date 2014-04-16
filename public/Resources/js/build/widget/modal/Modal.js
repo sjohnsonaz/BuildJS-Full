@@ -2,7 +2,7 @@
  * @class build.widget.modal.Modal
  * @extends build.ui.Widget
  */
-Build('build.widget.modal.Modal', [ 'build::build.ui.Widget' ], function(define, $super, merge, safe) {
+Build('build.widget.modal.Modal', [ 'build::build.ui.Widget' ], function(define, $super, helper) {
 	define({
 		$extends : 'build.ui.Widget',
 		/**

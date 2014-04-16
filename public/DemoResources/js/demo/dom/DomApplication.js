@@ -4,7 +4,7 @@ Build.paths.demo = '/DemoResources/js/';
 
 /*
  * Build('demo.dom.DomApplication', [ 'build::build.ui.element.Div' ],
- * function(define, $super) { define({ //$extends : 'build.ui.Application',
+ * function(define, $super, helper) { define({ //$extends : 'build.ui.Application',
  * $constructor : function() { //$super(this)(); } }); });
  */
 

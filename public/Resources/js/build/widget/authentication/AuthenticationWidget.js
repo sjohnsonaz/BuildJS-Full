@@ -2,7 +2,7 @@
  * @class build.widget.authentication.AuthenticationWidget
  * @extends build.ui.SwitcherPanel
  */
-Build('build.widget.authentication.AuthenticationWidget', [ 'build::build.ui.SwitcherPanel', 'build::build.widget.authentication.LoginForm', 'build::build.widget.authentication.LogoutForm' ], function(define, $super, merge, safe) {
+Build('build.widget.authentication.AuthenticationWidget', [ 'build::build.ui.SwitcherPanel', 'build::build.widget.authentication.LoginForm', 'build::build.widget.authentication.LogoutForm' ], function(define, $super, helper) {
 	define({
 		$extends : 'build.ui.SwitcherPanel',
 		/**

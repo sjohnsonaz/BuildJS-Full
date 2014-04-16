@@ -1,5 +1,5 @@
 module.exports = function(Build) {
-	Build('build.mvc.controller.Controller', [], function(define, $super) {
+	Build('build.mvc.controller.Controller', [], function(define, $super, helper) {
 		define({
 			$constructor : function(app) {
 				this.app = app;

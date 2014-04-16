@@ -2,7 +2,7 @@
  * @class build.ui.element.Table
  * @extends build.ui.Widget
  */
-Build('build.ui.element.Table', [ 'build::build.ui.element.Element', 'build::build.utility.ObservableArray' ], function(define, $super, merge, safe) {
+Build('build.ui.element.Table', [ 'build::build.ui.element.Element', 'build::build.utility.ObservableArray' ], function(define, $super, helper) {
 	define({
 		$extends : 'build.ui.element.Element',
 		/**

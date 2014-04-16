@@ -1,5 +1,5 @@
 module.exports = function(Build) {
-	Build('build.mvc.model.MongooseSchema', [ 'buildnode::build.mvc.model.Schema' ], function(define, $super) {
+	Build('build.mvc.model.MongooseSchema', [ 'buildnode::build.mvc.model.Schema' ], function(define, $super, helper) {
 		define({
 			$extends : 'build.mvc.model.Schema',
 			$constructor : function() {

@@ -3,7 +3,7 @@
  * @extends build.ui.SwitcherPanel 
  */
 Build('build.widget.user.UserWidget', [ 'build::build.ui.SwitcherPanel', 'build::build.service.UserServiceConnection', 'build::build.widget.user.UserListForm', 'build::build.widget.user.UserViewForm', 'build::build.widget.user.UserCreateForm',
-		'build::build.widget.user.UserEditForm', 'build::build.widget.user.UserDeleteForm' ], function(define, $super, merge, safe) {
+		'build::build.widget.user.UserEditForm', 'build::build.widget.user.UserDeleteForm' ], function(define, $super, helper) {
 	define({
 		$extends : 'build.ui.SwitcherPanel',
 		/**

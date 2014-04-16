@@ -2,7 +2,7 @@
  * @class build.widget.user.UserDeleteForm
  * @extends build.ui.form.Form
  */
-Build('build.widget.user.UserDeleteForm', [ 'build::build.ui.form.Form' ], function(define, $super, merge, safe) {
+Build('build.widget.user.UserDeleteForm', [ 'build::build.ui.form.Form' ], function(define, $super, helper) {
 	define({
 		$extends : 'build.ui.form.Form',
 		/**

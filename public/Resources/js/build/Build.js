@@ -329,7 +329,7 @@ var Build = build.Build = (function() {
 				} else {
 					return $constructor.$super;
 				}
-			}, merge, safe, helper);
+			}, helper);
 		}
 	}
 	/**

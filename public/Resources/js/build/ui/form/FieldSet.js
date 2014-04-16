@@ -2,7 +2,7 @@
  * @class build.ui.form.FieldSet
  * @extends build.ui.element.Element
  */
-Build('build.ui.form.FieldSet', [ 'build::build.ui.form.Form', 'build::build.ui.form.Legend' ], function(define, $super, merge, safe) {
+Build('build.ui.form.FieldSet', [ 'build::build.ui.form.Form', 'build::build.ui.form.Legend' ], function(define, $super, helper) {
 	define({
 		$extends : 'build.ui.element.Element',
 		/**

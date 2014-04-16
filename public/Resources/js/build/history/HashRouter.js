@@ -1,7 +1,7 @@
 /**
  * @class build.history.HashRouter
  */
-Build('build.history.HashRouter', [], function(define, $super, merge, safe) {
+Build('build.history.HashRouter', [], function(define, $super, helper) {
 	var STRIP_COMMENTS = /((\/\/.*$)|(\/\*[\s\S]*?\*\/))/mg;
 	function getParameterNames(functionHandle) {
 		var definition = functionHandle.toString().replace(STRIP_COMMENTS, '');

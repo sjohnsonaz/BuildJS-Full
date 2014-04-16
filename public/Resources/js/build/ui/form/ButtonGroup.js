@@ -2,7 +2,7 @@
  * @class build.ui.form.ButtonGroup
  * @extends build.ui.Widget
  */
-Build('build.ui.form.ButtonGroup', [ 'build::build.ui.Widget' ], function(define, $super, merge, safe) {
+Build('build.ui.form.ButtonGroup', [ 'build::build.ui.Widget' ], function(define, $super, helper) {
 	define({
 		$extends : 'build.ui.Widget',
 		/**
