@@ -265,6 +265,37 @@ var Build = build.Build = (function() {
 		loadPhaseComplete();
 	}
 	/**
+	 * 
+	 */
+	function merge(a, b, c) {
+		if (b) {
+			for ( var member in b) {
+				if (b.hasOwnProperty(member)) {
+					a[member] = b[member];
+				}
+			}
+		}
+		if (c) {
+			for ( var member in c) {
+				if (b.hasOwnProperty(member)) {
+					a[member] = c[member];
+				}
+			}
+		}
+		return a;
+	}
+	/**
+	 * 
+	 */
+	function safe(callback) {
+		return typeof callback === 'function' ? callback : function() {
+		};
+	}
+	var helper = {
+		merge : merge,
+		safe : safe
+	};
+	/**
 	 * @method compileClass
 	 */
 	function compileClass($name) {
@@ -298,26 +329,7 @@ var Build = build.Build = (function() {
 				} else {
 					return $constructor.$super;
 				}
-			}, function(a, b, c) {
-				if (b) {
-					for ( var member in b) {
-						if (b.hasOwnProperty(member)) {
-							a[member] = b[member];
-						}
-					}
-				}
-				if (c) {
-					for ( var member in c) {
-						if (b.hasOwnProperty(member)) {
-							a[member] = c[member];
-						}
-					}
-				}
-				return a;
-			}, function(callback) {
-				return typeof callback === 'function' ? callback : function() {
-				};
-			});
+			}, merge, safe, helper);
 		}
 	}
 	/**
@@ -532,6 +544,9 @@ var Build = build.Build = (function() {
 	Build.copyNoReplace = copyNoReplace;
 	Build.inherit = inherit;
 	Build.singleton = singleton;
+	Build.merge = merge;
+	Build.safe = safe;
+	Build.helper = helper;
 	Build.definitions = definitions;
 	Build.definitionPaths = definitionPaths;
 	Build.assemble = assemble;
