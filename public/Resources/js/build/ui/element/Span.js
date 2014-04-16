@@ -2,7 +2,7 @@
  * @class build.ui.element.Span
  * @extends build.ui.Widget
  */
-Build('build.ui.form.Span', [ 'build::build.ui.element.Element' ], function(define, $super, merge) {
+Build('build.ui.form.Span', [ 'build::build.ui.element.Element' ], function(define, $super, merge, safe) {
 	define({
 		$extends : 'build.ui.element.Element',
 		/**

@@ -2,7 +2,7 @@
  * @class build.ui.element.LineBreak
  * @extends build.ui.Widget
  */
-Build('build.ui.element.LineBreak', [ 'build::build.ui.element.Element' ], function(define, $super, merge) {
+Build('build.ui.element.LineBreak', [ 'build::build.ui.element.Element' ], function(define, $super, merge, safe) {
 	define({
 		$extends : 'build.ui.element.Element',
 		/**

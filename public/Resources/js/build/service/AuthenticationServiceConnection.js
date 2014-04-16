@@ -2,7 +2,7 @@
  * @class build.service.AuthenticationServiceConnection
  * @extends build.service.ServiceConnection
  */
-Build('build.service.AuthenticationServiceConnection', [ 'build::build.service.ServiceConnection' ], function(define, $super, merge) {
+Build('build.service.AuthenticationServiceConnection', [ 'build::build.service.ServiceConnection' ], function(define, $super, merge, safe) {
 	define({
 		$extends : 'build.service.ServiceConnection',
 		/**

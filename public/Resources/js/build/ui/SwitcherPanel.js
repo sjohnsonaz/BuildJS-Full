@@ -2,7 +2,7 @@
  * @class build.ui.SwitcherPanel
  * @extends build.ui.Panel
  */
-Build('build.ui.SwitcherPanel', [ 'build::build.ui.Panel', 'build::build.utility.Navigation' ], function(define, $super) {
+Build('build.ui.SwitcherPanel', [ 'build::build.ui.Panel', 'build::build.utility.Navigation' ], function(define, $super, merge, safe) {
 	define({
 		$extends : 'build.ui.Panel',
 		/**

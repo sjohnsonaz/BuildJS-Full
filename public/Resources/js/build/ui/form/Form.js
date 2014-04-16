@@ -2,7 +2,7 @@
  * @class build.ui.form.Form
  * @extends build.ui.Panel
  */
-Build('build.ui.form.Form', [ 'build::build.ui.Panel' ], function(define, $super) {
+Build('build.ui.form.Form', [ 'build::build.ui.Panel' ], function(define, $super, merge, safe) {
 	// TODO: Create navigation prevention on form change.
 	define({
 		$extends : 'build.ui.Panel',

@@ -2,7 +2,7 @@
  * @class build.ui.form.FormElement
  * @extends build.ui.element.Element
  */
-Build('build.ui.form.FormElement', [ 'build::build.ui.element.Element' ], function(define, $super) {
+Build('build.ui.form.FormElement', [ 'build::build.ui.element.Element' ], function(define, $super, merge, safe) {
 	define({
 		$extends : 'build.ui.element.Element',
 		/**

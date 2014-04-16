@@ -2,7 +2,7 @@
  * @class build.ui.tab.TabPanel
  * @extends build.ui.Panel
  */
-Build('build.ui.tab.TabPanel', [ 'build::build.ui.Panel' ], function(define, $super) {
+Build('build.ui.tab.TabPanel', [ 'build::build.ui.Panel' ], function(define, $super, merge, safe) {
 	define({
 		$extends : 'build.ui.Panel',
 		/**

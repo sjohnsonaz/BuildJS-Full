@@ -2,7 +2,7 @@
  * @class build.ui.form.Password
  * @extends build.ui.form.Text
  */
-Build('build.ui.form.Password', [ 'build::build.ui.form.Text' ], function(define, $super) {
+Build('build.ui.form.Password', [ 'build::build.ui.form.Text' ], function(define, $super, merge, safe) {
 	define({
 		$extends : 'build.ui.form.Text',
 		/**
