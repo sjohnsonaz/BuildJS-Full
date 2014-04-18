@@ -40,7 +40,7 @@ iframe {
   border: 0;
 }
 .show-block {
-  display: block;
+  display: block !important;
 }
 .clearfix {
   display: block;
