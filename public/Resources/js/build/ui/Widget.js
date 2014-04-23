@@ -300,6 +300,18 @@ Build('build.ui.Widget', [ 'build::build.ui.Module', 'build::build.utility.Obser
 						this.publish(property);
 					}
 				});
+			},
+			/**
+			 * 
+			 */
+			getPreloadContainer : function() {
+				var preloadContainer = document.getElementById('build-preload-container');
+				if (!preloadContainer) {
+					preloadContainer = document.createElement('div');
+					preloadContainer.id = 'build-preload-container';
+					document.body.appendChild(preloadContainer);
+				}
+				return preloadContainer;
 			}
 		},
 		$static : {

@@ -617,6 +617,15 @@ fieldset {
   margin: 0;
   background: url('../img/spinner0.gif') center center no-repeat;
 }
+#build-preload-container {
+  position: absolute !important;
+  overflow: hidden;
+  top: -9999px !important;
+  left: -9999px !important;
+  visibility: hidden;
+  height: 0px;
+  width: 0px;
+}
 .panel-iterator {
   display: block;
   zoom: 1;

@@ -13,6 +13,9 @@ Build('build.widget.video.YouTubeVideo', [ 'build::build.ui.Widget', 'http://aja
 			this.watchValue('videoId');
 		},
 		$prototype : {
+			/**
+			 * 
+			 */
 			init : function(videoId) {
 				$super().init(this)();
 				this.subscribe('videoId', function(value) {
@@ -20,17 +23,29 @@ Build('build.widget.video.YouTubeVideo', [ 'build::build.ui.Widget', 'http://aja
 				}.bind(this));
 				this.videoId = videoId;
 			},
+			/**
+			 * 
+			 */
 			load : function() {
-				window.setTimeout(function() {
-					build.widget.video.YouTubeVideo.onYouTubePlayerReady[this.id] = function() {
-						console.log('Video is ready');
-					};
-					swfobject.embedSWF('http://www.youtube.com/v/' + this.videoId + '?enablejsapi=1&playerapiid=ytplayer&version=3', this.id, "425", "356", "8", null, null, {
-						allowScriptAccess : "always"
-					}, {
-						id : this.id
-					});
-				}.bind(this), 100);
+				if (this.videoId) {
+					var preloadElement = document.createElement('div');
+					var preloadId = this.id + '-video';
+					preloadElement.id = preloadId;
+					this.getPreloadContainer().appendChild(preloadElement);
+					window.setTimeout(function() {
+						build.widget.video.YouTubeVideo.onYouTubePlayerReady[this.id] = function() {
+							console.log('Video is ready');
+						};
+						player = swfobject.embedSWF('http://www.youtube.com/v/' + this.videoId + '?enablejsapi=1&playerapiid=ytplayer&version=3', preloadId, "425", "356", "8", null, null, {
+							allowScriptAccess : "always"
+						}, {
+							id : preloadId
+						}, function(playerHandle) {
+							this.clearChildren();
+							this.element.appendChild(document.getElementById(preloadId));
+						}.bind(this));
+					}.bind(this), 100);
+				}
 			}
 		},
 		$static : {

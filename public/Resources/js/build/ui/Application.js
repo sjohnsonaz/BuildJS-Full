@@ -21,10 +21,17 @@ Build('build.ui.Application', [ 'build::build.ui.Panel', 'build::build.history.H
 			 */
 			run : function(parent) {
 				parent = parent || parent.element;
+				var preloadContainer = null;
 				while (parent.firstChild) {
-					parent.removeChild(parent.firstChild);
+					var removedElmement = parent.removeChild(parent.firstChild);
+					if (removedElmement.id == 'build-preload-container') {
+						preloadContainer = removedElmement;
+					}
 				}
 				parent.appendChild(application.element);
+				if (preloadContainer) {
+					parent.appendChild(preloadContainer);
+				}
 			}
 		}
 	});
