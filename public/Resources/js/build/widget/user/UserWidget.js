@@ -38,8 +38,11 @@ Build('build.widget.user.UserWidget', [ 'build::build.ui.SwitcherPanel', 'build:
 				console.log(user);
 			}.bind(this));
 			this.userListForm.addCallback('deleteUser', function(user) {
+				this.user = user;
+				this.active = 3;
+				this.userDeleteForm.model = user;
 				console.log(user);
-			});
+			}.bind(this));
 			this.addChild(this.userListForm);
 
 			this.userCreateForm = build.widget.user.UserCreateForm.create(this.userServiceConnection);
@@ -71,6 +74,20 @@ Build('build.widget.user.UserWidget', [ 'build::build.ui.SwitcherPanel', 'build:
 				this.list();
 			}.bind(this));
 			this.addChild(this.userEditForm);
+			this.userDeleteForm = build.widget.user.UserDeleteForm.create(this.userServiceConnection);
+			this.userDeleteForm.addCallback('deleteUser', function(user) {
+				this.user = null;
+				this.userEditForm.model = null;
+				this.active = 0;
+				this.list();
+			}.bind(this));
+			this.userDeleteForm.addCallback('cancelUser', function(user) {
+				this.user = null;
+				this.userEditForm.model = null;
+				this.active = 0;
+				this.list();
+			}.bind(this));
+			this.addChild(this.userDeleteForm);
 		},
 		$prototype : {
 			/**

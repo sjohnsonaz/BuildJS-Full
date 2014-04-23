@@ -20,14 +20,14 @@ Build('demo.ui.form.WidgetForm', [ 'build::build.ui.form.Form', 'build::build.ui
 			buttonGroup.addChild(button4);
 			this.addChild(buttonGroup);
 
-			this.addChild(build.ui.form.Paragraph.create(new demo.singleton.SingletonTest().data));
-			this.addChild(build.ui.form.Paragraph.create(new demo.singleton.SingletonTest().data));
+			this.addChild(build.ui.element.Paragraph.create(new demo.singleton.SingletonTest().data));
+			this.addChild(build.ui.element.Paragraph.create(new demo.singleton.SingletonTest().data));
 			// arrayBase = new demo.alternatebase.ArrayBase();
 			// arrayChild = new demo.alternatebase.ArrayChild();
-			// this.addChild(build.ui.form.Paragraph.create(arrayChild.toString()));
+			// this.addChild(build.ui.element.Paragraph.create(arrayChild.toString()));
 			var templateParser = build.utility.TemplateParser();
 			var parsedText = templateParser.parse('{{i:user}} test');
-			this.addChild(build.ui.form.Paragraph.create(parsedText));
+			this.addChild(build.ui.element.Paragraph.create(parsedText));
 
 			var fieldSet = build.ui.form.FieldSet.create('Text Field FieldSet');
 			var text = build.ui.form.Text.create();

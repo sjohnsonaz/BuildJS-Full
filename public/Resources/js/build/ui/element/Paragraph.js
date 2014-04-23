@@ -2,7 +2,7 @@
  * @class build.ui.element.Paragraph
  * @extends build.ui.Widget
  */
-Build('build.ui.form.Paragraph', [ 'build::build.ui.element.Element' ], function(define, $super, helper) {
+Build('build.ui.element.Paragraph', [ 'build::build.ui.element.Element' ], function(define, $super, helper) {
 	define({
 		$extends : 'build.ui.element.Element',
 		/**

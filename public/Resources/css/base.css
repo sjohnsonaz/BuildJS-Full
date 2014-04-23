@@ -445,6 +445,7 @@ fieldset {
   margin: 0;
   height: 50px;
   background-color: #aaaaaa;
+  color: #ffffff;
   list-style-type: none;
   z-index: 1000;
 }
@@ -869,6 +870,7 @@ fieldset {
   margin: 0;
   height: 50px;
   background-color: #aaaaaa;
+  color: #ffffff;
   list-style-type: none;
   z-index: 1000;
 }
@@ -1012,6 +1014,7 @@ fieldset {
   margin: 0;
   height: 50px;
   background-color: #aaaaaa;
+  color: #ffffff;
   list-style-type: none;
   z-index: 1000;
 }

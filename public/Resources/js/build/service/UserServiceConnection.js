@@ -58,7 +58,23 @@ Build('build.service.UserServiceConnection', [ 'build::build.service.ServiceConn
 					};
 				}
 			});
-
+			/**
+			 * @method del
+			 * @param _id
+			 * @param success
+			 * @param error
+			 */
+			this.addRoute({
+				name : 'del',
+				verb : 'DELETE',
+				action : function(_id, success, error) {
+					return {
+						query : {
+							id : _id
+						}
+					};
+				}
+			});
 		}
 	});
 });

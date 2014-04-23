@@ -123,7 +123,7 @@ Build('build.mvc.controller.UserController', [ 'buildnode::build.mvc.controller.
 				restful : true,
 				method : function(request, response, output) {
 					this.userModel.model.remove({
-						_id : request.body.id
+						_id : request.query.id
 					}, function(err, result) {
 						output({
 							result : result
