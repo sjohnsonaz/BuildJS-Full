@@ -3,7 +3,7 @@
  * @extends build.ui.SwitcherPanel 
  */
 Build('build.widget.user.UserWidget', [ 'build::build.ui.SwitcherPanel', 'build::build.service.UserServiceConnection', 'build::build.widget.user.UserListForm', 'build::build.widget.user.UserViewForm', 'build::build.widget.user.UserCreateForm',
-		'build::build.widget.user.UserEditForm', 'build::build.widget.user.UserDeleteForm' ], function(define, $super, helper) {
+		'build::build.widget.user.UserEditForm', 'build::build.widget.user.UserDeleteForm', 'build::build.widget.user.UserPermissionForm' ], function(define, $super, helper) {
 	define({
 		$extends : 'build.ui.SwitcherPanel',
 		/**
@@ -43,6 +43,12 @@ Build('build.widget.user.UserWidget', [ 'build::build.ui.SwitcherPanel', 'build:
 				this.userDeleteForm.model = user;
 				console.log(user);
 			}.bind(this));
+			this.userListForm.addCallback('permission', function(user) {
+				this.user = user;
+				this.active = 4;
+				this.userPermissionForm.model = user;
+				console.log(user);
+			}.bind(this));
 			this.addChild(this.userListForm);
 
 			this.userCreateForm = build.widget.user.UserCreateForm.create(this.userServiceConnection);
@@ -77,17 +83,25 @@ Build('build.widget.user.UserWidget', [ 'build::build.ui.SwitcherPanel', 'build:
 			this.userDeleteForm = build.widget.user.UserDeleteForm.create(this.userServiceConnection);
 			this.userDeleteForm.addCallback('deleteUser', function(user) {
 				this.user = null;
-				this.userEditForm.model = null;
+				this.userDeleteForm.model = null;
 				this.active = 0;
 				this.list();
 			}.bind(this));
 			this.userDeleteForm.addCallback('cancelUser', function(user) {
 				this.user = null;
-				this.userEditForm.model = null;
+				this.userDeleteForm.model = null;
 				this.active = 0;
 				this.list();
 			}.bind(this));
 			this.addChild(this.userDeleteForm);
+			this.userPermissionForm = build.widget.user.UserPermissionForm.create(this.userServiceConnection);
+			this.userPermissionForm.addCallback('cancelUser', function(user) {
+				this.user = null;
+				this.userPermissionForm.model = null;
+				this.active = 0;
+				this.list();
+			}.bind(this));
+			this.addChild(this.userPermissionForm);
 		},
 		$prototype : {
 			/**

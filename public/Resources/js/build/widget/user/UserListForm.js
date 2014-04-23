@@ -46,6 +46,7 @@ Build('build.widget.user.UserListForm', [ 'build::build.ui.form.Form', 'build::b
 					var viewUserButton = build.ui.form.Button.create('View');
 					var editUserButton = build.ui.form.Button.create('Edit');
 					var deleteUserButton = build.ui.form.Button.create('Delete');
+					var permissionButton = build.ui.form.Button.create('Permission');
 					var buttonGroup = build.ui.form.ButtonGroup.create();
 					(function(user) {
 						viewUserButton.addEvent('click', function(button, event) {
@@ -63,10 +64,16 @@ Build('build.widget.user.UserListForm', [ 'build::build.ui.form.Form', 'build::b
 							this.deleteUser(user);
 							return false;
 						}, false, this);
+						permissionButton.addEvent('click', function(button, event) {
+							event.preventDefault();
+							this.permission(user);
+							return false;
+						}, false, this);
 					}.bind(this))(user);
 					buttonGroup.addChild(viewUserButton);
 					buttonGroup.addChild(editUserButton);
 					buttonGroup.addChild(deleteUserButton);
+					buttonGroup.addChild(permissionButton);
 					this.userTable.children.push([ user.username, user.firstName, user.lastName, buttonGroup ]);
 				}
 			},
@@ -104,6 +111,9 @@ Build('build.widget.user.UserListForm', [ 'build::build.ui.form.Form', 'build::b
 			 */
 			deleteUser : function(user) {
 				this.runCallbacks('deleteUser', user);
+			},
+			permission : function(user) {
+				this.runCallbacks('permission', user);
 			}
 		}
 	});
