@@ -10,6 +10,7 @@ Build('build.widget.video.YouTubeVideo', [ 'build::build.ui.Widget', 'http://aja
 		 */
 		$constructor : function YouTubeVideo(videoId) {
 			$super(this)();
+			this.type = 'iframe';
 			this.watchValue('videoId');
 		},
 		$prototype : {
@@ -19,33 +20,9 @@ Build('build.widget.video.YouTubeVideo', [ 'build::build.ui.Widget', 'http://aja
 			init : function(videoId) {
 				$super().init(this)();
 				this.subscribe('videoId', function(value) {
-					this.load();
+					this.element.src = 'http://www.youtube.com/embed/' + value;
 				}.bind(this));
 				this.videoId = videoId;
-			},
-			/**
-			 * 
-			 */
-			load : function() {
-				if (this.videoId) {
-					var preloadElement = document.createElement('div');
-					var preloadId = this.id + '-video';
-					preloadElement.id = preloadId;
-					this.getPreloadContainer().appendChild(preloadElement);
-					window.setTimeout(function() {
-						build.widget.video.YouTubeVideo.onYouTubePlayerReady[this.id] = function() {
-							console.log('Video is ready');
-						};
-						player = swfobject.embedSWF('http://www.youtube.com/v/' + this.videoId + '?enablejsapi=1&playerapiid=ytplayer&version=3', preloadId, "425", "356", "8", null, null, {
-							allowScriptAccess : "always"
-						}, {
-							id : preloadId
-						}, function(playerHandle) {
-							this.clearChildren();
-							this.element.appendChild(document.getElementById(preloadId));
-						}.bind(this));
-					}.bind(this), 100);
-				}
 			}
 		},
 		$static : {
