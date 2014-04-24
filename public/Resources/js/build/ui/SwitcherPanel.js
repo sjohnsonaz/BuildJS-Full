@@ -86,23 +86,21 @@ Build('build.ui.SwitcherPanel', [ 'build::build.ui.Panel', 'build::build.utility
 			refreshDisplay : function() {
 				for (var index = 0, length = this.children.length; index < length; index++) {
 					var child = this.children[index];
-					child.element.style.display = 'none';
+					child.element.classList.add('hidden');
 				}
 				var activeChild = this.children[this.active];
 				if (activeChild && activeChild.element) {
-					activeChild.element.style.display = 'block';
+					activeChild.element.classList.remove('hidden');
 				}
 			},
 			refreshVisibility : function() {
 				for (var index = 0, length = this.children.length; index < length; index++) {
 					var child = this.children[index];
-					child.element.style.visibility = 'hidden';
-					child.element.style.position = 'absolute';
+					child.element.classList.add('hidden-soft');
 				}
 				var activeChild = this.children[this.active];
 				if (activeChild && activeChild.element) {
-					activeChild.element.style.visibility = 'inherit';
-					activeChild.element.style.position = 'inherit';
+					activeChild.element.classList.remove('hidden-soft');
 				}
 			}
 		},
