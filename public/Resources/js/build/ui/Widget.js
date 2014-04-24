@@ -21,7 +21,7 @@ Build('build.ui.Widget', [ 'build::build.ui.Module', 'build::build.utility.Obser
 			this.children.subscribe(function() {
 				this.refreshChildren();
 			}.bind(this));
-			this.directAppend = false;
+			this.watchValue('directAppend', false);
 		},
 		$prototype : {
 			/**
@@ -60,7 +60,10 @@ Build('build.ui.Widget', [ 'build::build.ui.Module', 'build::build.utility.Obser
 						this.publish('classList');
 					}
 				});
-				this.refreshChildren();
+				// this.refreshChildren();
+				this.subscribe('directAppend', function(value) {
+					this.refreshChildren();
+				}.bind(this));
 			},
 			/**
 			 * @method createElement
