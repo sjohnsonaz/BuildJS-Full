@@ -22,7 +22,7 @@ Build('build.ui.SwitcherPanel', [ 'build::build.ui.Panel', 'build::build.utility
 				return (this.lockable && Navigation.locked) ? (window.confirm(Navigation.message) ? value : cancel) : value;
 			}.bind(this));
 			this.directAppend = true;
-			this.watchValue('hideMode', 'DISPLAY');
+			this.watchValue('hideMode', 'VISIBILITY');
 		},
 		$prototype : {
 			/**
@@ -32,10 +32,18 @@ Build('build.ui.SwitcherPanel', [ 'build::build.ui.Panel', 'build::build.utility
 			init : function(active) {
 				$super().init(this)(active);
 				this.subscribe('active', function(value) {
-					if (this.hideMode == 'DISPLAY') {
-						this.refreshDisplay();
-					} else {
+					switch (this.hideMode) {
+					case 'DOM':
 						this.refreshDom();
+						break;
+					case 'DISPLAY':
+						this.refreshDisplay();
+						break;
+					case 'VISIBILITY':
+						this.refreshVisibility();
+						break;
+					default:
+						break;
 					}
 				}.bind(this));
 			},
@@ -52,9 +60,11 @@ Build('build.ui.SwitcherPanel', [ 'build::build.ui.Panel', 'build::build.utility
 					case 'DISPLAY':
 						$super().refreshChildren(this)();
 						this.refreshDisplay();
+						break;
 					case 'VISIBILITY':
 						$super().refreshChildren(this)();
 						this.refreshVisibility();
+						break;
 					default:
 						$super().refreshChildren(this)();
 						break;
@@ -84,7 +94,16 @@ Build('build.ui.SwitcherPanel', [ 'build::build.ui.Panel', 'build::build.utility
 				}
 			},
 			refreshVisibility : function() {
-
+				for (var index = 0, length = this.children.length; index < length; index++) {
+					var child = this.children[index];
+					child.element.style.visibility = 'hidden';
+					child.element.style.position = 'absolute';
+				}
+				var activeChild = this.children[this.active];
+				if (activeChild && activeChild.element) {
+					activeChild.element.style.visibility = 'inherit';
+					activeChild.element.style.position = 'inherit';
+				}
 			}
 		},
 		$static : {
