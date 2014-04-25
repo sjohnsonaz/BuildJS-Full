@@ -312,6 +312,6 @@ build.service.ServiceConnection = (function() {
 	return ServiceConnection;
 })();
 
-if (Build) {
-	Build.definitions['build.service.ServiceConnection'] = build.service.ServiceConnection;
+if (typeof Build !== 'undefined') {
+	Build.register('build.service.ServiceConnection', build.service.ServiceConnection);
 }

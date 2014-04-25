@@ -99,6 +99,6 @@ build.utility.ObservableArray = (function() {
 	return ObservableArray;
 })();
 
-if (Build) {
-	Build.definitions['build.utility.ObservableArray'] = build.utility.ObservableArray;
+if (typeof Build !== 'undefined') {
+	Build.register('build.utility.ObservableArray', build.utility.ObservableArray);
 }

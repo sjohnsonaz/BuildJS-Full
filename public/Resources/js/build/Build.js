@@ -225,7 +225,8 @@ var Build = build.Build = (function() {
 		if (!loaded) {
 			delete preLoading[$name];
 		}
-		var requiredRemaining = [];
+		var requiredRemainingPaths = [];
+		var requiredRemainingNames = [];
 		for (var index = 0, length = $required.length; index < length; index++) {
 			var requiredPath = $required[index];
 			// required may be commented out with a #.
@@ -233,19 +234,20 @@ var Build = build.Build = (function() {
 			if (requiredPath[0] != '#') {
 				var pathInformation = getPathInformation(requiredPath);
 				var requiredName = pathInformation.name;
-				if (!definitions[requiredName] && !defHandles[requiredName] && !loading[requiredName] && !preLoading[requiredPath]) {
-					requiredRemaining.push(requiredPath);
+				if (!definitions[requiredName] && !defHandles[requiredName] && !loading[requiredName] && !preLoading[requiredName]) {
+					requiredRemainingPaths.push(requiredPath);
+					requiredRemainingNames.push(requiredName);
 				}
 			}
 		}
 		defHandles[$name] = $definition;
-		if (requiredRemaining.length) {
+		if (requiredRemainingPaths.length) {
 			if (loaded) {
-				load(requiredRemaining, function() {
+				load(requiredRemainingPaths, function() {
 				});
 			} else {
-				for (var index = 0, length = requiredRemaining.length; index < length; index++) {
-					preLoading[requiredRemaining[index]] = true;
+				for (var index = 0, length = requiredRemainingPaths.length; index < length; index++) {
+					preLoading[requiredRemainingNames[index]] = requiredRemainingPaths[index] || true;
 				}
 			}
 		}
@@ -331,6 +333,10 @@ var Build = build.Build = (function() {
 				}
 			}, helper);
 		}
+	}
+	function register($name, $definition) {
+		delete preLoading[$name];
+		Build.definitions[$name] = $definition;
 	}
 	/**
 	 * @method nameToCss
@@ -507,9 +513,11 @@ var Build = build.Build = (function() {
 				if (typeof (jQuery) != 'undefined') {
 					jQuery(function() {
 						loaded = true;
-						var preLoadingNames = Object.keys(preLoading);
-						if (preLoadingNames.length) {
-							load(preLoadingNames, function() {
+						var preLoadingPaths = Object.keys(preLoading).map(function(value, index) {
+							return preLoading[value];
+						});
+						if (preLoadingPaths.length) {
+							load(preLoadingPaths, function() {
 								compile();
 							});
 						} else {
@@ -519,9 +527,11 @@ var Build = build.Build = (function() {
 				} else {
 					window.addEventListener('load', function() {
 						loaded = true;
-						var preLoadingNames = Object.keys(preLoading);
-						if (preLoadingNames.length) {
-							load(preLoadingNames, function() {
+						var preLoadingPaths = Object.keys(preLoading).map(function(value, index) {
+							return preLoading[value];
+						});
+						if (preLoadingPaths.length) {
+							load(preLoadingPaths, function() {
 								compile();
 							});
 						} else {
@@ -554,6 +564,7 @@ var Build = build.Build = (function() {
 	Build.assemble = assemble;
 	Build.paths = paths;
 	Build.define = define;
+	Build.register = register;
 	Build.nameToCss = nameToCss;
 	Build.nameToFileName = nameToFileName;
 	Build.load = load;

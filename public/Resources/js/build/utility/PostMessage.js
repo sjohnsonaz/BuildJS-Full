@@ -18,7 +18,7 @@ build.utility.PostMessage = (function() {
 						delete this.callbacks[message.key];
 					} else {
 						function reply(replyMessage, callback) {
-							
+
 						}
 						for (var index = 0, length = this.listeners.length; index < length; index++) {
 							var listener = this.listeners[index];
@@ -80,5 +80,5 @@ build.utility.PostMessage = (function() {
 })();
 
 if (typeof Build !== 'undefined') {
-	Build.definitions['build.utility.PostMessage'] = build.utility.PostMessage;
+	Build.register('build.utility.PostMessage', build.utility.PostMessage);
 }
