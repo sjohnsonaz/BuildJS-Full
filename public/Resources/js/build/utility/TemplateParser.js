@@ -1,4 +1,4 @@
-Build('build.utility.TemplateParser', [], function(define, $super, helper) {
+Build('build.utility.TemplateParser', [], function(define, $super) {
 	define({
 		$constructor : function TemplateParser(regex) {
 			this.regex = regex || new RegExp(/{{([^{}]+)}}/g);
@@ -20,7 +20,7 @@ Build('build.utility.TemplateParser', [], function(define, $super, helper) {
 						var data = value.split(':');
 						if (data.length > 1) {
 							var templateHelper = this.helpers[data[0]];
-							value = helper.safe(templateHelper)(data[1], text, context);
+							value = Build.safe(templateHelper)(data[1], text, context);
 						} else {
 							value = context ? context[value] : value;
 						}

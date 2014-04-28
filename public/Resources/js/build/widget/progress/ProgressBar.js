@@ -1,4 +1,4 @@
-Build('build.widget.progress.ProgressBar', [ 'build::build.ui.Widget' ], function(define, $super, helper) {
+Build('build.widget.progress.ProgressBar', [ 'build::build.ui.Widget' ], function(define, $super) {
 	define({
 		$extends : 'build.ui.Widget',
 		$constructor : function(progress) {

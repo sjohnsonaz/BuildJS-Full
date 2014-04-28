@@ -2,7 +2,7 @@
  * @class build.widget.authentication.LogoutForm
  * @extends build.ui.form.Form
  */
-Build('build.widget.authentication.LogoutForm', [ 'build::build.ui.form.Form', 'build::build.ui.element.Div', 'build::build.ui.form.Submit', 'build::build.ui.form.FormControl', 'build::build.ui.form.Label' ], function(define, $super, helper) {
+Build('build.widget.authentication.LogoutForm', [ 'build::build.ui.form.Form', 'build::build.ui.element.Div', 'build::build.ui.form.Submit', 'build::build.ui.form.FormControl', 'build::build.ui.form.Label' ], function(define, $super) {
 	define({
 		$extends : 'build.ui.form.Form',
 		/**
@@ -62,9 +62,9 @@ Build('build.widget.authentication.LogoutForm', [ 'build::build.ui.form.Form', '
 				this.authenticationServiceConnection.logout(function(data, request) {
 					console.log(data);
 					this.runCallbacks('logoutSuccess', data, request);
-					helper.safe(success)(data, request);
+					Build.safe(success)(data, request);
 				}.bind(this), function(request) {
-					helper.safe(error)(request);
+					Build.safe(error)(request);
 				}.bind(this));
 			}
 		}

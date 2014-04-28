@@ -2,7 +2,7 @@
  * @class build.widget.user.UserViewForm
  * @extends build.ui.form.Form
  */
-Build('build.widget.user.UserViewForm', [ 'build::build.ui.form.Form' ], function(define, $super, helper) {
+Build('build.widget.user.UserViewForm', [ 'build::build.ui.form.Form' ], function(define, $super) {
 	define({
 		$extends : 'build.ui.form.Form',
 		/**

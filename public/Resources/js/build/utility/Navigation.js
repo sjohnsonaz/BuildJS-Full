@@ -4,7 +4,7 @@
  * 
  * Monitor navigation locks 
  */
-Build('build.utility.Navigation', [ 'build::build.ui.Module' ], function(define, $super, helper) {
+Build('build.utility.Navigation', [ 'build::build.ui.Module' ], function(define, $super) {
 	define({
 		$extends : 'build.ui.Module',
 		/**

@@ -2,7 +2,7 @@
  * @class build.ui.element.Div
  * @extends build.ui.Widget
  */
-Build('build.ui.element.Header1', [ 'build::build.ui.element.Element' ], function(define, $super, helper) {
+Build('build.ui.element.Header1', [ 'build::build.ui.element.Element' ], function(define, $super) {
 	define({
 		$extends : 'build.ui.element.Element',
 		/**

@@ -2,7 +2,7 @@
  * @class build.widget.user.UserDeleteForm
  * @extends build.ui.form.Form
  */
-Build('build.widget.user.UserDeleteForm', [ 'build::build.ui.form.Form', 'build::build.ui.form.ButtonGroup', 'build::build.ui.form.Button', 'build::build.ui.form.Submit', 'build::build.ui.element.Paragraph' ], function(define, $super, helper) {
+Build('build.widget.user.UserDeleteForm', [ 'build::build.ui.form.Form', 'build::build.ui.form.ButtonGroup', 'build::build.ui.form.Button', 'build::build.ui.form.Submit', 'build::build.ui.element.Paragraph' ], function(define, $super) {
 	define({
 		$extends : 'build.ui.form.Form',
 		/**
@@ -54,11 +54,11 @@ Build('build.widget.user.UserDeleteForm', [ 'build::build.ui.form.Form', 'build:
 						this.message.text(data.message);
 						console.log(data.message);
 					} else {
-						helper.safe(success)(data, request);
+						Build.safe(success)(data, request);
 						this.runCallbacks('deleteUser', data);
 					}
 				}.bind(this), function(request) {
-					helper.safe(error)(request);
+					Build.safe(error)(request);
 				}.bind(this));
 			},
 			cancelUser : function() {

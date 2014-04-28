@@ -3,7 +3,7 @@
  * @extends build.ui.form.Form
  */
 Build('build.widget.authentication.LoginForm', [ 'build::build.ui.form.Form', 'build::build.ui.element.Div', 'build::build.ui.form.Text', 'build::build.ui.form.Password', 'build::build.ui.form.Submit', 'build::build.ui.form.FormControl',
-		'build::build.ui.form.Label' ], function(define, $super, helper) {
+		'build::build.ui.form.Label' ], function(define, $super) {
 	define({
 		$extends : 'build.ui.form.Form',
 		/**
@@ -81,13 +81,13 @@ Build('build.widget.authentication.LoginForm', [ 'build::build.ui.form.Form', 'b
 					console.log(data);
 					if (data.success) {
 						this.runCallbacks('loginSuccess', data, request);
-						helper.safe(success)(data, request);
+						Build.safe(success)(data, request);
 					} else {
 						this.message.text = data.message;
 						console.log('not logged in');
 					}
 				}.bind(this), function(request) {
-					helper.safe(error)(data, request);
+					Build.safe(error)(data, request);
 				}.bind(this));
 			}
 		}

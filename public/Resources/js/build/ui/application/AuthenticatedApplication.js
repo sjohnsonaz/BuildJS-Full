@@ -1,5 +1,5 @@
 Build('build.ui.application.AuthenticatedApplication', [ 'build::build.ui.Application', 'build::build.ui.SwitcherPanel', 'build::build.widget.menu.ExpandableMenuWidget', 'build::build.widget.menu.MenuElement',
-		'build::build.widget.authentication.AuthenticationWidget', 'build::build.service.AuthenticationServiceConnection' ], function(define, $super, helper) {
+		'build::build.widget.authentication.AuthenticationWidget', 'build::build.service.AuthenticationServiceConnection' ], function(define, $super) {
 	define({
 		$extends : 'build.ui.Application',
 		$constructor : function AuthenticatedApplication() {

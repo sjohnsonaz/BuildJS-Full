@@ -2,7 +2,7 @@
  * @class build.ui.element.Element
  * @extends build.ui.Widget
  */
-Build('build.ui.element.Element', [ 'build::build.ui.Widget', 'build::build.utility.TemplateParser' ], function(define, $super, helper) {
+Build('build.ui.element.Element', [ 'build::build.ui.Widget', 'build::build.utility.TemplateParser' ], function(define, $super) {
 	define({
 		$extends : 'build.ui.Widget',
 		/**

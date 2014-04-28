@@ -293,10 +293,6 @@ var Build = build.Build = (function() {
 		return typeof callback === 'function' ? callback : function() {
 		};
 	}
-	var helper = {
-		merge : merge,
-		safe : safe
-	};
 	/**
 	 * @method compileClass
 	 */
@@ -331,7 +327,7 @@ var Build = build.Build = (function() {
 				} else {
 					return $constructor.$super;
 				}
-			}, helper);
+			});
 		}
 	}
 	function register($name, $definition) {
@@ -558,7 +554,6 @@ var Build = build.Build = (function() {
 	Build.singleton = singleton;
 	Build.merge = merge;
 	Build.safe = safe;
-	Build.helper = helper;
 	Build.definitions = definitions;
 	Build.definitionPaths = definitionPaths;
 	Build.assemble = assemble;

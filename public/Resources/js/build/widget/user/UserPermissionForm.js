@@ -1,4 +1,4 @@
-Build('build.widget.user.UserPermissionForm', [ 'build::build.ui.form.Form', 'build::build.ui.form.ButtonGroup', 'build::build.ui.form.Button', 'build::build.ui.form.Submit', 'build::build.ui.element.Paragraph' ], function(define, $super, helper) {
+Build('build.widget.user.UserPermissionForm', [ 'build::build.ui.form.Form', 'build::build.ui.form.ButtonGroup', 'build::build.ui.form.Button', 'build::build.ui.form.Submit', 'build::build.ui.element.Paragraph' ], function(define, $super) {
 	define({
 		$extends : 'build.ui.form.Form',
 		$constructor : function(userServiceConnection) {

@@ -1,7 +1,7 @@
 var fs = require('fs');
 var path = require('path');
 module.exports = function(Build) {
-	Build('build.mvc.Widget', [], function(define, $super, helper) {
+	Build('build.mvc.Widget', [], function(define, $super) {
 		define({
 			$constructor : function() {
 

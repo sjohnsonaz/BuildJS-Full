@@ -3,7 +3,7 @@
  * @extends build.ui.form.Form
  */
 Build('build.widget.user.UserCreateForm', [ 'build::build.ui.form.Form', 'build::build.ui.element.Div', 'build::build.ui.form.Text', 'build::build.ui.form.Password', 'build::build.ui.form.Button', 'build::build.ui.form.Submit',
-		'build::build.ui.form.ButtonGroup', 'build::build.ui.form.FormControl', 'build::build.ui.form.Label' ], function(define, $super, helper) {
+		'build::build.ui.form.ButtonGroup', 'build::build.ui.form.FormControl', 'build::build.ui.form.Label' ], function(define, $super) {
 	define({
 		$extends : 'build.ui.form.Form',
 		/**
@@ -110,11 +110,11 @@ Build('build.widget.user.UserCreateForm', [ 'build::build.ui.form.Form', 'build:
 						this.message.text(data.message);
 						console.log(data.message);
 					} else {
-						helper.safe(success)(data, request);
+						Build.safe(success)(data, request);
 						this.runCallbacks('saveUser', data);
 					}
 				}.bind(this), function(request) {
-					helper.safe(error)(request);
+					Build.safe(error)(request);
 				}.bind(this));
 			},
 			/**

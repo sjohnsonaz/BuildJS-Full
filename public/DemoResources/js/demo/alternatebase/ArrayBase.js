@@ -1,4 +1,4 @@
-Build('demo.alternatebase.ArrayBase', [], function(define, $super, helper) {
+Build('demo.alternatebase.ArrayBase', [], function(define, $super) {
 	define({
 		$constructor : function ArrayBase() {
 			this.test0 = 0;

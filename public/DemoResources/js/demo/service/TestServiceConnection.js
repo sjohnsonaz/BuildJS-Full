@@ -1,4 +1,4 @@
-Build('demo.service.TestServiceConnection', [ 'build::build.service.ServiceConnection' ], function(define, $super, helper) {
+Build('demo.service.TestServiceConnection', [ 'build::build.service.ServiceConnection' ], function(define, $super) {
 	define({
 		$extends : 'build.service.ServiceConnection',
 		$constructor : function TestServiceConnection(base) {

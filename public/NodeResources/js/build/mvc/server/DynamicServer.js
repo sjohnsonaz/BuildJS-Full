@@ -5,7 +5,7 @@ var mongoStore = require('connect-mongo')(express);
 var ejs = require('ejs');
 
 module.exports = function(Build) {
-	Build('build.mvc.server.DynamicServer', [ 'buildnode::build.mvc.server.Server', 'buildnode::build.mvc.database.Database' ], function(define, $super, helper) {
+	Build('build.mvc.server.DynamicServer', [ 'buildnode::build.mvc.server.Server', 'buildnode::build.mvc.database.Database' ], function(define, $super) {
 		define({
 			$extends : 'build.mvc.server.Server',
 			$constructor : function(config) {

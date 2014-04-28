@@ -1,4 +1,4 @@
-Build('demo.ui.form.YouTubePanel', [ 'build::build.ui.Panel', 'build::build.widget.video.YouTubeVideo' ], function(define, $super, helper) {
+Build('demo.ui.form.YouTubePanel', [ 'build::build.ui.Panel', 'build::build.widget.video.YouTubeVideo' ], function(define, $super) {
 	define({
 		$extends : 'build.ui.Panel',
 		$constructor : function() {

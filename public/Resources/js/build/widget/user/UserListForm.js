@@ -2,7 +2,7 @@
  * @class build.widget.user.UserListForm
  * @extends build.ui.form.Form 
  */
-Build('build.widget.user.UserListForm', [ 'build::build.ui.form.Form', 'build::build.ui.element.Table', 'build::build.ui.form.Button', 'build::build.ui.form.ButtonGroup' ], function(define, $super, helper) {
+Build('build.widget.user.UserListForm', [ 'build::build.ui.form.Form', 'build::build.ui.element.Table', 'build::build.ui.form.Button', 'build::build.ui.form.ButtonGroup' ], function(define, $super) {
 	define({
 		$extends : 'build.ui.form.Form',
 		/**
