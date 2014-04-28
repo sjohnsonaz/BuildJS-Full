@@ -1,6 +1,6 @@
 Build('demo.ui.form.WidgetForm', [ 'build::build.ui.form.Form', 'build::build.ui.form.Button', 'build::build.ui.form.ButtonGroup', 'build::build.ui.element.Header1', 'build::build.ui.element.Paragraph', 'build::build.ui.form.FieldSet',
 		'build::build.ui.form.FormControl', 'build::build.ui.form.Label', 'build::build.ui.form.Text', 'build::build.ui.form.TextArea', 'demo::demo.singleton.SingletonTest', 'demo::demo.alternatebase.ArrayChild',
-		'build::build.utility.TemplateParser' ], function(define, $super, helper) {
+		'build::build.utility.TemplateParser', 'build::build.widget.progress.ProgressBar' ], function(define, $super, helper) {
 	define({
 		$extends : 'build.ui.form.Form',
 		$constructor : function WidgetForm() {
@@ -19,6 +19,9 @@ Build('demo.ui.form.WidgetForm', [ 'build::build.ui.form.Form', 'build::build.ui
 			button4.addClass('button-primary');
 			buttonGroup.addChild(button4);
 			this.addChild(buttonGroup);
+
+			var progressBar = build.widget.progress.ProgressBar.create(50);
+			this.addChild(progressBar);
 
 			this.addChild(build.ui.element.Paragraph.create(new demo.singleton.SingletonTest().data));
 			this.addChild(build.ui.element.Paragraph.create(new demo.singleton.SingletonTest().data));
