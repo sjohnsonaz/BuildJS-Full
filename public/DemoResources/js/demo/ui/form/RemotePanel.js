@@ -11,7 +11,7 @@ Build('demo.ui.form.RemotePanel', [ 'build::build.ui.element.Iframe' ], function
 				$super().init(this)();
 				this.iframe.subscribe('content', function(value) {
 					if (value) {
-						this.iframe.postMessage.send('Here is some data');
+						//this.iframe.postMessage.send('Here is some data');
 					}
 				}.bind(this));
 				this.iframe.src = 'inner.html';
