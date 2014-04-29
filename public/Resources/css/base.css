@@ -546,10 +546,14 @@ fieldset {
   border-radius: 5px;
 }
 .progress-bar > div {
+  padding: 1px;
   width: 0%;
   height: 100%;
-  overflow: hidden;
+  overflow: visible;
   background-color: #000055;
+  color: #ffffff;
+  font-size: 12px;
+  text-align: center;
   border-radius: 4px;
 }
 .build-widget-progress-ProgressBar {
@@ -562,10 +566,14 @@ fieldset {
   border-radius: 5px;
 }
 .build-widget-progress-ProgressBar > div {
+  padding: 1px;
   width: 0%;
   height: 100%;
-  overflow: hidden;
+  overflow: visible;
   background-color: #000055;
+  color: #ffffff;
+  font-size: 12px;
+  text-align: center;
   border-radius: 4px;
 }
 .build-ui-tab-TabContainer {

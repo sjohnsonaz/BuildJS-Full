@@ -7,10 +7,14 @@
     background-color: @input-default-background-color;
     border-radius: @input-border-radius;
     & > div {
+        padding: 1px;
         width: 0%;
         height: 100%;
-        overflow: hidden;
-        background-color: @progress-bar-color;
+        overflow: visible;
+        background-color: @progress-bar-background-color;
+        color: @progress-bar-color;
+        font-size: 12px;
+        text-align: center;
         border-radius: @input-border-radius - 1;
     }
 }
