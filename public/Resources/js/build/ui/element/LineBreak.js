@@ -1,6 +1,6 @@
 /**
  * @class build.ui.element.LineBreak
- * @extends build.ui.Widget
+ * @extends build.ui.element.Element
  */
 Build('build.ui.element.LineBreak', [ 'build::build.ui.element.Element' ], function(define, $super) {
 	define({

@@ -1,10 +1,10 @@
 /**
  * @class build.ui.element.Table
- * @extends build.ui.Widget
+ * @extends build.ui.Container
  */
-Build('build.ui.element.Table', [ 'build::build.ui.element.Element', 'build::build.utility.ObservableArray' ], function(define, $super) {
+Build('build.ui.element.Table', [ 'build::build.ui.Container', 'build::build.utility.ObservableArray' ], function(define, $super) {
 	define({
-		$extends : 'build.ui.element.Element',
+		$extends : 'build.ui.Container',
 		/**
 		 * @constructor
 		 */

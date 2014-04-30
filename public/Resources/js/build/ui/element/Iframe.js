@@ -1,3 +1,7 @@
+/**
+ * @class build.ui.element.Iframe
+ * @extends build.ui.Widget
+ */
 Build('build.ui.element.Iframe', [ 'build::build.ui.Widget', 'build::build.utility.PostMessage' ], function(define, $super) {
 	define({
 		$extends : 'build.ui.Widget',

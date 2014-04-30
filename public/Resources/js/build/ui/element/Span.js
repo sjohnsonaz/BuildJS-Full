@@ -1,6 +1,6 @@
 /**
  * @class build.ui.element.Span
- * @extends build.ui.Widget
+ * @extends build.ui.element.Element
  */
 Build('build.ui.form.Span', [ 'build::build.ui.element.Element' ], function(define, $super) {
 	define({

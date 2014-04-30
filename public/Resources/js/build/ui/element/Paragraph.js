@@ -1,6 +1,6 @@
 /**
  * @class build.ui.element.Paragraph
- * @extends build.ui.Widget
+ * @extends build.ui.element.Element
  */
 Build('build.ui.element.Paragraph', [ 'build::build.ui.element.Element' ], function(define, $super) {
 	define({
