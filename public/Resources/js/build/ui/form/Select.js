@@ -10,6 +10,12 @@ Build('build.ui.form.Select', [ 'build::build.ui.Container', 'build::build.ui.fo
 			this.watchProperty('multiple');
 		},
 		$prototype : {
+			init : function() {
+				$super().init(this)();
+				this.element.addEventListener('change', function() {
+					this.value = this.element.value;
+				}.bind(this));
+			},
 			addOption : function(value, text, selected) {
 				var option = build.ui.form.Option.create(text);
 				option.value = value;
