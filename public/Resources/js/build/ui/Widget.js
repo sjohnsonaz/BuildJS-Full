@@ -330,6 +330,15 @@ Build('build.ui.Widget', [ 'build::build.ui.Module', 'build::build.utility.Obser
 				return result;
 			},
 			/**
+			 * 
+			 */
+			getController : function(element) {
+				element = typeof element === 'string' ? document.getElementById(element) : element;
+				if (element) {
+					return element.controller;
+				}
+			},
+			/**
 			 * @static
 			 */
 			deferClassName : false
