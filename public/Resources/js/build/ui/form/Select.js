@@ -6,6 +6,8 @@ Build('build.ui.form.Select', [ 'build::build.ui.form.FormElement' ], function(d
 			this.type = 'select';
 			this.options = [];
 			this.watchProperty('value');
+			this.watchProperty('size');
+			this.watchProperty('multiple');
 		},
 		$prototype : {
 			addOption : function(value, text, selected) {
