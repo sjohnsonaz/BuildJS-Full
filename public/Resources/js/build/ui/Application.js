@@ -1,10 +1,10 @@
 /**
  * @class build.ui.Application
- * @extends build.ui.Panel
+ * @extends build.ui.Container
  */
-Build('build.ui.Application', [ 'build::build.ui.Panel', 'build::build.history.HashRouter' ], function(define, $super) {
+Build('build.ui.Application', [ 'build::build.ui.Container', 'build::build.history.HashRouter' ], function(define, $super) {
 	define({
-		$extends : 'build.ui.Panel',
+		$extends : 'build.ui.Container',
 		/** 
 		 * @constructor
 		 * @property router

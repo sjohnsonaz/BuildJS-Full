@@ -1,10 +1,10 @@
 /**
  * @class build.ui.tab.TabPanel
- * @extends build.ui.Panel
+ * @extends build.ui.Container
  */
-Build('build.ui.tab.TabPanel', [ 'build::build.ui.Panel' ], function(define, $super) {
+Build('build.ui.tab.TabPanel', [ 'build::build.ui.Container' ], function(define, $super) {
 	define({
-		$extends : 'build.ui.Panel',
+		$extends : 'build.ui.Container',
 		/**
 		 * @constructor
 		 * @param title

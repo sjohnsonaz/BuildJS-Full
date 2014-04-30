@@ -1,6 +1,6 @@
-Build('demo.ui.form.RemotePanel', [ 'build::build.ui.element.Iframe' ], function(define, $super) {
+Build('demo.ui.form.RemotePanel', [ 'build::build.ui.Container', 'build::build.ui.element.Iframe' ], function(define, $super) {
 	define({
-		$extends : 'build.ui.Panel',
+		$extends : 'build.ui.Container',
 		$constructor : function RemotePanel() {
 			$super(this)();
 			this.iframe = build.ui.element.Iframe.create();
