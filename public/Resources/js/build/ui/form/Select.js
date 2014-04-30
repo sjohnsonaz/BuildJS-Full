@@ -5,7 +5,43 @@ Build('build.ui.form.Select', [ 'build::build.ui.Container', 'build::build.ui.fo
 			$super(this)();
 			this.type = 'select';
 			this.directAppend = true;
-			this.watchProperty('value');
+			Object.defineProperty(this, 'value', {
+				get : function() {
+					if (this.element) {
+						if (this.multiple) {
+							var options = this.element.options;
+							var values = [];
+							for (var index = 0, length = options.length; index < length; index++) {
+								var option = options[index];
+								if (option.selected) {
+									values.push(option.value);
+								}
+							}
+							return values;
+						} else {
+							return this.element.value;
+						}
+					}
+				},
+				set : function(value) {
+					if (this.element) {
+						if (this.multiple) {
+							if (typeof value === 'string') {
+								value = [ value ];
+							}
+							var options = this.element.options;
+							for (var index = 0, length = options.length; index < length; index++) {
+								var option = options[index];
+								var valueIndex = value.indexOf(option.value);
+								option.selected = valueIndex != -1;
+							}
+						} else {
+							this.element.value = value;
+						}
+						this.publish('value');
+					}
+				}
+			});
 			this.watchProperty('size');
 			this.watchProperty('multiple');
 		},
@@ -13,7 +49,7 @@ Build('build.ui.form.Select', [ 'build::build.ui.Container', 'build::build.ui.fo
 			init : function() {
 				$super().init(this)();
 				this.element.addEventListener('change', function() {
-					this.value = this.element.value;
+					this.publish('value');
 				}.bind(this));
 			},
 			addOption : function(value, text, selected) {

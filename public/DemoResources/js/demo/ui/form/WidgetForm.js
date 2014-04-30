@@ -24,6 +24,8 @@ Build('demo.ui.form.WidgetForm', [ 'build::build.ui.form.Form', 'build::build.ui
 			this.addChild(progressBar);
 			
 			var select = build.ui.form.Select.create();
+			select.size = 4;
+			select.multiple = true;
 			select.addOption('test', 'test');
 			select.addOption('thing', 'thing');
 			this.addChild(select);
