@@ -21,7 +21,7 @@ module.exports = {
 		}
 	},
 	viewPath : __dirname + '/views',
-	controllers: ['build.mvc.controller.TestController', 'build.mvc.controller.UserController', 'build.mvc.controller.AuthenticationController'],
+	controllers : [ 'build.mvc.controller.TestController', 'build.mvc.controller.UserController', 'build.mvc.controller.AuthenticationController', 'build.mvc.controller.PageController' ],
 	controllerPath : __dirname + '/controllers',
 	modelPath : __dirname + '/models',
 	permissionPath : __dirname + '/permissions',

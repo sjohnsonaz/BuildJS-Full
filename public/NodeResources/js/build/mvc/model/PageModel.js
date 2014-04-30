@@ -1,11 +1,12 @@
 module.exports = function(Build) {
-	Build('build.mvc.model.UserModel', [ 'buildnode::build.mvc.model.MongooseModel' ], function(define, $super) {
+	Build('build.mvc.model.PageModel', [ 'buildnode::build.mvc.model.MongooseModel' ], function(define, $super) {
 		define({
 			$extends : 'build.mvc.model.MongooseModel',
-			$constructor : function UserModel(mongoose) {
+			$constructor : function PageModel(mongoose) {
 				$super(this)(mongoose);
+				var ObjectId = mongoose.Schema.Types.ObjectId;
 				this.schema = new mongoose.Schema({
-					username : {
+					route : {
 						type : String,
 						lowercase : true,
 						trim : true,
@@ -13,15 +14,18 @@ module.exports = function(Build) {
 						unique : true
 					//validate : [ validators.notEmpty, 'Username is empty' ]
 					},
-					password : String,
-					firstName : String,
-					lastName : String
+					title : String,
+					body : String,
+					createdId : ObjectId,
+					updatedId : ObjectId,
+					createdDate : Date,
+					updatedDate : Date
 				});
 				this.schema.index({
-					username : 1
+					route : 1
 				});
 				this.schema.set('autoIndex', false);
-				this.model = mongoose.model('User', this.schema);
+				this.model = mongoose.model('Page', this.schema);
 			},
 			$singleton : true
 		});
