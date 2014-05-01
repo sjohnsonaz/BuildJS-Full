@@ -555,6 +555,7 @@ fieldset {
   font-size: 12px;
   text-align: center;
   border-radius: 4px;
+  transition: width 0.5s ease;
 }
 .build-widget-progress-ProgressBar {
   padding: 0;
@@ -575,6 +576,7 @@ fieldset {
   font-size: 12px;
   text-align: center;
   border-radius: 4px;
+  transition: width 0.5s ease;
 }
 .build-ui-tab-TabContainer {
   margin: .67em 0;
