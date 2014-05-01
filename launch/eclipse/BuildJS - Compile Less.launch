@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<launchConfiguration type="net.vtst.ow.eclipse.less.launching.compiler">
+<booleanAttribute key="autoOutputFile" value="false"/>
+<stringAttribute key="bad_container_name" value="\BuildJS\launch\elc"/>
+<stringAttribute key="command" value="lessc"/>
+<booleanAttribute key="compress" value="true"/>
+<stringAttribute key="inputFile" value="/BuildJS/public/Resources/less/base.less"/>
+<stringAttribute key="optimization" value="0"/>
+<listAttribute key="org.eclipse.debug.ui.favoriteGroups">
+<listEntry value="org.eclipse.debug.ui.launchGroup.run"/>
+</listAttribute>
+<stringAttribute key="outputFile" value="/BuildJS/public/Resources/css/base.css"/>
+<booleanAttribute key="strictImports" value="false"/>
+<booleanAttribute key="useAsDefault" value="false"/>
+<booleanAttribute key="verbose" value="false"/>
+<booleanAttribute key="yuiCompress" value="false"/>
+</launchConfiguration>
