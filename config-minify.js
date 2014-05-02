@@ -31,6 +31,12 @@ module.exports = function(min) {
 			destination : min.getDestination(minFolders.js, 'Build', timestamp, 'all', 'js'),
 			include : [ '.js' ],
 			exclude : []
+		}, {
+			algorithm : 'yui-css',
+			source : [ '/public/Resources/css/base.css' ],
+			destination : min.getDestination(minFolders.css, 'Build', timestamp, null, 'css'),
+			include : [ '.css' ],
+			exclude : []
 		} ]
 	};
 };
