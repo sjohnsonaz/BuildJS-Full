@@ -535,6 +535,288 @@ fieldset {
   font-weight: bold;
   float: left;
 }
+.build-widget-menu-MenuWidget {
+  zoom: 1;
+  display: block;
+  padding: 0;
+  margin: 0;
+  height: 50px;
+  background-color: #aaaaaa;
+  color: #ffffff;
+  list-style-type: none;
+  z-index: 1000;
+}
+.build-widget-menu-MenuWidget:after {
+  display: table;
+  content: '';
+  clear: both;
+}
+.build-widget-menu-MenuWidget.menu-fixed-top {
+  display: block;
+  position: fixed;
+  top: 0px;
+  right: 0px;
+  left: 0px;
+  background-color: #000055;
+  box-shadow: 0 0px 5px 2px #000;
+}
+.build-widget-menu-MenuWidget.menu-fixed-top .expand-button {
+  display: none;
+}
+.build-widget-menu-MenuWidget.menu-fixed-top li a {
+  color: #ffffff;
+}
+.build-widget-menu-MenuWidget.menu-fixed-top li a:hover {
+  background-color: #0000bb;
+  color: #ffffff;
+}
+.build-widget-menu-MenuWidget.menu-fixed-top li a.active-menu {
+  background-color: #000000;
+  color: #cccccc;
+}
+.build-widget-menu-MenuWidget.menu-fixed-top li a.active-menu:hover {
+  background-color: #000000;
+  color: #b3b3b3;
+}
+@media only screen and (max-width: 767px) {
+  .build-widget-menu-MenuWidget.menu-fixed-top {
+    position: relative;
+    overflow: hidden;
+  }
+  .build-widget-menu-MenuWidget.menu-fixed-top.expandable-menu-widget-expand {
+    height: auto;
+  }
+  .build-widget-menu-MenuWidget.menu-fixed-top .pull-right {
+    float: none;
+  }
+  .build-widget-menu-MenuWidget.menu-fixed-top .expand-button {
+    display: inline-block;
+  }
+}
+.build-widget-menu-MenuWidget li {
+  float: left;
+  display: block;
+  margin: 0;
+}
+@media only screen and (max-width: 767px) {
+  .build-widget-menu-MenuWidget li {
+    width: 100%;
+  }
+}
+.build-widget-menu-MenuWidget li a {
+  display: block;
+  padding: 15px;
+  text-decoration: none;
+  font-weight: bold;
+  color: #ffffff;
+}
+.build-widget-menu-MenuWidget li a:hover {
+  background-color: #dddddd;
+  color: #ffffff;
+}
+.build-widget-menu-MenuWidget li a.active-menu {
+  background-color: #777777;
+  color: #cccccc;
+}
+.build-widget-menu-MenuWidget li a.active-menu:hover {
+  background-color: #5e5e5e;
+  color: #b3b3b3;
+}
+@media only screen and (max-width: 767px) {
+  .build-widget-menu-MenuWidget li a {
+    width: 100%;
+  }
+}
+.build-widget-menu-MenuWidget .panel-iterator {
+  display: inline-block;
+  width: auto;
+}
+@media only screen and (max-width: 767px) {
+  .build-widget-menu-MenuWidget .panel-iterator {
+    display: block;
+    width: 100%;
+    clear: both;
+  }
+}
+.build-widget-menu-MenuWidget .form-control-iterator-label {
+  display: none;
+  float: none;
+  width: auto;
+  padding: 15px 5px 15px 15px;
+  margin: 0;
+}
+.build-widget-menu-MenuWidget .form-control-iterator-label:empty {
+  padding: 0;
+}
+@media only screen and (max-width: 767px) {
+  .build-widget-menu-MenuWidget .form-control-iterator-label {
+    display: block;
+  }
+}
+.build-widget-menu-MenuWidget .form-control-iterator-control {
+  display: inline-block;
+  float: none;
+  width: auto;
+  padding: 4px;
+  margin: 0;
+}
+.build-widget-menu-MenuWidget .form-control-iterator-control:empty {
+  padding: 0;
+}
+@media only screen and (max-width: 767px) {
+  .build-widget-menu-MenuWidget .form-control-iterator-control {
+    display: block;
+  }
+}
+.build-widget-menu-MenuWidget .expand-button {
+  float: right;
+  padding: 10px 15px 10px 15px;
+  margin: 6px;
+}
+.build-widget-menu-MenuTitle {
+  padding: 10px;
+  font-size: 24px;
+  font-weight: bold;
+  float: left;
+}
+.build-widget-menu-ExpandableMenuWidget {
+  zoom: 1;
+  display: block;
+  padding: 0;
+  margin: 0;
+  height: 50px;
+  background-color: #aaaaaa;
+  color: #ffffff;
+  list-style-type: none;
+  z-index: 1000;
+}
+.build-widget-menu-ExpandableMenuWidget:after {
+  display: table;
+  content: '';
+  clear: both;
+}
+.build-widget-menu-ExpandableMenuWidget.menu-fixed-top {
+  display: block;
+  position: fixed;
+  top: 0px;
+  right: 0px;
+  left: 0px;
+  background-color: #000055;
+  box-shadow: 0 0px 5px 2px #000;
+}
+.build-widget-menu-ExpandableMenuWidget.menu-fixed-top .expand-button {
+  display: none;
+}
+.build-widget-menu-ExpandableMenuWidget.menu-fixed-top li a {
+  color: #ffffff;
+}
+.build-widget-menu-ExpandableMenuWidget.menu-fixed-top li a:hover {
+  background-color: #0000bb;
+  color: #ffffff;
+}
+.build-widget-menu-ExpandableMenuWidget.menu-fixed-top li a.active-menu {
+  background-color: #000000;
+  color: #cccccc;
+}
+.build-widget-menu-ExpandableMenuWidget.menu-fixed-top li a.active-menu:hover {
+  background-color: #000000;
+  color: #b3b3b3;
+}
+@media only screen and (max-width: 767px) {
+  .build-widget-menu-ExpandableMenuWidget.menu-fixed-top {
+    position: relative;
+    overflow: hidden;
+  }
+  .build-widget-menu-ExpandableMenuWidget.menu-fixed-top.expandable-menu-widget-expand {
+    height: auto;
+  }
+  .build-widget-menu-ExpandableMenuWidget.menu-fixed-top .pull-right {
+    float: none;
+  }
+  .build-widget-menu-ExpandableMenuWidget.menu-fixed-top .expand-button {
+    display: inline-block;
+  }
+}
+.build-widget-menu-ExpandableMenuWidget li {
+  float: left;
+  display: block;
+  margin: 0;
+}
+@media only screen and (max-width: 767px) {
+  .build-widget-menu-ExpandableMenuWidget li {
+    width: 100%;
+  }
+}
+.build-widget-menu-ExpandableMenuWidget li a {
+  display: block;
+  padding: 15px;
+  text-decoration: none;
+  font-weight: bold;
+  color: #ffffff;
+}
+.build-widget-menu-ExpandableMenuWidget li a:hover {
+  background-color: #dddddd;
+  color: #ffffff;
+}
+.build-widget-menu-ExpandableMenuWidget li a.active-menu {
+  background-color: #777777;
+  color: #cccccc;
+}
+.build-widget-menu-ExpandableMenuWidget li a.active-menu:hover {
+  background-color: #5e5e5e;
+  color: #b3b3b3;
+}
+@media only screen and (max-width: 767px) {
+  .build-widget-menu-ExpandableMenuWidget li a {
+    width: 100%;
+  }
+}
+.build-widget-menu-ExpandableMenuWidget .panel-iterator {
+  display: inline-block;
+  width: auto;
+}
+@media only screen and (max-width: 767px) {
+  .build-widget-menu-ExpandableMenuWidget .panel-iterator {
+    display: block;
+    width: 100%;
+    clear: both;
+  }
+}
+.build-widget-menu-ExpandableMenuWidget .form-control-iterator-label {
+  display: none;
+  float: none;
+  width: auto;
+  padding: 15px 5px 15px 15px;
+  margin: 0;
+}
+.build-widget-menu-ExpandableMenuWidget .form-control-iterator-label:empty {
+  padding: 0;
+}
+@media only screen and (max-width: 767px) {
+  .build-widget-menu-ExpandableMenuWidget .form-control-iterator-label {
+    display: block;
+  }
+}
+.build-widget-menu-ExpandableMenuWidget .form-control-iterator-control {
+  display: inline-block;
+  float: none;
+  width: auto;
+  padding: 4px;
+  margin: 0;
+}
+.build-widget-menu-ExpandableMenuWidget .form-control-iterator-control:empty {
+  padding: 0;
+}
+@media only screen and (max-width: 767px) {
+  .build-widget-menu-ExpandableMenuWidget .form-control-iterator-control {
+    display: block;
+  }
+}
+.build-widget-menu-ExpandableMenuWidget .expand-button {
+  float: right;
+  padding: 10px 15px 10px 15px;
+  margin: 6px;
+}
 .progress-bar {
   padding: 0;
   margin: 2px;
@@ -912,286 +1194,4 @@ fieldset {
   display: table;
   content: '';
   clear: both;
-}
-.build-widget-menu-MenuWidget {
-  zoom: 1;
-  display: block;
-  padding: 0;
-  margin: 0;
-  height: 50px;
-  background-color: #aaaaaa;
-  color: #ffffff;
-  list-style-type: none;
-  z-index: 1000;
-}
-.build-widget-menu-MenuWidget:after {
-  display: table;
-  content: '';
-  clear: both;
-}
-.build-widget-menu-MenuWidget.menu-fixed-top {
-  display: block;
-  position: fixed;
-  top: 0px;
-  right: 0px;
-  left: 0px;
-  background-color: #000055;
-  box-shadow: 0 0px 5px 2px #000;
-}
-.build-widget-menu-MenuWidget.menu-fixed-top .expand-button {
-  display: none;
-}
-.build-widget-menu-MenuWidget.menu-fixed-top li a {
-  color: #ffffff;
-}
-.build-widget-menu-MenuWidget.menu-fixed-top li a:hover {
-  background-color: #0000bb;
-  color: #ffffff;
-}
-.build-widget-menu-MenuWidget.menu-fixed-top li a.active-menu {
-  background-color: #000000;
-  color: #cccccc;
-}
-.build-widget-menu-MenuWidget.menu-fixed-top li a.active-menu:hover {
-  background-color: #000000;
-  color: #b3b3b3;
-}
-@media only screen and (max-width: 767px) {
-  .build-widget-menu-MenuWidget.menu-fixed-top {
-    position: relative;
-    overflow: hidden;
-  }
-  .build-widget-menu-MenuWidget.menu-fixed-top.expandable-menu-widget-expand {
-    height: auto;
-  }
-  .build-widget-menu-MenuWidget.menu-fixed-top .pull-right {
-    float: none;
-  }
-  .build-widget-menu-MenuWidget.menu-fixed-top .expand-button {
-    display: inline-block;
-  }
-}
-.build-widget-menu-MenuWidget li {
-  float: left;
-  display: block;
-  margin: 0;
-}
-@media only screen and (max-width: 767px) {
-  .build-widget-menu-MenuWidget li {
-    width: 100%;
-  }
-}
-.build-widget-menu-MenuWidget li a {
-  display: block;
-  padding: 15px;
-  text-decoration: none;
-  font-weight: bold;
-  color: #ffffff;
-}
-.build-widget-menu-MenuWidget li a:hover {
-  background-color: #dddddd;
-  color: #ffffff;
-}
-.build-widget-menu-MenuWidget li a.active-menu {
-  background-color: #777777;
-  color: #cccccc;
-}
-.build-widget-menu-MenuWidget li a.active-menu:hover {
-  background-color: #5e5e5e;
-  color: #b3b3b3;
-}
-@media only screen and (max-width: 767px) {
-  .build-widget-menu-MenuWidget li a {
-    width: 100%;
-  }
-}
-.build-widget-menu-MenuWidget .panel-iterator {
-  display: inline-block;
-  width: auto;
-}
-@media only screen and (max-width: 767px) {
-  .build-widget-menu-MenuWidget .panel-iterator {
-    display: block;
-    width: 100%;
-    clear: both;
-  }
-}
-.build-widget-menu-MenuWidget .form-control-iterator-label {
-  display: none;
-  float: none;
-  width: auto;
-  padding: 15px 5px 15px 15px;
-  margin: 0;
-}
-.build-widget-menu-MenuWidget .form-control-iterator-label:empty {
-  padding: 0;
-}
-@media only screen and (max-width: 767px) {
-  .build-widget-menu-MenuWidget .form-control-iterator-label {
-    display: block;
-  }
-}
-.build-widget-menu-MenuWidget .form-control-iterator-control {
-  display: inline-block;
-  float: none;
-  width: auto;
-  padding: 4px;
-  margin: 0;
-}
-.build-widget-menu-MenuWidget .form-control-iterator-control:empty {
-  padding: 0;
-}
-@media only screen and (max-width: 767px) {
-  .build-widget-menu-MenuWidget .form-control-iterator-control {
-    display: block;
-  }
-}
-.build-widget-menu-MenuWidget .expand-button {
-  float: right;
-  padding: 10px 15px 10px 15px;
-  margin: 6px;
-}
-.build-widget-menu-MenuTitle {
-  padding: 10px;
-  font-size: 24px;
-  font-weight: bold;
-  float: left;
-}
-.build-widget-menu-ExpandableMenuWidget {
-  zoom: 1;
-  display: block;
-  padding: 0;
-  margin: 0;
-  height: 50px;
-  background-color: #aaaaaa;
-  color: #ffffff;
-  list-style-type: none;
-  z-index: 1000;
-}
-.build-widget-menu-ExpandableMenuWidget:after {
-  display: table;
-  content: '';
-  clear: both;
-}
-.build-widget-menu-ExpandableMenuWidget.menu-fixed-top {
-  display: block;
-  position: fixed;
-  top: 0px;
-  right: 0px;
-  left: 0px;
-  background-color: #000055;
-  box-shadow: 0 0px 5px 2px #000;
-}
-.build-widget-menu-ExpandableMenuWidget.menu-fixed-top .expand-button {
-  display: none;
-}
-.build-widget-menu-ExpandableMenuWidget.menu-fixed-top li a {
-  color: #ffffff;
-}
-.build-widget-menu-ExpandableMenuWidget.menu-fixed-top li a:hover {
-  background-color: #0000bb;
-  color: #ffffff;
-}
-.build-widget-menu-ExpandableMenuWidget.menu-fixed-top li a.active-menu {
-  background-color: #000000;
-  color: #cccccc;
-}
-.build-widget-menu-ExpandableMenuWidget.menu-fixed-top li a.active-menu:hover {
-  background-color: #000000;
-  color: #b3b3b3;
-}
-@media only screen and (max-width: 767px) {
-  .build-widget-menu-ExpandableMenuWidget.menu-fixed-top {
-    position: relative;
-    overflow: hidden;
-  }
-  .build-widget-menu-ExpandableMenuWidget.menu-fixed-top.expandable-menu-widget-expand {
-    height: auto;
-  }
-  .build-widget-menu-ExpandableMenuWidget.menu-fixed-top .pull-right {
-    float: none;
-  }
-  .build-widget-menu-ExpandableMenuWidget.menu-fixed-top .expand-button {
-    display: inline-block;
-  }
-}
-.build-widget-menu-ExpandableMenuWidget li {
-  float: left;
-  display: block;
-  margin: 0;
-}
-@media only screen and (max-width: 767px) {
-  .build-widget-menu-ExpandableMenuWidget li {
-    width: 100%;
-  }
-}
-.build-widget-menu-ExpandableMenuWidget li a {
-  display: block;
-  padding: 15px;
-  text-decoration: none;
-  font-weight: bold;
-  color: #ffffff;
-}
-.build-widget-menu-ExpandableMenuWidget li a:hover {
-  background-color: #dddddd;
-  color: #ffffff;
-}
-.build-widget-menu-ExpandableMenuWidget li a.active-menu {
-  background-color: #777777;
-  color: #cccccc;
-}
-.build-widget-menu-ExpandableMenuWidget li a.active-menu:hover {
-  background-color: #5e5e5e;
-  color: #b3b3b3;
-}
-@media only screen and (max-width: 767px) {
-  .build-widget-menu-ExpandableMenuWidget li a {
-    width: 100%;
-  }
-}
-.build-widget-menu-ExpandableMenuWidget .panel-iterator {
-  display: inline-block;
-  width: auto;
-}
-@media only screen and (max-width: 767px) {
-  .build-widget-menu-ExpandableMenuWidget .panel-iterator {
-    display: block;
-    width: 100%;
-    clear: both;
-  }
-}
-.build-widget-menu-ExpandableMenuWidget .form-control-iterator-label {
-  display: none;
-  float: none;
-  width: auto;
-  padding: 15px 5px 15px 15px;
-  margin: 0;
-}
-.build-widget-menu-ExpandableMenuWidget .form-control-iterator-label:empty {
-  padding: 0;
-}
-@media only screen and (max-width: 767px) {
-  .build-widget-menu-ExpandableMenuWidget .form-control-iterator-label {
-    display: block;
-  }
-}
-.build-widget-menu-ExpandableMenuWidget .form-control-iterator-control {
-  display: inline-block;
-  float: none;
-  width: auto;
-  padding: 4px;
-  margin: 0;
-}
-.build-widget-menu-ExpandableMenuWidget .form-control-iterator-control:empty {
-  padding: 0;
-}
-@media only screen and (max-width: 767px) {
-  .build-widget-menu-ExpandableMenuWidget .form-control-iterator-control {
-    display: block;
-  }
-}
-.build-widget-menu-ExpandableMenuWidget .expand-button {
-  float: right;
-  padding: 10px 15px 10px 15px;
-  margin: 6px;
 }
