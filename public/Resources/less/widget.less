@@ -12,88 +12,55 @@
 }
 
 #build-preload-container {
-    .hidden-soft;
+	.hidden-soft;
 }
 
 .panel-iterator {
-    .row();
+	.row ();
 }
-.panel() {
-    .container();
-    & > .panel-iterator {
-        .row();
-    }
+
+.panel () {
+	.container ();
+	& > .panel-iterator {
+		.row ();
+	}
 }
 
 .build-ui-form-Form {
-    .container();
-    & > .panel-iterator {
-        .row();
-    }
+	.container ();
+	& > .panel-iterator {
+		.row ();
+	}
 }
-.menu-widget {
-    .panel-iterator {
-        display: inline-block;
-        width: auto;
-        @media only screen and (max-width : (@size0 - 1)) {
-            display: block;
-            width: 100%;
-            clear: both;
-        }
-    }
-    .form-control-iterator-label {
-        display: none;//inline-block;
-        float: none;
-        width: auto;
-        padding: 15px 5px 15px 15px;
-        margin: 0;
-        &:empty {
-            padding: 0;
-        }
-        @media only screen and (max-width : (@size0 - 1)) {
-            display: block;
-        }
-    }
-    .form-control-iterator-control {
-        display: inline-block;
-        float: none;
-        width: auto;
-        padding: 4px;
-        margin: 0;
-        &:empty {
-            padding: 0;
-        }
-        @media only screen and (max-width : (@size0 - 1)) {
-            display: block;
-        }
-    }
-    .expand-button {
-        float: right;
-        padding: 10px 15px 10px 15px;
-        margin: 6px;
-    }
+
+.form-control {
+	.clearfix;
+	& > .form-control-iterator-label {
+		.columns (1 , 5);
+		.offset (1 , 5);
+		padding: 10px 20px 10px 20px;
+	}
+
+	& > .form-control-iterator-control {
+		.columns (2 , 5);
+	}
 }
 
 .build-ui-form-FormControl {
-    .clearfix;
-    & > .form-control-iterator-label {
-        .columns(1, 5);
-        .offset(1, 5);
-        padding: 10px 20px 10px 20px;
-        //text-align: right;
-    }
-    & > .form-control-iterator-control {
-        .columns(2, 5);
-    }
+	.form-control;
 }
 
 .build-ui-form-ButtonGroup {
-    .button-group;
+	.button-group;
 }
 
-.build-ui-form-Button:extend(.button all) {}
-.build-ui-form-Button:extend(.build-ui-form-ButtonGroup .button all) {}
+.build-ui-form-Button:extend(.button all) {
+}
+
+.build-ui-form-Button:extend(.build-ui-form-ButtonGroup .button all) {
+}
 
 .build-ui-Application {
-    .panel();
+	.panel ();
 }
+

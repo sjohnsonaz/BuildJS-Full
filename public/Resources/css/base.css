@@ -430,11 +430,11 @@ fieldset {
   border: 1px solid #aaaaaa;
 }
 .application-menu-fixed-top {
-  margin-top: 50px !important;
+  margin-top: 50px ! important;
 }
 @media only screen and (max-width: 767px) {
   .application-menu-fixed-top {
-    margin-top: 0px !important;
+    margin-top: 0px ! important;
   }
 }
 .menu-widget {
@@ -452,6 +452,56 @@ fieldset {
   display: table;
   content: '';
   clear: both;
+}
+.menu-widget .panel-iterator {
+  display: inline-block;
+  width: auto;
+}
+@media only screen and (max-width: 767px) {
+  .menu-widget .panel-iterator {
+    display: block;
+    width: 100%;
+    clear: both;
+  }
+}
+.menu-widget .expand-button {
+  float: right;
+  padding: 10px 15px 10px 15px;
+  margin: 6px;
+}
+.menu-widget li {
+  float: left;
+  display: block;
+  margin: 0;
+}
+@media only screen and (max-width: 767px) {
+  .menu-widget li {
+    width: 100%;
+  }
+}
+.menu-widget li a {
+  display: block;
+  padding: 15px;
+  text-decoration: none;
+  font-weight: bold;
+  color: #ffffff;
+}
+.menu-widget li a:hover {
+  background-color: #dddddd;
+  color: #ffffff;
+}
+.menu-widget li a.active-menu {
+  background-color: #777777;
+  color: #cccccc;
+}
+.menu-widget li a.active-menu:hover {
+  background-color: #5e5e5e;
+  color: #b3b3b3;
+}
+@media only screen and (max-width: 767px) {
+  .menu-widget li a {
+    width: 100%;
+  }
 }
 .menu-widget.menu-fixed-top {
   display: block;
@@ -495,38 +545,34 @@ fieldset {
     display: inline-block;
   }
 }
-.menu-widget li {
-  float: left;
-  display: block;
+.menu-widget.menu-fixed-top .form-control-iterator-label {
+  display: none;
+  float: none;
+  width: auto;
+  padding: 15px 5px 15px 15px;
   margin: 0;
 }
+.menu-widget.menu-fixed-top .form-control-iterator-label:empty {
+  padding: 0;
+}
 @media only screen and (max-width: 767px) {
-  .menu-widget li {
-    width: 100%;
+  .menu-widget.menu-fixed-top .form-control-iterator-label {
+    display: block;
   }
 }
-.menu-widget li a {
-  display: block;
-  padding: 15px;
-  text-decoration: none;
-  font-weight: bold;
-  color: #ffffff;
+.menu-widget.menu-fixed-top .form-control-iterator-control {
+  display: inline-block;
+  float: none;
+  width: auto;
+  padding: 4px;
+  margin: 0;
 }
-.menu-widget li a:hover {
-  background-color: #dddddd;
-  color: #ffffff;
-}
-.menu-widget li a.active-menu {
-  background-color: #777777;
-  color: #cccccc;
-}
-.menu-widget li a.active-menu:hover {
-  background-color: #5e5e5e;
-  color: #b3b3b3;
+.menu-widget.menu-fixed-top .form-control-iterator-control:empty {
+  padding: 0;
 }
 @media only screen and (max-width: 767px) {
-  .menu-widget li a {
-    width: 100%;
+  .menu-widget.menu-fixed-top .form-control-iterator-control {
+    display: block;
   }
 }
 .menu-title {
@@ -550,6 +596,56 @@ fieldset {
   display: table;
   content: '';
   clear: both;
+}
+.build-widget-menu-MenuWidget .panel-iterator {
+  display: inline-block;
+  width: auto;
+}
+@media only screen and (max-width: 767px) {
+  .build-widget-menu-MenuWidget .panel-iterator {
+    display: block;
+    width: 100%;
+    clear: both;
+  }
+}
+.build-widget-menu-MenuWidget .expand-button {
+  float: right;
+  padding: 10px 15px 10px 15px;
+  margin: 6px;
+}
+.build-widget-menu-MenuWidget li {
+  float: left;
+  display: block;
+  margin: 0;
+}
+@media only screen and (max-width: 767px) {
+  .build-widget-menu-MenuWidget li {
+    width: 100%;
+  }
+}
+.build-widget-menu-MenuWidget li a {
+  display: block;
+  padding: 15px;
+  text-decoration: none;
+  font-weight: bold;
+  color: #ffffff;
+}
+.build-widget-menu-MenuWidget li a:hover {
+  background-color: #dddddd;
+  color: #ffffff;
+}
+.build-widget-menu-MenuWidget li a.active-menu {
+  background-color: #777777;
+  color: #cccccc;
+}
+.build-widget-menu-MenuWidget li a.active-menu:hover {
+  background-color: #5e5e5e;
+  color: #b3b3b3;
+}
+@media only screen and (max-width: 767px) {
+  .build-widget-menu-MenuWidget li a {
+    width: 100%;
+  }
 }
 .build-widget-menu-MenuWidget.menu-fixed-top {
   display: block;
@@ -593,85 +689,35 @@ fieldset {
     display: inline-block;
   }
 }
-.build-widget-menu-MenuWidget li {
-  float: left;
-  display: block;
-  margin: 0;
-}
-@media only screen and (max-width: 767px) {
-  .build-widget-menu-MenuWidget li {
-    width: 100%;
-  }
-}
-.build-widget-menu-MenuWidget li a {
-  display: block;
-  padding: 15px;
-  text-decoration: none;
-  font-weight: bold;
-  color: #ffffff;
-}
-.build-widget-menu-MenuWidget li a:hover {
-  background-color: #dddddd;
-  color: #ffffff;
-}
-.build-widget-menu-MenuWidget li a.active-menu {
-  background-color: #777777;
-  color: #cccccc;
-}
-.build-widget-menu-MenuWidget li a.active-menu:hover {
-  background-color: #5e5e5e;
-  color: #b3b3b3;
-}
-@media only screen and (max-width: 767px) {
-  .build-widget-menu-MenuWidget li a {
-    width: 100%;
-  }
-}
-.build-widget-menu-MenuWidget .panel-iterator {
-  display: inline-block;
-  width: auto;
-}
-@media only screen and (max-width: 767px) {
-  .build-widget-menu-MenuWidget .panel-iterator {
-    display: block;
-    width: 100%;
-    clear: both;
-  }
-}
-.build-widget-menu-MenuWidget .form-control-iterator-label {
+.build-widget-menu-MenuWidget.menu-fixed-top .form-control-iterator-label {
   display: none;
   float: none;
   width: auto;
   padding: 15px 5px 15px 15px;
   margin: 0;
 }
-.build-widget-menu-MenuWidget .form-control-iterator-label:empty {
+.build-widget-menu-MenuWidget.menu-fixed-top .form-control-iterator-label:empty {
   padding: 0;
 }
 @media only screen and (max-width: 767px) {
-  .build-widget-menu-MenuWidget .form-control-iterator-label {
+  .build-widget-menu-MenuWidget.menu-fixed-top .form-control-iterator-label {
     display: block;
   }
 }
-.build-widget-menu-MenuWidget .form-control-iterator-control {
+.build-widget-menu-MenuWidget.menu-fixed-top .form-control-iterator-control {
   display: inline-block;
   float: none;
   width: auto;
   padding: 4px;
   margin: 0;
 }
-.build-widget-menu-MenuWidget .form-control-iterator-control:empty {
+.build-widget-menu-MenuWidget.menu-fixed-top .form-control-iterator-control:empty {
   padding: 0;
 }
 @media only screen and (max-width: 767px) {
-  .build-widget-menu-MenuWidget .form-control-iterator-control {
+  .build-widget-menu-MenuWidget.menu-fixed-top .form-control-iterator-control {
     display: block;
   }
-}
-.build-widget-menu-MenuWidget .expand-button {
-  float: right;
-  padding: 10px 15px 10px 15px;
-  margin: 6px;
 }
 .build-widget-menu-MenuTitle {
   padding: 10px;
@@ -694,6 +740,56 @@ fieldset {
   display: table;
   content: '';
   clear: both;
+}
+.build-widget-menu-ExpandableMenuWidget .panel-iterator {
+  display: inline-block;
+  width: auto;
+}
+@media only screen and (max-width: 767px) {
+  .build-widget-menu-ExpandableMenuWidget .panel-iterator {
+    display: block;
+    width: 100%;
+    clear: both;
+  }
+}
+.build-widget-menu-ExpandableMenuWidget .expand-button {
+  float: right;
+  padding: 10px 15px 10px 15px;
+  margin: 6px;
+}
+.build-widget-menu-ExpandableMenuWidget li {
+  float: left;
+  display: block;
+  margin: 0;
+}
+@media only screen and (max-width: 767px) {
+  .build-widget-menu-ExpandableMenuWidget li {
+    width: 100%;
+  }
+}
+.build-widget-menu-ExpandableMenuWidget li a {
+  display: block;
+  padding: 15px;
+  text-decoration: none;
+  font-weight: bold;
+  color: #ffffff;
+}
+.build-widget-menu-ExpandableMenuWidget li a:hover {
+  background-color: #dddddd;
+  color: #ffffff;
+}
+.build-widget-menu-ExpandableMenuWidget li a.active-menu {
+  background-color: #777777;
+  color: #cccccc;
+}
+.build-widget-menu-ExpandableMenuWidget li a.active-menu:hover {
+  background-color: #5e5e5e;
+  color: #b3b3b3;
+}
+@media only screen and (max-width: 767px) {
+  .build-widget-menu-ExpandableMenuWidget li a {
+    width: 100%;
+  }
 }
 .build-widget-menu-ExpandableMenuWidget.menu-fixed-top {
   display: block;
@@ -737,85 +833,35 @@ fieldset {
     display: inline-block;
   }
 }
-.build-widget-menu-ExpandableMenuWidget li {
-  float: left;
-  display: block;
-  margin: 0;
-}
-@media only screen and (max-width: 767px) {
-  .build-widget-menu-ExpandableMenuWidget li {
-    width: 100%;
-  }
-}
-.build-widget-menu-ExpandableMenuWidget li a {
-  display: block;
-  padding: 15px;
-  text-decoration: none;
-  font-weight: bold;
-  color: #ffffff;
-}
-.build-widget-menu-ExpandableMenuWidget li a:hover {
-  background-color: #dddddd;
-  color: #ffffff;
-}
-.build-widget-menu-ExpandableMenuWidget li a.active-menu {
-  background-color: #777777;
-  color: #cccccc;
-}
-.build-widget-menu-ExpandableMenuWidget li a.active-menu:hover {
-  background-color: #5e5e5e;
-  color: #b3b3b3;
-}
-@media only screen and (max-width: 767px) {
-  .build-widget-menu-ExpandableMenuWidget li a {
-    width: 100%;
-  }
-}
-.build-widget-menu-ExpandableMenuWidget .panel-iterator {
-  display: inline-block;
-  width: auto;
-}
-@media only screen and (max-width: 767px) {
-  .build-widget-menu-ExpandableMenuWidget .panel-iterator {
-    display: block;
-    width: 100%;
-    clear: both;
-  }
-}
-.build-widget-menu-ExpandableMenuWidget .form-control-iterator-label {
+.build-widget-menu-ExpandableMenuWidget.menu-fixed-top .form-control-iterator-label {
   display: none;
   float: none;
   width: auto;
   padding: 15px 5px 15px 15px;
   margin: 0;
 }
-.build-widget-menu-ExpandableMenuWidget .form-control-iterator-label:empty {
+.build-widget-menu-ExpandableMenuWidget.menu-fixed-top .form-control-iterator-label:empty {
   padding: 0;
 }
 @media only screen and (max-width: 767px) {
-  .build-widget-menu-ExpandableMenuWidget .form-control-iterator-label {
+  .build-widget-menu-ExpandableMenuWidget.menu-fixed-top .form-control-iterator-label {
     display: block;
   }
 }
-.build-widget-menu-ExpandableMenuWidget .form-control-iterator-control {
+.build-widget-menu-ExpandableMenuWidget.menu-fixed-top .form-control-iterator-control {
   display: inline-block;
   float: none;
   width: auto;
   padding: 4px;
   margin: 0;
 }
-.build-widget-menu-ExpandableMenuWidget .form-control-iterator-control:empty {
+.build-widget-menu-ExpandableMenuWidget.menu-fixed-top .form-control-iterator-control:empty {
   padding: 0;
 }
 @media only screen and (max-width: 767px) {
-  .build-widget-menu-ExpandableMenuWidget .form-control-iterator-control {
+  .build-widget-menu-ExpandableMenuWidget.menu-fixed-top .form-control-iterator-control {
     display: block;
   }
-}
-.build-widget-menu-ExpandableMenuWidget .expand-button {
-  float: right;
-  padding: 10px 15px 10px 15px;
-  margin: 6px;
 }
 .progress-bar {
   padding: 0;
@@ -1007,51 +1053,55 @@ fieldset {
   content: '';
   clear: both;
 }
-.menu-widget .panel-iterator {
-  display: inline-block;
-  width: auto;
+.form-control {
+  display: block;
+  zoom: 1;
+}
+.form-control:after {
+  display: table;
+  content: '';
+  clear: both;
+}
+.form-control > .form-control-iterator-label {
+  zoom: 1;
+  display: block;
+  float: left;
+  margin: 0px;
+  width: 20%;
+  margin: 0px 0px 0px 20%;
+  padding: 10px 20px 10px 20px;
+}
+.form-control > .form-control-iterator-label:after {
+  display: table;
+  content: '';
+  clear: both;
 }
 @media only screen and (max-width: 767px) {
-  .menu-widget .panel-iterator {
-    display: block;
+  .form-control > .form-control-iterator-label {
     width: 100%;
-    clear: both;
   }
-}
-.menu-widget .form-control-iterator-label {
-  display: none;
-  float: none;
-  width: auto;
-  padding: 15px 5px 15px 15px;
-  margin: 0;
-}
-.menu-widget .form-control-iterator-label:empty {
-  padding: 0;
 }
 @media only screen and (max-width: 767px) {
-  .menu-widget .form-control-iterator-label {
-    display: block;
+  .form-control > .form-control-iterator-label {
+    margin: 0px 0px 0px 0px;
   }
 }
-.menu-widget .form-control-iterator-control {
-  display: inline-block;
-  float: none;
-  width: auto;
-  padding: 4px;
-  margin: 0;
+.form-control > .form-control-iterator-control {
+  zoom: 1;
+  display: block;
+  float: left;
+  margin: 0px;
+  width: 40%;
 }
-.menu-widget .form-control-iterator-control:empty {
-  padding: 0;
+.form-control > .form-control-iterator-control:after {
+  display: table;
+  content: '';
+  clear: both;
 }
 @media only screen and (max-width: 767px) {
-  .menu-widget .form-control-iterator-control {
-    display: block;
+  .form-control > .form-control-iterator-control {
+    width: 100%;
   }
-}
-.menu-widget .expand-button {
-  float: right;
-  padding: 10px 15px 10px 15px;
-  margin: 6px;
 }
 .build-ui-form-FormControl {
   display: block;
