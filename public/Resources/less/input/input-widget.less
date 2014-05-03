@@ -1,1 +1,15 @@
 @import "input.less";
+.build-ui-form-FormControl {
+	.form-control;
+}
+
+.build-ui-form-ButtonGroup {
+	.button-group;
+}
+
+.build-ui-form-Button:extend(.button all) {
+}
+
+.build-ui-form-Button:extend(.build-ui-form-ButtonGroup .button all) {
+}
+

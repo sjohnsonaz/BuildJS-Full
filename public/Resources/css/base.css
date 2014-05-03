@@ -429,6 +429,206 @@ fieldset {
   border-radius: 5px;
   border: 1px solid #aaaaaa;
 }
+.build-ui-form-FormControl {
+  display: block;
+  zoom: 1;
+}
+.build-ui-form-FormControl:after {
+  display: table;
+  content: '';
+  clear: both;
+}
+.build-ui-form-FormControl > .form-control-iterator-label {
+  zoom: 1;
+  display: block;
+  float: left;
+  margin: 0px;
+  width: 20%;
+  margin: 0px 0px 0px 20%;
+  padding: 10px 20px 10px 20px;
+}
+.build-ui-form-FormControl > .form-control-iterator-label:after {
+  display: table;
+  content: '';
+  clear: both;
+}
+@media only screen and (max-width: 767px) {
+  .build-ui-form-FormControl > .form-control-iterator-label {
+    width: 100%;
+  }
+}
+@media only screen and (max-width: 767px) {
+  .build-ui-form-FormControl > .form-control-iterator-label {
+    margin: 0px 0px 0px 0px;
+  }
+}
+.build-ui-form-FormControl > .form-control-iterator-control {
+  zoom: 1;
+  display: block;
+  float: left;
+  margin: 0px;
+  width: 40%;
+}
+.build-ui-form-FormControl > .form-control-iterator-control:after {
+  display: table;
+  content: '';
+  clear: both;
+}
+@media only screen and (max-width: 767px) {
+  .build-ui-form-FormControl > .form-control-iterator-control {
+    width: 100%;
+  }
+}
+.build-ui-form-ButtonGroup {
+  display: inline-block;
+  margin: 2px;
+  padding: 0px;
+  display: block;
+  zoom: 1;
+}
+.build-ui-form-ButtonGroup:after {
+  display: table;
+  content: '';
+  clear: both;
+}
+.build-ui-form-ButtonGroup > button,
+.build-ui-form-ButtonGroup > input,
+.build-ui-form-ButtonGroup > * {
+  display: block;
+  float: left;
+  margin: 0px;
+  border-right-width: 0px;
+  -moz-border-radius: 0px;
+  border-radius: 0px;
+}
+.build-ui-form-ButtonGroup > button:focus,
+.build-ui-form-ButtonGroup > input:focus,
+.build-ui-form-ButtonGroup > *:focus {
+  outline: none;
+  background-color: #aaaaaa;
+  border-color: #aaaaaa;
+  box-shadow: inherit;
+}
+.build-ui-form-ButtonGroup > button:first-child,
+.build-ui-form-ButtonGroup > input:first-child,
+.build-ui-form-ButtonGroup > *:first-child {
+  -moz-border-radius-topleft: 5px;
+  border-top-left-radius: 5px;
+  -moz-border-radius-bottomleft: 5px;
+  border-bottom-left-radius: 5px;
+}
+.build-ui-form-ButtonGroup > button:last-child,
+.build-ui-form-ButtonGroup > input:last-child,
+.build-ui-form-ButtonGroup > *:last-child {
+  border-right-width: 1px;
+  -moz-border-radius-topright: 5px;
+  border-top-right-radius: 5px;
+  -moz-border-radius-bottomright: 5px;
+  border-bottom-right-radius: 5px;
+}
+.panel-iterator {
+  display: block;
+  zoom: 1;
+  margin: 0px;
+  padding: 0px;
+  border: 0px;
+  width: 100%;
+}
+.panel-iterator:after {
+  display: table;
+  content: '';
+  clear: both;
+}
+.build-ui-form-Form {
+  display: block;
+  zoom: 1;
+  margin: 0 auto;
+  padding: 0px;
+  border: 0px;
+}
+.build-ui-form-Form:after {
+  display: table;
+  content: '';
+  clear: both;
+}
+@media only screen and (max-width : (@size0 - 1)) {
+  .build-ui-form-Form {
+    width: 100%;
+  }
+}
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+  .build-ui-form-Form {
+    width: 753px;
+  }
+}
+@media only screen and (min-width: 992px) and (max-width: 1199px) {
+  .build-ui-form-Form {
+    width: 977px;
+  }
+}
+@media only screen and (min-width: 1200px) {
+  .build-ui-form-Form {
+    width: 1185px;
+  }
+}
+.build-ui-form-Form > .panel-iterator {
+  display: block;
+  zoom: 1;
+  margin: 0px;
+  padding: 0px;
+  border: 0px;
+  width: 100%;
+}
+.build-ui-form-Form > .panel-iterator:after {
+  display: table;
+  content: '';
+  clear: both;
+}
+.build-ui-Application {
+  display: block;
+  zoom: 1;
+  margin: 0 auto;
+  padding: 0px;
+  border: 0px;
+}
+.build-ui-Application:after {
+  display: table;
+  content: '';
+  clear: both;
+}
+@media only screen and (max-width : (@size0 - 1)) {
+  .build-ui-Application {
+    width: 100%;
+  }
+}
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+  .build-ui-Application {
+    width: 753px;
+  }
+}
+@media only screen and (min-width: 992px) and (max-width: 1199px) {
+  .build-ui-Application {
+    width: 977px;
+  }
+}
+@media only screen and (min-width: 1200px) {
+  .build-ui-Application {
+    width: 1185px;
+  }
+}
+.build-ui-Application > .panel-iterator {
+  display: block;
+  zoom: 1;
+  margin: 0px;
+  padding: 0px;
+  border: 0px;
+  width: 100%;
+}
+.build-ui-Application > .panel-iterator:after {
+  display: table;
+  content: '';
+  clear: both;
+}
 .application-menu-fixed-top {
   margin-top: 50px ! important;
 }
@@ -976,83 +1176,6 @@ fieldset {
   -moz-border-radius-bottomleft: 5px;
   border-bottom-left-radius: 5px;
 }
-.spinner-full-page {
-  position: fixed;
-  top: 0px;
-  right: 0px;
-  bottom: 0px;
-  left: 0px;
-  padding: 0;
-  margin: 0;
-  background: url('../img/spinner0.gif') center center no-repeat;
-}
-#build-preload-container {
-  position: absolute !important;
-  overflow: hidden;
-  top: -9999px !important;
-  left: -9999px !important;
-  visibility: hidden;
-  height: 0px;
-  width: 0px;
-}
-.panel-iterator {
-  display: block;
-  zoom: 1;
-  margin: 0px;
-  padding: 0px;
-  border: 0px;
-  width: 100%;
-}
-.panel-iterator:after {
-  display: table;
-  content: '';
-  clear: both;
-}
-.build-ui-form-Form {
-  display: block;
-  zoom: 1;
-  margin: 0 auto;
-  padding: 0px;
-  border: 0px;
-}
-.build-ui-form-Form:after {
-  display: table;
-  content: '';
-  clear: both;
-}
-@media only screen and (max-width : (@size0 - 1)) {
-  .build-ui-form-Form {
-    width: 100%;
-  }
-}
-@media only screen and (min-width: 768px) and (max-width: 991px) {
-  .build-ui-form-Form {
-    width: 753px;
-  }
-}
-@media only screen and (min-width: 992px) and (max-width: 1199px) {
-  .build-ui-form-Form {
-    width: 977px;
-  }
-}
-@media only screen and (min-width: 1200px) {
-  .build-ui-form-Form {
-    width: 1185px;
-  }
-}
-.build-ui-form-Form > .panel-iterator {
-  display: block;
-  zoom: 1;
-  margin: 0px;
-  padding: 0px;
-  border: 0px;
-  width: 100%;
-}
-.build-ui-form-Form > .panel-iterator:after {
-  display: table;
-  content: '';
-  clear: both;
-}
 .form-control {
   display: block;
   zoom: 1;
@@ -1102,146 +1225,4 @@ fieldset {
   .form-control > .form-control-iterator-control {
     width: 100%;
   }
-}
-.build-ui-form-FormControl {
-  display: block;
-  zoom: 1;
-}
-.build-ui-form-FormControl:after {
-  display: table;
-  content: '';
-  clear: both;
-}
-.build-ui-form-FormControl > .form-control-iterator-label {
-  zoom: 1;
-  display: block;
-  float: left;
-  margin: 0px;
-  width: 20%;
-  margin: 0px 0px 0px 20%;
-  padding: 10px 20px 10px 20px;
-}
-.build-ui-form-FormControl > .form-control-iterator-label:after {
-  display: table;
-  content: '';
-  clear: both;
-}
-@media only screen and (max-width: 767px) {
-  .build-ui-form-FormControl > .form-control-iterator-label {
-    width: 100%;
-  }
-}
-@media only screen and (max-width: 767px) {
-  .build-ui-form-FormControl > .form-control-iterator-label {
-    margin: 0px 0px 0px 0px;
-  }
-}
-.build-ui-form-FormControl > .form-control-iterator-control {
-  zoom: 1;
-  display: block;
-  float: left;
-  margin: 0px;
-  width: 40%;
-}
-.build-ui-form-FormControl > .form-control-iterator-control:after {
-  display: table;
-  content: '';
-  clear: both;
-}
-@media only screen and (max-width: 767px) {
-  .build-ui-form-FormControl > .form-control-iterator-control {
-    width: 100%;
-  }
-}
-.build-ui-form-ButtonGroup {
-  display: inline-block;
-  margin: 2px;
-  padding: 0px;
-  display: block;
-  zoom: 1;
-}
-.build-ui-form-ButtonGroup:after {
-  display: table;
-  content: '';
-  clear: both;
-}
-.build-ui-form-ButtonGroup > button,
-.build-ui-form-ButtonGroup > input,
-.build-ui-form-ButtonGroup > * {
-  display: block;
-  float: left;
-  margin: 0px;
-  border-right-width: 0px;
-  -moz-border-radius: 0px;
-  border-radius: 0px;
-}
-.build-ui-form-ButtonGroup > button:focus,
-.build-ui-form-ButtonGroup > input:focus,
-.build-ui-form-ButtonGroup > *:focus {
-  outline: none;
-  background-color: #aaaaaa;
-  border-color: #aaaaaa;
-  box-shadow: inherit;
-}
-.build-ui-form-ButtonGroup > button:first-child,
-.build-ui-form-ButtonGroup > input:first-child,
-.build-ui-form-ButtonGroup > *:first-child {
-  -moz-border-radius-topleft: 5px;
-  border-top-left-radius: 5px;
-  -moz-border-radius-bottomleft: 5px;
-  border-bottom-left-radius: 5px;
-}
-.build-ui-form-ButtonGroup > button:last-child,
-.build-ui-form-ButtonGroup > input:last-child,
-.build-ui-form-ButtonGroup > *:last-child {
-  border-right-width: 1px;
-  -moz-border-radius-topright: 5px;
-  border-top-right-radius: 5px;
-  -moz-border-radius-bottomright: 5px;
-  border-bottom-right-radius: 5px;
-}
-.build-ui-Application {
-  display: block;
-  zoom: 1;
-  margin: 0 auto;
-  padding: 0px;
-  border: 0px;
-}
-.build-ui-Application:after {
-  display: table;
-  content: '';
-  clear: both;
-}
-@media only screen and (max-width : (@size0 - 1)) {
-  .build-ui-Application {
-    width: 100%;
-  }
-}
-@media only screen and (min-width: 768px) and (max-width: 991px) {
-  .build-ui-Application {
-    width: 753px;
-  }
-}
-@media only screen and (min-width: 992px) and (max-width: 1199px) {
-  .build-ui-Application {
-    width: 977px;
-  }
-}
-@media only screen and (min-width: 1200px) {
-  .build-ui-Application {
-    width: 1185px;
-  }
-}
-.build-ui-Application > .panel-iterator {
-  display: block;
-  zoom: 1;
-  margin: 0px;
-  padding: 0px;
-  border: 0px;
-  width: 100%;
-}
-.build-ui-Application > .panel-iterator:after {
-  display: table;
-  content: '';
-  clear: both;
 }
