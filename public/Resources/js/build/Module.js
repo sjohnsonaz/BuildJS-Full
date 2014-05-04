@@ -1,8 +1,8 @@
 /**
- * @class build.ui.Module
- * Base class for UI components.
+ * @class build.Module
+ * Base class for self contained modules such as UI components.
  */
-Build('build.ui.Module', [], function(define, $super) {
+Build('build.Module', [], function(define, $super) {
 	var cancel = {
 		cancel : true
 	};
