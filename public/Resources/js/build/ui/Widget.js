@@ -17,11 +17,6 @@ Build('build.ui.Widget', [ 'build::build.Module', 'build::build.utility.Observab
 			this.type = 'div';
 			this.watchProperty('id');
 			this.watchProperty('className');
-			this.children = build.utility.ObservableArray();
-			this.children.subscribe(function() {
-				this.refreshChildren();
-			}.bind(this));
-			this.watchValue('directAppend', false);
 		},
 		$prototype : {
 			/**
@@ -60,10 +55,6 @@ Build('build.ui.Widget', [ 'build::build.Module', 'build::build.utility.Observab
 						this.publish('classList');
 					}
 				});
-				// this.refreshChildren();
-				this.subscribe('directAppend', function(value) {
-					this.refreshChildren();
-				}.bind(this));
 			},
 			/**
 			 * @method createElement
@@ -72,59 +63,6 @@ Build('build.ui.Widget', [ 'build::build.Module', 'build::build.utility.Observab
 				this.element = document.createElement(this.type);
 				// this.element.classList.add(this.uniqueClass());
 				this.element.controller = this;
-			},
-			/**
-			 * @method clearChildren
-			 */
-			clearChildren : function(element) {
-				element = element || this.element;
-				if (element) {
-					while (element.firstChild) {
-						element.removeChild(element.firstChild);
-					}
-				}
-			},
-			/**
-			 * @method refreshChildren
-			 */
-			refreshChildren : function() {
-				var element = this.element;
-				if (element) {
-					this.clearChildren(element);
-					if (this.children) {
-						this.children.forEach(this.childIterator.bind(this));
-					}
-				}
-			},
-			/**
-			 * @method childIterator
-			 */
-			childIterator : function(child, index, array) {
-				if (child) {
-					if (this.directAppend) {
-						this.element.appendChild(child.element || child);
-					} else {
-						var iterator = document.createElement('div');
-						iterator.appendChild(child.element || child);
-						iterator.className = 'panel-iterator';
-						this.element.appendChild(iterator);
-					}
-				}
-			},
-			/**
-			 * @method addChild
-			 */
-			addChild : function(child) {
-				this.children.push(child);
-			},
-			/**
-			 * @method removeChild
-			 */
-			removeChild : function(child) {
-				var index = this.children.indexOf(child);
-				if (index != -1) {
-					this.children.splice(index, 1);
-				}
 			},
 			/**
 			 * @method uniqueId
