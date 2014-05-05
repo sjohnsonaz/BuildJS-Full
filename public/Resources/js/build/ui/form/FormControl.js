@@ -2,9 +2,9 @@
  * @class build.ui.form.FormControl
  * @extends build.ui.form.FormElement
  */
-Build('build.ui.form.FormControl', [ 'build::build.ui.form.FormElement' ], function(define, $super) {
+Build('build.ui.form.FormControl', [ 'build::build.ui.Container' ], function(define, $super) {
 	define({
-		$extends : 'build.ui.form.FormElement',
+		$extends : 'build.ui.Container',
 		/**
 		 * @constructor
 		 */
