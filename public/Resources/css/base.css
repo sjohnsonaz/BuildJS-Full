@@ -229,6 +229,86 @@ table > tr:hover {
 .build-ui-element-Table > tr:hover {
   background-color: #dddddd;
 }
+.pager .panel-iterator {
+  float: left;
+  width: auto;
+}
+.pager .panel-iterator:after {
+  clear: none;
+}
+.pager .panel-iterator a {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  display: inline-block;
+  margin: 2px;
+  padding: 10px;
+  border: 1px solid #aaaaaa;
+  color: #000000;
+  background-color: #dddddd;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  display: block;
+  padding: 5px;
+  min-width: 32px;
+  text-align: center;
+}
+.pager .panel-iterator a:hover {
+  color: #333333;
+  background-color: #ffffff;
+}
+.pager .panel-iterator a:active {
+  color: #000000;
+  background-color: #aaaaaa;
+}
+.pager .panel-iterator a:focus {
+  outline: none;
+  border-color: #777777;
+  box-shadow: 0px 0px 6px 0px #000033;
+}
+.build-widget-grid-Pager .panel-iterator {
+  float: left;
+  width: auto;
+}
+.build-widget-grid-Pager .panel-iterator:after {
+  clear: none;
+}
+.build-widget-grid-Pager .panel-iterator a {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  display: inline-block;
+  margin: 2px;
+  padding: 10px;
+  border: 1px solid #aaaaaa;
+  color: #000000;
+  background-color: #dddddd;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  display: block;
+  padding: 5px;
+  min-width: 32px;
+  text-align: center;
+}
+.build-widget-grid-Pager .panel-iterator a:hover {
+  color: #333333;
+  background-color: #ffffff;
+}
+.build-widget-grid-Pager .panel-iterator a:active {
+  color: #000000;
+  background-color: #aaaaaa;
+}
+.build-widget-grid-Pager .panel-iterator a:focus {
+  outline: none;
+  border-color: #777777;
+  box-shadow: 0px 0px 6px 0px #000033;
+}
 /* LESS Style */
 .button,
 button,
