@@ -2,7 +2,7 @@
  * @class build.widget.user.UserListForm
  * @extends build.ui.form.Form 
  */
-Build('build.widget.user.UserListForm', [ 'build::build.ui.form.Form', 'build::build.ui.element.Table', 'build::build.ui.form.Button', 'build::build.ui.form.ButtonGroup' ], function(define, $super) {
+Build('build.widget.user.UserListForm', [ 'build::build.ui.form.Form', 'build::build.widget.grid.Grid', 'build::build.ui.form.Button', 'build::build.ui.form.ButtonGroup' ], function(define, $super) {
 	define({
 		$extends : 'build.ui.form.Form',
 		/**
@@ -19,7 +19,7 @@ Build('build.widget.user.UserListForm', [ 'build::build.ui.form.Form', 'build::b
 			this.createButton = build.ui.form.Button.create('New User');
 			this.createButton.addClass('pull-right');
 			this.addChild(this.createButton);
-			this.userTable = build.ui.element.Table.create();
+			this.userTable = build.widget.grid.Grid.create();
 			this.userTable.headers.push('Username', 'First Name', 'Last Name', '');
 			this.addChild(this.userTable);
 			this.userServiceConnection = userServiceConnection;

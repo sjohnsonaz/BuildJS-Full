@@ -15,12 +15,16 @@ Build('build.ui.Container', [ 'build::build.ui.Widget' ], function(define, $supe
 				this.refreshChildren();
 			}.bind(this));
 			this.watchValue('directAppend', false);
+			this.watchValue('iteratorType', 'div');
 		},
 		$prototype : {
 			init : function() {
 				$super().init(this)();
 				// this.refreshChildren();
 				this.subscribe('directAppend', function(value) {
+					this.refreshChildren();
+				}.bind(this));
+				this.subscribe('iteratorType', function(value) {
 					this.refreshChildren();
 				}.bind(this));
 			},
@@ -55,7 +59,7 @@ Build('build.ui.Container', [ 'build::build.ui.Widget' ], function(define, $supe
 					if (this.directAppend) {
 						this.element.appendChild(child.element || child);
 					} else {
-						var iterator = document.createElement('div');
+						var iterator = document.createElement(this.iteratorType || 'div');
 						iterator.appendChild(child.element || child);
 						iterator.className = 'panel-iterator';
 						this.element.appendChild(iterator);
