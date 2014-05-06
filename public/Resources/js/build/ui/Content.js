@@ -33,7 +33,8 @@ Build('build.ui.Content', [ 'build::build.ui.Widget' ], function(define, $super)
 					} else {
 						templateParser = null;
 					}
-				});
+					this.text = this.text;
+				}.bind(this));
 				this.text = text || '';
 			}
 		}
