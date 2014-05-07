@@ -1,17 +1,26 @@
+/**
+ * @class build.widget.grid.Pager
+ * @extends build.ui.Widget
+ */
+// TODO: Use regular a tag instead of Link object.
 Build('build.widget.grid.Pager', [ 'build.ui.Container', 'build.ui.element.Link' ], function(define, $super) {
 	define({
-		$extends : 'build.ui.Container',
-		$constructor : function() {
+		$extends : 'build.ui.Widget',
+		$constructor : function Pager() {
 			$super(this)();
 			this.type = 'ul';
 			this.iteratorType = 'li';
+			this.watchValue('items', 0);
+			this.watchValue('itemsVisible', 10);
+			this.watchValue('currentItem', 0);
+
 			this.startLink = build.ui.element.Link.create('{{i:fast-backward}}');
 			this.startLink.textHelpers = true;
 			this.backLink = build.ui.element.Link.create('{{i:step-backward}}');
 			this.backLink.textHelpers = true;
-			this.forwardLink = build.ui.element.Link.create('{{i:fast-forward}}');
+			this.forwardLink = build.ui.element.Link.create('{{i:step-forward}}');
 			this.forwardLink.textHelpers = true;
-			this.endLink = build.ui.element.Link.create('{{i:step-forward}}');
+			this.endLink = build.ui.element.Link.create('{{i:fast-forward}}');
 			this.endLink.textHelpers = true;
 
 			this.startElement = document.createElement('li');
@@ -33,12 +42,27 @@ Build('build.widget.grid.Pager', [ 'build.ui.Container', 'build.ui.element.Link'
 		$prototype : {
 			init : function() {
 				$super().init(this)();
-				document.createElement('li');
+				var refreshChildren = this.refreshChildren.bind(this);
+				this.subscribe('items', refreshChildren);
+				this.subscribe('itemsVisible', refreshChildren);
+				this.subscribe('currentItem', refreshChildren);
 			},
 			refreshChildren : function() {
-				$super().refreshChildren(this)();
-				this.element.insertBefore(this.backElement, this.element.firstChild);
-				this.element.insertBefore(this.startElement, this.backElement);
+				var element = this.element;
+				while (element.firstChild) {
+					element.removeChild(element.firstChild);
+				}
+				this.element.appendChild(this.startElement);
+				this.element.appendChild(this.backElement);
+				var first = Math.max(0, this.currentItem - Math.floor(this.itemsVisible / 2));
+				var last = Math.min(first + this.itemsVisible, first + this.items);
+				for (var index = first; index < last; index++) {
+					var iterator = document.createElement('li');
+					iterator.className = 'panel-iterator';
+					var link = build.ui.element.Link.create(index + 1);
+					iterator.appendChild(link.element);
+					this.element.appendChild(iterator);
+				}
 				this.element.appendChild(this.forwardElement);
 				this.element.appendChild(this.endElement);
 			}
