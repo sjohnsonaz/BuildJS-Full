@@ -10,7 +10,7 @@ Build('build.widget.grid.Pager', [ 'build.ui.Container', 'build.ui.element.Link'
 			$super(this)();
 			this.type = 'ul';
 			this.iteratorType = 'li';
-			this.watchValue('items', 0);
+			this.watchValue('items', 1);
 			this.watchValue('itemsVisible', 10);
 			this.watchValue('currentItem', 0);
 

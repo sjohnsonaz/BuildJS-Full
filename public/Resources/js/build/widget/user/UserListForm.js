@@ -20,7 +20,7 @@ Build('build.widget.user.UserListForm', [ 'build::build.ui.form.Form', 'build::b
 			this.createButton.addClass('pull-right');
 			this.addChild(this.createButton);
 			this.userTable = build.widget.grid.Grid.create();
-			this.userTable.headers.push('Username', 'First Name', 'Last Name', '');
+			this.userTable.addHeader('Username', 'First Name', 'Last Name', '');
 			this.addChild(this.userTable);
 			this.userServiceConnection = userServiceConnection;
 		},
@@ -40,7 +40,7 @@ Build('build.widget.user.UserListForm', [ 'build::build.ui.form.Form', 'build::b
 			 * 
 			 */
 			wrap : function(model) {
-				this.userTable.children.removeAll();
+				this.userTable.removeAll();
 				for (var index = 0, length = model.length; index < length; index++) {
 					var user = model[index];
 					var viewUserButton = build.ui.form.Button.create('View');
@@ -74,7 +74,7 @@ Build('build.widget.user.UserListForm', [ 'build::build.ui.form.Form', 'build::b
 					buttonGroup.addChild(editUserButton);
 					buttonGroup.addChild(deleteUserButton);
 					buttonGroup.addChild(permissionButton);
-					this.userTable.children.push([ user.username, user.firstName, user.lastName, buttonGroup ]);
+					this.userTable.addRow([ user.username, user.firstName, user.lastName, buttonGroup ]);
 				}
 			},
 			/**
@@ -86,7 +86,7 @@ Build('build.widget.user.UserListForm', [ 'build::build.ui.form.Form', 'build::b
 			 * 
 			 */
 			clear : function() {
-				this.userTable.rows.removeAll();
+				this.userTable.removeAll();
 			},
 			/**
 			 * 
