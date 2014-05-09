@@ -7,6 +7,9 @@ Build('build.ui.Widget', [ 'build::build.Module', 'build::build.utility.Observab
 	function preventDefault(event) {
 		event.preventDefault();
 	}
+	var cancel = {
+		cancel : true
+	};
 	define({
 		$extends : 'build.Module',
 		/** 
@@ -145,14 +148,18 @@ Build('build.ui.Widget', [ 'build::build.Module', 'build::build.utility.Observab
 			watchProperty : function(property, name, get, set) {
 				name = name || property;
 				Object.defineProperty(this, property, {
-					get : get ? function() {
-						return get(this.element[name]);
+					configurable : true,
+					get : typeof get === 'function' ? function() {
+						return get(this.element[name], this);
 					} : function() {
 						return this.element[name];
 					},
-					set : set ? function(value) {
-						this.element[name] = set(value) || '';
-						this.publish(property);
+					set : typeof set === 'function' ? function(value) {
+						value = set(value, cancel);
+						if (value !== cancel) {
+							this.element[name] = value || '';
+							this.publish(property);
+						}
 					} : function(value) {
 						this.element[name] = value || '';
 						this.publish(property);
@@ -165,14 +172,18 @@ Build('build.ui.Widget', [ 'build::build.Module', 'build::build.utility.Observab
 			watchAttribute : function(property, attribute, get, set) {
 				attribute = attribute || property;
 				Object.defineProperty(this, property, {
-					get : get ? function() {
-						return get(this.element.getAttribute(attribute));
+					configurable : true,
+					get : typeof get === 'function' ? function() {
+						return get(this.element.getAttribute(attribute), this);
 					} : function() {
 						return this.element.getAttribute(attribute);
 					},
-					set : set ? function(value) {
-						this.element.setAttribute(attribute, set(value) || '');
-						this.publish(property);
+					set : typeof set === 'function' ? function(value) {
+						value = set(value, cancel);
+						if (value !== cancel) {
+							this.element.setAttribute(attribute, value || '');
+							this.publish(property);
+						}
 					} : function(value) {
 						this.element.setAttribute(attribute, value || '');
 						this.publish(property);
@@ -186,20 +197,37 @@ Build('build.ui.Widget', [ 'build::build.Module', 'build::build.utility.Observab
 				style = style || property;
 				if (unit) {
 					Object.defineProperty(this, property, {
-						get : function() {
+						configurable : true,
+						get : typeof get === 'function' ? function() {
+							return get(parseFloat(this.element.style[style] || 0), this);
+						} : function() {
 							return parseFloat(this.element.style[style] || 0);
 						},
-						set : function(value) {
+						set : typeof set === 'function' ? function(value) {
+							value = set(value, cancel);
+							if (value !== cancel) {
+								this.element.style[style] = (value || 0) + unit;
+								this.publish(property);
+							}
+						} : function(value) {
 							this.element.style[style] = (value || 0) + unit;
 							this.publish(property);
 						}
 					});
 				} else {
 					Object.defineProperty(this, property, {
-						get : function() {
+						get : typeof get === 'function' ? function() {
+							return get(this.element.style[style], this);
+						} : function() {
 							return this.element.style[style];
 						},
-						set : function(value) {
+						set : typeof set === 'function' ? function(value) {
+							value = set(value, cancel);
+							if (value !== cancel) {
+								this.element.style[style] = value;
+								this.publish(property);
+							}
+						} : function(value) {
 							this.element.style[style] = value;
 							this.publish(property);
 						}
@@ -213,10 +241,20 @@ Build('build.ui.Widget', [ 'build::build.Module', 'build::build.utility.Observab
 			watchData : function(property, data) {
 				data = data || property;
 				Object.defineProperty(this, property, {
-					get : function() {
+					configurable : true,
+					get : typeof get === 'function' ? function() {
+						return get(this.element.dataset ? this.element.dataset[data] : this.element.getAttribute('data-' + data), this);
+					} : function() {
 						return this.element.dataset ? this.element.dataset[data] : this.element.getAttribute('data-' + data);
 					},
-					set : function(value) {
+					set : typeof set === 'function' ? function(value) {
+						value = set(value, cancel);
+						if (value !== cancel) {
+							value = value || '';
+							this.element.dataset ? this.element.dataset[data] = value : this.element.setAttribute('data-' + data, value);
+							this.publish(property);
+						}
+					} : function(value) {
 						value = value || '';
 						this.element.dataset ? this.element.dataset[data] = value : this.element.setAttribute('data-' + data, value);
 						this.publish(property);
@@ -229,10 +267,23 @@ Build('build.ui.Widget', [ 'build::build.Module', 'build::build.utility.Observab
 			watchClass : function(property, className) {
 				className = className || property;
 				Object.defineProperty(this, property, {
-					get : function() {
+					configurable : true,
+					get : typeof get === 'function' ? function() {
+						return get(this.element.classList.contains(className), this);
+					} : function() {
 						return this.element.classList.contains(className);
 					},
-					set : function(value) {
+					set : typeof set === 'function' ? function(value) {
+						value = set(value, cancel);
+						if (value !== cancel) {
+							if (value) {
+								this.element.classList.add(className);
+							} else {
+								this.element.classList.remove(className);
+							}
+							this.publish(property);
+						}
+					} : function(value) {
 						if (value) {
 							this.element.classList.add(className);
 						} else {
