@@ -12,7 +12,7 @@ Build('build.widget.modal.Modal', [ 'build::build.ui.Container' ], function(defi
 		 * @property mask
 		 * @property body
 		 */
-		$constructor : function() {
+		$constructor : function Modal() {
 			$super(this)();
 			this.mask = document.createElement('div');
 			this.mask.className = 'modal-mask';

@@ -1,7 +1,7 @@
 Build('build.widget.grid.Grid', [ 'build::build.ui.element.Table', 'build::build.widget.grid.Pager' ], function(define, $super) {
 	define({
 		$extends : 'build.ui.Widget',
-		$constructor : function() {
+		$constructor : function Grid() {
 			$super(this)();
 			this.table = build.ui.element.Table.create();
 			this.pager = build.widget.grid.Pager.create();

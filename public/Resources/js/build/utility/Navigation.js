@@ -15,7 +15,7 @@ Build('build.utility.Navigation', [ 'build::build.Module' ], function(define, $s
 		 * @property locks
 		 * @property lock
 		 */
-		$constructor : function() {
+		$constructor : function Navigation() {
 			var lockCallback = function(event) {
 				return this.message;
 			}.bind(this);

@@ -5,7 +5,7 @@ Build.paths.demo = '/DemoResources/js/';
 Build('demo.application.DomApplication', [ 'build::build.ui.Application', 'build::build.ui.element.Div', 'build::build.ui.form.Button' ], function(define, $super) {
 	define({
 		$extends : 'build.ui.Application',
-		$constructor : function() {
+		$constructor : function DomApplication() {
 			$super(this)();
 			div = build.ui.element.Div.create('div');
 			childDiv = build.ui.element.Div.create('childDiv');
