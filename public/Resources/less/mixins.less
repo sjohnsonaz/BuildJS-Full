@@ -92,39 +92,43 @@
 	-moz-box-sizing: @value;
 }
 
-.linear-gradient (@direction , @color0 , @color1 , @rest ...) {
+.linear-gradient (@direction , @color0 , @color1) {
+	@props: ~`"@{arguments}".replace(/[\[\]]/g, '')`;
 	background-color: average(@color0, @color1);
-	background-image: -webkit-linear-gradient(@direction, @color0, @color1, @rest);
-	background-image: -moz-linear-gradient(@direction, @color0, @color1, @rest);
-	background-image: -ms-linear-gradient(@direction, @color0, @color1, @rest);
-	background-image: -o-linear-gradient(@direction, @color0, @color1, @rest);
-	background-image: linear-gradient(@direction, @color0, @color1, @rest);
+	background-image: -webkit-linear-gradient(@props);
+	background-image: -moz-linear-gradient(@props);
+	background-image: -ms-linear-gradient(@props);
+	background-image: -o-linear-gradient(@props);
+	background-image: linear-gradient(@props);
 }
 
-.repeating-linear-gradient (@direction , @color0 , @color1 , @rest ...) {
+.repeating-linear-gradient (@direction , @color0 , @color1) {
+	@props: ~`"@{arguments}".replace(/[\[\]]/g, '')`;
 	background-color: average(@color0, @color1);
-	background-image: -webkit-repeating-linear-gradient(@direction, @color0, @color1, @rest);
-	background-image: -moz-repeating-linear-gradient(@direction, @color0, @color1, @rest);
-	background-image: -ms-repeating-linear-gradient(@direction, @color0, @color1, @rest);
-	background-image: -o-repeating-linear-gradient(@direction, @color0, @color1, @rest);
-	background-image: repeating-linear-gradient(@direction, @color0, @color1, @rest);
+	background-image: -webkit-repeating-linear-gradient(@props);
+	background-image: -moz-repeating-linear-gradient(@props);
+	background-image: -ms-repeating-linear-gradient(@props);
+	background-image: -o-repeating-linear-gradient(@props);
+	background-image: repeating-linear-gradient(@props);
 }
 
-.radial-radient (@direction , @color0 , @color1 , @rest ...) {
+.radial-radient (@direction , @color0 , @color1) {
+	@props: ~`"@{arguments}".replace(/[\[\]]/g, '')`;
 	background-color: average(@color0, @color1);
-	background-image: -webkit-radial-gradient(@direction, @color0, @color1, @rest);
-	background-image: -moz-radial-gradient(@direction, @color0, @color1, @rest);
-	background-image: -ms-radial-gradient(@direction, @color0, @color1, @rest);
-	background-image: -o-radial-gradient(@direction, @color0, @color1, @rest);
-	background-image: radial-gradient(@direction, @color0, @color1, @rest);
+	background-image: -webkit-radial-gradient(@props);
+	background-image: -moz-radial-gradient(@props);
+	background-image: -ms-radial-gradient(@props);
+	background-image: -o-radial-gradient(@props);
+	background-image: radial-gradient(@props);
 }
 
-.repeating-adial-radient (@direction , @color0 , @color1 , @rest ...) {
+.repeating-adial-radient (@direction , @color0 , @color1) {
+	@props: ~`"@{arguments}".replace(/[\[\]]/g, '')`;
 	background-color: average(@color0, @color1);
-	background-image: -webkit-repeating-radial-gradient(@direction, @color0, @color1, @rest);
-	background-image: -moz-repeating-radial-gradient(@direction, @color0, @color1, @rest);
-	background-image: -ms-repeating-radial-gradient(@direction, @color0, @color1, @rest);
-	background-image: -o-repeating-radial-gradient(@direction, @color0, @color1, @rest);
-	background-image: repeating-radial-gradient(@direction, @color0, @color1, @rest);
+	background-image: -webkit-repeating-radial-gradient(@props);
+	background-image: -moz-repeating-radial-gradient(@props);
+	background-image: -ms-repeating-radial-gradient(@props);
+	background-image: -o-repeating-radial-gradient(@props);
+	background-image: repeating-radial-gradient(@props);
 }
 

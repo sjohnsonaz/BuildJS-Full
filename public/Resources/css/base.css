@@ -811,7 +811,12 @@ fieldset {
   top: 0px;
   right: 0px;
   left: 0px;
-  background-color: #000055;
+  background-color: #000088;
+  background-image: -webkit-linear-gradient(top, #000055, #0000bb);
+  background-image: -moz-linear-gradient(top, #000055, #0000bb);
+  background-image: -ms-linear-gradient(top, #000055, #0000bb);
+  background-image: -o-linear-gradient(top, #000055, #0000bb);
+  background-image: linear-gradient(top, #000055, #0000bb);
   box-shadow: 0 0px 5px 2px #000;
 }
 .menu-widget.menu-fixed-top .expand-button {
@@ -955,7 +960,12 @@ fieldset {
   top: 0px;
   right: 0px;
   left: 0px;
-  background-color: #000055;
+  background-color: #000088;
+  background-image: -webkit-linear-gradient(top, #000055, #0000bb);
+  background-image: -moz-linear-gradient(top, #000055, #0000bb);
+  background-image: -ms-linear-gradient(top, #000055, #0000bb);
+  background-image: -o-linear-gradient(top, #000055, #0000bb);
+  background-image: linear-gradient(top, #000055, #0000bb);
   box-shadow: 0 0px 5px 2px #000;
 }
 .build-widget-menu-MenuWidget.menu-fixed-top .expand-button {
@@ -1099,7 +1109,12 @@ fieldset {
   top: 0px;
   right: 0px;
   left: 0px;
-  background-color: #000055;
+  background-color: #000088;
+  background-image: -webkit-linear-gradient(top, #000055, #0000bb);
+  background-image: -moz-linear-gradient(top, #000055, #0000bb);
+  background-image: -ms-linear-gradient(top, #000055, #0000bb);
+  background-image: -o-linear-gradient(top, #000055, #0000bb);
+  background-image: linear-gradient(top, #000055, #0000bb);
   box-shadow: 0 0px 5px 2px #000;
 }
 .build-widget-menu-ExpandableMenuWidget.menu-fixed-top .expand-button {
