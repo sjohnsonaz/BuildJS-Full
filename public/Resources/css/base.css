@@ -20,10 +20,10 @@ iframe {
   display: none;
 }
 .hidden-soft {
-  position: absolute !important;
+  position: absolute ! important;
   overflow: hidden;
-  top: -9999px !important;
-  left: -9999px !important;
+  top: -9999px ! important;
+  left: -9999px ! important;
   visibility: hidden;
   height: 0px;
   width: 0px;
@@ -39,7 +39,7 @@ iframe {
   border: 0;
 }
 .show-block {
-  display: block !important;
+  display: block ! important;
 }
 .clearfix {
   display: block;
@@ -233,7 +233,7 @@ table > tr:hover {
   display: block;
   zoom: 1;
   padding: 0;
-  margin: 0;
+  margin: 2px 0;
 }
 .pager:after {
   display: table;
@@ -284,7 +284,7 @@ table > tr:hover {
   display: block;
   zoom: 1;
   padding: 0;
-  margin: 0;
+  margin: 2px 0;
 }
 .build-widget-grid-Pager:after {
   display: table;
