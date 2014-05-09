@@ -70,15 +70,21 @@ Build('build.Module', [], function(define, $super) {
 			watchValue : function(name, value, get, set) {
 				var hidden = value;
 				Object.defineProperty(this, name, {
-					get : function() {
-						return typeof get == 'function' ? get(hidden, this) : hidden;
+					configurable : true,
+					get : typeof get === 'function' ? function() {
+						return get(hidden, this);
+					} : function() {
+						return hidden;
 					},
-					set : function(value) {
-						value = typeof set == 'function' ? set(value, cancel) : value;
+					set : typeof set == 'function' ? function(value) {
+						value = set(value, cancel);
 						if (value !== cancel) {
 							hidden = value;
 							this.publish(name);
 						}
+					} : function(value) {
+						hidden = value;
+						this.publish(name);
 					}
 				});
 			},
