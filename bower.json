@@ -1,0 +1,15 @@
+{
+  "name": "BuildJS",
+  "version": "0.0.0",
+  "description": "Class definition and loading for JavaScript.  Also includes UI and MVC Frameworks.",
+  "main": "public/Resources/js/build/Build.js",
+  "ignore": [
+    ".jshintrc",
+    "**/*.txt"
+  ],
+  "dependencies": {
+	"fontawesome": "4.x.x"
+  },
+  "devDependencies": {
+  }
+}

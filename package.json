@@ -28,6 +28,7 @@
     "ejs-locals": "~1.0.2",
     "node-uuid": "~1.4.0",
     "gm": "~1.11.0",
-    "less": "1.x.x"
+    "less": "1.x.x",
+    "bower": "1.x.x"
   }
 }

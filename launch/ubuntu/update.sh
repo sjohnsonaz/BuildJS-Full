@@ -7,5 +7,6 @@ cd /etc/nodejs/BuildJS
 git reset --hard
 git pull origin master
 npm install
+bower install
 
 bash /etc/nodejs/BuildJS/launch/ubuntu/start.sh
