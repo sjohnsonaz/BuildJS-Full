@@ -21,6 +21,7 @@ Build('build.widget.user.UserWidget', [ 'build::build.ui.SwitcherPanel', 'build:
 		 */
 		$constructor : function UserWidget(userServiceConnection) {
 			$super(this)();
+			this.lockable = true;
 			this.user = null;
 			this.userServiceConnection = userServiceConnection || new build.service.UserServiceConnection();
 			this.userListForm = build.widget.user.UserListForm.create(this.userServiceConnection);

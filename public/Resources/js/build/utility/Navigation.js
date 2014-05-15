@@ -1,6 +1,6 @@
 /**
  * @class build.utility.Navigation
- * @extemds build.Module
+ * @extends build.Module
  * 
  * Monitor navigation locks 
  */
