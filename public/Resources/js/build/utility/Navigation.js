@@ -17,7 +17,7 @@ Build('build.utility.Navigation', [ 'build::build.Module' ], function(define, $s
 		 */
 		$constructor : function Navigation() {
 			var lockCallback = function(event) {
-				return this.message;
+				event.returnValue = this.message;
 			}.bind(this);
 			this.message = 'Are you sure you want to navigate away from this page?';
 			this.locks = [];
