@@ -60,6 +60,13 @@ Build('build.utility.Navigation', [ 'build::build.Module' ], function(define, $s
 					return !!this.locks.length;
 				}
 			});
+			this.run = function() {
+				var result = window.confirm(this.message);
+				if (result) {
+					this.clear();
+				}
+				return result;
+			};
 		},
 		$singleton : true
 	});

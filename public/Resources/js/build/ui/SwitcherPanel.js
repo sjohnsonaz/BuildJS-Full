@@ -19,7 +19,7 @@ Build('build.ui.SwitcherPanel', [ 'build::build.ui.Container', 'build::build.uti
 			var Navigation = build.utility.Navigation();
 			// TODO: This can also be an array
 			this.watchValue('active', 0, null, function(value, cancel) {
-				return (this.lockable && Navigation.locked) ? (window.confirm(Navigation.message) ? value : cancel) : value;
+				return (this.lockable && Navigation.locked) ? (Navigation.run() ? value : cancel) : value;
 			}.bind(this));
 			this.directAppend = true;
 			this.watchValue('hideMode', 'VISIBILITY');
