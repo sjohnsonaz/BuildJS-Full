@@ -8,7 +8,8 @@
     "**/*.txt"
   ],
   "dependencies": {
-	"fontawesome": "4.x.x"
+	"fontawesome": "4.x.x",
+	"normalize-css": "3.x.x"
   },
   "devDependencies": {
   }
