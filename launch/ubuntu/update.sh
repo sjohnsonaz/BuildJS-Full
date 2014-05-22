@@ -8,6 +8,6 @@ git reset --hard
 git pull origin master
 npm install --production
 bower install --production --allow-root
-lessc ../public/Resources/less/base.less ../public/Resources/css/base.css
+lessc /etc/nodejs/BuildJS/public/Resources/less/base.less /etc/nodejs/BuildJS/public/Resources/css/base.css
 
 bash /etc/nodejs/BuildJS/launch/ubuntu/start.sh
