@@ -3,8 +3,8 @@ Build.paths.build = '/Resources/js/';
 Build.paths.demo = '/DemoResources/js/';
 
 Build('demo.application.DemoApplication', [ 'build::build.ui.application.AdminApplication', 'build::build.widget.menu.ExpandableMenuWidget', 'build::build.widget.menu.MenuElement', 'build::build.widget.menu.MenuTitle', 'build::build.ui.element.Div',
-		'build::build.ui.tab.TabContainer', 'build::build.ui.tab.TabPanel', 'build::build.widget.authentication.AuthenticationWidget', 'demo::demo.ui.form.WidgetForm', 'demo::demo.ui.form.TestForm', 'demo::demo.ui.form.RemotePanel',
-		'demo::demo.ui.form.YouTubePanel', 'build::build.service.AuthenticationServiceConnection', 'demo::demo.service.TestServiceConnection' ], function(define, $super) {
+		'build::build.ui.tab.TabContainer', 'build::build.ui.tab.TabPanel', 'build::build.widget.authentication.AuthenticationWidget', 'demo::demo.ui.form.WidgetForm', 'demo::demo.ui.form.RemotePanel', 'demo::demo.ui.form.YouTubePanel',
+		'build::build.service.AuthenticationServiceConnection', 'demo::demo.service.TestServiceConnection' ], function(define, $super) {
 	define({
 		$extends : 'build.ui.application.AdminApplication',
 		$constructor : function Application() {
@@ -25,13 +25,11 @@ Build('demo.application.DemoApplication', [ 'build::build.ui.application.AdminAp
 			// Add tab container
 			var tabContainer = build.ui.tab.TabContainer.create();
 			var tabPanel0 = build.ui.tab.TabPanel.create('Widget Form');
-			var tabPanel1 = build.ui.tab.TabPanel.create('Template Form');
-			var tabPanel2 = build.ui.tab.TabPanel.create('Remote Panel');
-			var tabPanel3 = build.ui.tab.TabPanel.create('YouTube Panel');
+			var tabPanel1 = build.ui.tab.TabPanel.create('Remote Panel');
+			var tabPanel2 = build.ui.tab.TabPanel.create('YouTube Panel');
 			tabContainer.addChild(tabPanel0);
 			tabContainer.addChild(tabPanel1);
 			tabContainer.addChild(tabPanel2);
-			tabContainer.addChild(tabPanel3);
 			this.homePanel.addChild(tabContainer);
 
 			// Add form and button
@@ -42,15 +40,11 @@ Build('demo.application.DemoApplication', [ 'build::build.ui.application.AdminAp
 				widgetForm.model = data;
 			});
 
-			// Add testForm
-			var testForm = demo.ui.form.TestForm.create();
-			tabPanel1.addChild(testForm);
-
 			var remotePanel = demo.ui.form.RemotePanel.create();
-			tabPanel2.addChild(remotePanel);
+			tabPanel1.addChild(remotePanel);
 
 			var youTubePanel = demo.ui.form.YouTubePanel.create();
-			tabPanel3.addChild(youTubePanel);
+			tabPanel2.addChild(youTubePanel);
 		},
 		$prototype : {
 			init : function() {
