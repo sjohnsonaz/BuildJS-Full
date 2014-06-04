@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="Install BuildJS" default="install" basedir="../../">
+<project name="Install BuildJS" default="run" basedir="../../">
 	<condition property="is_windows">
 		<os family="windows" />
 	</condition>
 	<target name="install" depends="npm, bower, less">
+		<property name="" value="" />
+	</target>
+	<target name="install-production" depends="npm, bower, less, min">
 		<property name="" value="" />
 	</target>
 	<target name="clean">
@@ -27,6 +30,17 @@
 			<arg value="install" />
 		</exec>
 	</target>
+	<target name="npm-production" depends="">
+		<echo>Running npm...</echo>
+		<exec executable="npm" osfamily="unix">
+			<arg value="install" />
+			<arg value="--production" />
+		</exec>
+		<exec executable="C:\Program Files\nodejs\npm.cmd" osfamily="windows">
+			<arg value="install" />
+			<arg value="--production" />
+		</exec>
+	</target>
 	<target name="bower" depends="">
 		<echo>Running bower...</echo>
 		<exec executable="bower" osfamily="unix">
@@ -34,6 +48,17 @@
 		</exec>
 		<exec executable="${basedir}/launch/eclipse/bower.cmd" osfamily="windows">
 			<arg value="install" />
+		</exec>
+	</target>
+	<target name="bower-production" depends="">
+		<echo>Running bower...</echo>
+		<exec executable="bower" osfamily="unix">
+			<arg value="install" />
+			<arg value="--production" />
+		</exec>
+		<exec executable="${basedir}/launch/eclipse/bower.cmd" osfamily="windows">
+			<arg value="install" />
+			<arg value="--production" />
 		</exec>
 	</target>
 	<target name="less" depends="">
@@ -45,6 +70,12 @@
 		<exec executable="${basedir}/launch/eclipse/lessc.cmd" osfamily="windows">
 			<arg value="${basedir}\public\Resources\less\base.less" />
 			<arg value="${basedir}\public\Resources\css\base.css" />
+		</exec>
+	</target>
+	<target name="min" depends="">
+		<echo>Running minification...</echo>
+		<exec executable="node">
+			<arg value="minify.js" />
 		</exec>
 	</target>
 </project>
