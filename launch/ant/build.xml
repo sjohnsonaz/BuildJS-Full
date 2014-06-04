@@ -11,8 +11,8 @@
 	</target>
 	<target name="clean">
 		<delete dir="${basedir}/node_modules" />
-		<delete dir="${basedir}/public/vendor" />
-		<delete dir="${basedir}/public/css" />
+		<delete dir="${basedir}/public/Resources/vendor" />
+		<delete dir="${basedir}/public/Resources/css" />
 		<delete dir="${basedir}/public/doc" />
 		<delete dir="${basedir}/public/min" />
 	</target>
@@ -63,17 +63,21 @@
 	</target>
 	<target name="less" depends="">
 		<echo>Running less...</echo>
+		<mkdir dir="${basedir}/public/Resources/css" />
 		<exec executable="lessc" osfamily="unix">
-			<arg value="${basedir}\public\Resources\less\base.less" />
-			<arg value="${basedir}\public\Resources\css\base.css" />
+			<arg value="${basedir}/public/Resources/less/base.less" />
+			<arg value="${basedir}/public/Resources/css/base.css" />
 		</exec>
 		<exec executable="${basedir}/launch/eclipse/lessc.cmd" osfamily="windows">
-			<arg value="${basedir}\public\Resources\less\base.less" />
-			<arg value="${basedir}\public\Resources\css\base.css" />
+			<arg value="${basedir}/public/Resources/less/base.less" />
+			<arg value="${basedir}/public/Resources/css/base.css" />
 		</exec>
 	</target>
 	<target name="min" depends="">
 		<echo>Running minification...</echo>
+		<mkdir dir="${basedir}/public/min" />
+		<mkdir dir="${basedir}/public/min/css" />
+		<mkdir dir="${basedir}/public/min/js" />
 		<exec executable="node">
 			<arg value="minify.js" />
 		</exec>
