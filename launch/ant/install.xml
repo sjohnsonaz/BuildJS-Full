@@ -6,6 +6,13 @@
 	<target name="install" depends="npm, bower, less">
 		<property name="" value="" />
 	</target>
+	<target name="clean">
+		<delete dir="${basedir}/node_modules" />
+		<delete dir="${basedir}/public/vendor" />
+		<delete dir="${basedir}/public/css" />
+		<delete dir="${basedir}/public/doc" />
+		<delete dir="${basedir}/public/min" />
+	</target>
 	<target name="run" depends="">
 		<exec executable="node">
 			<arg value="buildjsapp.js" />
