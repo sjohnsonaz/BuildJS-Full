@@ -34,8 +34,12 @@
 		</exec>
 	</target>
 	<target name="debug" depends="">
-		<echo message="Opening test results in default browser" />
-		<openInBrowser url="http://www.google.com" />
+		<exec executable="node-debug" osfamily="unix">
+			<arg value="server.js" />
+		</exec>
+		<exec executable="${basedir}/launch/eclipse/node-debug.cmd" osfamily="windows">
+			<arg value="server.js" />
+		</exec>
 	</target>
 	<target name="npm" depends="">
 		<echo>Running npm...</echo>
