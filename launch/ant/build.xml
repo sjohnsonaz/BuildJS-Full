@@ -1,5 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="Install BuildJS" default="run" basedir="../../">
+	<macrodef name="openInBrowser">
+		<attribute name="url" />
+		<sequential>
+			<exec executable="rundll32.exe" dir="${basedir}" osfamily="windows">
+				<arg line="url.dll, FileProtocolHandler" />
+				<arg line="@{url}" />
+			</exec>
+			<exec executable="google-chrome" osfamily="unix">
+				<arg value="@{url}" />
+			</exec>
+		</sequential>
+	</macrodef>
 	<condition property="is_windows">
 		<os family="windows" />
 	</condition>
@@ -20,6 +32,10 @@
 		<exec executable="node">
 			<arg value="buildjsapp.js" />
 		</exec>
+	</target>
+	<target name="debug" depends="">
+		<echo message="Opening test results in default browser" />
+		<openInBrowser url="http://www.google.com" />
 	</target>
 	<target name="npm" depends="">
 		<echo>Running npm...</echo>
