@@ -1,13 +1,14 @@
 #!/bin/bash
 echo Update BuildJS
 
-bash /etc/nodejs/BuildJS/launch/ubuntu/stop.sh
+bash ./stop.sh
 
-cd /etc/nodejs/BuildJS
+cd ../../
 git reset --hard
 git pull origin master
-npm install --production
-bower install --production --allow-root
-lessc /etc/nodejs/BuildJS/public/Resources/less/base.less /etc/nodejs/BuildJS/public/Resources/css/base.css
 
-bash /etc/nodejs/BuildJS/launch/ubuntu/start.sh
+cd launch/ant
+ant install-production
+
+cd ../ubuntu
+bash ./start.sh
