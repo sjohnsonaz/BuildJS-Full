@@ -45,9 +45,11 @@
 		<echo>Running bower...</echo>
 		<exec executable="bower" osfamily="unix">
 			<arg value="install" />
+			<arg value="--allow-root" />
 		</exec>
 		<exec executable="${basedir}/launch/eclipse/bower.cmd" osfamily="windows">
 			<arg value="install" />
+			<arg value="--allow-root" />
 		</exec>
 	</target>
 	<target name="bower-production" depends="">
