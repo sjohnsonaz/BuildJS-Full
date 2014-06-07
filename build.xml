@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Install BuildJS" default="run" basedir="../../">
+	<macrodef name="openInBrowser">
+		<attribute name="url" />
+		<sequential>
+			<exec executable="rundll32.exe" dir="${basedir}" osfamily="windows">
+				<arg line="url.dll, FileProtocolHandler" />
+				<arg line="@{url}" />
+			</exec>
+			<exec executable="google-chrome" osfamily="unix">
+				<arg value="@{url}" />
+			</exec>
+		</sequential>
+	</macrodef>
+	<condition property="is_windows">
+		<os family="windows" />
+	</condition>
+	<target name="install" depends="npm, bower, less">
+		<property name="" value="" />
+	</target>
+	<target name="install-production" depends="npm, bower, less, min">
+		<property name="" value="" />
+	</target>
+	<target name="clean">
+		<delete dir="${basedir}/node_modules" />
+		<delete dir="${basedir}/public/Resources/vendor" />
+		<delete dir="${basedir}/public/Resources/css" />
+		<delete dir="${basedir}/public/doc" />
+		<delete dir="${basedir}/public/min" />
+	</target>
+	<target name="run" depends="">
+		<exec executable="node">
+			<arg value="buildjsapp.js" />
+		</exec>
+	</target>
+	<target name="debug" depends="">
+		<exec executable="node-debug" osfamily="unix">
+			<arg value="server.js" />
+		</exec>
+		<exec executable="${basedir}/launch/eclipse/node-debug.cmd" osfamily="windows">
+			<arg value="server.js" />
+		</exec>
+	</target>
+	<target name="npm" depends="">
+		<echo>Running npm...</echo>
+		<exec executable="npm" osfamily="unix">
+			<arg value="install" />
+		</exec>
+		<exec executable="C:\Program Files\nodejs\npm.cmd" osfamily="windows">
+			<arg value="install" />
+		</exec>
+	</target>
+	<target name="npm-production" depends="">
+		<echo>Running npm...</echo>
+		<exec executable="npm" osfamily="unix">
+			<arg value="install" />
+			<arg value="--production" />
+		</exec>
+		<exec executable="C:\Program Files\nodejs\npm.cmd" osfamily="windows">
+			<arg value="install" />
+			<arg value="--production" />
+		</exec>
+	</target>
+	<target name="bower" depends="">
+		<echo>Running bower...</echo>
+		<exec executable="bower" osfamily="unix">
+			<arg value="install" />
+			<arg value="--allow-root" />
+		</exec>
+		<exec executable="${basedir}/launch/eclipse/bower.cmd" osfamily="windows">
+			<arg value="install" />
+			<arg value="--allow-root" />
+		</exec>
+	</target>
+	<target name="bower-production" depends="">
+		<echo>Running bower...</echo>
+		<exec executable="bower" osfamily="unix">
+			<arg value="install" />
+			<arg value="--production" />
+			<arg value="--allow-root" />
+		</exec>
+		<exec executable="${basedir}/launch/eclipse/bower.cmd" osfamily="windows">
+			<arg value="install" />
+			<arg value="--production" />
+			<arg value="--allow-root" />
+		</exec>
+	</target>
+	<target name="less" depends="">
+		<echo>Running less...</echo>
+		<mkdir dir="${basedir}/public/Resources/css" />
+		<exec executable="lessc" osfamily="unix">
+			<arg value="${basedir}/public/Resources/less/base.less" />
+			<arg value="${basedir}/public/Resources/css/base.css" />
+		</exec>
+		<exec executable="${basedir}/launch/eclipse/lessc.cmd" osfamily="windows">
+			<arg value="${basedir}/public/Resources/less/base.less" />
+			<arg value="${basedir}/public/Resources/css/base.css" />
+		</exec>
+	</target>
+	<target name="min" depends="">
+		<echo>Running minification...</echo>
+		<mkdir dir="${basedir}/public/min" />
+		<mkdir dir="${basedir}/public/min/css" />
+		<mkdir dir="${basedir}/public/min/js" />
+		<exec executable="node">
+			<arg value="minify.js" />
+		</exec>
+	</target>
+</project>
