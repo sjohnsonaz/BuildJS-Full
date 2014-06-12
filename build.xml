@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="Install BuildJS" default="run" basedir="../../">
+<project name="Install BuildJS" default="run" basedir="">
 	<macrodef name="openInBrowser">
 		<attribute name="url" />
 		<sequential>
