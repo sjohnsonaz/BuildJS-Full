@@ -14,6 +14,11 @@ Build('build.Module', [], function(define, $super) {
 		 * @property subscribers
 		 */
 		$constructor : function Module() {
+			this.watchValue('bound', null, function(value, self) {
+
+			}, function(value, cancel) {
+
+			});
 			// this.callbacks = null;
 			// this.subscribers = null;
 		},
@@ -128,6 +133,18 @@ Build('build.Module', [], function(define, $super) {
 						subscribers[index](this[property]);
 					}
 				}
+			},
+			/**
+			 * @method bind
+			 */
+			bind : function() {
+
+			},
+			/**
+			 * @method destroy
+			 */
+			destroy : function() {
+
 			}
 		}
 	});
