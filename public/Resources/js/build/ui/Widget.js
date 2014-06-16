@@ -59,6 +59,12 @@ Build('build.ui.Widget', [ 'build::build.Module', 'build::build.utility.Observab
 					}
 				});
 			},
+			bind : function() {
+
+			},
+			destroy : function() {
+
+			},
 			/**
 			 * @method createElement
 			 */
