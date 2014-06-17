@@ -137,14 +137,15 @@ Build('build.Module', [], function(define, $super) {
 			/**
 			 * @method bind
 			 */
-			bind : function() {
-
+			bind : function(value) {
+				this.bound = value;
+				// Subscribe to value.
 			},
 			/**
 			 * @method destroy
 			 */
 			destroy : function() {
-
+				// Unsubscribe from value.
 			}
 		}
 	});
