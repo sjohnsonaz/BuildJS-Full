@@ -455,10 +455,10 @@ var Build = build.Build = (function() {
 			loading[$name] = true;
 			loadScript(id, fileName, function() {
 				delete loading[$name];
-				callback();
+				typeof callback === 'function' ? callback() : true;
 			});
 		} else {
-			callback();
+			typeof callback === 'function' ? callback() : true;
 		}
 	}
 	/**
@@ -482,7 +482,7 @@ var Build = build.Build = (function() {
 			if (!environment.override || typeof handle === 'function') {
 				handle(Build);
 			}
-			callback();
+			typeof callback === 'function' ? callback() : true;
 			break;
 		}
 	}
