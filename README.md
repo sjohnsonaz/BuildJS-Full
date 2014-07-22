@@ -26,3 +26,19 @@ UI Widget Framework
 -------------------
 
 We've developed a simple Widget Framework which not only includes prebuild tools, but lets you easily extend them with your own!
+
+Installation
+------------
+
+BuildJS is easy to install into your own projects.  However, there are a few cases where you may want to run it by itself.
+
+Node.js
+([http://nodejs.org/](http://nodejs.org/))
+
+MongoDB
+([http://www.mongodb.org/](http://www.mongodb.org/))
+
+Git
+([http://git-scm.com/](http://git-scm.com/))
+
+On Windows, ensure that basic git commands work with `cmd`.
