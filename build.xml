@@ -106,4 +106,26 @@
 			<arg value="minify.js" />
 		</exec>
 	</target>
+	<target name="forever-start" depends="">
+		<echo>Starting forever...</echo>
+		<exec executable="forever">
+			<arg value="start" />
+			<arg value="${basedir}/buildjsapp.js" />
+		</exec>
+	</target>
+	<target name="forever-stop" depends="">
+		<echo>Stopping forever...</echo>
+		<exec executable="forever">
+			<arg value="start" />
+			<arg value="${basedir}/buildjsapp.js" />
+		</exec>
+	</target>
+	<target name="git-pull">
+		<echo>Pulling latest...</echo>
+		<exec executable="git">
+			<arg value="pull" />
+		</exec>
+	</target>
+	<target name="update-production" depends="forever-stop, git-pull, forever-start">
+	</target>
 </project>
