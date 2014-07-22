@@ -108,15 +108,35 @@
 	</target>
 	<target name="forever-start" depends="">
 		<echo>Starting forever...</echo>
-		<exec executable="forever">
+		<exec executable="forever" osfamily="unix">
+			<arg value="start" />
+			<arg value="${basedir}/buildjsapp.js" />
+		</exec>
+		<exec executable="${basedir}/launch/eclipse/forever.cmd" osfamily="windows">
+			<arg value="start" />
+			<arg value="${basedir}/buildjsapp.js" />
+		</exec>
+
+	</target>
+	<target name="forever-stop" depends="">
+		<echo>Stopping forever...</echo>
+		<exec executable="forever" osfamily="unix">
+			<arg value="start" />
+			<arg value="${basedir}/buildjsapp.js" />
+		</exec>
+		<exec executable="${basedir}/launch/eclipse/forever.cmd" osfamily="windows">
 			<arg value="start" />
 			<arg value="${basedir}/buildjsapp.js" />
 		</exec>
 	</target>
-	<target name="forever-stop" depends="">
-		<echo>Stopping forever...</echo>
-		<exec executable="forever">
-			<arg value="start" />
+	<target name="forever-restart" depends="">
+		<echo>Restarting forever...</echo>
+		<exec executable="forever" osfamily="unix">
+			<arg value="restart" />
+			<arg value="${basedir}/buildjsapp.js" />
+		</exec>
+		<exec executable="${basedir}/launch/eclipse/forever.cmd" osfamily="windows">
+			<arg value="restart" />
 			<arg value="${basedir}/buildjsapp.js" />
 		</exec>
 	</target>
@@ -126,6 +146,6 @@
 			<arg value="pull" />
 		</exec>
 	</target>
-	<target name="update-production" depends="forever-stop, git-pull, forever-start">
+	<target name="update-production" depends="forever-stop, git-pull, install-production, forever-start">
 	</target>
 </project>

@@ -32,6 +32,7 @@
   "devDependencies": {
     "less": "1.x.x",
     "bower": "1.x.x",
-    "node-inspector": "0.7.x"
+    "node-inspector": "0.7.x",
+    "forever": "~0.11.1"
   }
 }
