@@ -19,38 +19,45 @@ build.utility.ObservableArray = (function() {
 	}
 
 	function push() {
-		Array.prototype.push.apply(this, arguments);
+		var output = Array.prototype.push.apply(this, arguments);
 		this.publish('push', arguments);
+		return output;
 	}
 
 	function pop() {
-		Array.prototype.pop.apply(this, arguments);
+		var output = Array.prototype.pop.apply(this, arguments);
 		this.publish('pop', arguments);
+		return output;
 	}
 
 	function unshift() {
-		Array.prototype.unshift.apply(this, arguments);
+		var output = Array.prototype.unshift.apply(this, arguments);
 		this.publish('unshift', arguments);
+		return output;
 	}
 
 	function shift() {
-		Array.prototype.shift.apply(this, arguments);
+		var output = Array.prototype.shift.apply(this, arguments);
 		this.publish('shift', arguments);
+		return output;
 	}
 
 	function reverse() {
-		Array.prototype.reverse.apply(this, arguments);
+		var output = Array.prototype.reverse.apply(this, arguments);
 		this.publish('reverse', arguments);
+		return output;
 	}
 
 	function sort() {
-		Array.prototype.sort.apply(this, arguments);
+		var output = Array.prototype.sort.apply(this, arguments);
 		this.publish('sort', arguments);
+		return output;
 	}
 
 	function splice() {
-		Array.prototype.splice.apply(this, arguments);
+		var output = Array.prototype.splice.apply(this, arguments);
 		this.publish('splice', arguments);
+		return output;
 	}
 
 	function removeAll() {

@@ -15,11 +15,17 @@ Build('build.ui.Container', [ 'build::build.ui.Widget' ], function(define, $supe
 			//this.refreshChildren();
 			//}.bind(this));
 			this.children.subscribe({
-				push : function() {
-					this.refreshChildren();
+				push : function(child) {
+					var element = this.element;
+					if (element) {
+						this.childIterator.bind(this)(child);
+					}
 				}.bind(this),
 				pop : function() {
-					this.refreshChildren();
+					var element = this.element;
+					if (element) {
+						element.removeChild(element.lastChild);
+					}
 				}.bind(this),
 				unshift : function() {
 					this.refreshChildren();
