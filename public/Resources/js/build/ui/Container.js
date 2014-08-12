@@ -11,9 +11,47 @@ Build('build.ui.Container', [ 'build::build.ui.Widget' ], function(define, $supe
 		$constructor : function Container() {
 			$super(this)();
 			this.children = build.utility.ObservableArray();
-			this.children.subscribe(function() {
-				this.refreshChildren();
-			}.bind(this));
+			//this.children.subscribe(function() {
+			//this.refreshChildren();
+			//}.bind(this));
+			this.children.subscribe({
+				push : function() {
+					this.refreshChildren();
+				}.bind(this),
+				pop : function() {
+					this.refreshChildren();
+				}.bind(this),
+				unshift : function() {
+					this.refreshChildren();
+				}.bind(this),
+				shift : function() {
+					this.refreshChildren();
+				}.bind(this),
+				reverse : function() {
+					this.refreshChildren();
+				}.bind(this),
+				sort : function() {
+					this.refreshChildren();
+				}.bind(this),
+				splice : function() {
+					this.refreshChildren();
+				}.bind(this),
+				get : function() {
+					this.refreshChildren();
+				}.bind(this),
+				set : function() {
+					this.refreshChildren();
+				}.bind(this),
+				removeAll : function() {
+					this.refreshChildren();
+				}.bind(this),
+				subscribe : function() {
+					this.refreshChildren();
+				}.bind(this),
+				publish : function() {
+					this.refreshChildren();
+				}.bind(this)
+			});
 			this.watchValue('directAppend', false);
 			this.watchValue('iteratorType', 'div');
 		},
