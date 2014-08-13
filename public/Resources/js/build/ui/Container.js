@@ -133,7 +133,7 @@ Build('build.ui.Container', [ 'build::build.ui.Widget' ], function(define, $supe
 			},
 			destroy : function() {
 				$super().destroy(this)();
-				var element = element || this.element;
+				var element = this.element;
 				if (element) {
 					while (element.firstChild) {
 						element.removeChild(element.firstChild);
