@@ -130,6 +130,19 @@ Build('build.ui.Container', [ 'build::build.ui.Widget' ], function(define, $supe
 				if (index != -1) {
 					this.children.splice(index, 1);
 				}
+			},
+			destroy : function() {
+				$super().destroy(this)();
+				var element = element || this.element;
+				if (element) {
+					while (element.firstChild) {
+						element.removeChild(element.firstChild);
+					}
+				}
+				for (var index = 0, length = this.children.length; index < length; index++) {
+					this.children[index].destroy();
+				}
+				this.children.length = 0;
 			}
 		}
 	});
