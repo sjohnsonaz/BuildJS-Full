@@ -141,6 +141,7 @@ Build('build.ui.Container', [ 'build::build.ui.Widget' ], function(define, $supe
 				}
 				for (var index = 0, length = this.children.length; index < length; index++) {
 					this.children[index].destroy();
+					delete this.children[index];
 				}
 				this.children.length = 0;
 			}
