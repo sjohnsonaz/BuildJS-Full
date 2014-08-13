@@ -16,27 +16,33 @@ Build('build.ui.Container', [ 'build::build.ui.Widget' ], function(define, $supe
 			//}.bind(this));
 			this.children.subscribe({
 				push : function(child) {
-					var element = this.element;
-					if (element) {
-						this.childIterator.bind(this)(child);
-					}
+					this.refreshChildren();
+					//var element = this.element;
+					//if (element) {
+					//this.childIterator.bind(this)(child);
+					//}
 				}.bind(this),
 				pop : function() {
-					var element = this.element;
-					if (element) {
-						element.removeChild(element.lastChild);
-					}
+					this.refreshChildren();
+					//var element = this.element;
+					//if (element) {
+					//element.removeChild(element.lastChild);
+					//}
 				}.bind(this),
 				unshift : function() {
+					// Add to beginning of array
 					this.refreshChildren();
 				}.bind(this),
 				shift : function() {
+					// Remove from beginning of array
 					this.refreshChildren();
 				}.bind(this),
 				reverse : function() {
+					// Sort in opposite direction
 					this.refreshChildren();
 				}.bind(this),
 				sort : function() {
+					// Sort based on function
 					this.refreshChildren();
 				}.bind(this),
 				splice : function() {
