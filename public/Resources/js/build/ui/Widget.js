@@ -20,6 +20,7 @@ Build('build.ui.Widget', [ 'build::build.Module', 'build::build.utility.Observab
 			this.type = 'div';
 			this.watchProperty('id');
 			this.watchProperty('className');
+			this.watchProperty('parent');
 		},
 		$prototype : {
 			/**
@@ -304,6 +305,16 @@ Build('build.ui.Widget', [ 'build::build.Module', 'build::build.utility.Observab
 					document.body.appendChild(preloadContainer);
 				}
 				return preloadContainer;
+			},
+			/**
+			 * 
+			 */
+			destroy : function(isDestroying) {
+				$super().destroy(this)();
+				if (!isDestroying && this.parent) {
+					// Assume parent is a Container
+					this.parent.removeChild(this);
+				}
 			}
 		},
 		$static : {
