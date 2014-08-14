@@ -20,6 +20,7 @@ Build('build.ui.Widget', [ 'build::build.Module', 'build::build.utility.Observab
 			this.type = 'div';
 			this.watchProperty('id');
 			this.watchProperty('className');
+			// A Widget may be contained by Container.
 			this.watchProperty('parent');
 		},
 		$prototype : {

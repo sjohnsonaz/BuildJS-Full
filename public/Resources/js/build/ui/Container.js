@@ -85,6 +85,8 @@ Build('build.ui.Container', [ 'build::build.ui.Widget' ], function(define, $supe
 				element = element || this.element;
 				if (element) {
 					while (element.firstChild) {
+						// TODO: This is inefficient.
+						element.controller.parent = null;
 						element.removeChild(element.firstChild);
 					}
 				}
@@ -106,6 +108,8 @@ Build('build.ui.Container', [ 'build::build.ui.Widget' ], function(define, $supe
 			 */
 			childIterator : function(child, index, array) {
 				if (child) {
+					// TODO: This is inefficient.
+					child.parent = this;
 					if (this.directAppend) {
 						this.element.appendChild(child.element || child);
 					} else {
