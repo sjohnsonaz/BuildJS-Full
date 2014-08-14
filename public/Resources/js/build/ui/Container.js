@@ -131,7 +131,7 @@ Build('build.ui.Container', [ 'build::build.ui.Widget' ], function(define, $supe
 					this.children.splice(index, 1);
 				}
 			},
-			destroy : function() {
+			destroy : function(isDestroying) {
 				$super().destroy(this)();
 				var element = this.element;
 				if (element) {

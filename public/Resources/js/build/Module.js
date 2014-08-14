@@ -180,7 +180,7 @@ Build('build.Module', [], function(define, $super) {
 			/**
 			 * @method destroy
 			 */
-			destroy : function() {
+			destroy : function(isDestroying) {
 				// Unsubscribe from all.
 				if (this.subscribers) {
 					for ( var property in this.subscribers) {
