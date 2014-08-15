@@ -1,5 +1,6 @@
 node_modules/
 hidden/
+launch/ant/*-override.properties
 public/doc/
 public/min/
 public/Resources/vendor

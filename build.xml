@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="Install BuildJS" default="run" basedir="">
+	<property file="${basedir}/launch/ant/stage-override.properties" />
+	<property name="stage" value="dev" />
+	<property file="os" value="unix" />
+	<property file="${basedir}/launch/ant/${stage}-override.properties" />
+	<property file="${basedir}/launch/ant/${stage}.properties" />
+	<property file="${basedir}/launch/ant/project-override.properties" />
+	<property file="${basedir}/launch/ant/project.properties" />
+	<property file="${basedir}/launch/ant/default-${os}.properties" />
 	<macrodef name="openInBrowser">
 		<attribute name="url" />
 		<sequential>
@@ -152,7 +160,10 @@
 	</target>
 	<target name="nginx-start">
 		<echo>Starting Nginx...</echo>
-		<exec executable="nginx">
+		<exec executable="nginx" osfamily="unix">
+		</exec>
+		<exec executable="start" osfamily="windows">
+			<arg value="nginx" />
 		</exec>
 	</target>
 	<target name="nginx-stop">
@@ -168,5 +179,16 @@
 			<arg value="-s" />
 			<arg value="reload" />
 		</exec>
+	</target>
+	<target name="nginx-install">
+		<echo>Installing to Nginx...</echo>
+		<copy file="${basedir}/launch/nginx/buildjs.nginx.config" tofile="${nginx.path}/sites-available/${server.name}" />
+		<replace file="${nginx.path}/sites-available/${server.name}">
+			<replacefilter token="@{server.name}" value="${server.name}" />
+		</replace>
+	</target>
+	<target name="nginx-enable">
+		<echo>Enabling in Nginx...</echo>
+		<symlink link="${nginx.path}/sites-available/${server.name}" resource="${nginx.path}/sites-enabled/${server.name}" />
 	</target>
 </project>
