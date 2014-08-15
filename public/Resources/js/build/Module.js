@@ -23,6 +23,7 @@ Build('build.Module', [], function(define, $super) {
 			// this.callbacks = null;
 			// this.subscribers = null;
 			// this.subscriptions = null;
+			this.handlers = {};
 		},
 		$prototype : {
 			/**
@@ -116,6 +117,7 @@ Build('build.Module', [], function(define, $super) {
 						subscriber.subscriptionLink(subscription);
 						subscriber.notify(property, this[property]);
 					}
+					return subscription;
 				}
 			},
 			/**
@@ -129,7 +131,7 @@ Build('build.Module', [], function(define, $super) {
 					var index = this.subscribers[property].indexOf(subscription);
 					if (index != -1) {
 						this.subscribers[property].splice(index, 1);
-						if (typeof subscription === 'object' && !isDestroying) {
+						if (typeof subscription.subscriber === 'object' && !isDestroying) {
 							subscription.subscriber.subscriptionUnlink(subscription);
 						}
 						if (this.subscribers[property].length == 0) {
@@ -146,8 +148,22 @@ Build('build.Module', [], function(define, $super) {
 				if (this.subscribers && this.subscribers[property]) {
 					var subscribers = this.subscribers[property];
 					for (var index = 0, length = subscribers.length; index < length; index++) {
-						subscribers[index].subscriber(this[property]);
+						var subscription = subscribers[index];
+						if (typeof subscription.subscriber === 'object') {
+							subscription.subscriber.notify(property, this[property]);
+						} else {
+							subscription.subscriber(this[property]);
+						}
 					}
+				}
+			},
+			/**
+			 * 
+			 */
+			notify : function(property, value) {
+				var handler = this.handlers[property];
+				if (handler) {
+					handler(value);
 				}
 			},
 			/**
@@ -173,8 +189,11 @@ Build('build.Module', [], function(define, $super) {
 			/**
 			 * @method bind
 			 */
-			bind : function(value) {
+			bind : function(value, property, handler) {
 				this.bound = value;
+				if (value) {
+					value.subscribe(property, this);
+				}
 				// Subscribe to value.
 			},
 			/**

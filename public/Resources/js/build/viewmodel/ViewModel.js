@@ -1,10 +1,10 @@
 /**
- * @class build.ui.viewmodel.ViewModel
- * @extends build.ui.Widget
+ * @class build.viewmodel.ViewModel
+ * @extends build.Module
  */
-Build('build.ui.viewmodel.ViewModel', [ 'build.ui.Widget' ], function(define, $super) {
+Build('build.viewmodel.ViewModel', [ 'build::build.Module' ], function(define, $super) {
 	define({
-		$extends : 'build.ui.Widget',
+		$extends : 'build.Module',
 		/**
 		 * @constructor
 		 */
