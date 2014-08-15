@@ -146,6 +146,27 @@
 			<arg value="pull" />
 		</exec>
 	</target>
+	<target name="update" depends="forever-stop, git-pull, install, forever-start">
+	</target>
 	<target name="update-production" depends="forever-stop, git-pull, install-production, forever-start">
+	</target>
+	<target name="nginx-start">
+		<echo>Starting Nginx...</echo>
+		<exec executable="nginx">
+		</exec>
+	</target>
+	<target name="nginx-stop">
+		<echo>Stopping Nginx...</echo>
+		<exec executable="nginx">
+			<arg value="-s" />
+			<arg value="stop" />
+		</exec>
+	</target>
+	<target name="nginx-reload">
+		<echo>Reloading Nginx...</echo>
+		<exec executable="nginx">
+			<arg value="-s" />
+			<arg value="reload" />
+		</exec>
 	</target>
 </project>
