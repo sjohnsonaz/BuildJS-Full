@@ -4,7 +4,7 @@ Build('demo.viewmodel.FormModel', [ 'build.viewmodel.ViewModel' ], function(defi
 		$constructor : function() {
 			$super(this)();
 			this.watchValue('testValue');
-			this.testValue = 'Test Value';
+			//this.testValue = 'Test Value';
 		}
 	});
 });

@@ -9,7 +9,7 @@ Build('build.viewmodel.ViewModel', [ 'build::build.Module' ], function(define, $
 		 * @constructor
 		 */
 		$constructor : function ViewModel() {
-
+			$super(this)();
 		}
 	});
 });
