@@ -8,7 +8,7 @@ Build('demo.ui.form.ViewModelPanel', [ 'build::build.ui.Container' ], function(d
 		/**
 		 * @constructor
 		 */
-		$constructor : function() {
+		$constructor : function ViewModelPanel() {
 			$super(this)();
 			var header0 = build.ui.element.Header1.create('View Model Form');
 			this.addChild(header0);

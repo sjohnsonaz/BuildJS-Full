@@ -1,7 +1,14 @@
-Build('demo.viewmodel.FormModel', [ 'build.viewmodel.ViewModel' ], function(define, $super) {
+/**
+ * @class demo.viewmodel.FormModel
+ * @extends build.viewmodel.ViewModel
+ */
+Build('demo.viewmodel.FormModel', [ 'build::build.viewmodel.ViewModel' ], function(define, $super) {
 	define({
 		$extends : 'build.viewmodel.ViewModel',
-		$constructor : function() {
+		/**
+		 * @constructor
+		 */
+		$constructor : function FormModel() {
 			$super(this)();
 			this.watchValue('testValue');
 			//this.testValue = 'Test Value';

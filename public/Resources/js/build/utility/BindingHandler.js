@@ -6,7 +6,7 @@ Build('build.utility.BindingHandler', [], function(define, $super) {
 		/**
 		 * @constructor
 		 */
-		$constructor : function() {
+		$constructor : function BindingHandler() {
 
 		},
 		$prototype : {
