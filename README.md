@@ -32,13 +32,19 @@ Installation
 
 BuildJS is easy to install into your own projects.  However, there are a few cases where you may want to run it by itself.
 
-Node.js
+**Node.js**
 ([http://nodejs.org/](http://nodejs.org/))
 
-MongoDB
+**MongoDB**
 ([http://www.mongodb.org/](http://www.mongodb.org/))
 
-Git
+**Git**
 ([http://git-scm.com/](http://git-scm.com/))
 
 On Windows, ensure that basic git commands work with `cmd`.
+
+**Nginx**
+([http://nginx.org/](http://nginx.org/))
+Enable your site with `ln -s /etc/nginx/sites-available/[site-name] /etc/nginx/sites-enabled/[site-name]`.
+Test your configuration with `nginx -t`.
+Load your configuration with `nginx -s reload`.
