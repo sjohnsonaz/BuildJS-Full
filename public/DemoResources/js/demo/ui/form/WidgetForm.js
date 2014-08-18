@@ -8,23 +8,6 @@ Build('demo.ui.form.WidgetForm', [ 'build::build.ui.form.Form', 'build::build.ui
 			$super(this)();
 			var header0 = build.ui.element.Header1.create('Widget Form');
 			this.addChild(header0);
-			//public
-			formModel = new demo.viewmodel.FormModel();
-			formModel.handlers.value = function(value) {
-				this.testValue = value;
-			}.bind(formModel);
-
-			var viewModelText0 = build.ui.form.Text.create();
-			viewModelText0.subscribe('value', formModel);
-
-			var viewModelParagraph0 = build.ui.element.Paragraph.create('');
-			viewModelParagraph0.handlers.testValue = function(value) {
-				this.text = value;
-			}.bind(viewModelParagraph0);
-			formModel.subscribe('testValue', viewModelParagraph0);
-
-			this.addChild(viewModelText0);
-			this.addChild(viewModelParagraph0);
 
 			var button = build.ui.form.Button.create('Button 1');
 			this.addChild(button);
