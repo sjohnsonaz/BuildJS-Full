@@ -234,6 +234,12 @@ Build('build.Module', [], function(define, $super) {
 						subscription.publisher.unsubscribe(subscription, true);
 					}
 				}
+				// Destroy all binding handlers.
+				if (this.handlers) {
+					for ( var property in this.handlers) {
+						delete this.handlers[property];
+					}
+				}
 			}
 		}
 	});
