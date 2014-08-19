@@ -15,7 +15,7 @@ Build('build.viewmodel.TextBinding', [ 'build::build.viewmodel.BindingHandler' ]
 			init : function(source, destination) {
 			},
 			update : function(source, destination, value, reverse) {
-				destination.text = source[sourceProperty];
+				destination.text = value;
 			}
 		}
 	});

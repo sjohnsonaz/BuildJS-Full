@@ -11,15 +11,19 @@ Build('build.viewmodel.BindingHandler', [], function(define, $super) {
 		},
 		$prototype : {
 			bind : function(source, destination, sourceProperty, destinationProperty, bidirectional) {
+				this.source = source;
+				this.destination = destination;
 				this.link(source, destination, sourceProperty, destinationProperty, bidirectional);
 				this.init(source, destination);
 				//this.update(source, destination);
 			},
 			link : function(source, destination, sourceProperty, destinationProperty, bidirectional) {
 				source.subscribe(sourceProperty, destination);
+				destination.bind(source, sourceProperty, this);
 				if (bidirectional) {
 					// TODO: This will cause an infinite loop unless we prevent the second publish.
 					destination.subscribe(destinationProperty, source);
+					source.bind(destination, destinationProperty, this);
 				}
 				//source.publish(sourceProperty, destination);
 			},
