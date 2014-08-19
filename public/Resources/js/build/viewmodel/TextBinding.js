@@ -13,14 +13,9 @@ Build('build.viewmodel.TextBinding', [ 'build::build.viewmodel.BindingHandler' ]
 		},
 		$prototype : {
 			init : function(source, destination) {
-				destination.text = source[sourceProperty];
 			},
-			update : function(source, destination, sourceProperty, destinationProperty, computed, value, reverse) {
-				if (computed) {
-					destination.text = value;
-				} else {
-					destination.text = source[sourceProperty];
-				}
+			update : function(source, destination, value, reverse) {
+				destination.text = source[sourceProperty];
 			}
 		}
 	});
