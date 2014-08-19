@@ -157,14 +157,18 @@ Build('build.ui.Widget', [ 'build::build.Module', 'build::build.utility.Observab
 						return this.element[name];
 					},
 					set : typeof set === 'function' ? function(value) {
-						value = set(value, cancel);
-						if (value !== cancel) {
+						if (value !== this.element[name]) {
+							value = set(value, cancel);
+							if (value !== cancel) {
+								this.element[name] = value || '';
+								this.publish(property);
+							}
+						}
+					} : function(value) {
+						if (value !== this.element[name]) {
 							this.element[name] = value || '';
 							this.publish(property);
 						}
-					} : function(value) {
-						this.element[name] = value || '';
-						this.publish(property);
 					}
 				});
 			},
@@ -181,20 +185,25 @@ Build('build.ui.Widget', [ 'build::build.Module', 'build::build.utility.Observab
 						return this.element.getAttribute(attribute);
 					},
 					set : typeof set === 'function' ? function(value) {
-						value = set(value, cancel);
-						if (value !== cancel) {
+						if (value !== this.element.getAttribute(attribute)) {
+							value = set(value, cancel);
+							if (value !== cancel) {
+								this.element.setAttribute(attribute, value || '');
+								this.publish(property);
+							}
+						}
+					} : function(value) {
+						if (value !== this.element.getAttribute(attribute)) {
 							this.element.setAttribute(attribute, value || '');
 							this.publish(property);
 						}
-					} : function(value) {
-						this.element.setAttribute(attribute, value || '');
-						this.publish(property);
 					}
 				});
 			},
 			/**
 			 * @method watchStyle
 			 */
+			// TODO: Apply value change detection on setter methods.
 			watchStyle : function(property, style, unit) {
 				style = style || property;
 				if (unit) {
@@ -250,16 +259,20 @@ Build('build.ui.Widget', [ 'build::build.Module', 'build::build.utility.Observab
 						return this.element.dataset ? this.element.dataset[data] : this.element.getAttribute('data-' + data);
 					},
 					set : typeof set === 'function' ? function(value) {
-						value = set(value, cancel);
-						if (value !== cancel) {
+						if (value !== this.element.dataset ? this.element.dataset[data] : this.element.getAttribute('data-' + data)) {
+							value = set(value, cancel);
+							if (value !== cancel) {
+								value = value || '';
+								this.element.dataset ? this.element.dataset[data] = value : this.element.setAttribute('data-' + data, value);
+								this.publish(property);
+							}
+						}
+					} : function(value) {
+						if (value !== this.element.dataset ? this.element.dataset[data] : this.element.getAttribute('data-' + data)) {
 							value = value || '';
 							this.element.dataset ? this.element.dataset[data] = value : this.element.setAttribute('data-' + data, value);
 							this.publish(property);
 						}
-					} : function(value) {
-						value = value || '';
-						this.element.dataset ? this.element.dataset[data] = value : this.element.setAttribute('data-' + data, value);
-						this.publish(property);
 					}
 				});
 			},
@@ -276,8 +289,19 @@ Build('build.ui.Widget', [ 'build::build.Module', 'build::build.utility.Observab
 						return this.element.classList.contains(className);
 					},
 					set : typeof set === 'function' ? function(value) {
-						value = set(value, cancel);
-						if (value !== cancel) {
+						if (value !== this.element.classList.contains(className)) {
+							value = set(value, cancel);
+							if (value !== cancel) {
+								if (value) {
+									this.element.classList.add(className);
+								} else {
+									this.element.classList.remove(className);
+								}
+								this.publish(property);
+							}
+						}
+					} : function(value) {
+						if (value !== this.element.classList.contains(className)) {
 							if (value) {
 								this.element.classList.add(className);
 							} else {
@@ -285,13 +309,6 @@ Build('build.ui.Widget', [ 'build::build.Module', 'build::build.utility.Observab
 							}
 							this.publish(property);
 						}
-					} : function(value) {
-						if (value) {
-							this.element.classList.add(className);
-						} else {
-							this.element.classList.remove(className);
-						}
-						this.publish(property);
 					}
 				});
 			},

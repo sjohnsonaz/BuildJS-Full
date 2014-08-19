@@ -19,6 +19,7 @@ Build('build.storage.BrowserStorage', [ 'build::build.Module' ], function(define
 			 * @param get
 			 * @param set
 			 */
+			// TODO: Apply value change detection on setter methods.
 			watchLocalStorage : function(name, value, get, set) {
 				Object.defineProperty(this, name, {
 					configurable : true,
@@ -46,6 +47,7 @@ Build('build.storage.BrowserStorage', [ 'build::build.Module' ], function(define
 			 * @param get
 			 * @param set
 			 */
+			// TODO: Apply value change detection on setter methods.
 			watchSessionStorage : function(name, value, get, set) {
 				Object.defineProperty(this, name, {
 					configurable : true,

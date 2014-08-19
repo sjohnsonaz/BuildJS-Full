@@ -85,14 +85,18 @@ Build('build.Module', [], function(define, $super) {
 						return hidden;
 					},
 					set : typeof set == 'function' ? function(value) {
-						value = set(value, cancel);
-						if (value !== cancel) {
+						if (value !== hidden) {
+							value = set(value, cancel);
+							if (value !== cancel) {
+								hidden = value;
+								this.publish(name);
+							}
+						}
+					} : function(value) {
+						if (value !== hidden) {
 							hidden = value;
 							this.publish(name);
 						}
-					} : function(value) {
-						hidden = value;
-						this.publish(name);
 					}
 				});
 			},
