@@ -1,7 +1,7 @@
 /**
- * @class build.utility.BindingHandler
+ * @class build.viewmodel.BindingHandler
  */
-Build('build.utility.BindingHandler', [], function(define, $super) {
+Build('build.viewmodel.BindingHandler', [], function(define, $super) {
 	define({
 		/**
 		 * @constructor
