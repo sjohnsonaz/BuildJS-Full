@@ -23,18 +23,18 @@ Build('build.storage.BrowserStorage', [ 'build::build.Module' ], function(define
 				Object.defineProperty(this, name, {
 					configurable : true,
 					get : typeof get === 'function' ? function() {
-						return get(localStorage.getItem(name), this);
+						return get(JSON.parse(localStorage.getItem(name)), this);
 					} : function() {
-						return localStorage.getItem(name);
+						return JSON.parse(localStorage.getItem(name));
 					},
 					set : typeof set == 'function' ? function(value) {
 						value = set(value, cancel);
 						if (value !== cancel) {
-							localStorage.setItem(name, value);
+							localStorage.setItem(JSON.stringify(name), value);
 							this.publish(name);
 						}
 					} : function(value) {
-						localStorage.setItem(name, value);
+						localStorage.setItem(JSON.stringify(name), value);
 						this.publish(name);
 					}
 				});
@@ -50,18 +50,18 @@ Build('build.storage.BrowserStorage', [ 'build::build.Module' ], function(define
 				Object.defineProperty(this, name, {
 					configurable : true,
 					get : typeof get === 'function' ? function() {
-						return get(sessionStorage.getItem(name), this);
+						return get(JSON.parse(sessionStorage.getItem(name)), this);
 					} : function() {
-						return sessionStorage.getItem(name);
+						return JSON.parse(sessionStorage.getItem(name));
 					},
 					set : typeof set == 'function' ? function(value) {
 						value = set(value, cancel);
 						if (value !== cancel) {
-							sessionStorage.setItem(name, value);
+							sessionStorage.setItem(JSON.stringify(name), value);
 							this.publish(name);
 						}
 					} : function(value) {
-						sessionStorage.setItem(name, value);
+						sessionStorage.setItem(JSON.stringify(name), value);
 						this.publish(name);
 					}
 				});
