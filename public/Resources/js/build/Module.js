@@ -23,7 +23,7 @@ Build('build.Module', [], function(define, $super) {
 			// this.callbacks = null;
 			// this.subscribers = null;
 			// this.subscriptions = null;
-			this.handlers = {};
+			this.handlers = [];
 		},
 		$prototype : {
 			/**
@@ -120,7 +120,7 @@ Build('build.Module', [], function(define, $super) {
 							subscriber(this[property]);
 						} else {
 							subscriber.subscriptionLink(subscription);
-							subscriber.notify(property, this[property]);
+							subscriber.notify(this, property, this[property]);
 						}
 					}
 					return subscription;
@@ -154,7 +154,7 @@ Build('build.Module', [], function(define, $super) {
 				// Publish to a single subscriber, or all subscribers.
 				if (subscriber) {
 					if (typeof subscriber === 'object') {
-						subscriber.notify(property, this[property]);
+						subscriber.notify(this, property, this[property]);
 					} else {
 						subscriber(this[property]);
 					}
@@ -164,7 +164,7 @@ Build('build.Module', [], function(define, $super) {
 						for (var index = 0, length = subscribers.length; index < length; index++) {
 							var subscription = subscribers[index];
 							if (typeof subscription.subscriber === 'object') {
-								subscription.subscriber.notify(property, this[property]);
+								subscription.subscriber.notify(this, property, this[property]);
 							} else {
 								subscription.subscriber(this[property]);
 							}
@@ -175,12 +175,12 @@ Build('build.Module', [], function(define, $super) {
 			/**
 			 * 
 			 */
-			notify : function(property, value) {
+			/*notify : function(property, value) {
 				var handler = this.handlers[property];
 				if (handler) {
 					handler.notify(this, value);
 				}
-			},
+			},*/
 			/**
 			 * @method subscriptionLink
 			 * @param subscription

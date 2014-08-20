@@ -16,11 +16,10 @@ Build('demo.ui.form.ViewModelPanel', [ 'build::build.ui.Container', 'build::buil
 			//public
 			formModel = new demo.viewmodel.FormModel();
 			var viewModelParagraph0 = build.ui.element.Paragraph.create('');
-			var textBinding = new build.viewmodel.TextBinding();
-			textBinding.bind(formModel, viewModelParagraph0, 'testValue');
+			var textBinding = build.viewmodel.TextBinding.create(viewModelParagraph0, formModel, 'testValue');
 
 			var viewModelText0 = build.ui.form.Text.create();
-			viewModelText0.subscribe('value', formModel);
+			//viewModelText0.subscribe('value', formModel);
 
 			this.addChild(viewModelText0);
 			this.addChild(viewModelParagraph0);

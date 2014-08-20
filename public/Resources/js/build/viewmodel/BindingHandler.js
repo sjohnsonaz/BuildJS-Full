@@ -1,43 +1,37 @@
 /**
  * @class build.viewmodel.BindingHandler
+ * @extends build.Module
  */
-Build('build.viewmodel.BindingHandler', [], function(define, $super) {
+Build('build.viewmodel.BindingHandler', [ 'build::build.Module' ], function(define, $super) {
 	define({
+		$extends : 'build.Module',
 		/**
 		 * @constructor
 		 */
-		$constructor : function BindingHandler() {
-
+		$constructor : function BindingHandler(destination) {
+			$super(this)();
+			this.destination = destination;
+			this.destination.handlers.push(this);
 		},
 		$prototype : {
-			bind : function(source, destination, sourceProperty, destinationProperty, bidirectional) {
-				this.source = source;
-				this.destination = destination;
-				this.link(source, destination, sourceProperty, destinationProperty, bidirectional);
-				this.init(source, destination);
-				//this.update(source, destination);
+			link : function() {
 			},
-			link : function(source, destination, sourceProperty, destinationProperty, bidirectional) {
-				source.subscribe(sourceProperty, destination);
-				destination.bind(source, sourceProperty, this);
-				if (bidirectional) {
-					// TODO: This will cause an infinite loop unless we prevent the second publish.
-					destination.subscribe(destinationProperty, source);
-					source.bind(destination, destinationProperty, this);
-				}
-				//source.publish(sourceProperty, destination);
+			notify : function(source, property, value) {
 			},
-			notify : function(source, value) {
-				if (this.source == source) {
-					this.update(this.source, this.destination, value, false);
-				} else if (this.destination = source) {
-					this.update(this.source, this.destination, value, true);
-				}
-			},
-			init : function(source, destination) {
+			init : function() {
 			},
 			update : function(source, destination, value, reverse) {
 			}
+		},
+		$static : {
+			create : function(destination, source) {
+				var result = Object.create(this.prototype);
+				result = this.apply(result, arguments) || result;
+				result.link.apply(result, arguments);
+				result.init.apply(result, arguments);
+				//this.update.apply(result, arguments);
+				return result;
+			},
 		}
 	});
 });

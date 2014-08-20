@@ -1,20 +1,20 @@
 /**
  * @class build.viewmodel.TextBinding
- * @extends build.viewmodel.BindingHandler
+ * @extends build.viewmodel.OneWayBinding
  */
-Build('build.viewmodel.TextBinding', [ 'build::build.viewmodel.BindingHandler' ], function(define, $super) {
+Build('build.viewmodel.TextBinding', [ 'build::build.viewmodel.OneWayBinding' ], function(define, $super) {
 	define({
-		$extends : 'build.viewmodel.BindingHandler',
+		$extends : 'build.viewmodel.OneWayBinding',
 		/**
 		 * @constructor
 		 */
-		$constructor : function TextBinding() {
-			$super(this)();
+		$constructor : function TextBinding(destination, source, property) {
+			$super(this)(destination, source, property);
 		},
 		$prototype : {
-			init : function(source, destination) {
+			init : function(destination, source) {
 			},
-			update : function(source, destination, value, reverse) {
+			update : function(destination, source, value, reverse) {
 				destination.text = value;
 			}
 		}
