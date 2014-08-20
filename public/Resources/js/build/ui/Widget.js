@@ -147,6 +147,7 @@ Build('build.ui.Widget', [ 'build::build.Module', 'build::build.utility.Observab
 			/**
 			 * @method watchProperty
 			 */
+			// TODO: Fix value change detection on setter methods.
 			watchProperty : function(property, name, get, set) {
 				name = name || property;
 				Object.defineProperty(this, property, {
@@ -157,18 +158,18 @@ Build('build.ui.Widget', [ 'build::build.Module', 'build::build.utility.Observab
 						return this.element[name];
 					},
 					set : typeof set === 'function' ? function(value) {
-						if (value !== this.element[name]) {
-							value = set(value, cancel);
-							if (value !== cancel) {
-								this.element[name] = value || '';
-								this.publish(property);
-							}
-						}
-					} : function(value) {
-						if (value !== this.element[name]) {
+						//if (value !== this.element[name]) {
+						value = set(value, cancel);
+						if (value !== cancel) {
 							this.element[name] = value || '';
 							this.publish(property);
 						}
+						//}
+					} : function(value) {
+						//if (value !== this.element[name]) {
+						this.element[name] = value || '';
+						this.publish(property);
+						//}
 					}
 				});
 			},
