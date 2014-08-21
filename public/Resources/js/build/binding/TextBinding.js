@@ -1,10 +1,10 @@
 /**
- * @class build.viewmodel.TextBinding
- * @extends build.viewmodel.OneWayBinding
+ * @class build.binding.TextBinding
+ * @extends build.binding.OneWayBinding
  */
-Build('build.viewmodel.TextBinding', [ 'build::build.viewmodel.OneWayBinding' ], function(define, $super) {
+Build('build.binding.TextBinding', [ 'build::build.binding.OneWayBinding' ], function(define, $super) {
 	define({
-		$extends : 'build.viewmodel.OneWayBinding',
+		$extends : 'build.binding.OneWayBinding',
 		/**
 		 * @constructor
 		 */

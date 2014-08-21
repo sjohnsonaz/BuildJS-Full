@@ -1,10 +1,10 @@
 /**
- * @class build.viewmodel.ValueBinding
- * @extends build.viewmodel.TwoWayBinding
+ * @class build.binding.ValueBinding
+ * @extends build.binding.TwoWayBinding
  */
-Build('build.viewmodel.ValueBinding', [ 'build::build.viewmodel.TwoWayBinding' ], function(define, $super) {
+Build('build.binding.ValueBinding', [ 'build::build.binding.TwoWayBinding' ], function(define, $super) {
 	define({
-		$extends : 'build.viewmodel.TwoWayBinding',
+		$extends : 'build.binding.TwoWayBinding',
 		/**
 		 * @constructor
 		 */

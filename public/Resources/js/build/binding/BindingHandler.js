@@ -1,8 +1,8 @@
 /**
- * @class build.viewmodel.BindingHandler
+ * @class build.binding.BindingHandler
  * @extends build.Module
  */
-Build('build.viewmodel.BindingHandler', [ 'build::build.Module' ], function(define, $super) {
+Build('build.binding.BindingHandler', [ 'build::build.Module' ], function(define, $super) {
 	define({
 		$extends : 'build.Module',
 		/**

@@ -2,7 +2,7 @@
  * @class demo.ui.form.ViewModelPanel
  * @extends build.ui.Container
  */
-Build('demo.ui.form.ViewModelPanel', [ 'build::build.ui.Container', 'build::build.viewmodel.TextBinding', 'build::build.viewmodel.ValueBinding' ], function(define, $super) {
+Build('demo.ui.form.ViewModelPanel', [ 'build::build.ui.Container', 'build::build.binding.TextBinding', 'build::build.binding.ValueBinding', 'demo::demo.viewmodel.FormModel' ], function(define, $super) {
 	define({
 		$extends : 'build.ui.Container',
 		/**
@@ -18,8 +18,8 @@ Build('demo.ui.form.ViewModelPanel', [ 'build::build.ui.Container', 'build::buil
 			var viewModelParagraph0 = build.ui.element.Paragraph.create('');
 			var viewModelText0 = build.ui.form.Text.create();
 
-			build.viewmodel.TextBinding.create(viewModelParagraph0, formModel, 'testValue');
-			build.viewmodel.ValueBinding.create(viewModelText0, formModel, 'testValue');
+			build.binding.TextBinding.create(viewModelParagraph0, formModel, 'testValue');
+			build.binding.ValueBinding.create(viewModelText0, formModel, 'testValue');
 
 			this.addChild(viewModelText0);
 			this.addChild(viewModelParagraph0);
