@@ -11,7 +11,7 @@ Build('build.viewmodel.BindingHandler', [ 'build::build.Module' ], function(defi
 		$constructor : function BindingHandler(destination) {
 			$super(this)();
 			this.destination = destination;
-			this.destination.addHandler(this);
+			destination.addHandler(this);
 		},
 		$prototype : {
 			link : function() {
@@ -29,7 +29,6 @@ Build('build.viewmodel.BindingHandler', [ 'build::build.Module' ], function(defi
 				result = this.apply(result, arguments) || result;
 				result.link.apply(result, arguments);
 				result.init.apply(result, arguments);
-				//this.update.apply(result, arguments);
 				return result;
 			},
 		}
