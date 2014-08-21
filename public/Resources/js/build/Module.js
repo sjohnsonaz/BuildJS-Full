@@ -226,17 +226,22 @@ Build('build.Module', [], function(define, $super) {
 							}
 						}
 					}
+					this.subscribers.length = 0;
 				}
+
 				// Destroy all subscriptions
 				if (this.subscriptions) {
 					for (var index = 0, length = this.subscriptions.length; index < length; index++) {
 						var subscription = this.subscriptions[index];
 						subscription.publisher.unsubscribe(subscription, true);
 					}
+					this.subscriptions.length = 0;
 				}
+
 				// Destroy all binding handlers.
 				if (this.handlers) {
 					for ( var property in this.handlers) {
+						this.handlers[property].destroy();
 						delete this.handlers[property];
 					}
 				}

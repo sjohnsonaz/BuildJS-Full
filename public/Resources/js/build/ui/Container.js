@@ -143,16 +143,15 @@ Build('build.ui.Container', [ 'build::build.ui.Widget' ], function(define, $supe
 						element.removeChild(element.firstChild);
 					}
 				}
-				for (var index = 0, length = this.children.length; index < length; index++) {
-					var child = this.children[index];
+				var child;
+				while (child = this.children.pop()) {
 					if (child) {
-						this.children[index].destroy();
-						delete this.children[index];
+						child.destroy();
+						delete child;
 					} else {
 						console.log('already destroyed?');
 					}
 				}
-				this.children.length = 0;
 			}
 		}
 	});
