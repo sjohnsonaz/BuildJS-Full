@@ -23,7 +23,7 @@ Build('build.Module', [], function(define, $super) {
 			// this.callbacks = null;
 			// this.subscribers = null;
 			// this.subscriptions = null;
-			this.handlers = [];
+			// this.handlers = null;
 		},
 		$prototype : {
 			/**
@@ -198,6 +198,30 @@ Build('build.Module', [], function(define, $super) {
 					var index = this.subscriptions.indexOf(subscription);
 					if (index != -1) {
 						this.subscriptions.splice(index, 1);
+					}
+				}
+			},
+			/**
+			 * @method addHandler
+			 * @param handler
+			 */
+			addHandler : function(handler) {
+				if (!this.handlers) {
+					this.handlers = [ handler ];
+				}
+				if (this.handlers.indexOf(handler) == -1) {
+					this.handlers.push(this);
+				}
+			},
+			/**
+			 * @method removeHandler
+			 * @param handler
+			 */
+			removeHandler : function(handler) {
+				if (this.handlers) {
+					var index = this.handlers.indexOf(handler);
+					if (index != -1) {
+						this.splice(index, 1);
 					}
 				}
 			},

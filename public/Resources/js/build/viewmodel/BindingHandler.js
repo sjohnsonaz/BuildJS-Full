@@ -11,7 +11,7 @@ Build('build.viewmodel.BindingHandler', [ 'build::build.Module' ], function(defi
 		$constructor : function BindingHandler(destination) {
 			$super(this)();
 			this.destination = destination;
-			this.destination.handlers.push(this);
+			this.destination.addHandler(this);
 		},
 		$prototype : {
 			link : function() {
