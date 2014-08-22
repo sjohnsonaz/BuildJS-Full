@@ -11,7 +11,11 @@ Build('demo.viewmodel.FormModel', [ 'build::build.viewmodel.ViewModel' ], functi
 		$constructor : function FormModel() {
 			$super(this)();
 			this.watchValue('testValue');
-			//this.testValue = 'Test Value';
+			this.watchValue('testTrue');
+			this.watchValue('testFalse');
+			this.testValue = 'Test Value';
+			this.testTrue = true;
+			this.testFalse = false;
 		}
 	});
 });
