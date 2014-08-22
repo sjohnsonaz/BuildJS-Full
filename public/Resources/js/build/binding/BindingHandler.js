@@ -23,8 +23,8 @@ Build('build.binding.BindingHandler', [ 'build::build.Module' ], function(define
 			update : function(source, destination, value, reverse) {
 			},
 			formatString : function(pattern) {
-				var args = arguments.splice(1, 1);
-				return this.replace(/\{\{|\}\}|\{(\d+)\}/g, function(m, n) {
+				var args = Array.prototype.slice.call(arguments).splice(1, 1);
+				return pattern.replace(/\{\{|\}\}|\{(\d+)\}/g, function(m, n) {
 					if (m == "{{") {
 						return "{";
 					}

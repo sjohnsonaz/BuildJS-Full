@@ -21,7 +21,7 @@ Build('build.binding.TextBinding', [ 'build::build.binding.OneWayBinding' ], fun
 				var index = this.sources.indexOf(source);
 				this.cache[index] = value;
 				if (this.format) {
-					destination.text = this.stringFormat(this.format, this.cache);
+					destination.text = this.formatString(this.format, this.cache);
 				} else {
 					destination.text = value;
 				}

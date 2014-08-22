@@ -22,7 +22,8 @@ Build('demo.ui.form.ViewModelPanel', [ 'build::build.ui.Container', 'build::buil
 				sources : [ {
 					source : formModel,
 					property : 'testValue'
-				} ]
+				}, ],
+				format : 'This is some text: {0}!'
 			});
 			build.binding.ValueBinding.create(viewModelText0, formModel, 'testValue');
 
