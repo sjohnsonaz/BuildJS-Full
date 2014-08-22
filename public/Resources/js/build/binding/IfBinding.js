@@ -12,11 +12,13 @@ Build('build.binding.IfBinding', [ 'build::build.binding.OneWayBinding' ], funct
 			$super(this)(destination, definition);
 			if (definition) {
 				this.format = definition.format;
+				this.onTrue = definition.onTrue;
+				this.onFalse = definition.onFalse;
 			}
 		},
 		$prototype : {
 			update : function(destination, source, value, reverse) {
-
+				// TODO: Pre-cache or hold to false until all updates are complete.
 				var index = this.sources.indexOf(source);
 				this.cache[index] = value;
 				if (this.format) {
@@ -26,7 +28,15 @@ Build('build.binding.IfBinding', [ 'build::build.binding.OneWayBinding' ], funct
 				}
 			},
 			evaluate : function(value) {
-				console.log('Condition: ' + value);
+				if (value) {
+					if (typeof this.onTrue === 'function') {
+						this.onTrue();
+					}
+				} else {
+					if (typeof this.onFalse === 'function') {
+						this.onFalse();
+					}
+				}
 			}
 		}
 	});
