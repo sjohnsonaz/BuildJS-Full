@@ -18,7 +18,12 @@ Build('demo.ui.form.ViewModelPanel', [ 'build::build.ui.Container', 'build::buil
 			var viewModelParagraph0 = build.ui.element.Paragraph.create('');
 			var viewModelText0 = build.ui.form.Text.create();
 
-			build.binding.TextBinding.create(viewModelParagraph0, formModel, 'testValue');
+			build.binding.TextBinding.create(viewModelParagraph0, {
+				sources : [ {
+					source : formModel,
+					property : 'testValue'
+				} ]
+			});
 			build.binding.ValueBinding.create(viewModelText0, formModel, 'testValue');
 
 			this.addChild(viewModelText0);

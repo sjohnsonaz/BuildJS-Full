@@ -21,6 +21,18 @@ Build('build.binding.BindingHandler', [ 'build::build.Module' ], function(define
 			init : function() {
 			},
 			update : function(source, destination, value, reverse) {
+			},
+			formatString : function(pattern) {
+				var args = arguments.splice(1, 1);
+				return this.replace(/\{\{|\}\}|\{(\d+)\}/g, function(m, n) {
+					if (m == "{{") {
+						return "{";
+					}
+					if (m == "}}") {
+						return "}";
+					}
+					return args[n];
+				});
 			}
 		},
 		$static : {

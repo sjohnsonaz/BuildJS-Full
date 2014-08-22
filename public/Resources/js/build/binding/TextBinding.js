@@ -8,14 +8,23 @@ Build('build.binding.TextBinding', [ 'build::build.binding.OneWayBinding' ], fun
 		/**
 		 * @constructor
 		 */
-		$constructor : function TextBinding(destination, source, property) {
-			$super(this)(destination, source, property);
+		$constructor : function TextBinding(destination, definition) {
+			$super(this)(destination, definition);
+			if (definition) {
+				this.format = definition.format;
+			}
 		},
 		$prototype : {
 			init : function(destination, source) {
 			},
 			update : function(destination, source, value, reverse) {
-				destination.text = value;
+				var index = this.sources.indexOf(source);
+				this.cache[index] = value;
+				if (this.format) {
+					destination.text = this.stringFormat(this.format, this.cache);
+				} else {
+					destination.text = value;
+				}
 			}
 		}
 	});
