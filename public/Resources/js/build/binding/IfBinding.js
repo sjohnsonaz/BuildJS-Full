@@ -11,7 +11,7 @@ Build('build.binding.IfBinding', [ 'build::build.binding.OneWayBinding' ], funct
 		$constructor : function BindingHandler(destination, definition) {
 			$super(this)(destination, definition);
 			if (definition) {
-				this.format = definition.format;
+				this.format = definition.format || '{0}';
 				this.onTrue = definition.onTrue;
 				this.onFalse = definition.onFalse;
 			}
