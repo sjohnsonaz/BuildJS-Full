@@ -22,8 +22,10 @@ Build('build.binding.BindingHandler', [ 'build::build.Module' ], function(define
 			},
 			update : function(subscription, value, reverse) {
 			},
-			formatString : function(pattern) {
-				var args = Array.prototype.slice.call(arguments).splice(1, 1);
+			formatString : function(pattern, values) {
+				if (!(values instanceof Array)) {
+					values = Array.prototype.slice.call(arguments).splice(1, 1);
+				}
 				return pattern.replace(/\{\{|\}\}|\{(\d+)\}/g, function(m, n) {
 					if (m == "{{") {
 						return "{";
@@ -31,7 +33,7 @@ Build('build.binding.BindingHandler', [ 'build::build.Module' ], function(define
 					if (m == "}}") {
 						return "}";
 					}
-					return args[n];
+					return values[n];
 				});
 			}
 		},
