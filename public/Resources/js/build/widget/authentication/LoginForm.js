@@ -29,8 +29,8 @@ Build('build.widget.authentication.LoginForm', [ 'build::build.ui.form.Form', 'b
 			this.authenticationServiceConnection = authenticationServiceConnection;
 
 			this.addChild(this.message);
-			this.addChild(build.ui.form.FormControl.create(build.ui.form.Label.create('Username'), this.username));
-			this.addChild(build.ui.form.FormControl.create(build.ui.form.Label.create('Password'), this.password));
+			this.addChild(build.ui.form.FormControl.create(build.ui.form.Label.create('Username', this.username), this.username));
+			this.addChild(build.ui.form.FormControl.create(build.ui.form.Label.create('Password', this.password), this.password));
 			this.addChild(build.ui.form.FormControl.create(null, this.submit));
 		},
 		$prototype : {
