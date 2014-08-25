@@ -76,7 +76,7 @@ Build('build.Module', [], function(define, $super) {
 			 * @param set
 			 */
 			watchValue : function(name, value, get, set) {
-				var hidden = value;
+				var hidden = typeof set === 'function' ? set(value, cancel) : value;
 				Object.defineProperty(this, name, {
 					configurable : true,
 					get : typeof get === 'function' ? function() {
@@ -84,7 +84,7 @@ Build('build.Module', [], function(define, $super) {
 					} : function() {
 						return hidden;
 					},
-					set : typeof set == 'function' ? function(value) {
+					set : typeof set === 'function' ? function(value) {
 						if (value !== hidden) {
 							value = set(value, cancel);
 							if (value !== cancel) {
