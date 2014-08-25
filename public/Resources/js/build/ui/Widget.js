@@ -205,7 +205,7 @@ Build('build.ui.Widget', [ 'build::build.Module', 'build::build.utility.Observab
 			 * @method watchStyle
 			 */
 			// TODO: Apply value change detection on setter methods.
-			watchStyle : function(property, style, unit) {
+			watchStyle : function(property, style, unit, get, set) {
 				style = style || property;
 				if (unit) {
 					Object.defineProperty(this, property, {
@@ -250,7 +250,7 @@ Build('build.ui.Widget', [ 'build::build.Module', 'build::build.utility.Observab
 			/**
 			 * @method watchData
 			 */
-			watchData : function(property, data) {
+			watchData : function(property, data, get, set) {
 				data = data || property;
 				Object.defineProperty(this, property, {
 					configurable : true,
@@ -280,7 +280,7 @@ Build('build.ui.Widget', [ 'build::build.Module', 'build::build.utility.Observab
 			/**
 			 * @method watchClass
 			 */
-			watchClass : function(property, className) {
+			watchClass : function(property, className, get, set) {
 				className = className || property;
 				Object.defineProperty(this, property, {
 					configurable : true,
