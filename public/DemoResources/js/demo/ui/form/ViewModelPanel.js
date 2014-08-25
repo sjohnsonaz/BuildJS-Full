@@ -35,7 +35,13 @@ Build('demo.ui.form.ViewModelPanel', [ 'build::build.ui.Container', 'build::buil
 					source : formModel,
 					property : 'testFalse'
 				} ],
-				format : '{0} && !{1}'
+				format : '{0} && !{1}',
+				onTrue : function() {
+					console.log('Condition: true');
+				},
+				onFalse : function() {
+					console.log('Condition: false');
+				}
 			});
 
 			this.addChild(viewModelText0);

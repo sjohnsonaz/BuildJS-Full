@@ -37,7 +37,6 @@ Build('build.binding.IfBinding', [ 'build::build.binding.OneWayBinding' ], funct
 						this.onFalse();
 					}
 				}
-				console.log('Condition: ' + value);
 			}
 		}
 	});
