@@ -15,8 +15,6 @@ Build('build.binding.TextBinding', [ 'build::build.binding.OneWayBinding' ], fun
 			}
 		},
 		$prototype : {
-			init : function(destination, source) {
-			},
 			update : function(subscription, value, reverse) {
 				if (this.format) {
 					this.destination.text = this.formatString(this.format, this.cache);
