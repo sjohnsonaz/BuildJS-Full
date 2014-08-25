@@ -19,18 +19,18 @@ Build('build.binding.TwoWayBinding', [ 'build::build.binding.BindingHandler' ], 
 				source.subscribe(sourceProperty, this);
 				destination.subscribe(destinationProperty, this);
 			},
-			notify : function(source, property, value) {
-				if (source == this.source) {
-					this.update(this.destination, this.source, value, false);
-				} else if (source == this.destination) {
-					this.update(this.destination, this.source, value, true);
+			notify : function(subscription, value) {
+				if (subscription.publisher == this.source) {
+					this.update(subscription, value, false);
+				} else if (subscription.publisher == this.destination) {
+					this.update(subscription, value, true);
 				}
 			},
-			update : function(destination, source, value, reverse) {
+			update : function(subscription, value, reverse) {
 				if (!reverse) {
-					destination[this.destinationProperty] = value;
+					this.destination[this.destinationProperty] = value;
 				} else {
-					source[this.sourceProperty] = value;
+					this.source[this.sourceProperty] = value;
 				}
 			}
 		}

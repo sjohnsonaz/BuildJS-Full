@@ -17,9 +17,9 @@ Build('build.binding.IfBinding', [ 'build::build.binding.OneWayBinding' ], funct
 			}
 		},
 		$prototype : {
-			update : function(destination, source, value, reverse) {
+			update : function(subscription, value, reverse) {
 				// TODO: Pre-cache or hold to false until all updates are complete.
-				var index = this.sources.indexOf(source);
+				var index = this.subscriptions.indexOf(subscription);
 				this.cache[index] = value;
 				if (this.format) {
 					var condition = this.formatString(this.format, this.cache);
@@ -37,6 +37,7 @@ Build('build.binding.IfBinding', [ 'build::build.binding.OneWayBinding' ], funct
 						this.onFalse();
 					}
 				}
+				console.log('Condition: ' + value);
 			}
 		}
 	});

@@ -16,11 +16,11 @@ Build('build.binding.BindingHandler', [ 'build::build.Module' ], function(define
 		$prototype : {
 			link : function() {
 			},
-			notify : function(source, property, value) {
+			notify : function(subscription, value) {
 			},
 			init : function() {
 			},
-			update : function(source, destination, value, reverse) {
+			update : function(subscription, value, reverse) {
 			},
 			formatString : function(pattern) {
 				var args = Array.prototype.slice.call(arguments).splice(1, 1);

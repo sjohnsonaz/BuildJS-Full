@@ -31,8 +31,11 @@ Build('demo.ui.form.ViewModelPanel', [ 'build::build.ui.Container', 'build::buil
 				sources : [ {
 					source : formModel,
 					property : 'testTrue'
+				}, {
+					source : formModel,
+					property : 'testFalse'
 				} ],
-				format : '{0}'
+				format : '{0} && !{1}'
 			});
 
 			this.addChild(viewModelText0);

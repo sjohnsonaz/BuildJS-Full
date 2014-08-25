@@ -17,13 +17,13 @@ Build('build.binding.TextBinding', [ 'build::build.binding.OneWayBinding' ], fun
 		$prototype : {
 			init : function(destination, source) {
 			},
-			update : function(destination, source, value, reverse) {
-				var index = this.sources.indexOf(source);
+			update : function(subscription, value, reverse) {
+				var index = this.subscriptions.indexOf(subscription);
 				this.cache[index] = value;
 				if (this.format) {
-					destination.text = this.formatString(this.format, this.cache);
+					this.destination.text = this.formatString(this.format, this.cache);
 				} else {
-					destination.text = value;
+					this.destination.text = value;
 				}
 			}
 		}

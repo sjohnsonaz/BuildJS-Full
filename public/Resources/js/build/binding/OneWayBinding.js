@@ -30,8 +30,8 @@ Build('build.binding.OneWayBinding', [ 'build::build.binding.BindingHandler' ], 
 					this.sources[index].subscribe(this.properties[index], this);
 				}
 			},
-			notify : function(source, property, value) {
-				this.update(this.destination, source, value, false);
+			notify : function(subscription, value) {
+				this.update(subscription, value, false);
 			}
 		}
 	});

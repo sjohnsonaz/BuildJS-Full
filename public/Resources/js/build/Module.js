@@ -115,16 +115,32 @@ Build('build.Module', [], function(define, $super) {
 						subscriber : subscriber
 					};
 					this.subscribers[property].push(subscription);
+					if (typeof subscriber === 'object') {
+						subscriber.subscriptionLink(subscription);
+					}
 					if (!deferNotify) {
-						if (typeof subscriber === 'function') {
-							subscriber(this[property]);
-						} else {
-							subscriber.subscriptionLink(subscription);
-							subscriber.notify(this, property, this[property]);
-						}
+						this.publish(property, subscription);
 					}
 					return subscription;
 				}
+			},
+			/**
+			 * @method getSubscription
+			 * @param subscriber
+			 * @param property
+			 */
+			getSubscription : function(subscriber, property) {
+				var output = null;
+				if (this.subscriptions) {
+					for (var index = 0, length = this.subscriptions.length; index < length; index++) {
+						var subscription = this.subscriptions[index];
+						if (subscription.subscriber === subscriber && subscription.property === property) {
+							output = subscription;
+							break;
+						}
+					}
+				}
+				return output;
 			},
 			/**
 			 * @method unsubscribe
@@ -153,20 +169,34 @@ Build('build.Module', [], function(define, $super) {
 			publish : function(property, subscriber) {
 				// Publish to a single subscriber, or all subscribers.
 				if (subscriber) {
-					if (typeof subscriber === 'object') {
-						subscriber.notify(this, property, this[property]);
-					} else {
+					if (typeof subscriber === 'function') {
 						subscriber(this[property]);
+					} else if (subscriber instanceof build.Module) {
+						var subscription = this.getSubscription(subscriber, property);
+						if (subscription) {
+							subscription.value = this[property];
+							subscriber.notify(subscription, this[property]);
+						}
+					} else if (typeof subscriber === 'object') {
+						var subscription = subscriber;
+						subscriber = subscription.subscriber;
+						subscription.value = this[property];
+						if (typeof subscriber === 'function') {
+							subscriber(this[property]);
+						} else {
+							subscriber.notify(subscription, this[property]);
+						}
 					}
 				} else {
 					if (this.subscribers && this.subscribers[property]) {
 						var subscribers = this.subscribers[property];
 						for (var index = 0, length = subscribers.length; index < length; index++) {
 							var subscription = subscribers[index];
-							if (typeof subscription.subscriber === 'object') {
-								subscription.subscriber.notify(this, property, this[property]);
-							} else {
+							subscription.value = this[property];
+							if (typeof subscription.subscriber === 'function') {
 								subscription.subscriber(this[property]);
+							} else {
+								subscription.subscriber.notify(subscription, this[property]);
 							}
 						}
 					}
@@ -175,12 +205,8 @@ Build('build.Module', [], function(define, $super) {
 			/**
 			 * 
 			 */
-			/*notify : function(property, value) {
-				var handler = this.handlers[property];
-				if (handler) {
-					handler.notify(this, value);
-				}
-			},*/
+			notify : function(subscription, value) {
+			},
 			/**
 			 * @method subscriptionLink
 			 * @param subscription
@@ -225,16 +251,16 @@ Build('build.Module', [], function(define, $super) {
 					}
 				}
 			},
-			/**
-			 * @method bind
-			 */
-			bind : function(source, property, handler) {
-				//this.bound = source;
-				if (source && property && handler) {
-					this.handlers[property] = handler;
-					handler.bind(source, this);
-				}
-			},
+			///**
+			//* @method bind
+			//*/
+			//bind : function(source, property, handler) {
+			////this.bound = source;
+			//if (source && property && handler) {
+			//this.handlers[property] = handler;
+			//handler.bind(source, this);
+			//}
+			//},
 			/**
 			 * @method destroy
 			 */
