@@ -13,6 +13,8 @@ Build('build.binding.OneWayBinding', [ 'build::build.binding.BindingHandler' ], 
 			this.cache = [];
 			this.sources = [];
 			this.properties = [];
+			this.reporting = [];
+			this.reported = 0;
 			if (definition) {
 				var sourceDefinitions = definition.sources || [];
 				for (var index = 0, length = sourceDefinitions.length; index < length; index++) {

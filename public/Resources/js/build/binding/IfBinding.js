@@ -21,10 +21,16 @@ Build('build.binding.IfBinding', [ 'build::build.binding.OneWayBinding' ], funct
 				// TODO: Pre-cache or hold to false until all updates are complete.
 				var index = this.subscriptions.indexOf(subscription);
 				this.cache[index] = value;
-				if (this.format) {
-					var condition = this.formatString(this.format, this.cache);
-					var wrappedCondition = 'if (' + condition + ') {this.evaluate(true);} else {this.evaluate(false);}';
-					eval(wrappedCondition);
+				if (!this.reporting[index]) {
+					this.reporting[index] = true;
+					this.reported++;
+				}
+				if (this.reported == this.sources.length) {
+					if (this.format) {
+						var condition = this.formatString(this.format, this.cache);
+						var wrappedCondition = 'if (' + condition + ') {this.evaluate(true);} else {this.evaluate(false);}';
+						eval(wrappedCondition);
+					}
 				}
 			},
 			evaluate : function(value) {
