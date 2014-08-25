@@ -13,8 +13,7 @@ Build('build.binding.OneWayBinding', [ 'build::build.binding.BindingHandler' ], 
 			this.cache = [];
 			this.sources = [];
 			this.properties = [];
-			this.reporting = [];
-			this.reported = 0;
+			this.subscribeComplete = false;
 			if (definition) {
 				var sourceDefinitions = definition.sources || [];
 				for (var index = 0, length = sourceDefinitions.length; index < length; index++) {
@@ -31,9 +30,17 @@ Build('build.binding.OneWayBinding', [ 'build::build.binding.BindingHandler' ], 
 				for (var index = 0, length = this.sources.length; index < length; index++) {
 					this.sources[index].subscribe(this.properties[index], this);
 				}
+				this.subscribeComplete = true;
+				// Post last subscription
+				var subscription = this.subscriptions[this.subscriptions.length - 1];
+				this.update(subscription, subscription.value, false);
 			},
 			notify : function(subscription, value) {
-				this.update(subscription, value, false);
+				var index = this.subscriptions.indexOf(subscription);
+				this.cache[index] = value;
+				if (this.subscribeComplete) {
+					this.update(subscription, value, false);
+				}
 			}
 		}
 	});

@@ -18,8 +18,6 @@ Build('build.binding.TextBinding', [ 'build::build.binding.OneWayBinding' ], fun
 			init : function(destination, source) {
 			},
 			update : function(subscription, value, reverse) {
-				var index = this.subscriptions.indexOf(subscription);
-				this.cache[index] = value;
 				if (this.format) {
 					this.destination.text = this.formatString(this.format, this.cache);
 				} else {
