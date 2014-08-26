@@ -10,11 +10,11 @@ Build('build.ui.Container', [ 'build::build.ui.Widget' ], function(define, $supe
 		 */
 		$constructor : function Container() {
 			$super(this)();
-			this.watchValue('directAppend', false, null, function(value) {
+			this.watchValue('directAppend', false, null, function(value, cancel) {
 				this.refreshChildren();
 				return value;
 			}.bind(this));
-			this.watchValue('iteratorType', 'div', null, function(value) {
+			this.watchValue('iteratorType', 'div', null, function(value, cancel) {
 				this.refreshChildren();
 				return value;
 			}.bind(this));

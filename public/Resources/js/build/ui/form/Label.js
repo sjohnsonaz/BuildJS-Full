@@ -24,7 +24,7 @@ Build('build.ui.form.Label', [ 'build::build.ui.form.FormElement' ], function(de
 			init : function(text, control) {
 				$super().init(this)(text);
 				this.watchAttribute('forId', 'for');
-				this.watchValue('control', control, null, function(value) {
+				this.watchValue('control', control, null, function(value, cancel) {
 					if (control) {
 						control = control.element || control;
 						this.forId = control.id;

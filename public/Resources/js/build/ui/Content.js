@@ -14,7 +14,6 @@ Build('build.ui.Content', [ 'build::build.ui.Widget' ], function(define, $super)
 		 */
 		$constructor : function Content(text) {
 			$super(this)(text);
-			this.watchValue('textHelpers', false);
 		},
 		$prototype : {
 			/**
@@ -27,13 +26,14 @@ Build('build.ui.Content', [ 'build::build.ui.Widget' ], function(define, $super)
 				this.watchProperty('text', 'innerHTML', null, function(value) {
 					return templateParser ? templateParser.parse(value, this) : value;
 				}.bind(this));
-				this.subscribe('textHelpers', function(value) {
+				this.watchValue('textHelpers', false, null, function(value) {
 					if (value) {
 						templateParser = build.utility.TemplateParser();
 					} else {
 						templateParser = null;
 					}
 					this.text = this.text;
+					return value;
 				}.bind(this));
 				this.text = text || '';
 			}
