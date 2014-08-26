@@ -15,6 +15,8 @@ Build('build.binding.IfBinding', [ 'build::build.binding.OneWayBinding' ], funct
 				this.onTrue = definition.onTrue;
 				this.onFalse = definition.onFalse;
 			}
+			this.childTrue = null;
+			this.childFalse = null;
 		},
 		$prototype : {
 			update : function(subscription, value, reverse) {
@@ -27,27 +29,43 @@ Build('build.binding.IfBinding', [ 'build::build.binding.OneWayBinding' ], funct
 			evaluate : function(value) {
 				if (value) {
 					// Clear false value
-					if (typeof this.onFalse !== 'function' && this.onFalse instanceof build.Module) {
-						this.destination.removeChild(this.onFalse);
+					if (this.childFalse) {
+						this.destination.removeChild(this.childFalse);
+						if (typeof this.onFalse === 'function') {
+							this.childFalse.destroy();
+							delete this.childFalse;
+						}
+						this.childFalse = null;
 					}
 
 					// Add true value
 					if (typeof this.onTrue === 'function') {
-						this.onTrue();
+						this.childTrue = this.onTrue();
 					} else {
-						this.destination.addChild(this.onTrue);
+						this.childTrue = this.onTrue;
+					}
+					if (this.childTrue) {
+						this.destination.addChild(this.childTrue);
 					}
 				} else {
 					// Clear true value
-					if (typeof this.onTrue !== 'function' && this.onTrue instanceof build.Module) {
-						this.destination.removeChild(this.onTrue);
+					if (this.childTrue) {
+						this.destination.removeChild(this.childTrue);
+						if (typeof this.onTrue === 'function') {
+							this.childTrue.destroy();
+							delete this.childTrue;
+						}
+						this.childTrue = null;
 					}
 
 					// Add false value
 					if (typeof this.onFalse === 'function') {
-						this.onFalse();
+						this.childFalse = this.onFalse();
 					} else {
-						this.destination.addChild(this.onFalse);
+						this.childFalse = this.onFalse;
+					}
+					if (this.childFalse) {
+						this.destination.addChild(this.childFalse);
 					}
 				}
 			}

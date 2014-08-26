@@ -21,6 +21,7 @@ Build('demo.ui.form.ViewModelPanel', [ 'build::build.ui.Container', 'build::buil
 			var viewModeContainer0 = build.ui.Container.create();
 			var viewModelParagraph1 = build.ui.element.Paragraph.create('Evaluated to true!');
 			var viewModelParagraph2 = build.ui.element.Paragraph.create('Evaluated to false!');
+			var viewModeContainer1 = build.ui.Container.create();
 
 			build.binding.TextBinding.create(viewModelParagraph0, {
 				sources : [ {
@@ -44,9 +45,25 @@ Build('demo.ui.form.ViewModelPanel', [ 'build::build.ui.Container', 'build::buil
 				onFalse : viewModelParagraph2
 			});
 
+			build.binding.IfBinding.create(viewModeContainer1, {
+				sources : [ {
+					source : formModel,
+					property : 'testTrue'
+				}, {
+					source : formModel,
+					property : 'testFalse'
+				} ],
+				format : '{0} && !{1}',
+				onTrue : function() {
+					return build.ui.element.Paragraph.create('This is dynamically generated');
+				},
+				onFalse : null
+			});
+
 			this.addChild(viewModelText0);
 			this.addChild(viewModelParagraph0);
 			this.addChild(viewModeContainer0);
+			this.addChild(viewModeContainer1);
 		}
 	});
 });
