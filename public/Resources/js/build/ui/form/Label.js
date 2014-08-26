@@ -14,8 +14,6 @@ Build('build.ui.form.Label', [ 'build::build.ui.form.FormElement' ], function(de
 		$constructor : function Label(text, control) {
 			$super(this)(text);
 			this.type = 'label';
-			this.watchValue('control', control);
-			this.watchAttribute('forId', 'for');
 		},
 		$prototype : {
 			/**
@@ -25,13 +23,15 @@ Build('build.ui.form.Label', [ 'build::build.ui.form.FormElement' ], function(de
 			 */
 			init : function(text, control) {
 				$super().init(this)(text);
-				this.subscribe('control', function(value) {
-					if (this.control) {
-						var control = this.control.element || this.control;
+				this.watchAttribute('forId', 'for');
+				this.watchValue('control', control, null, function(value) {
+					if (control) {
+						control = control.element || control;
 						this.forId = control.id;
 					} else {
 						this.forId = '';
 					}
+					return value;
 				}.bind(this));
 			}
 		}
