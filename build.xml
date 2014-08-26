@@ -3,10 +3,6 @@
 	<property file="${basedir}/launch/ant/stage-override.properties" />
 	<property name="stage" value="dev" />
 	<property file="os" value="unix" />
-	<property file="${basedir}/launch/ant/${stage}-override.properties" />
-	<property file="${basedir}/launch/ant/${stage}.properties" />
-	<property file="${basedir}/launch/ant/project-override.properties" />
-	<property file="${basedir}/launch/ant/project.properties" />
 	<property file="${basedir}/launch/ant/default-${os}.properties" />
 	<macrodef name="openInBrowser">
 		<attribute name="url" />
