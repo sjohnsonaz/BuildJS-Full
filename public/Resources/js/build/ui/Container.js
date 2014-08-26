@@ -10,6 +10,15 @@ Build('build.ui.Container', [ 'build::build.ui.Widget' ], function(define, $supe
 		 */
 		$constructor : function Container() {
 			$super(this)();
+			this.watchValue('directAppend', false, null, function(value) {
+				this.refreshChildren();
+				return value;
+			}.bind(this));
+			this.watchValue('iteratorType', 'div', null, function(value) {
+				this.refreshChildren();
+				return value;
+			}.bind(this));
+
 			this.children = build.utility.ObservableArray();
 			//this.children.subscribe(function() {
 			//this.refreshChildren();
@@ -64,19 +73,11 @@ Build('build.ui.Container', [ 'build::build.ui.Widget' ], function(define, $supe
 					this.refreshChildren();
 				}.bind(this)
 			});
-			this.watchValue('directAppend', false);
-			this.watchValue('iteratorType', 'div');
 		},
 		$prototype : {
 			init : function() {
 				$super().init(this)();
-				// this.refreshChildren();
-				this.subscribe('directAppend', function(value) {
-					this.refreshChildren();
-				}.bind(this));
-				this.subscribe('iteratorType', function(value) {
-					this.refreshChildren();
-				}.bind(this));
+				this.refreshChildren();
 			},
 			/**
 			 * @method clearChildren
