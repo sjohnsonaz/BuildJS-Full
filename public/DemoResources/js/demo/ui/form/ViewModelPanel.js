@@ -2,8 +2,8 @@
  * @class demo.ui.form.ViewModelPanel
  * @extends build.ui.Container
  */
-Build('demo.ui.form.ViewModelPanel', [ 'build::build.ui.Container', 'build::build.ui.element.Paragraph', 'build::build.ui.element.Div', 'build::build.ui.form.Text', 'build::build.binding.TextBinding', 'build::build.binding.ValueBinding',
-		'build::build.binding.IfBinding', 'demo::demo.viewmodel.FormModel' ], function(define, $super) {
+Build('demo.ui.form.ViewModelPanel', [ 'build::build.ui.Container', 'build::build.ui.element.Paragraph', 'build::build.ui.element.Div', 'build::build.ui.form.Text', 'build::build.ui.form.CheckBox', 'build::build.binding.TextBinding',
+		'build::build.binding.ValueBinding', 'build::build.binding.IfBinding', 'demo::demo.viewmodel.FormModel' ], function(define, $super) {
 	define({
 		$extends : 'build.ui.Container',
 		/**
@@ -18,6 +18,7 @@ Build('demo.ui.form.ViewModelPanel', [ 'build::build.ui.Container', 'build::buil
 			formModel = new demo.viewmodel.FormModel();
 			var viewModelParagraph0 = build.ui.element.Paragraph.create('');
 			var viewModelText0 = build.ui.form.Text.create();
+			var viewModelCheckBox0 = build.ui.form.CheckBox.create('test0', 'test0', 'test0');
 			var viewModeContainer0 = build.ui.Container.create();
 			var viewModelParagraph1 = build.ui.element.Paragraph.create('Evaluated to true!');
 			var viewModelParagraph2 = build.ui.element.Paragraph.create('Evaluated to false!');
@@ -70,9 +71,11 @@ Build('demo.ui.form.ViewModelPanel', [ 'build::build.ui.Container', 'build::buil
 				},
 				onFalse : null
 			});
+			build.binding.ValueBinding.create(viewModelCheckBox0, formModel, 'testTrue');
 
 			this.addChild(viewModelText0);
 			this.addChild(viewModelParagraph0);
+			this.addChild(viewModelCheckBox0);
 			this.addChild(viewModeContainer0);
 			this.addChild(viewModeContainer1);
 		}
