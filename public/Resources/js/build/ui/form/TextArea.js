@@ -22,6 +22,19 @@ Build('build.ui.form.TextArea', [ 'build::build.ui.form.FormElement' ], function
 			this.watchProperty('value', 'innerHTML');
 			this.watchAttribute('placeholder');
 			this.watchAttribute('name');
+		},
+		$prototype : {
+			/**
+			 * @method init
+			 * @param text
+			 * @param value
+			 */
+			init : function(text, value) {
+				$super().init(this)(text, value);
+				this.element.addEventListener('change', function() {
+					this.value = this.element.value;
+				}.bind(this));
+			}
 		}
 	});
 });

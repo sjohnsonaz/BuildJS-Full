@@ -31,6 +31,9 @@ Build('build.ui.form.Text', [ 'build::build.ui.form.FormElement' ], function(def
 			 */
 			init : function(text, value) {
 				$super().init(this)(text, value);
+				this.element.addEventListener('change', function() {
+					this.value = this.element.value;
+				}.bind(this));
 				this.element.type = 'text';
 			}
 		}
