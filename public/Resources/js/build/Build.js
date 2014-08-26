@@ -446,7 +446,7 @@ var Build = build.Build = (function() {
 	}
 	function loadSingle($name, callback) {
 		var pathInformation = getPathInformation($name);
-		var path = pathInformation.path
+		var path = pathInformation.path;
 		$name = pathInformation.name;
 		if (!definitions[$name]) {
 			definitionPaths[$name] = path;
