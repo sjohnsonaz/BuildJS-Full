@@ -3,7 +3,7 @@
  * @extends build.ui.Container
  */
 Build('demo.ui.form.ViewModelPanel', [ 'build::build.ui.Container', 'build::build.ui.element.Paragraph', 'build::build.ui.element.Div', 'build::build.ui.form.Text', 'build::build.ui.form.CheckBox', 'build::build.binding.TextBinding',
-		'build::build.binding.ValueBinding', 'build::build.binding.IfBinding', 'demo::demo.viewmodel.FormModel' ], function(define, $super) {
+		'build::build.binding.ValueBinding', 'build::build.binding.IfBinding', 'build::build.binding.ForEachBinding', 'demo::demo.viewmodel.FormModel' ], function(define, $super) {
 	define({
 		$extends : 'build.ui.Container',
 		/**
@@ -19,10 +19,11 @@ Build('demo.ui.form.ViewModelPanel', [ 'build::build.ui.Container', 'build::buil
 			var viewModelParagraph0 = build.ui.element.Paragraph.create('');
 			var viewModelText0 = build.ui.form.Text.create();
 			var viewModelCheckBox0 = build.ui.form.CheckBox.create('test0', 'test0', 'test0');
-			var viewModeContainer0 = build.ui.Container.create();
+			var viewModelContainer0 = build.ui.Container.create();
 			var viewModelParagraph1 = build.ui.element.Paragraph.create('Evaluated to true!');
 			var viewModelParagraph2 = build.ui.element.Paragraph.create('Evaluated to false!');
-			var viewModeContainer1 = build.ui.Container.create();
+			var viewModelContainer1 = build.ui.Container.create();
+			var viewModelContainer2 = build.ui.Container.create();
 
 			build.binding.TextBinding.create(viewModelParagraph0, {
 				sources : [ {
@@ -33,7 +34,7 @@ Build('demo.ui.form.ViewModelPanel', [ 'build::build.ui.Container', 'build::buil
 			});
 			build.binding.ValueBinding.create(viewModelText0, formModel, 'testValue');
 
-			build.binding.IfBinding.create(viewModeContainer0, {
+			build.binding.IfBinding.create(viewModelContainer0, {
 				sources : [ {
 					source : formModel,
 					property : 'testTrue'
@@ -46,7 +47,7 @@ Build('demo.ui.form.ViewModelPanel', [ 'build::build.ui.Container', 'build::buil
 				onFalse : viewModelParagraph2
 			});
 
-			build.binding.IfBinding.create(viewModeContainer1, {
+			build.binding.IfBinding.create(viewModelContainer1, {
 				sources : [ {
 					source : formModel,
 					property : 'testTrue'
@@ -73,11 +74,14 @@ Build('demo.ui.form.ViewModelPanel', [ 'build::build.ui.Container', 'build::buil
 			});
 			build.binding.ValueBinding.create(viewModelCheckBox0, formModel, 'testTrue');
 
+			build.binding.ForEachBinding.create(viewModelContainer2, formModel, 'testArray');
+
 			this.addChild(viewModelText0);
 			this.addChild(viewModelParagraph0);
 			this.addChild(viewModelCheckBox0);
-			this.addChild(viewModeContainer0);
-			this.addChild(viewModeContainer1);
+			this.addChild(viewModelContainer0);
+			this.addChild(viewModelContainer1);
+			this.addChild(viewModelContainer2);
 		}
 	});
 });
