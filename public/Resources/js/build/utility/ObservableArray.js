@@ -1,8 +1,8 @@
 var build = build || {};
 build.utility = build.utility || {};
 build.utility.ObservableArray = (function() {
-	function ObservableArray() {
-		var inner = Array.apply({}, arguments);
+	function ObservableArray(base) {
+		var inner = Array.apply({}, (base instanceof Array && arguments.length == 1) ? base : arguments);
 		inner.push = push.bind(inner);
 		inner.pop = pop.bind(inner);
 		inner.unshift = unshift.bind(inner);
