@@ -26,19 +26,28 @@ Build('build.binding.IfBinding', [ 'build::build.binding.OneWayBinding' ], funct
 			},
 			evaluate : function(value) {
 				if (value) {
+					// Clear false value
+					if (typeof this.onFalse !== 'function' && this.onFalse instanceof build.Module) {
+						this.destination.removeChild(this.onFalse);
+					}
+
+					// Add true value
 					if (typeof this.onTrue === 'function') {
 						this.onTrue();
 					} else {
 						this.destination.addChild(this.onTrue);
 					}
 				} else {
-					if (typeof this.onTrue === 'function') {
-
-					} else {
+					// Clear true value
+					if (typeof this.onTrue !== 'function' && this.onTrue instanceof build.Module) {
 						this.destination.removeChild(this.onTrue);
 					}
+
+					// Add false value
 					if (typeof this.onFalse === 'function') {
 						this.onFalse();
+					} else {
+						this.destination.addChild(this.onFalse);
 					}
 				}
 			}

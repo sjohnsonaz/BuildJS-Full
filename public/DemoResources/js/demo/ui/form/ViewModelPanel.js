@@ -20,6 +20,7 @@ Build('demo.ui.form.ViewModelPanel', [ 'build::build.ui.Container', 'build::buil
 			var viewModelText0 = build.ui.form.Text.create();
 			var viewModeContainer0 = build.ui.Container.create();
 			var viewModelParagraph1 = build.ui.element.Paragraph.create('Evaluated to true!');
+			var viewModelParagraph2 = build.ui.element.Paragraph.create('Evaluated to false!');
 
 			build.binding.TextBinding.create(viewModelParagraph0, {
 				sources : [ {
@@ -40,9 +41,7 @@ Build('demo.ui.form.ViewModelPanel', [ 'build::build.ui.Container', 'build::buil
 				} ],
 				format : '{0} && !{1}',
 				onTrue : viewModelParagraph1,
-				onFalse : function() {
-					console.log('Condition: false');
-				}
+				onFalse : viewModelParagraph2
 			});
 
 			this.addChild(viewModelText0);
