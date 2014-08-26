@@ -63,8 +63,10 @@ Build('build.widget.menu.MenuElement', [ 'build::build.ui.Container', 'build::bu
 			 * 
 			 */
 			refreshChildren : function() {
-				this.clearChildren();
-				this.element.appendChild(this.link.element);
+				if (this.element) {
+					this.clearChildren();
+					this.element.appendChild(this.link.element);
+				}
 			},
 			/**
 			 * 

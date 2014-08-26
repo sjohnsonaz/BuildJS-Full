@@ -14,6 +14,7 @@ build.utility.ObservableArray = (function() {
 		inner.set = set.bind(inner);
 		inner.removeAll = removeAll.bind(inner);
 		inner.subscribe = subscribe.bind(inner);
+		inner.unsubscribe = unsubscribe.bind(inner);
 		inner.publish = publish.bind(inner);
 		return inner;
 	}
@@ -169,6 +170,19 @@ build.utility.ObservableArray = (function() {
 		case 'function':
 			this.subscribers = this.subscribers || [];
 			this.subscribers.push(subscriber);
+			break;
+		}
+	}
+
+	function unsubscribe(subscriber) {
+		switch (typeof subscriber) {
+		case 'object':
+		case 'function':
+			this.subscribers = this.subscribers || [];
+			var index = this.subscribers.indexOf(subscriber);
+			if (index != -1) {
+				this.subscribers.splice(index, 1);
+			}
 			break;
 		}
 	}

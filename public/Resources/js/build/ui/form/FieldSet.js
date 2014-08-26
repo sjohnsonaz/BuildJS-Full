@@ -24,7 +24,9 @@ Build('build.ui.form.FieldSet', [ 'build::build.ui.Container', 'build::build.ui.
 			 */
 			refreshChildren : function() {
 				$super().refreshChildren(this)();
-				this.element.insertBefore(this.legend.element, this.element.firstChild);
+				if (this.element) {
+					this.element.insertBefore(this.legend.element, this.element.firstChild);
+				}
 			}
 		}
 	});

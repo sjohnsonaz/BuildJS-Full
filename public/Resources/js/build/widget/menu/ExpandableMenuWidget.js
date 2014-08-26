@@ -35,8 +35,10 @@ Build('build.widget.menu.ExpandableMenuWidget', [ 'build::build.widget.menu.Menu
 			 */
 			refreshChildren : function() {
 				$super().refreshChildren(this)();
-				this.element.insertBefore(this.title.element, this.element.firstChild);
-				this.element.insertBefore(this.expandButton.element, this.element.firstChild);
+				if (this.element) {
+					this.element.insertBefore(this.title.element, this.element.firstChild);
+					this.element.insertBefore(this.expandButton.element, this.element.firstChild);
+				}
 			}
 		}
 	});
