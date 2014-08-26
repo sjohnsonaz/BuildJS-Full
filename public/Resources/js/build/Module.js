@@ -190,15 +190,14 @@ Build('build.Module', [], function(define, $super) {
 				} else {
 					if (this.subscribers && this.subscribers[property]) {
 						var subscribers = this.subscribers[property];
-						for (var index = 0, length = subscribers.length; index < length; index++) {
-							var subscription = subscribers[index];
+						subscribers.forEach(function(subscription, index, array) {
 							subscription.value = this[property];
 							if (typeof subscription.subscriber === 'function') {
 								subscription.subscriber(this[property]);
 							} else {
 								subscription.subscriber.notify(subscription, this[property]);
 							}
-						}
+						}.bind(this));
 					}
 				}
 			},
@@ -234,8 +233,7 @@ Build('build.Module', [], function(define, $super) {
 			addHandler : function(handler) {
 				if (!this.handlers) {
 					this.handlers = [ handler ];
-				}
-				if (this.handlers.indexOf(handler) == -1) {
+				} else if (this.handlers.indexOf(handler) == -1) {
 					this.handlers.push(this);
 				}
 			},

@@ -55,7 +55,18 @@ Build('demo.ui.form.ViewModelPanel', [ 'build::build.ui.Container', 'build::buil
 				} ],
 				format : '{0} && !{1}',
 				onTrue : function() {
-					return build.ui.element.Paragraph.create('This is dynamically generated');
+					var innerParagraph = build.ui.element.Paragraph.create();
+					build.binding.TextBinding.create(innerParagraph, {
+						sources : [ {
+							source : formModel,
+							property : 'testTrue'
+						}, {
+							source : formModel,
+							property : 'testFalse'
+						} ],
+						format : 'This is dynamically generated because: ({0} && !{1})'
+					});
+					return innerParagraph;
 				},
 				onFalse : null
 			});
