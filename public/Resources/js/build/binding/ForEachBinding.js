@@ -11,6 +11,7 @@ Build('build.binding.ForEachBinding', [ 'build::build.binding.BindingHandler' ],
 		$constructor : function ForEachBinding(destination, source, property) {
 			$super(this)();
 			this.source = source;
+			this.property = property;
 		},
 		$prototype : {
 			link : function(destination, source, property) {

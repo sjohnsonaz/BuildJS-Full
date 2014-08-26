@@ -28,8 +28,15 @@ Build('build.binding.IfBinding', [ 'build::build.binding.OneWayBinding' ], funct
 				if (value) {
 					if (typeof this.onTrue === 'function') {
 						this.onTrue();
+					} else {
+						this.destination.addChild(this.onTrue);
 					}
 				} else {
+					if (typeof this.onTrue === 'function') {
+
+					} else {
+						this.destination.removeChild(this.onTrue);
+					}
 					if (typeof this.onFalse === 'function') {
 						this.onFalse();
 					}
