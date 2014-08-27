@@ -108,7 +108,14 @@ Build('build.Module', [], function(define, $super) {
 			 */
 			subscribe : function(property, subscriber, deferNotify) {
 				if (subscriber) {
-					this.subscribers = this.subscribers || {};
+					if (!this.subscribers) {
+						Object.defineProperty(this, 'subscribers', {
+							value : {},
+							writable : true,
+							configurable : true,
+							enumerable : false
+						});
+					}
 					this.subscribers[property] = this.subscribers[property] || [];
 					var subscription = {
 						publisher : this,
@@ -212,7 +219,14 @@ Build('build.Module', [], function(define, $super) {
 			 * @param subscription
 			 */
 			subscriptionLink : function(subscription) {
-				this.subscriptions = this.subscriptions || [];
+				if (!this.subscriptions) {
+					Object.defineProperty(this, 'subscriptions', {
+						value : [],
+						writable : true,
+						configurable : true,
+						enumerable : false
+					});
+				}
 				this.subscriptions.push(subscription);
 			},
 			/**
