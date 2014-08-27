@@ -152,6 +152,7 @@ Build('build.ui.Widget', [ 'build::build.Module', 'build::build.utility.Observab
 				name = name || property;
 				Object.defineProperty(this, property, {
 					configurable : true,
+					enumerable : true,
 					get : typeof get === 'function' ? function() {
 						return get(this.element[name], this);
 					} : function() {
@@ -180,6 +181,7 @@ Build('build.ui.Widget', [ 'build::build.Module', 'build::build.utility.Observab
 				attribute = attribute || property;
 				Object.defineProperty(this, property, {
 					configurable : true,
+					enumerable : true,
 					get : typeof get === 'function' ? function() {
 						return get(this.element.getAttribute(attribute), this);
 					} : function() {
@@ -210,6 +212,7 @@ Build('build.ui.Widget', [ 'build::build.Module', 'build::build.utility.Observab
 				if (unit) {
 					Object.defineProperty(this, property, {
 						configurable : true,
+						enumerable : true,
 						get : typeof get === 'function' ? function() {
 							return get(parseFloat(this.element.style[style] || 0), this);
 						} : function() {
@@ -228,6 +231,8 @@ Build('build.ui.Widget', [ 'build::build.Module', 'build::build.utility.Observab
 					});
 				} else {
 					Object.defineProperty(this, property, {
+						configurable : true,
+						enumerable : true,
 						get : typeof get === 'function' ? function() {
 							return get(this.element.style[style], this);
 						} : function() {
@@ -254,6 +259,7 @@ Build('build.ui.Widget', [ 'build::build.Module', 'build::build.utility.Observab
 				data = data || property;
 				Object.defineProperty(this, property, {
 					configurable : true,
+					enumerable : true,
 					get : typeof get === 'function' ? function() {
 						return get(this.element.dataset ? this.element.dataset[data] : this.element.getAttribute('data-' + data), this);
 					} : function() {
@@ -284,6 +290,7 @@ Build('build.ui.Widget', [ 'build::build.Module', 'build::build.utility.Observab
 				className = className || property;
 				Object.defineProperty(this, property, {
 					configurable : true,
+					enumerable : true,
 					get : typeof get === 'function' ? function() {
 						return get(this.element.classList.contains(className), this);
 					} : function() {

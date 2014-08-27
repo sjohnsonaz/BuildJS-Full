@@ -23,6 +23,7 @@ Build('build.storage.BrowserStorage', [ 'build::build.Module' ], function(define
 			watchLocalStorage : function(name, value, get, set) {
 				Object.defineProperty(this, name, {
 					configurable : true,
+					enumerable : true,
 					get : typeof get === 'function' ? function() {
 						return get(JSON.parse(localStorage.getItem(name)), this);
 					} : function() {
@@ -51,6 +52,7 @@ Build('build.storage.BrowserStorage', [ 'build::build.Module' ], function(define
 			watchSessionStorage : function(name, value, get, set) {
 				Object.defineProperty(this, name, {
 					configurable : true,
+					enumerable : true,
 					get : typeof get === 'function' ? function() {
 						return get(JSON.parse(sessionStorage.getItem(name)), this);
 					} : function() {
