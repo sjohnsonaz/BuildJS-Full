@@ -15,7 +15,7 @@ Build('build.binding.ForEachBinding', [ 'build::build.binding.BindingHandler' ],
 		},
 		$prototype : {
 			link : function(destination, source, property) {
-				source.subscribe(property, this);
+				destination.children = source[property];
 			}
 		}
 	});

@@ -68,10 +68,21 @@ Build('build.ui.Container', [ 'build::build.ui.Widget', 'build::build.utility.Ob
 					this.refreshChildren();
 				}.bind(this)
 			};
-			this.watchValue('children', build.utility.ObservableArray(), null, function(value, cancel) {
-				value.subscribe(childrenHandler);
+			var baseArray = build.utility.ObservableArray();
+			this.watchValue('children', baseArray, null, function(value, cancel) {
+				if (this.children) {
+					this.children.unsubscribe(childrenHandler);
+				}
+				if (value) {
+					value.subscribe(childrenHandler);
+				} else {
+					baseArray.subscribe(childrenHandler);
+				}
 				return value;
-			});
+			}.bind(this));
+			this.subscribe('children', function(value) {
+				this.refreshChildren();
+			}.bind(this));
 		},
 		$prototype : {
 			init : function() {
@@ -108,13 +119,20 @@ Build('build.ui.Container', [ 'build::build.ui.Widget', 'build::build.utility.Ob
 			 */
 			childIterator : function(child, index, array) {
 				if (child) {
-					// TODO: This is inefficient.
-					child.parent = this;
-					if (this.directAppend) {
-						this.element.appendChild(child.element || child);
+					if (child instanceof build.ui.Widget) {
+						// TODO: This is inefficient.
+						child.parent = this;
+						if (this.directAppend) {
+							this.element.appendChild(child.element || child);
+						} else {
+							var iterator = document.createElement(this.iteratorType || 'div');
+							iterator.appendChild(child.element || child);
+							iterator.className = 'panel-iterator';
+							this.element.appendChild(iterator);
+						}
 					} else {
 						var iterator = document.createElement(this.iteratorType || 'div');
-						iterator.appendChild(child.element || child);
+						iterator.innerHTML = child;
 						iterator.className = 'panel-iterator';
 						this.element.appendChild(iterator);
 					}
