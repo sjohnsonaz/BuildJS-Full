@@ -79,6 +79,7 @@ Build('build.Module', [], function(define, $super) {
 				var hidden = typeof set === 'function' ? set(value, cancel) : value;
 				Object.defineProperty(this, name, {
 					configurable : true,
+					enumerable : true,
 					get : typeof get === 'function' ? function() {
 						return get(hidden, this);
 					} : function() {
