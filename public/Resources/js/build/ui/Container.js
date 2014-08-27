@@ -18,12 +18,7 @@ Build('build.ui.Container', [ 'build::build.ui.Widget' ], function(define, $supe
 				this.refreshChildren();
 				return value;
 			}.bind(this));
-
-			this.children = build.utility.ObservableArray();
-			//this.children.subscribe(function() {
-			//this.refreshChildren();
-			//}.bind(this));
-			this.children.subscribe({
+			var childrenHandler = {
 				push : function(child) {
 					this.refreshChildren();
 					//var element = this.element;
@@ -72,6 +67,10 @@ Build('build.ui.Container', [ 'build::build.ui.Widget' ], function(define, $supe
 				publish : function() {
 					this.refreshChildren();
 				}.bind(this)
+			};
+			this.watchValue('children', build.utility.ObservableArray(), null, function(value, cancel) {
+				value.subscribe(childrenHandler);
+				return value;
 			});
 		},
 		$prototype : {
