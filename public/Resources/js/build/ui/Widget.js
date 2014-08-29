@@ -22,6 +22,10 @@ Build('build.ui.Widget', [ 'build::build.Module', 'build::build.utility.Observab
 			this.watchProperty('className');
 			// A Widget may be contained by Container.
 			this.watchProperty('parent');
+			// TODO: Add options via watch method.
+			Object.defineProperty(this, 'parent', {
+				enumerable : false
+			});
 		},
 		$prototype : {
 			/**
@@ -65,7 +69,12 @@ Build('build.ui.Widget', [ 'build::build.Module', 'build::build.utility.Observab
 			 * @method createElement
 			 */
 			createElement : function() {
-				this.element = document.createElement(this.type);
+				Object.defineProperty(this, 'element', {
+					value : document.createElement(this.type),
+					configurable : true,
+					writable : true,
+					enumerable : false
+				});
 				// this.element.classList.add(this.uniqueClass());
 				this.element.controller = this;
 			},
