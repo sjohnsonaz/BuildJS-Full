@@ -15,8 +15,7 @@ Build('build.binding.ClassNameBinding', [ 'build::build.binding.OneWayBinding' ]
 			$super(this)(destination, definition);
 			if (definition) {
 				this.format = definition.format || '{0}';
-				//this.onTrue = definition.onTrue;
-				//this.onFalse = definition.onFalse;
+				this.className = definition.className;
 			}
 		},
 		$prototype : {
@@ -28,11 +27,11 @@ Build('build.binding.ClassNameBinding', [ 'build::build.binding.OneWayBinding' ]
 				}
 			},
 			evaluate : function(value) {
-				if (value !== this.destination.element.classList.contains(className)) {
+				if (value !== this.destination.element.classList.contains(this.className)) {
 					if (value) {
-						this.destination.element.classList.add(className);
+						this.destination.element.classList.add(this.className);
 					} else {
-						this.destination.element.classList.remove(className);
+						this.destination.element.classList.remove(this.className);
 					}
 				}
 				return value;
