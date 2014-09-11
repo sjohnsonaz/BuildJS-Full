@@ -10,17 +10,24 @@ Build('build.ui.Container', [ 'build::build.ui.Widget', 'build::build.utility.Ob
 		 */
 		$constructor : function Container() {
 			$super(this)();
+			Object.defineProperty(this, 'innerElement', {
+				value : this.element,
+				configurable : true,
+				writable : true,
+				enumerable : false
+			});
 			var childrenHandler = {
 				push : function(child) {
-					this.refreshChildren();
-					//var element = this.element;
-					//if (element) {
-					//this.childIterator.bind(this)(child);
-					//}
+					//this.refreshChildren();
+					var element = this.innerElement;
+					if (element) {
+						child = this.createChild(child);
+						element.appendChild(child);
+					}
 				}.bind(this),
 				pop : function() {
 					this.refreshChildren();
-					//var element = this.element;
+					//var element = this.innerElement;
 					//if (element) {
 					//element.removeChild(element.lastChild);
 					//}
@@ -72,21 +79,23 @@ Build('build.ui.Container', [ 'build::build.ui.Widget', 'build::build.utility.Ob
 				}
 				return value;
 			}.bind(this));
+			this.template(this.element, this.innerElement);
 		},
 		$prototype : {
 			init : function() {
 				$super().init(this)();
-				this.innerElement = this.element;
 				this.refreshChildren();
 				this.subscribe('children', function(value) {
 					this.refreshChildren();
 				}.bind(this));
 			},
+			template : function(element, innerElement) {
+			},
 			/**
 			 * @method clearChildren
 			 */
 			clearChildren : function(element) {
-				element = element || this.element;
+				element = element || this.innerElement;
 				if (element) {
 					while (element.firstChild) {
 						// TODO: This is inefficient.
@@ -99,7 +108,7 @@ Build('build.ui.Container', [ 'build::build.ui.Widget', 'build::build.utility.Ob
 			 * @method refreshChildren
 			 */
 			refreshChildren : function() {
-				var element = this.element;
+				var element = this.innerElement;
 				if (element) {
 					this.clearChildren(element);
 					if (this.children) {
@@ -112,7 +121,7 @@ Build('build.ui.Container', [ 'build::build.ui.Widget', 'build::build.utility.Ob
 			 */
 			childIterator : function(child, index, array) {
 				if (child) {
-					this.element.appendChild(this.createChild(child));
+					this.innerElement.appendChild(this.createChild(child));
 				}
 			},
 			/**
@@ -154,7 +163,7 @@ Build('build.ui.Container', [ 'build::build.ui.Widget', 'build::build.utility.Ob
 			},
 			destroy : function(isDestroying) {
 				$super().destroy(this)();
-				var element = this.element;
+				var element = this.innerElement;
 				if (element) {
 					while (element.firstChild) {
 						element.removeChild(element.firstChild);

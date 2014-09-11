@@ -16,6 +16,10 @@ Build('build.ui.tab.TabPanel', [ 'build::build.ui.Container' ], function(define,
 			$super(this)();
 			this.watchValue('title', title || 'Tab');
 		},
-		$prototype : {}
+		$prototype : {
+			openTab : function() {
+				console.log('opening tab');
+			}
+		}
 	});
 });

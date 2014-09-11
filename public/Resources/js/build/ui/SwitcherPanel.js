@@ -21,7 +21,6 @@ Build('build.ui.SwitcherPanel', [ 'build::build.ui.Container', 'build::build.uti
 			this.watchValue('active', 0, null, function(value, cancel) {
 				return (this.lockable && Navigation.locked) ? (Navigation.run() ? value : cancel) : value;
 			}.bind(this));
-			this.directAppend = true;
 			this.watchValue('hideMode', 'VISIBILITY');
 		},
 		$prototype : {
@@ -51,7 +50,7 @@ Build('build.ui.SwitcherPanel', [ 'build::build.ui.Container', 'build::build.uti
 			 * @method refreshChildren
 			 */
 			refreshChildren : function() {
-				var element = this.element;
+				var element = this.innerElement;
 				if (element) {
 					switch (this.hideMode) {
 					case 'DOM':
@@ -72,14 +71,14 @@ Build('build.ui.SwitcherPanel', [ 'build::build.ui.Container', 'build::build.uti
 				}
 			},
 			refreshDom : function() {
-				var element = this.element;
+				var element = this.innerElement;
 				while (element.firstChild) {
 					element.removeChild(element.firstChild);
 				}
 				if (this.children) {
 					var active = this.children[this.active];
 					if (active) {
-						this.childIterator(active, this.active, this.children);
+						innerElement.appendChild(this.createChild(active));
 					}
 				}
 			},

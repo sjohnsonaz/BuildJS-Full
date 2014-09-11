@@ -59,22 +59,29 @@ Build('build.ui.element.Table', [ 'build::build.ui.Container', 'build::build.uti
 			 */
 			childIterator : function(child, index, array) {
 				if (child) {
-					var tr = document.createElement('tr');
-					if (child instanceof Array) {
-						for (var index = 0, length = child.length; index < length; index++) {
-							var td = document.createElement('td');
-							var data = child[index];
-							data = data.element || data;
-							if (typeof data == 'object') {
-								td.appendChild(data);
-							} else {
-								td.innerHTML = data;
-							}
-							tr.appendChild(td);
-						}
-					}
-					this.body.appendChild(tr);
+					this.body.appendChild(this.createChild(child));
 				}
+			},
+			/**
+			 * @method createChild
+			 * @param child
+			 */
+			createChild : function(child) {
+				var tr = document.createElement('tr');
+				if (child instanceof Array) {
+					for (var index = 0, length = child.length; index < length; index++) {
+						var td = document.createElement('td');
+						var data = child[index];
+						data = data.element || data;
+						if (typeof data == 'object') {
+							td.appendChild(data);
+						} else {
+							td.innerHTML = data;
+						}
+						tr.appendChild(td);
+					}
+				}
+				return tr;
 			},
 			/**
 			 * @method refreshChildren
