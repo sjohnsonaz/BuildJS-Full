@@ -115,18 +115,12 @@ Build('build.ui.Container', [ 'build::build.ui.Widget', 'build::build.utility.Ob
 					if (child instanceof build.ui.Widget) {
 						// TODO: This is inefficient.
 						child.parent = this;
-						if (this.directAppend) {
-							this.element.appendChild(child.element || child);
-						} else {
-							var iterator = document.createElement(this.iteratorType || 'div');
-							iterator.appendChild(child.element || child);
-							iterator.className = 'panel-iterator';
-							this.element.appendChild(iterator);
-						}
+						child = this.createChild(child);
+						this.element.appendChild(child.element || child);
 					} else {
 						var iterator = document.createElement(this.iteratorType || 'div');
 						iterator.innerHTML = child;
-						iterator.className = 'panel-iterator';
+						//iterator.className = 'panel-iterator';
 						this.element.appendChild(iterator);
 					}
 				}

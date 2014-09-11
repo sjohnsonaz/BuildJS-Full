@@ -1,6 +1,6 @@
 @import "menu-settings.less";
 .application-menu-fixed-top {
-	margin-top: 50px ! important;
+	margin-top: 60px ! important;
 	@media only screen and (max-width: (@size0 - 1)) {
 		margin-top: 0px ! important;
 	}
@@ -16,7 +16,7 @@
 	color: @input-menu-color;
 	list-style-type: none;
 	z-index: 1000;
-	.panel-iterator {
+	& > * {
 		display: inline-block;
 		width: auto;
 		@media only screen and (max-width: (@size0 - 1)) {
@@ -25,11 +25,15 @@
 			clear: both;
 		}
 	}
+	& * {
+		display: inline-block;
+	}
 
 	.expand-button {
 		float: right;
 		padding: 10px 15px 10px 15px;
 		margin: 6px;
+		width: auto;
 	}
 
 	li {
