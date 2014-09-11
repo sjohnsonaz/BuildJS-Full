@@ -1,4 +1,4 @@
-Build('build.ui.application.AuthenticatedApplication', [ 'build::build.ui.Application', 'build::build.ui.SwitcherPanel', 'build::build.widget.menu.ExpandableMenuWidget', 'build::build.widget.menu.MenuElement',
+Build('build.ui.application.AuthenticatedApplication', [ 'build::build.ui.Application', 'build::build.ui.Switcher', 'build::build.widget.menu.ExpandableMenuWidget', 'build::build.widget.menu.MenuElement',
 		'build::build.widget.authentication.AuthenticationWidget', 'build::build.service.AuthenticationServiceConnection' ], function(define, $super) {
 	define({
 		$extends : 'build.ui.Application',
@@ -45,7 +45,7 @@ Build('build.ui.application.AuthenticatedApplication', [ 'build::build.ui.Applic
 				}
 			});
 
-			this.sections = build.ui.SwitcherPanel.create();
+			this.sections = build.ui.Switcher.create();
 			this.addChild(this.sections);
 
 			// Add routes

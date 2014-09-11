@@ -1,11 +1,11 @@
 /**
  * @class build.widget.user.UserWidget
- * @extends build.ui.SwitcherPanel 
+ * @extends build.ui.Switcher 
  */
-Build('build.widget.user.UserWidget', [ 'build::build.ui.SwitcherPanel', 'build::build.service.UserServiceConnection', 'build::build.widget.user.UserListForm', 'build::build.widget.user.UserViewForm', 'build::build.widget.user.UserCreateForm',
+Build('build.widget.user.UserWidget', [ 'build::build.ui.Switcher', 'build::build.service.UserServiceConnection', 'build::build.widget.user.UserListForm', 'build::build.widget.user.UserViewForm', 'build::build.widget.user.UserCreateForm',
 		'build::build.widget.user.UserEditForm', 'build::build.widget.user.UserDeleteForm', 'build::build.widget.user.UserPermissionForm' ], function(define, $super) {
 	define({
-		$extends : 'build.ui.SwitcherPanel',
+		$extends : 'build.ui.Switcher',
 		/**
 		 * @constructor
 		 * @param userServiceConnection

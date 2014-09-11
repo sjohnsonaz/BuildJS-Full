@@ -1,10 +1,10 @@
 /**
  * @class build.widget.tab.TabContainer
- * @extends build.ui.SwitcherPanel
+ * @extends build.ui.Switcher
  */
-Build('build.widget.tab.TabContainer', [ 'build::build.ui.SwitcherPanel', 'build::build.widget.tab.TabHeader' ], function(define, $super) {
+Build('build.widget.tab.TabContainer', [ 'build::build.ui.Switcher', 'build::build.widget.tab.TabHeader' ], function(define, $super) {
 	define({
-		$extends : 'build.ui.SwitcherPanel',
+		$extends : 'build.ui.Switcher',
 		/**
 		 * @constructor
 		 */
