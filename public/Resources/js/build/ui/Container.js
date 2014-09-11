@@ -49,10 +49,10 @@ Build('build.ui.Container', [ 'build::build.ui.Widget', 'build::build.utility.Ob
 				if (element) {
 					while (element.firstChild) {
 						// TODO: This is inefficient.
-						if (element.controller) {
-							element.controller.parent = null;
+						if (element.firstChild.controller) {
+							element.firstChild.controller.parent = null;
 						} else {
-							console.log(element);
+							console.log(element.firstChild);
 						}
 						element.removeChild(element.firstChild);
 					}
@@ -136,7 +136,6 @@ Build('build.ui.Container', [ 'build::build.ui.Widget', 'build::build.utility.Ob
 			createChildrenHandler : function() {
 				return {
 					push : function(child) {
-						//this.refreshChildren();
 						var element = this.innerElement;
 						if (element) {
 							child = this.createChild(child);
@@ -144,19 +143,26 @@ Build('build.ui.Container', [ 'build::build.ui.Widget', 'build::build.utility.Ob
 						}
 					}.bind(this),
 					pop : function() {
-						this.refreshChildren();
-						//var element = this.innerElement;
-						//if (element) {
-						//element.removeChild(element.lastChild);
-						//}
+						var element = this.innerElement;
+						if (element) {
+							// TODO: Any removal extra logic here?
+							element.removeChild(element.lastChild);
+						}
 					}.bind(this),
-					unshift : function() {
+					unshift : function(child) {
 						// Add to beginning of array
-						this.refreshChildren();
+						var element = this.innerElement;
+						if (element) {
+							element.insertBefore(child, element.firstChild);
+						}
 					}.bind(this),
 					shift : function() {
 						// Remove from beginning of array
-						this.refreshChildren();
+						var element = this.innerElement;
+						if (element) {
+							// TODO: Any removal extra logic here?
+							element.removeChild(element.firstChild);
+						}
 					}.bind(this),
 					reverse : function() {
 						// Sort in opposite direction
@@ -166,17 +172,50 @@ Build('build.ui.Container', [ 'build::build.ui.Widget', 'build::build.utility.Ob
 						// Sort based on function
 						this.refreshChildren();
 					}.bind(this),
-					splice : function() {
+					splice : function(index, howMany) {
+						var element = this.innerElement;
+						if (element) {
+							var nextSibling = element.childNodes[index + howMany];
+							var elementsToAdd = Array.prototype.slice.call(arguments, 2);
+							var elementsToRemove = element.childNodes.slice(index, index + howMany);
+							var elementToRemove;
+							while (elementToRemove = elementsToRemove.pop()) {
+								// TODO: Any removal extra logic here?
+								element.removeChild(elementToRemove);
+							}
+							var elementToAdd;
+							while (elementToAdd = elementsToAdd.pop()) {
+								element.insertBefore(elementToAdd, nextSibling);
+							}
+						}
 						this.refreshChildren();
 					}.bind(this),
-					get : function() {
-						this.refreshChildren();
+					get : function(index) {
+						// TODO: Is this necessary?
+						var element = this.innerElement;
+						return element.childNodes[index];
 					}.bind(this),
-					set : function() {
-						this.refreshChildren();
+					set : function(index, child) {
+						var element = this.innerElement;
+						if (element) {
+							var oldChild = element.childNodes[index];
+							if (oldChild) {
+								// TODO: Any removal extra logic here?
+								element.replaceChild(oldChild, child);
+							}
+						}
 					}.bind(this),
 					removeAll : function() {
-						this.refreshChildren();
+						var element = this.innerElement;
+						if (element) {
+							while (element.firstChild) {
+								// TODO: Do we need to do this here?
+								if (element.controller) {
+									element.controller.parent = null;
+								}
+								element.removeChild(element.firstChild);
+							}
+						}
 					}.bind(this),
 					subscribe : function() {
 						this.refreshChildren();
