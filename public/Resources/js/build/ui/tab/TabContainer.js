@@ -35,6 +35,7 @@ Build('build.ui.tab.TabContainer', [ 'build::build.ui.SwitcherPanel', 'build::bu
 			build.binding.ForEachBinding.create(this.tabHeader, this, 'children');
 			this.element.appendChild(this.tabHeader.element);
 			this.innerElement = document.createElement('div');
+			this.innerElement.className = 'tab-body';
 			this.element.appendChild(this.innerElement);
 		},
 		$prototype : {
