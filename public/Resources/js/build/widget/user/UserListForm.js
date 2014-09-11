@@ -23,19 +23,14 @@ Build('build.widget.user.UserListForm', [ 'build::build.ui.form.Form', 'build::b
 			this.userTable.addHeader('Username', 'First Name', 'Last Name', '');
 			this.addChild(this.userTable);
 			this.userServiceConnection = userServiceConnection;
+
+			this.createButton.addEvent('click', function(button, event) {
+				event.preventDefault();
+				this.createUser();
+				return false;
+			}, false, this);
 		},
 		$prototype : {
-			/**
-			 * 
-			 */
-			init : function() {
-				$super().init(this)();
-				this.createButton.addEvent('click', function(button, event) {
-					event.preventDefault();
-					this.createUser();
-					return false;
-				}, false, this);
-			},
 			/**
 			 * 
 			 */

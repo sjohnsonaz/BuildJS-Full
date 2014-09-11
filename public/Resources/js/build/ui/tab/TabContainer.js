@@ -34,12 +34,6 @@ Build('build.ui.tab.TabContainer', [ 'build::build.ui.SwitcherPanel' ], function
 		},
 		$prototype : {
 			/**
-			 * @method init
-			 */
-			init : function() {
-				$super().init(this)();
-			},
-			/**
 			 * @method refreshChildren
 			 */
 			refreshChildren : function() {

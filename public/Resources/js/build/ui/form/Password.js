@@ -15,18 +15,10 @@ Build('build.ui.form.Password', [ 'build::build.ui.form.Text' ], function(define
 		 */
 		$constructor : function Password(text, value) {
 			$super(this)(text, value);
+			this.element.type = 'password';
 		},
 		$prototype : {
-			type : 'input',
-			/**
-			 * @method init
-			 * @param text
-			 * @param value
-			 */
-			init : function(text, value) {
-				$super().init(this)(text);
-				this.element.type = 'password';
-			}
+			type : 'input'
 		}
 	});
 });

@@ -19,6 +19,8 @@ Build('build.ui.form.Form', [ 'build::build.ui.Container' ], function(define, $s
 			$super(this)();
 			this.watchProperty('method');
 			this.watchProperty('action');
+			this.method = 'GET';
+			this.action = '';
 			var modelHidden = null;
 			Object.defineProperty(this, 'model', {
 				get : function() {
@@ -40,14 +42,6 @@ Build('build.ui.form.Form', [ 'build::build.ui.Container' ], function(define, $s
 		},
 		$prototype : {
 			type : 'form',
-			/**
-			 * @method init
-			 */
-			init : function() {
-				$super().init(this)();
-				this.method = 'GET';
-				this.action = '';
-			},
 			/**
 			 * @method preventSubmit
 			 */

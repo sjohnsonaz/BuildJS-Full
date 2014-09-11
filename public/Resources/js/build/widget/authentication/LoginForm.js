@@ -19,6 +19,9 @@ Build('build.widget.authentication.LoginForm', [ 'build::build.ui.form.Form', 'b
 		 */
 		$constructor : function LoginForm(authenticationServiceConnection) {
 			$super(this)();
+			this.method = 'POST';
+			this.action = '#';
+
 			this.message = build.ui.element.Div.create();
 			this.username = build.ui.form.Text.create();
 			this.username.placeholder = 'Username';
@@ -32,25 +35,17 @@ Build('build.widget.authentication.LoginForm', [ 'build::build.ui.form.Form', 'b
 			this.addChild(build.ui.form.FormControl.create(build.ui.form.Label.create('Username', this.username), this.username));
 			this.addChild(build.ui.form.FormControl.create(build.ui.form.Label.create('Password', this.password), this.password));
 			this.addChild(build.ui.form.FormControl.create(null, this.submit));
+
+			this.addEvent('submit', function(form, event) {
+				event.preventDefault();
+				// Force update for saved passwords.
+				// this.username.text = this.username.element.value;
+				// this.password.text = this.password.element.value;
+				this.login();
+				return false;
+			}, false, this);
 		},
 		$prototype : {
-			/**
-			 * 
-			 */
-			init : function() {
-				$super().init(this)();
-				this.method = 'POST';
-				this.action = '#';
-
-				this.addEvent('submit', function(form, event) {
-					event.preventDefault();
-					// Force update for saved passwords.
-					// this.username.text = this.username.element.value;
-					// this.password.text = this.password.element.value;
-					this.login();
-					return false;
-				}, false, this);
-			},
 			/**
 			 * 
 			 */

@@ -14,15 +14,13 @@ Build('build.ui.form.CheckBox', [ 'build::build.ui.form.FormElement' ], function
 			this.watchProperty('value', 'checked');
 			this.element.type = 'checkbox';
 			this.name = name;
+			this.value = value;
+			this.element.addEventListener('change', function() {
+				this.value = this.element.checked;
+			}.bind(this));
 		},
 		$prototype : {
-			type : 'input',
-			init : function(name, value) {
-				$super().init(this)(null, value);
-				this.element.addEventListener('change', function() {
-					this.value = this.element.checked;
-				}.bind(this));
-			}
+			type : 'input'
 		}
 	});
 });

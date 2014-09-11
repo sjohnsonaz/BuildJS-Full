@@ -15,12 +15,7 @@ Build('build.widget.progress.ProgressBar', [ 'build::build.ui.Widget' ], functio
 			this.subscribe('showPercentage', function(value) {
 				this.progressElement.innerHTML = value ? this.progress + '%' : '';
 			}.bind(this));
-		},
-		$prototype : {
-			init : function() {
-				$super().init(this)();
-				this.element.appendChild(this.progressElement);
-			}
+			this.element.appendChild(this.progressElement);
 		}
 	});
 });

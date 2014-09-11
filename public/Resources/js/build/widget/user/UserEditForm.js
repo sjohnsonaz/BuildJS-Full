@@ -22,6 +22,9 @@ Build('build.widget.user.UserEditForm', [ 'build::build.ui.form.Form', 'build::b
 		 */
 		$constructor : function UserEditForm(userServiceConnection) {
 			$super(this)();
+			this.method = 'POST';
+			this.action = '#';
+
 			this.userServiceConnection = userServiceConnection;
 
 			this.message = build.ui.element.Div.create();
@@ -49,28 +52,20 @@ Build('build.widget.user.UserEditForm', [ 'build::build.ui.form.Form', 'build::b
 			buttonGroup.addChild(this.cancel);
 			buttonGroup.addChild(this.submit);
 			this.addChild(buttonGroup);
+
+			this.preventSubmit();
+			this.submit.addEvent('click', function(submit, event) {
+				event.preventDefault();
+				this.saveUser();
+				return false;
+			}, false, this);
+			this.cancel.addEvent('click', function(cancel, event) {
+				event.preventDefault();
+				this.cancelUser();
+				return false;
+			}, false, this);
 		},
 		$prototype : {
-			/**
-			 * 
-			 */
-			init : function() {
-				$super().init(this)();
-				this.method = 'POST';
-				this.action = '#';
-
-				this.preventSubmit();
-				this.submit.addEvent('click', function(submit, event) {
-					event.preventDefault();
-					this.saveUser();
-					return false;
-				}, false, this);
-				this.cancel.addEvent('click', function(cancel, event) {
-					event.preventDefault();
-					this.cancelUser();
-					return false;
-				}, false, this);
-			},
 			/**
 			 * 
 			 */

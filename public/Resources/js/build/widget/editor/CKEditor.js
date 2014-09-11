@@ -33,16 +33,10 @@ Build('build.widget.editor.CKEditor', [ 'build::build.ui.Widget' ], function(def
 					}
 				}
 			});
+			this.element.appendChild(this.textArea);
+			this.replace();
 		},
 		$prototype : {
-			/**
-			 * 
-			 */
-			init : function(name) {
-				$super().init(this)();
-				this.element.appendChild(this.textArea);
-				this.replace();
-			},
 			/**
 			 * 
 			 */

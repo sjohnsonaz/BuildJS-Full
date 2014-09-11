@@ -16,17 +16,6 @@ Build('build.ui.form.FormElement', [ 'build::build.ui.element.Element' ], functi
 		$constructor : function FormElement(text, value) {
 			$super(this)(text);
 			this.textHelpers = true;
-		},
-		$prototype : {
-			/**
-			 * @method init
-			 * @param text
-			 * @param value
-			 */
-			init : function(text, value) {
-				$super().init(this)(text);
-				this.value = value || '';
-			}
 		}
 	});
 });

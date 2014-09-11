@@ -21,21 +21,13 @@ Build('build.ui.form.Text', [ 'build::build.ui.form.FormElement' ], function(def
 			this.watchProperty('value');
 			this.watchAttribute('placeholder');
 			this.watchAttribute('name');
+			this.element.addEventListener('change', function() {
+				this.value = this.element.value;
+			}.bind(this));
+			this.element.type = 'text';
 		},
 		$prototype : {
-			type : 'input',
-			/**
-			 * @method init
-			 * @param text
-			 * @param value
-			 */
-			init : function(text, value) {
-				$super().init(this)(text, value);
-				this.element.addEventListener('change', function() {
-					this.value = this.element.value;
-				}.bind(this));
-				this.element.type = 'text';
-			}
+			type : 'input'
 		}
 	});
 });

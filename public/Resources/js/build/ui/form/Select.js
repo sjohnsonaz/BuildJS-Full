@@ -43,15 +43,12 @@ Build('build.ui.form.Select', [ 'build::build.ui.Container', 'build::build.ui.fo
 			});
 			this.watchProperty('size');
 			this.watchProperty('multiple');
+			this.element.addEventListener('change', function() {
+				this.publish('value');
+			}.bind(this));
 		},
 		$prototype : {
 			type : 'select',
-			init : function() {
-				$super().init(this)();
-				this.element.addEventListener('change', function() {
-					this.publish('value');
-				}.bind(this));
-			},
 			addOption : function(value, text, selected) {
 				var option = build.ui.form.Option.create(text);
 				option.value = value;

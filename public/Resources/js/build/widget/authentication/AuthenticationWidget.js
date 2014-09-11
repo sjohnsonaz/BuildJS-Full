@@ -59,14 +59,6 @@ Build('build.widget.authentication.AuthenticationWidget', [ 'build::build.ui.Swi
 				this.logoutForm.model = null;
 				this.runCallbacks('logoutSuccess', data, request);
 			}.bind(this));
-		},
-		$prototype : {
-			/**
-			 * @method init
-			 */
-			init : function() {
-				$super().init(this)();
-			}
 		}
 	});
 });

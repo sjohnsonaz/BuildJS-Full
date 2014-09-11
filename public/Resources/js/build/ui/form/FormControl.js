@@ -40,24 +40,16 @@ Build('build.ui.form.FormControl', [ 'build::build.ui.Widget' ], function(define
 					element.appendChild(value.element);
 				}
 			}.bind(this));
+			this.label = label;
+			this.control = control;
+			if (label) {
+				label.control = control;
+			}
+			this.element.appendChild(this.labelIterator);
+			this.element.appendChild(this.controlIterator);
 		},
 		$prototype : {
-			type : 'div',
-			/**
-			 * @method init
-			 * @param label
-			 * @param control
-			 */
-			init : function(label, control) {
-				$super().init(this)();
-				this.label = label;
-				this.control = control;
-				if (label) {
-					label.control = control;
-				}
-				this.element.appendChild(this.labelIterator);
-				this.element.appendChild(this.controlIterator);
-			}
+			type : 'div'
 		}
 	});
 });

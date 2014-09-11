@@ -18,15 +18,9 @@ Build('build.widget.modal.Modal', [ 'build::build.ui.Container' ], function(defi
 			this.mask.className = 'modal-mask';
 			this.body = document.createElement('div');
 			this.body.className = 'modal-body';
+			this.mask.appendChild(this.body);
 		},
 		$prototype : {
-			/**
-			 * 
-			 */
-			init : function() {
-				$super().init(this)();
-				this.mask.appendChild(this.body);
-			},
 			/**
 			 * 
 			 */
