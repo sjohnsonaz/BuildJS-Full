@@ -3,7 +3,6 @@ Build('build.ui.form.Select', [ 'build::build.ui.Container', 'build::build.ui.fo
 		$extends : 'build.ui.Container',
 		$constructor : function Select() {
 			$super(this)();
-			this.type = 'select';
 			this.directAppend = true;
 			Object.defineProperty(this, 'value', {
 				get : function() {
@@ -46,6 +45,7 @@ Build('build.ui.form.Select', [ 'build::build.ui.Container', 'build::build.ui.fo
 			this.watchProperty('multiple');
 		},
 		$prototype : {
+			type : 'select',
 			init : function() {
 				$super().init(this)();
 				this.element.addEventListener('change', function() {

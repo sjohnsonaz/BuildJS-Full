@@ -13,7 +13,9 @@ Build('build.ui.form.Span', [ 'build::build.ui.element.Element' ], function(defi
 		 */
 		$constructor : function Span(text) {
 			$super(this)(text);
-			this.type = 'span';
+		},
+		$prototype : {
+			type : 'span'
 		}
 	});
 });

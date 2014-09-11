@@ -15,9 +15,9 @@ Build('build.ui.form.Submit', [ 'build::build.ui.form.Button' ], function(define
 		 */
 		$constructor : function Submit(text, value) {
 			$super(this)(text, value);
-			this.type = 'button';
 		},
 		$prototype : {
+			type : 'button',
 			/**
 			 * @method init
 			 * @param text

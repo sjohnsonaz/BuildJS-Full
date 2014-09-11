@@ -13,7 +13,9 @@ Build('build.ui.element.Link', [ 'build::build.ui.element.Element' ], function(d
 		 */
 		$constructor : function Link(text) {
 			$super(this)(text);
-			this.type = 'a';
+		},
+		$prototype : {
+			type : 'a'
 		}
 	});
 });

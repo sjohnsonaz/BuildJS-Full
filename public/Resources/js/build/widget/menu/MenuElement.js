@@ -19,7 +19,6 @@ Build('build.widget.menu.MenuElement', [ 'build::build.ui.Container', 'build::bu
 		 */
 		$constructor : function MenuElement() {
 			$super(this)();
-			this.type = 'li';
 			this.link = build.ui.element.Link.create();
 			Object.defineProperty(this, 'url', {
 				get : function() {
@@ -46,6 +45,7 @@ Build('build.widget.menu.MenuElement', [ 'build::build.ui.Container', 'build::bu
 			}.bind(this));
 		},
 		$prototype : {
+			type : 'li',
 			/**
 			 * 
 			 */

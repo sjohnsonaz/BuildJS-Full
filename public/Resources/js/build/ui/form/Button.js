@@ -13,9 +13,9 @@ Build('build.ui.form.Button', [ 'build::build.ui.form.FormElement' ], function(d
 		 */
 		$constructor : function Button(text, value) {
 			$super(this)(text, value);
-			this.type = 'button';
 		},
 		$prototype : {
+			type : 'button',
 			/**
 			 * @method init
 			 * @param text

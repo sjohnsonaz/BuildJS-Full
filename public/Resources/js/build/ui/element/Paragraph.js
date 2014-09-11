@@ -13,7 +13,9 @@ Build('build.ui.element.Paragraph', [ 'build::build.ui.element.Element' ], funct
 		 */
 		$constructor : function Paragraph(text) {
 			$super(this)(text);
-			this.type = 'p';
+		},
+		$prototype : {
+			type : 'p'
 		}
 	});
 });

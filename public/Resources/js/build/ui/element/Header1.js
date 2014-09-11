@@ -13,7 +13,9 @@ Build('build.ui.element.Header1', [ 'build::build.ui.element.Element' ], functio
 		 */
 		$constructor : function Header1(text) {
 			$super(this)(text);
-			this.type = 'h1';
+		},
+		$prototype : {
+			type : 'h1'
 		}
 	});
 });

@@ -14,7 +14,9 @@ Build('build.ui.form.Legend', [ 'build::build.ui.element.Element' ], function(de
 		 */
 		$constructor : function Legend(text) {
 			$super(this)(text);
-			this.type = 'legend';
+		},
+		$prototype : {
+			type : 'legend'
 		}
 	});
 });

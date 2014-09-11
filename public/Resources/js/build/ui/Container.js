@@ -10,14 +10,6 @@ Build('build.ui.Container', [ 'build::build.ui.Widget', 'build::build.utility.Ob
 		 */
 		$constructor : function Container() {
 			$super(this)();
-			this.watchValue('directAppend', false, null, function(value, cancel) {
-				this.refreshChildren();
-				return value;
-			}.bind(this));
-			this.watchValue('iteratorType', 'div', null, function(value, cancel) {
-				this.refreshChildren();
-				return value;
-			}.bind(this));
 			var childrenHandler = {
 				push : function(child) {
 					this.refreshChildren();
@@ -80,14 +72,15 @@ Build('build.ui.Container', [ 'build::build.ui.Widget', 'build::build.utility.Ob
 				}
 				return value;
 			}.bind(this));
-			this.subscribe('children', function(value) {
-				this.refreshChildren();
-			}.bind(this));
 		},
 		$prototype : {
 			init : function() {
 				$super().init(this)();
+				this.innerElement = this.element;
 				this.refreshChildren();
+				this.subscribe('children', function(value) {
+					this.refreshChildren();
+				}.bind(this));
 			},
 			/**
 			 * @method clearChildren
@@ -140,18 +133,27 @@ Build('build.ui.Container', [ 'build::build.ui.Widget', 'build::build.utility.Ob
 			},
 			/**
 			 * @method addChild
+			 * @param child
 			 */
 			addChild : function(child) {
 				this.children.push(child);
 			},
 			/**
 			 * @method removeChild
+			 * @param child
 			 */
 			removeChild : function(child) {
 				var index = this.children.indexOf(child);
 				if (index != -1) {
 					this.children.splice(index, 1);
 				}
+			},
+			/**
+			 * @method createChild
+			 * @param child
+			 */
+			createChild : function(child) {
+				return child ? child.element || child : child;
 			},
 			destroy : function(isDestroying) {
 				$super().destroy(this)();

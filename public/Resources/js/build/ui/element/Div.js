@@ -13,7 +13,9 @@ Build('build.ui.element.Div', [ 'build::build.ui.element.Element' ], function(de
 		 */
 		$constructor : function Div(text) {
 			$super(this)(text);
-			this.type = 'div';
+		},
+		$prototype : {
+			type : 'div'
 		}
 	});
 });

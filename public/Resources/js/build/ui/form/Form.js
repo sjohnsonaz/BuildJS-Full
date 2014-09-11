@@ -17,7 +17,6 @@ Build('build.ui.form.Form', [ 'build::build.ui.Container' ], function(define, $s
 		 */
 		$constructor : function Form() {
 			$super(this)();
-			this.type = 'form';
 			this.watchProperty('method');
 			this.watchProperty('action');
 			var modelHidden = null;
@@ -40,6 +39,7 @@ Build('build.ui.form.Form', [ 'build::build.ui.Container' ], function(define, $s
 			});
 		},
 		$prototype : {
+			type : 'form',
 			/**
 			 * @method init
 			 */

@@ -18,7 +18,6 @@ Build('build.ui.form.FormControl', [ 'build::build.ui.Widget' ], function(define
 		 */
 		$constructor : function FormControl(label, control) {
 			$super(this)();
-			this.type = 'div';
 			this.labelIterator = document.createElement('div');
 			this.labelIterator.className = 'form-control-iterator-label';
 			this.controlIterator = document.createElement('div');
@@ -43,6 +42,7 @@ Build('build.ui.form.FormControl', [ 'build::build.ui.Widget' ], function(define
 			}.bind(this));
 		},
 		$prototype : {
+			type : 'div',
 			/**
 			 * @method init
 			 * @param label

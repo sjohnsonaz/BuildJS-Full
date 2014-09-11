@@ -14,8 +14,10 @@ Build('build.widget.menu.MenuWidget', [ 'build::build.ui.Container' ], function(
 		 */
 		$constructor : function MenuWidget() {
 			$super(this)();
-			this.type = 'ul';
 			this.directAppend = true;
+		},
+		$prototype : {
+			type : 'ul'
 		}
 	});
 });

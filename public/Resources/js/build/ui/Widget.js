@@ -17,53 +17,57 @@ Build('build.ui.Widget', [ 'build::build.Module', 'build::build.utility.Observab
 		 */
 		$constructor : function Widget() {
 			$super(this)();
-			this.type = 'div';
+			this.createElement();
 			this.watchProperty('id');
+			this.id = this.uniqueId();
 			this.watchProperty('className');
+			this.className = this.uniqueClass();
 			// A Widget may be contained by Container.
 			this.watchProperty('parent');
 			// TODO: Add options via watch method.
 			Object.defineProperty(this, 'parent', {
 				enumerable : false
 			});
+			Object.defineProperty(this, 'classList', {
+				get : function() {
+					var classList = this.element.classList;
+					var self = this;
+					var add = classList.add;
+					classList.add = function() {
+						add.apply(this, arguments);
+						self.publish('classList');
+					};
+					var remove = classList.remove;
+					classList.remove = function() {
+						remove.apply(this, arguments);
+						self.publish('classList');
+					};
+					var toggle = classList.toggle;
+					classList.toggle = function() {
+						toggle.apply(this, arguments);
+						self.publish('classList');
+					};
+					return classList;
+				},
+				set : function(value) {
+					if (typeof value === 'string') {
+						this.element.className = value;
+					} else if (value instanceof Array) {
+						this.element.className = value.join(' ');
+					}
+					this.publish('classList');
+				}
+			});
 		},
 		$prototype : {
+			/**
+			 * @property type
+			 */
+			type : 'div',
 			/**
 			 * @method init
 			 */
 			init : function() {
-				this.id = this.uniqueId();
-				this.className = this.uniqueClass();
-				Object.defineProperty(this, 'classList', {
-					get : function() {
-						var classList = this.element.classList;
-						var self = this;
-						var add = classList.add;
-						classList.add = function() {
-							add.apply(this, arguments);
-							self.publish('classList');
-						};
-						var remove = classList.remove;
-						classList.remove = function() {
-							remove.apply(this, arguments);
-							self.publish('classList');
-						};
-						var toggle = classList.toggle;
-						classList.toggle = function() {
-							toggle.apply(this, arguments);
-							self.publish('classList');
-						};
-						return classList;
-					},
-					set : function(value) {
-						if (typeof value === 'string') {
-							this.element.className = value;
-						} else if (value instanceof Array) {
-							this.element.className = value.join(' ');
-						}
-						this.publish('classList');
-					}
-				});
 			},
 			/**
 			 * @method createElement
@@ -360,7 +364,6 @@ Build('build.ui.Widget', [ 'build::build.Module', 'build::build.utility.Observab
 			create : function() {
 				var result = Object.create(this.prototype);
 				result = this.apply(result, arguments) || result;
-				result.createElement();
 				result.init.apply(result, arguments);
 				return result;
 			},

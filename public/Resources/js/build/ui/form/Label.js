@@ -13,9 +13,9 @@ Build('build.ui.form.Label', [ 'build::build.ui.form.FormElement' ], function(de
 		 */
 		$constructor : function Label(text, control) {
 			$super(this)(text);
-			this.type = 'label';
 		},
 		$prototype : {
+			type : 'label',
 			/**
 			 * @method init
 			 * @param text

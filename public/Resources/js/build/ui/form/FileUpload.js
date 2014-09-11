@@ -10,10 +10,10 @@ Build('build.ui.form.FileUpload', [ 'build::build.ui.form.FormElement' ], functi
 		 */
 		$constructor : function FileUpload(name, value) {
 			$super(this)(null, value);
-			this.type = 'input';
 			this.watchProperty('name');
 		},
 		$prototype : {
+			type : 'input',
 			init : function(name, value) {
 				$super().init(this)(null, value);
 				this.element.type = 'file';

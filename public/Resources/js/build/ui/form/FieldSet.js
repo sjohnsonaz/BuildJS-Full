@@ -15,10 +15,10 @@ Build('build.ui.form.FieldSet', [ 'build::build.ui.Container', 'build::build.ui.
 		 */
 		$constructor : function FieldSet(text) {
 			$super(this)();
-			this.type = 'fieldset';
 			this.legend = build.ui.form.Legend.create(text);
 		},
 		$prototype : {
+			type : 'fieldset',
 			/**
 			 * @method refreshChildren
 			 */

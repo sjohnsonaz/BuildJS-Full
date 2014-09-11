@@ -10,10 +10,10 @@ Build('build.widget.video.YouTubeVideo', [ 'build::build.ui.Widget', 'http://aja
 		 */
 		$constructor : function YouTubeVideo(videoId) {
 			$super(this)();
-			this.type = 'iframe';
 			this.watchValue('videoId');
 		},
 		$prototype : {
+			type : 'iframe',
 			/**
 			 * 
 			 */

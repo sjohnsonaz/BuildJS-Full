@@ -7,7 +7,6 @@ Build('build.ui.element.Iframe', [ 'build::build.ui.Widget', 'build::build.utili
 		$extends : 'build.ui.Widget',
 		$constructor : function Iframe() {
 			$super(this)();
-			this.type = 'iframe';
 			this.watchProperty('src');
 			this.watchProperty('content', 'contentWindow', null, function(value, cancel) {
 				if (!value) {
@@ -18,6 +17,7 @@ Build('build.ui.element.Iframe', [ 'build::build.ui.Widget', 'build::build.utili
 			this.postMessages = {};
 		},
 		$prototype : {
+			type : 'iframe',
 			init : function() {
 				$super().init(this)();
 				this.element.onload = function() {

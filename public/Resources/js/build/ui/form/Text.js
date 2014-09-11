@@ -18,12 +18,12 @@ Build('build.ui.form.Text', [ 'build::build.ui.form.FormElement' ], function(def
 		 */
 		$constructor : function Text(text, value) {
 			$super(this)(text, value);
-			this.type = 'input';
 			this.watchProperty('value');
 			this.watchAttribute('placeholder');
 			this.watchAttribute('name');
 		},
 		$prototype : {
+			type : 'input',
 			/**
 			 * @method init
 			 * @param text

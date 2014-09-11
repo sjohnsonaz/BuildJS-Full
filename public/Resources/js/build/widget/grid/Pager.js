@@ -8,7 +8,6 @@ Build('build.widget.grid.Pager', [ 'build.ui.Container', 'build.ui.element.Link'
 		$extends : 'build.ui.Widget',
 		$constructor : function Pager() {
 			$super(this)();
-			this.type = 'ul';
 			this.iteratorType = 'li';
 			this.watchValue('items', 1);
 			this.watchValue('itemsVisible', 10);
@@ -40,6 +39,7 @@ Build('build.widget.grid.Pager', [ 'build.ui.Container', 'build.ui.element.Link'
 			this.endElement.appendChild(this.endLink.element);
 		},
 		$prototype : {
+			type : 'ul',
 			init : function() {
 				$super().init(this)();
 				var refreshChildren = this.refreshChildren.bind(this);

@@ -18,12 +18,12 @@ Build('build.ui.form.TextArea', [ 'build::build.ui.form.FormElement' ], function
 		 */
 		$constructor : function TextArea(text, value) {
 			$super(this)(text, value);
-			this.type = 'textarea';
 			this.watchProperty('value', 'innerHTML');
 			this.watchAttribute('placeholder');
 			this.watchAttribute('name');
 		},
 		$prototype : {
+			type : 'textarea',
 			/**
 			 * @method init
 			 * @param text

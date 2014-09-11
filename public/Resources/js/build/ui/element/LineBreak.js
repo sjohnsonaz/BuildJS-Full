@@ -13,7 +13,9 @@ Build('build.ui.element.LineBreak', [ 'build::build.ui.element.Element' ], funct
 		 */
 		$constructor : function LineBreak(text) {
 			$super(this)(text);
-			this.type = 'br';
+		},
+		$prototype : {
+			type : 'br'
 		}
 	});
 });

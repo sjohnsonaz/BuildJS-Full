@@ -14,6 +14,20 @@ Build('build.ui.Content', [ 'build::build.ui.Widget' ], function(define, $super)
 		 */
 		$constructor : function Content(text) {
 			$super(this)(text);
+			var templateParser = null;
+			this.watchProperty('text', 'innerHTML', null, function(value) {
+				return templateParser ? templateParser.parse(value, this) : value;
+			}.bind(this));
+			this.watchValue('textHelpers', false, null, function(value) {
+				if (value) {
+					templateParser = build.utility.TemplateParser();
+				} else {
+					templateParser = null;
+				}
+				this.text = this.text;
+				return value;
+			}.bind(this));
+			this.text = text || '';
 		},
 		$prototype : {
 			/**
@@ -22,20 +36,6 @@ Build('build.ui.Content', [ 'build::build.ui.Widget' ], function(define, $super)
 			 */
 			init : function(text) {
 				$super().init(this)(text);
-				var templateParser = null;
-				this.watchProperty('text', 'innerHTML', null, function(value) {
-					return templateParser ? templateParser.parse(value, this) : value;
-				}.bind(this));
-				this.watchValue('textHelpers', false, null, function(value) {
-					if (value) {
-						templateParser = build.utility.TemplateParser();
-					} else {
-						templateParser = null;
-					}
-					this.text = this.text;
-					return value;
-				}.bind(this));
-				this.text = text || '';
 			}
 		}
 	});

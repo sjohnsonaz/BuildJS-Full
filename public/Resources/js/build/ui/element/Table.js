@@ -14,10 +14,10 @@ Build('build.ui.element.Table', [ 'build::build.ui.Container', 'build::build.uti
 		 */
 		$constructor : function Table() {
 			$super(this)();
-			this.type = 'table';
 			this.headers = build.utility.ObservableArray();
 		},
 		$prototype : {
+			type : 'table',
 			/**
 			 * @method init
 			 */
