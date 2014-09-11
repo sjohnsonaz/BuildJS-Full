@@ -16,57 +16,7 @@ Build('build.ui.Container', [ 'build::build.ui.Widget', 'build::build.utility.Ob
 				writable : true,
 				enumerable : false
 			});
-			var childrenHandler = {
-				push : function(child) {
-					//this.refreshChildren();
-					var element = this.innerElement;
-					if (element) {
-						child = this.createChild(child);
-						element.appendChild(child);
-					}
-				}.bind(this),
-				pop : function() {
-					this.refreshChildren();
-					//var element = this.innerElement;
-					//if (element) {
-					//element.removeChild(element.lastChild);
-					//}
-				}.bind(this),
-				unshift : function() {
-					// Add to beginning of array
-					this.refreshChildren();
-				}.bind(this),
-				shift : function() {
-					// Remove from beginning of array
-					this.refreshChildren();
-				}.bind(this),
-				reverse : function() {
-					// Sort in opposite direction
-					this.refreshChildren();
-				}.bind(this),
-				sort : function() {
-					// Sort based on function
-					this.refreshChildren();
-				}.bind(this),
-				splice : function() {
-					this.refreshChildren();
-				}.bind(this),
-				get : function() {
-					this.refreshChildren();
-				}.bind(this),
-				set : function() {
-					this.refreshChildren();
-				}.bind(this),
-				removeAll : function() {
-					this.refreshChildren();
-				}.bind(this),
-				subscribe : function() {
-					this.refreshChildren();
-				}.bind(this),
-				publish : function() {
-					this.refreshChildren();
-				}.bind(this)
-			};
+			var childrenHandler = this.createChildrenHandler();
 			var baseArray = build.utility.ObservableArray();
 			this.watchValue('children', baseArray, null, function(value, cancel) {
 				if (this.children) {
@@ -99,7 +49,11 @@ Build('build.ui.Container', [ 'build::build.ui.Widget', 'build::build.utility.Ob
 				if (element) {
 					while (element.firstChild) {
 						// TODO: This is inefficient.
-						element.controller.parent = null;
+						if (element.controller) {
+							element.controller.parent = null;
+						} else {
+							console.log(element);
+						}
 						element.removeChild(element.firstChild);
 					}
 				}
@@ -178,6 +132,59 @@ Build('build.ui.Container', [ 'build::build.ui.Widget', 'build::build.utility.Ob
 						console.log('already destroyed?');
 					}
 				}
+			},
+			createChildrenHandler : function() {
+				return {
+					push : function(child) {
+						//this.refreshChildren();
+						var element = this.innerElement;
+						if (element) {
+							child = this.createChild(child);
+							element.appendChild(child);
+						}
+					}.bind(this),
+					pop : function() {
+						this.refreshChildren();
+						//var element = this.innerElement;
+						//if (element) {
+						//element.removeChild(element.lastChild);
+						//}
+					}.bind(this),
+					unshift : function() {
+						// Add to beginning of array
+						this.refreshChildren();
+					}.bind(this),
+					shift : function() {
+						// Remove from beginning of array
+						this.refreshChildren();
+					}.bind(this),
+					reverse : function() {
+						// Sort in opposite direction
+						this.refreshChildren();
+					}.bind(this),
+					sort : function() {
+						// Sort based on function
+						this.refreshChildren();
+					}.bind(this),
+					splice : function() {
+						this.refreshChildren();
+					}.bind(this),
+					get : function() {
+						this.refreshChildren();
+					}.bind(this),
+					set : function() {
+						this.refreshChildren();
+					}.bind(this),
+					removeAll : function() {
+						this.refreshChildren();
+					}.bind(this),
+					subscribe : function() {
+						this.refreshChildren();
+					}.bind(this),
+					publish : function() {
+						this.refreshChildren();
+					}.bind(this)
+				};
 			}
 		}
 	});
