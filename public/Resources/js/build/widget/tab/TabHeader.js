@@ -1,8 +1,8 @@
 /**
- * @class build.ui.tab.TabHeader
+ * @class build.widget.tab.TabHeader
  * @extends build.ui.Container
  */
-Build('build.ui.tab.TabHeader', [ 'build::build.ui.Container', 'build::build.binding.PropertyBinding', 'build::build.binding.EventBinding', 'build::build.binding.ClassNameBinding', 'build::build.ui.element.List', 'build::build.ui.tab.TabTitle' ],
+Build('build.widget.tab.TabHeader', [ 'build::build.ui.Container', 'build::build.binding.PropertyBinding', 'build::build.binding.EventBinding', 'build::build.binding.ClassNameBinding', 'build::build.ui.element.List', 'build::build.widget.tab.TabTitle' ],
 		function(define, $super) {
 			define({
 				$extends : 'build.ui.Container',
@@ -15,7 +15,7 @@ Build('build.ui.tab.TabHeader', [ 'build::build.ui.Container', 'build::build.bin
 				$prototype : {
 					type : 'ul',
 					createChild : function(child) {
-						var title = build.ui.tab.TabTitle.create();
+						var title = build.widget.tab.TabTitle.create();
 						build.binding.PropertyBinding.create(title, {
 							sources : [ {
 								source : child,

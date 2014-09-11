@@ -1,8 +1,8 @@
 /**
- * @class build.ui.tab.TabContainer
+ * @class build.widget.tab.TabContainer
  * @extends build.ui.SwitcherPanel
  */
-Build('build.ui.tab.TabContainer', [ 'build::build.ui.SwitcherPanel', 'build::build.ui.tab.TabHeader' ], function(define, $super) {
+Build('build.widget.tab.TabContainer', [ 'build::build.ui.SwitcherPanel', 'build::build.widget.tab.TabHeader' ], function(define, $super) {
 	define({
 		$extends : 'build.ui.SwitcherPanel',
 		/**
@@ -31,7 +31,7 @@ Build('build.ui.tab.TabContainer', [ 'build::build.ui.SwitcherPanel', 'build::bu
 			this.openTabIndex = function(index) {
 				self.active = index;
 			};
-			this.tabHeader = build.ui.tab.TabHeader.create();
+			this.tabHeader = build.widget.tab.TabHeader.create();
 			build.binding.ForEachBinding.create(this.tabHeader, this, 'children');
 			this.element.appendChild(this.tabHeader.element);
 			this.innerElement = document.createElement('div');

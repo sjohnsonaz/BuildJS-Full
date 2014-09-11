@@ -1,4 +1,4 @@
-Build('build.ui.application.AdminApplication', [ 'build::build.ui.application.AuthenticatedApplication', 'build::build.ui.Container', 'build::build.service.UserServiceConnection', 'build::build.ui.tab.TabPanel', 'build::build.ui.tab.TabContainer',
+Build('build.ui.application.AdminApplication', [ 'build::build.ui.application.AuthenticatedApplication', 'build::build.ui.Container', 'build::build.service.UserServiceConnection', 'build::build.widget.tab.TabPanel', 'build::build.widget.tab.TabContainer',
 		'build::build.widget.user.UserWidget' ], function(define, $super) {
 	define({
 		$extends : 'build.ui.application.AuthenticatedApplication',
@@ -15,9 +15,9 @@ Build('build.ui.application.AdminApplication', [ 'build::build.ui.application.Au
 			this.menu.addChild(this.homeMenuElement);
 
 			this.userSeriveConnection = new build.service.UserServiceConnection();
-			this.adminPanel = build.ui.tab.TabContainer.create();
+			this.adminPanel = build.widget.tab.TabContainer.create();
 
-			this.adminUserTab = build.ui.tab.TabPanel.create('Users');
+			this.adminUserTab = build.widget.tab.TabPanel.create('Users');
 			this.userWidget = build.widget.user.UserWidget.create(this.userServiceConnection);
 			this.adminUserTab.addChild(this.userWidget);
 			this.adminPanel.addChild(this.adminUserTab);
