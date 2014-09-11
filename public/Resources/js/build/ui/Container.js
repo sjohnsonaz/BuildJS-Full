@@ -49,11 +49,7 @@ Build('build.ui.Container', [ 'build::build.ui.Widget', 'build::build.utility.Ob
 				if (element) {
 					while (element.firstChild) {
 						// TODO: This is inefficient.
-						if (element.firstChild.controller) {
-							element.firstChild.controller.parent = null;
-						} else {
-							console.log(element.firstChild);
-						}
+						this.destroyChild(element.firstChild);
 						element.removeChild(element.firstChild);
 					}
 				}
