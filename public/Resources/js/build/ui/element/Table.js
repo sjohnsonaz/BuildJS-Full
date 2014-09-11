@@ -60,7 +60,7 @@ Build('build.ui.element.Table', [ 'build::build.ui.Container', 'build::build.uti
 			 */
 			childIterator : function(child, index, array) {
 				if (child) {
-					this.body.appendChild(this.createChild(child));
+					this.innerElement.appendChild(this.createChild(child));
 				}
 			},
 			/**
@@ -88,9 +88,10 @@ Build('build.ui.element.Table', [ 'build::build.ui.Container', 'build::build.uti
 			 * @method refreshChildren
 			 */
 			refreshChildren : function() {
-				if (this.body) {
-					while (this.body.firstChild) {
-						this.body.removeChild(this.body.firstChild);
+				var element = this.innerElement;
+				if (element) {
+					while (element.firstChild) {
+						element.removeChild(element.firstChild);
 					}
 					if (this.children) {
 						this.children.forEach(this.childIterator.bind(this));
