@@ -177,7 +177,7 @@ Build('build.ui.Container', [ 'build::build.ui.Widget', 'build::build.utility.Ob
 						if (element) {
 							var nextSibling = element.childNodes[index + howMany];
 							var elementsToAdd = Array.prototype.slice.call(arguments, 2);
-							var elementsToRemove = element.childNodes.slice(index, index + howMany);
+							var elementsToRemove = Array.prototype.slice.call(element.childNodes, index, index + howMany);
 							var elementToRemove;
 							while (elementToRemove = elementsToRemove.pop()) {
 								// TODO: Any removal extra logic here?
