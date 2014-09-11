@@ -23,14 +23,14 @@ Build('build.ui.tab.TabHeader', [ 'build::build.ui.Container', 'build::build.bin
 							}, ],
 							property : 'title'
 						});
-						//build.binding.EventBinding.create(li, child, 'openTab', 'click');
-						/*build.binding.ClassNameBinding.create(li, {
+						build.binding.EventBinding.create(title, child, 'openTab', 'click');
+						build.binding.ClassNameBinding.create(title, {
 							sources : [ {
-								source : this.parent,
+								source : child.parent,
 								property : 'active'
 							} ],
 							className : 'tab-active'
-						});*/
+						});
 						return title.element;
 					}
 				}

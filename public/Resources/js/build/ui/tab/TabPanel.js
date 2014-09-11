@@ -18,7 +18,7 @@ Build('build.ui.tab.TabPanel', [ 'build::build.ui.Container' ], function(define,
 		},
 		$prototype : {
 			openTab : function() {
-				console.log('opening tab');
+				this.parent.openTab(this);
 			}
 		}
 	});
