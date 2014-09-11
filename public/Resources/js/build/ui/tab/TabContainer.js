@@ -2,7 +2,7 @@
  * @class build.ui.tab.TabContainer
  * @extends build.ui.SwitcherPanel
  */
-Build('build.ui.tab.TabContainer', [ 'build::build.ui.SwitcherPanel' ], function(define, $super) {
+Build('build.ui.tab.TabContainer', [ 'build::build.ui.SwitcherPanel', 'build::build.ui.tab.TabHeader' ], function(define, $super) {
 	define({
 		$extends : 'build.ui.SwitcherPanel',
 		/**
@@ -31,12 +31,17 @@ Build('build.ui.tab.TabContainer', [ 'build::build.ui.SwitcherPanel' ], function
 			this.openTabIndex = function(index) {
 				self.active = index;
 			};
+			this.tabHeader = build.ui.tab.TabHeader.create();
+			build.binding.ForEachBinding.create(this.tabHeader, this, 'children');
+			this.element.appendChild(this.tabHeader.element);
+			this.innerElement = document.createElement('div');
+			this.element.appendChild(this.innerElement);
 		},
 		$prototype : {
 			/**
 			 * @method refreshChildren
 			 */
-			refreshChildren : function() {
+			/*refreshChildren : function() {
 				$super().refreshChildren(this)();
 				if (this.element) {
 					var ul = document.createElement('ul');
@@ -64,7 +69,7 @@ Build('build.ui.tab.TabContainer', [ 'build::build.ui.SwitcherPanel' ], function
 					}.bind(this));
 					this.element.insertBefore(ul, this.element.firstChild);
 				}
-			}
+			}*/
 		}
 	});
 });

@@ -2,7 +2,7 @@
  * @class build.ui.tab.TabHeader
  * @extends build.ui.Container
  */
-Build('build.ui.tab.TabHeader', [ 'build::build.ui.Container', 'build::build.binding.TextBinding', 'build::build.binding.EventBinding', 'build::build.binding.ClassNameBinding', 'build::build.ui.element.List', 'build::build.ui.element.Link' ],
+Build('build.ui.tab.TabHeader', [ 'build::build.ui.Container', 'build::build.binding.PropertyBinding', 'build::build.binding.EventBinding', 'build::build.binding.ClassNameBinding', 'build::build.ui.element.List', 'build::build.ui.tab.TabTitle' ],
 		function(define, $super) {
 			define({
 				$extends : 'build.ui.Container',
@@ -15,24 +15,23 @@ Build('build.ui.tab.TabHeader', [ 'build::build.ui.Container', 'build::build.bin
 				$prototype : {
 					type : 'ul',
 					createChild : function(child) {
-						var li = build.ui.element.List.create();
-						var a = build.ui.element.Link.create();
-						li.addChild(a);
-						build.binding.TextBinding.create(a, {
+						var title = build.ui.tab.TabTitle.create();
+						build.binding.PropertyBinding.create(title, {
 							sources : [ {
 								source : child,
 								property : 'title'
-							}, ]
+							}, ],
+							property : 'title'
 						});
-						build.binding.EventBinding.create(a, child, 'click', 'openTab');
-						build.binding.ClassNameBinding.create(li, {
+						//build.binding.EventBinding.create(li, child, 'openTab', 'click');
+						/*build.binding.ClassNameBinding.create(li, {
 							sources : [ {
 								source : this.parent,
 								property : 'active'
 							} ],
 							className : 'tab-active'
-						});
-						return li.element;
+						});*/
+						return title.element;
 					}
 				}
 			});
