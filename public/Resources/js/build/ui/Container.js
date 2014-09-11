@@ -112,17 +112,7 @@ Build('build.ui.Container', [ 'build::build.ui.Widget', 'build::build.utility.Ob
 			 */
 			childIterator : function(child, index, array) {
 				if (child) {
-					if (child instanceof build.ui.Widget) {
-						// TODO: This is inefficient.
-						child.parent = this;
-						child = this.createChild(child);
-						this.element.appendChild(child.element || child);
-					} else {
-						var iterator = document.createElement(this.iteratorType || 'div');
-						iterator.innerHTML = child;
-						//iterator.className = 'panel-iterator';
-						this.element.appendChild(iterator);
-					}
+					this.element.appendChild(this.createChild(child));
 				}
 			},
 			/**
@@ -147,7 +137,20 @@ Build('build.ui.Container', [ 'build::build.ui.Widget', 'build::build.utility.Ob
 			 * @param child
 			 */
 			createChild : function(child) {
-				return child ? child.element || child : child;
+				// If we have a Widget, return the element
+				if (child instanceof build.ui.Widget) {
+					// TODO: We do not need to set parent here.
+					child.parent = this;
+
+					return child.element;
+				} else {
+					// If we have anything else, wrap the element in a div.
+					// TODO: Remove iteratorType.
+					var iterator = document.createElement(this.iteratorType || 'div');
+					iterator.innerHTML = child;
+					iterator.className = 'container-child';
+					return iterator;
+				}
 			},
 			destroy : function(isDestroying) {
 				$super().destroy(this)();
