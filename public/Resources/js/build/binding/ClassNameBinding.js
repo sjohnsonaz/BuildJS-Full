@@ -22,8 +22,8 @@ Build('build.binding.ClassNameBinding', [ 'build::build.binding.OneWayBinding' ]
 			update : function(subscription, value, reverse) {
 				if (this.format) {
 					var condition = this.formatString(this.format, this.cache);
-					var wrappedCondition = 'if (' + condition + ') {return this.evaluate(true);} else {return this.evaluate(false);}';
-					return eval(wrappedCondition);
+					var wrappedCondition = 'if (' + condition + ') {this.evaluate(true);} else {this.evaluate(false);}';
+					eval(wrappedCondition);
 				}
 			},
 			evaluate : function(value) {
@@ -34,7 +34,6 @@ Build('build.binding.ClassNameBinding', [ 'build::build.binding.OneWayBinding' ]
 						this.destination.element.classList.remove(this.className);
 					}
 				}
-				return value;
 			}
 		}
 	});
