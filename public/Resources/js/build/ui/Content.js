@@ -28,15 +28,6 @@ Build('build.ui.Content', [ 'build::build.ui.Widget' ], function(define, $super)
 				return value;
 			}.bind(this));
 			this.text = text || '';
-		},
-		$prototype : {
-			/**
-			 * @method init
-			 * @param text
-			 */
-			init : function(text) {
-				$super().init(this)(text);
-			}
 		}
 	});
 });

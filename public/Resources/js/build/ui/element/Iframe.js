@@ -15,22 +15,19 @@ Build('build.ui.element.Iframe', [ 'build::build.ui.Widget', 'build::build.utili
 			});
 			this.channels = [];
 			this.postMessages = {};
+			this.element.onload = function() {
+				// Build all PostMessages here.
+				this.postMessages = {};
+				for (var index = 0, length = this.channels.length; index < length; index++) {
+					var name = this.channels[index];
+					this.postMessages[name] = new build.utility.PostMessage(this.element.contentWindow, name);
+					this.postMessages[name].listen();
+				}
+				this.publish('content');
+			}.bind(this);
 		},
 		$prototype : {
 			type : 'iframe',
-			init : function() {
-				$super().init(this)();
-				this.element.onload = function() {
-					// Build all PostMessages here.
-					this.postMessages = {};
-					for (var index = 0, length = this.channels.length; index < length; index++) {
-						var name = this.channels[index];
-						this.postMessages[name] = new build.utility.PostMessage(this.element.contentWindow, name);
-						this.postMessages[name].listen();
-					}
-					this.publish('content');
-				}.bind(this);
-			},
 			addChannel : function(name) {
 				return this.channels.indexOf(name) == -1 ? this.channels.push(name) : this.channels.length;
 			},

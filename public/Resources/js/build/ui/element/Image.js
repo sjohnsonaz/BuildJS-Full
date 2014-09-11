@@ -9,16 +9,13 @@ Build('build.ui.element.Image', [ 'build::build.ui.Widget' ], function(define, $
 			$super(this)();
 			this.watchProperty('src');
 			this.watchProperty('loaded', 'src');
+			this.src = src;
+			this.addEvent('load', function(element, event) {
+				this.publish('loaded');
+			}, false, this);
 		},
 		$prototype : {
-			type : 'img',
-			init : function(src) {
-				$super().init(this)();
-				this.src = src;
-				this.addEvent('load', function(element, event) {
-					this.publish('loaded');
-				}, false, this);
-			}
+			type : 'img'
 		}
 	});
 });

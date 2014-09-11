@@ -40,11 +40,6 @@ Build('build.ui.application.AdminApplication', [ 'build::build.ui.application.Au
 				this.sections.active = 1;// ('admin');
 			}.bind(this);
 			this.menu.addChild(this.adminMenuElement);
-		},
-		$prototype : {
-			init : function() {
-				$super().init(this)();
-			}
 		}
 	});
 });

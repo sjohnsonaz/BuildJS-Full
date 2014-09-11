@@ -53,12 +53,12 @@ Build('build.ui.application.AuthenticatedApplication', [ 'build::build.ui.Applic
 			// console.log('test started: ' + id);
 			// });
 			this.router.listen();
+			this.watchClass('menuFixedTop', 'application-menu-fixed-top');
+			this.menuFixedTop = true;
 		},
 		$prototype : {
 			init : function() {
 				$super().init(this)();
-				this.watchClass('menuFixedTop', 'application-menu-fixed-top');
-				this.menuFixedTop = true;
 				this.authenticationWidget.run();
 			}
 		},
