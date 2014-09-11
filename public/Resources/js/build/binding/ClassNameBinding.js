@@ -21,9 +21,16 @@ Build('build.binding.ClassNameBinding', [ 'build::build.binding.OneWayBinding' ]
 		$prototype : {
 			update : function(subscription, value, reverse) {
 				if (this.format) {
-					var condition = this.formatString(this.format, this.cache);
-					var wrappedCondition = 'if (' + condition + ') {this.evaluate(true);} else {this.evaluate(false);}';
-					eval(wrappedCondition);
+					switch (typeof this.format) {
+					case 'function':
+						this.format() ? this.evaluate(true) : this.evaluate(false);
+						break;
+					case 'string':
+						var condition = this.formatString(this.format, this.cache);
+						var wrappedCondition = 'if (' + condition + ') {this.evaluate(true);} else {this.evaluate(false);}';
+						eval(wrappedCondition);
+						break;
+					}
 				}
 			},
 			evaluate : function(value) {

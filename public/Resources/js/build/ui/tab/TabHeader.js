@@ -25,6 +25,9 @@ Build('build.ui.tab.TabHeader', [ 'build::build.ui.Container', 'build::build.bin
 						});
 						build.binding.EventBinding.create(title, child, 'openTab', 'click');
 						build.binding.ClassNameBinding.create(title, {
+							format : function() {
+								return child.parent.children[child.parent.active] == child;
+							},
 							sources : [ {
 								source : child.parent,
 								property : 'active'
