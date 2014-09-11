@@ -102,9 +102,14 @@ Build('build.ui.Container', [ 'build::build.ui.Widget', 'build::build.utility.Ob
 			createChild : function(child) {
 				// If we have a Widget, return the element
 				if (child instanceof build.ui.Widget) {
-					// TODO: We do not need to set parent here.
-					child.parent = this;
-
+					if (child.parent) {
+						if (child.parent != this) {
+							child.parent.children.remove(child);
+							child.parent = this;
+						}
+					} else {
+						child.parent = this;
+					}
 					return child.element;
 				} else {
 					// If we have anything else, wrap the element in a div.
@@ -113,6 +118,16 @@ Build('build.ui.Container', [ 'build::build.ui.Widget', 'build::build.utility.Ob
 					iterator.innerHTML = child;
 					iterator.className = 'container-child';
 					return iterator;
+				}
+			},
+			/**
+			 * @method destroyChild
+			 * @param child
+			 */
+			destroyChild : function(child) {
+				// TODO: Do we need to do this here?
+				if (child && child.controller) {
+					child.controller.parent = null;
 				}
 			},
 			destroy : function(isDestroying) {
@@ -145,7 +160,7 @@ Build('build.ui.Container', [ 'build::build.ui.Widget', 'build::build.utility.Ob
 					pop : function() {
 						var element = this.innerElement;
 						if (element) {
-							// TODO: Any removal extra logic here?
+							this.destroyChild(element.lastChild);
 							element.removeChild(element.lastChild);
 						}
 					}.bind(this),
@@ -153,6 +168,7 @@ Build('build.ui.Container', [ 'build::build.ui.Widget', 'build::build.utility.Ob
 						// Add to beginning of array
 						var element = this.innerElement;
 						if (element) {
+							child = this.createChild(child);
 							element.insertBefore(child, element.firstChild);
 						}
 					}.bind(this),
@@ -160,7 +176,7 @@ Build('build.ui.Container', [ 'build::build.ui.Widget', 'build::build.utility.Ob
 						// Remove from beginning of array
 						var element = this.innerElement;
 						if (element) {
-							// TODO: Any removal extra logic here?
+							this.destroyChild(element.firstChild);
 							element.removeChild(element.firstChild);
 						}
 					}.bind(this),
@@ -180,11 +196,12 @@ Build('build.ui.Container', [ 'build::build.ui.Widget', 'build::build.utility.Ob
 							var elementsToRemove = Array.prototype.slice.call(element.childNodes, index, index + howMany);
 							var elementToRemove;
 							while (elementToRemove = elementsToRemove.pop()) {
-								// TODO: Any removal extra logic here?
+								this.destroyChild(elementToRemove);
 								element.removeChild(elementToRemove);
 							}
 							var elementToAdd;
 							while (elementToAdd = elementsToAdd.pop()) {
+								child = this.createChild(child);
 								element.insertBefore(elementToAdd, nextSibling);
 							}
 						}
@@ -200,7 +217,8 @@ Build('build.ui.Container', [ 'build::build.ui.Widget', 'build::build.utility.Ob
 						if (element) {
 							var oldChild = element.childNodes[index];
 							if (oldChild) {
-								// TODO: Any removal extra logic here?
+								this.destroyChild(oldChild);
+								child = this.createChild(child);
 								element.replaceChild(oldChild, child);
 							}
 						}
@@ -209,10 +227,7 @@ Build('build.ui.Container', [ 'build::build.ui.Widget', 'build::build.utility.Ob
 						var element = this.innerElement;
 						if (element) {
 							while (element.firstChild) {
-								// TODO: Do we need to do this here?
-								if (element.controller) {
-									element.controller.parent = null;
-								}
+								this.destroyChild(element.firstChild);
 								element.removeChild(element.firstChild);
 							}
 						}

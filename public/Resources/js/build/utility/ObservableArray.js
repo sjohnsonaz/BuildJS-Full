@@ -13,6 +13,8 @@ build.utility.ObservableArray = (function() {
 		inner.get = get.bind(inner);
 		inner.set = set.bind(inner);
 		inner.removeAll = removeAll.bind(inner);
+		inner.remove = remove.bind(inner);
+		inner.pushUnique = pushUnique.bind(inner);
 		inner.subscribe = subscribe.bind(inner);
 		inner.unsubscribe = unsubscribe.bind(inner);
 		inner.publish = publish.bind(inner);
@@ -162,6 +164,22 @@ build.utility.ObservableArray = (function() {
 	function set(index, value) {
 		this[index] = value;
 		this.publish('set', arguments);
+	}
+
+	function remove(value) {
+		// This will publish as a splice.
+		var index = this.indexOf(value);
+		if (index != -1) {
+			this.splice(index, 1);
+		}
+	}
+
+	function pushUnique(value) {
+		// This will publish as a push.
+		var index = this.indexOf(value);
+		if (index == -1) {
+			this.push(value);
+		}
 	}
 
 	function subscribe(subscriber) {
