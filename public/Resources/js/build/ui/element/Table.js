@@ -19,6 +19,7 @@ Build('build.ui.element.Table', [ 'build::build.ui.Container', 'build::build.uti
 			this.body = document.createElement('tbody');
 			this.element.appendChild(this.head);
 			this.element.appendChild(this.body);
+			this.innerElement = this.body;
 			this.headers.subscribe(function() {
 				if (this.head) {
 					while (this.head.firstChild) {
