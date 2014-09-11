@@ -12,6 +12,8 @@ Build('build.ui.form.CheckBox', [ 'build::build.ui.form.FormElement' ], function
 			$super(this)(null, value);
 			this.watchProperty('name');
 			this.watchProperty('value', 'checked');
+			this.element.type = 'checkbox';
+			this.name = name;
 		},
 		$prototype : {
 			type : 'input',
@@ -20,8 +22,6 @@ Build('build.ui.form.CheckBox', [ 'build::build.ui.form.FormElement' ], function
 				this.element.addEventListener('change', function() {
 					this.value = this.element.checked;
 				}.bind(this));
-				this.element.type = 'checkbox';
-				this.name = name;
 			}
 		}
 	});

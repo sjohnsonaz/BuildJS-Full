@@ -13,18 +13,10 @@ Build('build.ui.form.Button', [ 'build::build.ui.form.FormElement' ], function(d
 		 */
 		$constructor : function Button(text, value) {
 			$super(this)(text, value);
+			this.element.type = 'button';
 		},
 		$prototype : {
-			type : 'button',
-			/**
-			 * @method init
-			 * @param text
-			 * @param value
-			 */
-			init : function(text, value) {
-				$super().init(this)(text, value);
-				this.element.type = 'button';
-			}
+			type : 'button'
 		}
 	});
 });

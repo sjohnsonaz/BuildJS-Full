@@ -15,48 +15,42 @@ Build('build.ui.element.Table', [ 'build::build.ui.Container', 'build::build.uti
 		$constructor : function Table() {
 			$super(this)();
 			this.headers = build.utility.ObservableArray();
+			this.head = document.createElement('thead');
+			this.body = document.createElement('tbody');
+			this.element.appendChild(this.head);
+			this.element.appendChild(this.body);
+			this.headers.subscribe(function() {
+				if (this.head) {
+					while (this.head.firstChild) {
+						this.head.removeChild(this.head.firstChild);
+					}
+					if (this.headers) {
+						var tr = document.createElement('tr');
+						for (var index = 0, length = this.headers.length; index < length; index++) {
+							var td = document.createElement('th');
+							var data = this.headers[index];
+							data = data.element || data;
+							if (typeof data == 'object') {
+								td.appendChild(data);
+							} else {
+								td.innerHTML = data;
+							}
+							tr.appendChild(td);
+						}
+						this.head.appendChild(tr);
+					}
+				}
+				// var trHead = document.createElement('tr');
+				// trHead.dataset.bind = 'foreach: headers';
+				// thead.appendChild(trHead);
+
+				// var th = document.createElement('th');
+				// th.dataset.bind = 'text: $data';
+				// trHead.appendChild(th);
+			}.bind(this));
 		},
 		$prototype : {
 			type : 'table',
-			/**
-			 * @method init
-			 */
-			init : function() {
-				$super().init(this)();
-				this.head = document.createElement('thead');
-				this.body = document.createElement('tbody');
-				this.element.appendChild(this.head);
-				this.element.appendChild(this.body);
-				this.headers.subscribe(function() {
-					if (this.head) {
-						while (this.head.firstChild) {
-							this.head.removeChild(this.head.firstChild);
-						}
-						if (this.headers) {
-							var tr = document.createElement('tr');
-							for (var index = 0, length = this.headers.length; index < length; index++) {
-								var td = document.createElement('th');
-								var data = this.headers[index];
-								data = data.element || data;
-								if (typeof data == 'object') {
-									td.appendChild(data);
-								} else {
-									td.innerHTML = data;
-								}
-								tr.appendChild(td);
-							}
-							this.head.appendChild(tr);
-						}
-					}
-					// var trHead = document.createElement('tr');
-					// trHead.dataset.bind = 'foreach: headers';
-					// thead.appendChild(trHead);
-
-					// var th = document.createElement('th');
-					// th.dataset.bind = 'text: $data';
-					// trHead.appendChild(th);
-				}.bind(this));
-			},
 			/**
 			 * @method childIterator
 			 * @param child
