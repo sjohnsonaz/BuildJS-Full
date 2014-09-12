@@ -8,7 +8,7 @@ Build('build.widget.authentication.LoginForm', [ 'build::build.ui.form.Form', 'b
 		$extends : 'build.ui.form.Form',
 		/**
 		 * @constructor
-		 * @params authenticationServiceConnection
+		 * @param authenticationServiceConnection
 		 */
 		/**
 		 * @property message

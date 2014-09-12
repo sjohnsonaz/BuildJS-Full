@@ -1,6 +1,6 @@
 /**
  * @class build.ui.form.Submit
- * @extneds build.ui.form.Button
+ * @extends build.ui.form.Button
  */
 Build('build.ui.form.Submit', [ 'build::build.ui.form.Button' ], function(define, $super) {
 	define({

@@ -1,6 +1,9 @@
 var build = build || {};
 build.utility = build.utility || {};
 build.utility.ObservableArray = (function() {
+	/**
+	 * @class build.utility.ObservableArray
+	 */
 	function ObservableArray(base) {
 		var inner = Array.apply({}, (base instanceof Array && arguments.length == 1) ? base : arguments);
 		inner.push = push.bind(inner);
