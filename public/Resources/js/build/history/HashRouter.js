@@ -16,19 +16,28 @@ Build('build.history.HashRouter', [], function(define, $super) {
 		$constructor : function HashRouter() {
 			var self = this;
 			this.routes = {};
+			this.defaultRoutes = [];
 			this.handler = function(event) {
 				var url = (event && event.newURL) ? event.newURL : window.location.href;
 				var routes = self.routes;
+				var routesCalled = 0;
 				for ( var route in routes) {
 					if (routes.hasOwnProperty(route)) {
 						var routeDef = routes[route];
 						var params = url.match(routeDef.regex);
 						if (params) {
+							routesCalled++;
 							routeDef.enter.apply(routeDef.enter, params.slice(1));
 						}
 					}
 				}
-			};
+				if (!routesCalled) {
+					for (var index = 0, length = this.defaultRoutes.length; index < length; index++) {
+						var defaultRouteDef = this.defaultRoutes[index];
+						defaultRouteDef.enter.apply(defaultRouteDef.enter);
+					}
+				}
+			}.bind(this);
 		},
 		$prototype : {
 			/**
@@ -48,12 +57,19 @@ Build('build.history.HashRouter', [], function(define, $super) {
 			 * @method add
 			 */
 			add : function(route, enter, exit) {
-				this.routes[route] = {
-					route : route,
-					enter : enter,
-					exit : exit,
-					regex : new RegExp(route.replace(/\//g, "\\/").replace(/:(\w*)/g, "(\\w*)"))
-				};
+				if (route) {
+					this.routes[route] = {
+						route : route,
+						enter : enter,
+						exit : exit,
+						regex : new RegExp(route.replace(/\//g, "\\/").replace(/:(\w*)/g, "(\\w*)"))
+					};
+				} else {
+					this.defaultRoutes.push({
+						enter : enter,
+						exit : exit,
+					});
+				}
 			},
 			/**
 			 * @method remove
@@ -78,6 +94,14 @@ Build('build.history.HashRouter', [], function(define, $super) {
 				};
 				scope[name] = handle;
 				return handle;
+			},
+			/**
+			 * @method defaultRoute
+			 */
+			defaultRoute : function(scope, callback) {
+				this.add(false, function() {
+					callback.apply(scope, arguments);
+				});
 			},
 			/**
 			 * @method go

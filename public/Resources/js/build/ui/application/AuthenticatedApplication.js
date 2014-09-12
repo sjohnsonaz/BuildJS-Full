@@ -63,6 +63,9 @@ Build('build.ui.application.AuthenticatedApplication', [ 'build::build.ui.Applic
 						break;
 					}
 				});
+				this.router.defaultRoute(this, function() {
+					this.sections.active = 0;
+				});
 				this.router.listen();
 			}
 		},
