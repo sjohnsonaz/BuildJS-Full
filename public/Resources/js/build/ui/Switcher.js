@@ -148,26 +148,34 @@ Build('build.ui.Switcher', [ 'build::build.ui.Container', 'build::build.utility.
 						}
 					}.bind(this),
 					pop : function() {
-						var element = this.innerElement;
-						if (element) {
-							this.destroyChild(element.lastChild);
-							element.removeChild(element.lastChild);
+						if (this.hideMode != 'DOM') {
+							var element = this.innerElement;
+							if (element) {
+								this.destroyChild(element.lastChild);
+								element.removeChild(element.lastChild);
+							}
 						}
 					}.bind(this),
 					unshift : function(child) {
 						// Add to beginning of array
-						var element = this.innerElement;
-						if (element) {
-							child = this.createChild(child);
-							element.insertBefore(child, element.firstChild);
+						if (this.hideMode != 'DOM' || this.children.length == 1) {
+							var element = this.innerElement;
+							if (element) {
+								child = this.createChild(child);
+								element.insertBefore(child, element.firstChild);
+							}
+						} else {
+							this.linkChild(child);
 						}
 					}.bind(this),
 					shift : function() {
 						// Remove from beginning of array
-						var element = this.innerElement;
-						if (element) {
-							this.destroyChild(element.firstChild);
-							element.removeChild(element.firstChild);
+						if (this.hideMode != 'DOM') {
+							var element = this.innerElement;
+							if (element) {
+								this.destroyChild(element.firstChild);
+								element.removeChild(element.firstChild);
+							}
 						}
 					}.bind(this),
 					reverse : function() {
