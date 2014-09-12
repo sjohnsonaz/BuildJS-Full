@@ -32,8 +32,10 @@ Build('build.binding.OneWayBinding', [ 'build::build.binding.BindingHandler' ], 
 				}
 				this.subscribeComplete = true;
 				// Post last subscription
-				var subscription = this.subscriptions[this.subscriptions.length - 1];
-				this.update(subscription, subscription.value, false);
+				if (this.subscriptions) {
+					var subscription = this.subscriptions[this.subscriptions.length - 1];
+					this.update(subscription, subscription.value, false);
+				}
 			},
 			notify : function(subscription, value) {
 				var index = this.subscriptions.indexOf(subscription);

@@ -117,6 +117,24 @@ Build('build.ui.Container', [ 'build::build.ui.Widget', 'build::build.utility.Ob
 				}
 			},
 			/**
+			 * @method linkChild
+			 * @param child
+			 */
+			linkChild : function(child) {
+				// If we have a Widget, return the element
+				if (child instanceof build.ui.Widget) {
+					if (child.parent) {
+						if (child.parent != this) {
+							child.parent.children.remove(child);
+							child.parent = this;
+						}
+					} else {
+						child.parent = this;
+					}
+					return child.element;
+				}
+			},
+			/**
 			 * @method destroyChild
 			 * @param child
 			 */

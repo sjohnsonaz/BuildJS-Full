@@ -137,27 +137,38 @@ Build('build.ui.Switcher', [ 'build::build.ui.Container', 'build::build.utility.
 			createChildrenHandler : function() {
 				return {
 					push : function(child) {
-						this.refreshChildren();
-						//var element = this.innerElement;
-						//if (element) {
-						//child = this.createChild(child);
-						//element.appendChild(child);
-						//}
+						if (this.hideMode != 'DOM' || this.children.length == 1) {
+							var element = this.innerElement;
+							if (element) {
+								child = this.createChild(child);
+								element.appendChild(child);
+							}
+						} else {
+							this.linkChild(child);
+						}
 					}.bind(this),
 					pop : function() {
-						this.refreshChildren();
-						//var element = this.innerElement;
-						//if (element) {
-						//element.removeChild(element.lastChild);
-						//}
+						var element = this.innerElement;
+						if (element) {
+							this.destroyChild(element.lastChild);
+							element.removeChild(element.lastChild);
+						}
 					}.bind(this),
-					unshift : function() {
+					unshift : function(child) {
 						// Add to beginning of array
-						this.refreshChildren();
+						var element = this.innerElement;
+						if (element) {
+							child = this.createChild(child);
+							element.insertBefore(child, element.firstChild);
+						}
 					}.bind(this),
 					shift : function() {
 						// Remove from beginning of array
-						this.refreshChildren();
+						var element = this.innerElement;
+						if (element) {
+							this.destroyChild(element.firstChild);
+							element.removeChild(element.firstChild);
+						}
 					}.bind(this),
 					reverse : function() {
 						// Sort in opposite direction
@@ -167,17 +178,49 @@ Build('build.ui.Switcher', [ 'build::build.ui.Container', 'build::build.utility.
 						// Sort based on function
 						this.refreshChildren();
 					}.bind(this),
-					splice : function() {
+					splice : function(index, howMany) {
+						var element = this.innerElement;
+						if (element) {
+							var nextSibling = element.childNodes[index + howMany];
+							var elementsToAdd = Array.prototype.slice.call(arguments, 2);
+							var elementsToRemove = Array.prototype.slice.call(element.childNodes, index, index + howMany);
+							var elementToRemove;
+							while (elementToRemove = elementsToRemove.pop()) {
+								this.destroyChild(elementToRemove);
+								element.removeChild(elementToRemove);
+							}
+							var elementToAdd;
+							while (elementToAdd = elementsToAdd.pop()) {
+								child = this.createChild(child);
+								element.insertBefore(elementToAdd, nextSibling);
+							}
+						}
 						this.refreshChildren();
 					}.bind(this),
-					get : function() {
-						this.refreshChildren();
+					get : function(index) {
+						// TODO: Is this necessary?
+						var element = this.innerElement;
+						return element.childNodes[index];
 					}.bind(this),
-					set : function() {
-						this.refreshChildren();
+					set : function(index, child) {
+						var element = this.innerElement;
+						if (element) {
+							var oldChild = element.childNodes[index];
+							if (oldChild) {
+								this.destroyChild(oldChild);
+								child = this.createChild(child);
+								element.replaceChild(oldChild, child);
+							}
+						}
 					}.bind(this),
 					removeAll : function() {
-						this.refreshChildren();
+						var element = this.innerElement;
+						if (element) {
+							while (element.firstChild) {
+								this.destroyChild(element.firstChild);
+								element.removeChild(element.firstChild);
+							}
+						}
 					}.bind(this),
 					subscribe : function() {
 						this.refreshChildren();
