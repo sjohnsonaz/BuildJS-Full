@@ -61,6 +61,12 @@ Build('build.ui.application.AuthenticatedApplication', [ 'build::build.ui.Applic
 					case 'admin':
 						this.sections.active = 1;
 						break;
+					default:
+						var address = parseInt(sectionName);
+						if (!isNaN(address)) {
+							this.sections.active = address;
+						}
+						break;
 					}
 				});
 				this.router.defaultRoute(this, function() {
