@@ -18,33 +18,60 @@ Build('build.ui.Switcher', [ 'build::build.ui.Container', 'build::build.utility.
 			this.lockable = false;
 			var Navigation = build.utility.Navigation();
 			// TODO: This can also be an array
-			this.watchValue('active', 0, null, function(value, cancel) {
-				return (this.lockable && Navigation.locked) ? (Navigation.run() ? value : cancel) : value;
+			this.watchValue('hideMode', 'VISIBILITY', null, function(value, cancel) {
+				this.refreshChildren();
+				return value;
 			}.bind(this));
-			this.watchValue('hideMode', 'VISIBILITY');
+			this.watchValue('active', 0, null, function(value, cancel) {
+				var output = (this.lockable && Navigation.locked) ? (Navigation.run() ? value : cancel) : value;
+				if (output != cancel && value !== this.active) {
+					// Correct for index out of range.
+					if (this.children.length) {
+						output %= this.children.length;
+					}
+					this.showChild(output, this.active || 0);
+				}
+				return output;
+			}.bind(this));
 		},
 		$prototype : {
 			/**
-			 * @method init
-			 * @param active
+			 * @method showChild
+			 * @param index
+			 * @param oldIndex
 			 */
-			init : function(active) {
-				$super().init(this)(active);
-				this.subscribe('active', function(value) {
-					switch (this.hideMode) {
-					case 'DOM':
-						this.refreshDom();
-						break;
-					case 'DISPLAY':
-						this.refreshDisplay();
-						break;
-					case 'VISIBILITY':
-						this.refreshVisibility();
-						break;
-					default:
-						break;
+			showChild : function(index, oldIndex) {
+				var child = this.children[index];
+				var oldChild = this.children[oldIndex];
+				switch (this.hideMode) {
+				case 'DOM':
+					if (oldChild) {
+						this.element.removeChild(oldChild);
 					}
-				}.bind(this));
+					if (child) {
+						this.element.appendChild(child);
+					}
+					break;
+				case 'DISPLAY':
+					if (oldChild) {
+						oldChild.element.classList.add('hidden');
+					}
+					if (child) {
+						child.element.classList.remove('hidden');
+					}
+					break;
+				case 'VISIBILITY':
+					if (oldChild) {
+						oldChild.element.classList.add('hidden-soft');
+					}
+					if (child) {
+						child.element.classList.remove('hidden-soft');
+					}
+					break;
+				default:
+					this.refreshChildren();
+					break;
+				}
 			},
 			/**
 			 * @method refreshChildren
@@ -102,6 +129,11 @@ Build('build.ui.Switcher', [ 'build::build.ui.Container', 'build::build.utility.
 					activeChild.element.classList.remove('hidden-soft');
 				}
 			},
+			/**
+			 * @method createChildrenHandler
+			 * We attempt to keep the active child active.
+			 * If there are no children, active = 0.
+			 */
 			createChildrenHandler : function() {
 				return {
 					push : function(child) {
