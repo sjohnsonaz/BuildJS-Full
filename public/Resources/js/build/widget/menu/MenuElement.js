@@ -29,6 +29,15 @@ Build('build.widget.menu.MenuElement', [ 'build::build.ui.Container', 'build::bu
 					this.publish('url');
 				}
 			});
+			Object.defineProperty(this, 'pathname', {
+				get : function() {
+					return this.link.element.pathname;
+				},
+				set : function(value) {
+					this.link.element.pathname = value;
+					this.publish('pathname');
+				}
+			});
 			Object.defineProperty(this, 'text', {
 				get : function() {
 					return this.link.element.innerHTML;

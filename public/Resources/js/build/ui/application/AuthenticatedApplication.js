@@ -12,14 +12,6 @@ Build('build.ui.application.AuthenticatedApplication', [ 'build::build.ui.Applic
 				event.preventDefault;
 				console.log('open element: ' + element.url);
 			};
-			this.router.watchMethod(this, 'section', 'section', function(sectionName) {
-				console.log('open section: ' + sectionName);
-				switch (sectionName) {
-				case 'admin':
-					this.sections.active = 0;
-					break;
-				}
-			});
 			this.addChild(this.menu);
 
 			this.authenticationServiceConnection = new build.service.AuthenticationServiceConnection();
@@ -46,13 +38,13 @@ Build('build.ui.application.AuthenticatedApplication', [ 'build::build.ui.Applic
 			});
 
 			this.sections = build.ui.Switcher.create();
+			this.sections.lockable = true;
 			this.addChild(this.sections);
 
 			// Add routes
 			// this.router.add('#/test/:id', function(id) {
 			// console.log('test started: ' + id);
 			// });
-			this.router.listen();
 			this.watchClass('menuFixedTop', 'application-menu-fixed-top');
 			this.menuFixedTop = true;
 		},
@@ -60,6 +52,18 @@ Build('build.ui.application.AuthenticatedApplication', [ 'build::build.ui.Applic
 			init : function() {
 				$super().init(this)();
 				this.authenticationWidget.run();
+				this.router.watchMethod(this, 'section', 'section', function(sectionName) {
+					console.log('open section: ' + sectionName);
+					switch (sectionName) {
+					case 'home':
+						this.sections.active = 0;
+						break;
+					case 'admin':
+						this.sections.active = 1;
+						break;
+					}
+				});
+				this.router.listen();
 			}
 		},
 		$static : {

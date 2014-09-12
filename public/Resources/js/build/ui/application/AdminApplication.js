@@ -10,7 +10,7 @@ Build('build.ui.application.AdminApplication', [ 'build::build.ui.application.Au
 			this.homeMenuElement.text = 'Home';
 			this.homeMenuElement.url = 'home';
 			this.homeMenuElement.action = function(MenuElement, event) {
-				this.sections.active = 0;// ('admin');
+				this.section(MenuElement.pathname.substring(1));
 			}.bind(this);
 			this.menu.addChild(this.homeMenuElement);
 
@@ -37,7 +37,7 @@ Build('build.ui.application.AdminApplication', [ 'build::build.ui.application.Au
 			this.adminMenuElement.text = 'Admin';
 			this.adminMenuElement.url = 'admin';
 			this.adminMenuElement.action = function(MenuElement, event) {
-				this.sections.active = 1;// ('admin');
+				this.section(MenuElement.pathname.substring(1));
 			}.bind(this);
 			this.menu.addChild(this.adminMenuElement);
 		}
