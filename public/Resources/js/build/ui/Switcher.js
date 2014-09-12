@@ -46,10 +46,10 @@ Build('build.ui.Switcher', [ 'build::build.ui.Container', 'build::build.utility.
 				switch (this.hideMode) {
 				case 'DOM':
 					if (oldChild) {
-						this.element.removeChild(oldChild);
+						this.innerElement.removeChild(oldChild.element);
 					}
 					if (child) {
-						this.element.appendChild(child);
+						this.innerElement.appendChild(child.element);
 					}
 					break;
 				case 'DISPLAY':
@@ -105,7 +105,7 @@ Build('build.ui.Switcher', [ 'build::build.ui.Container', 'build::build.utility.
 				if (this.children) {
 					var active = this.children[this.active];
 					if (active) {
-						innerElement.appendChild(this.createChild(active));
+						this.innerElement.appendChild(this.createChild(active));
 					}
 				}
 			},
