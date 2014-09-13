@@ -11,14 +11,13 @@ Build('build.ui.Switcher', [ 'build::build.ui.Container', 'build::build.utility.
 		/**
 		 * @property lockable
 		 * @property active
-		 * @property hideMode
+		 * @property hiddenSoft
 		 */
 		$constructor : function Switcher(active) {
 			$super(this)();
 			this.lockable = false;
 			var Navigation = build.utility.Navigation();
-			// TODO: This can also be an array
-			this.watchValue('hideMode', 'VISIBILITY', null, function(value, cancel) {
+			this.watchValue('hiddenSoft', true, null, function(value, cancel) {
 				this.refreshChildren();
 				return value;
 			}.bind(this));
@@ -54,85 +53,28 @@ Build('build.ui.Switcher', [ 'build::build.ui.Container', 'build::build.utility.
 			 * @method toggleChildElement
 			 */
 			toggleChildElement : function(element, toggle) {
-				switch (this.hideMode) {
-				case 'DOM':
-					if (toggle) {
-						this.innerElement.appendChild(element);
-					} else {
-						this.innerElement.removeChild(element);
-					}
-					break;
-				case 'DISPLAY':
-					if (toggle) {
-						element.classList.remove('hidden');
-					} else {
-						element.classList.add('hidden');
-					}
-					break;
-				case 'VISIBILITY':
-					if (toggle) {
-						element.classList.remove('hidden-soft');
-					} else {
-						element.classList.add('hidden-soft');
-					}
-					break;
+				if (toggle) {
+					element.classList.remove(!this.hiddenSoft ? 'hidden' : 'hidden-soft');
+				} else {
+					element.classList.add(!this.hiddenSoft ? 'hidden' : 'hidden-soft');
 				}
 			},
 			/**
 			 * @method refreshChildren
 			 */
 			refreshChildren : function() {
+				$super().refreshChildren(this)();
+				var hiddenClass = !this.hiddenSoft ? 'hidden' : 'hidden-soft';
 				var element = this.innerElement;
 				if (element) {
-					switch (this.hideMode) {
-					case 'DOM':
-						this.refreshDom();
-						break;
-					case 'DISPLAY':
-						$super().refreshChildren(this)();
-						this.refreshDisplay();
-						break;
-					case 'VISIBILITY':
-						$super().refreshChildren(this)();
-						this.refreshVisibility();
-						break;
-					default:
-						$super().refreshChildren(this)();
-						break;
+					for (var index = 0, length = this.children.length; index < length; index++) {
+						var child = this.children[index];
+						child.element.classList.add(hiddenClass);
 					}
-				}
-			},
-			refreshDom : function() {
-				var element = this.innerElement;
-				while (element.firstChild) {
-					this.destroyChild(element.firstChild);
-					element.removeChild(element.firstChild);
-				}
-				if (this.children) {
-					var active = this.children[this.active];
-					if (active) {
-						this.innerElement.appendChild(this.createChild(active));
+					var activeChild = this.children[this.active];
+					if (activeChild && activeChild.element) {
+						activeChild.element.classList.remove(hiddenClass);
 					}
-				}
-			},
-			refreshDisplay : function() {
-				for (var index = 0, length = this.children.length; index < length; index++) {
-					var child = this.children[index];
-					child.element.classList.add('hidden');
-				}
-				var activeChild = this.children[this.active];
-				if (activeChild && activeChild.element) {
-					activeChild.element.classList.remove('hidden');
-				}
-			},
-			refreshVisibility : function() {
-				for (var index = 0, length = this.children.length; index < length; index++) {
-					var child = this.children[index];
-					child.element.classList.add('hidden-soft');
-				}
-				var activeChild = this.children[this.active];
-				if (activeChild && activeChild.element) {
-					activeChild.element.classList.remove('hidden-soft');
 				}
 			},
 			/**
@@ -144,18 +86,10 @@ Build('build.ui.Switcher', [ 'build::build.ui.Container', 'build::build.utility.
 			createChildrenHandler : function() {
 				return {
 					push : function(child) {
-						switch (this.hideMode) {
-						case 'DOM':
-							this.linkChild(child);
-							break;
-						case 'DISPLAY':
-						case 'VISIBILITY':
-							var element = this.innerElement;
-							if (element) {
-								child = this.createChild(child);
-								element.appendChild(child);
-							}
-							break;
+						var element = this.innerElement;
+						if (element) {
+							child = this.createChild(child);
+							element.appendChild(child);
 						}
 						if (this.children.length == 1) {
 							this.toggleChildElement(child, true);
@@ -164,40 +98,18 @@ Build('build.ui.Switcher', [ 'build::build.ui.Container', 'build::build.utility.
 						}
 					}.bind(this),
 					pop : function() {
-						switch (this.hideMode) {
-						case 'DOM':
-							if (this.active == this.children.length) {
-								var element = this.innerElement;
-								if (element) {
-									this.destroyChild(element.lastChild);
-									element.removeChild(element.lastChild);
-								}
-							}
-							break;
-						case 'DISPLAY':
-						case 'VISIBILITY':
-							var element = this.innerElement;
-							if (element) {
-								this.destroyChild(element.lastChild);
-								element.removeChild(element.lastChild);
-							}
-							break;
+						var element = this.innerElement;
+						if (element) {
+							this.destroyChild(element.lastChild);
+							element.removeChild(element.lastChild);
 						}
 					}.bind(this),
 					unshift : function(child) {
 						// Add to beginning of array
-						switch (this.hideMode) {
-						case 'DOM':
-							this.linkChild(child);
-							break;
-						case 'DISPLAY':
-						case 'VISIBILITY':
-							var element = this.innerElement;
-							if (element) {
-								child = this.createChild(child);
-								element.insertBefore(child, element.firstChild);
-							}
-							break;
+						var element = this.innerElement;
+						if (element) {
+							child = this.createChild(child);
+							element.insertBefore(child, element.firstChild);
 						}
 						if (this.children.length == 1) {
 							this.toggleChildElement(child, true);
@@ -207,69 +119,41 @@ Build('build.ui.Switcher', [ 'build::build.ui.Container', 'build::build.utility.
 					}.bind(this),
 					shift : function() {
 						// Remove from beginning of array
-						switch (this.hideMode) {
-						case 'DOM':
-							if (this.active == this.children.length) {
-								var element = this.innerElement;
-								if (element) {
-									this.destroyChild(element.firstChild);
-									element.removeChild(element.firstChild);
-								}
-							}
-							break;
-						case 'DISPLAY':
-						case 'VISIBILITY':
-							var element = this.innerElement;
-							if (element) {
-								this.destroyChild(element.firstChild);
-								element.removeChild(element.firstChild);
-							}
-							break;
+						var element = this.innerElement;
+						if (element) {
+							this.destroyChild(element.firstChild);
+							element.removeChild(element.firstChild);
 						}
 					}.bind(this),
 					reverse : function() {
 						// Sort in opposite direction
 						// Array is sorted, we can simply remove all elements, and re-append them.
 						// Remove from beginning of array
-						switch (this.hideMode) {
-						case 'DOM':
-							break;
-						case 'DISPLAY':
-						case 'VISIBILITY':
-							this.modifyElement(function() {
-								var element = this.innerElement;
-								while (element.firstChild) {
-									element.removeChild(element.firstChild);
-								}
+						this.modifyElement(function() {
+							var element = this.innerElement;
+							while (element.firstChild) {
+								element.removeChild(element.firstChild);
+							}
 
-								for (var index = 0, length = this.children.length; index < length; index++) {
-									element.appendChild(this.children[index].element);
-								}
-							}.bind(this));
-							break;
-						}
+							for (var index = 0, length = this.children.length; index < length; index++) {
+								element.appendChild(this.children[index].element);
+							}
+						}.bind(this));
 						// TODO: Reset the active variable.
 					}.bind(this),
 					sort : function() {
 						// Sort based on function
 						// Array is sorted, we can simply remove all elements, and re-append them.
-						switch (this.hideMode) {
-						case 'DOM':
-							break;
-						case 'DISPLAY':
-						case 'VISIBILITY':
-							this.modifyElement(function() {
-								var element = this.innerElement;
-								while (element.firstChild) {
-									element.removeChild(element.firstChild);
-								}
+						this.modifyElement(function() {
+							var element = this.innerElement;
+							while (element.firstChild) {
+								element.removeChild(element.firstChild);
+							}
 
-								for (var index = 0, length = this.children.length; index < length; index++) {
-									element.appendChild(this.children[index].element);
-								}
-							}.bind(this));
-							break;
-						}
+							for (var index = 0, length = this.children.length; index < length; index++) {
+								element.appendChild(this.children[index].element);
+							}
+						}.bind(this));
 						// TODO: Reset the active variable.
 					}.bind(this),
 					splice : function(index, howMany) {
@@ -326,17 +210,6 @@ Build('build.ui.Switcher', [ 'build::build.ui.Container', 'build::build.utility.
 						this.refreshChildren();
 					}
 				};
-			}
-		},
-		$static : {
-			/**
-			 * @property HideMode
-			 * @static
-			 */
-			HideMode : {
-				'DOM' : 'DOM',
-				'DISPLAY' : 'DISPLAY',
-				'VISIBILITY' : 'VISIBILITY'
 			}
 		}
 	});
