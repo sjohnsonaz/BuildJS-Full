@@ -22,18 +22,11 @@ Build('build.widget.menu.ExpandableMenuWidget', [ 'build::build.widget.menu.Menu
 			}.bind(this));
 			this.watchClass('expand', 'expandable-menu-widget-expand');
 			this.expand = false;
-		},
-		$prototype : {
-			/**
-			 * 
-			 */
-			refreshChildren : function() {
-				$super().refreshChildren(this)();
-				if (this.element) {
-					this.element.insertBefore(this.title.element, this.element.firstChild);
-					this.element.insertBefore(this.expandButton.element, this.element.firstChild);
-				}
-			}
+			this.innerElement = document.createElement('div');
+			this.innerElement.className = 'menu-body';
+			this.element.appendChild(this.innerElement);
+			this.element.insertBefore(this.title.element, this.element.firstChild);
+			this.element.insertBefore(this.expandButton.element, this.element.firstChild);
 		}
 	});
 });
