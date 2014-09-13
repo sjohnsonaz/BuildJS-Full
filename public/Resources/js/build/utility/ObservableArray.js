@@ -21,6 +21,7 @@ build.utility.ObservableArray = (function() {
 		inner.subscribe = subscribe.bind(inner);
 		inner.unsubscribe = unsubscribe.bind(inner);
 		inner.publish = publish.bind(inner);
+		inner.publishAll = publishAll.bind(inner);
 		return inner;
 	}
 
@@ -225,6 +226,10 @@ build.utility.ObservableArray = (function() {
 				}
 			}
 		}
+	}
+
+	function publishAll() {
+		this.publish('all');
 	}
 
 	return ObservableArray;

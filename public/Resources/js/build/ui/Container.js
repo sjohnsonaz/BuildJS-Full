@@ -271,7 +271,10 @@ Build('build.ui.Container', [ 'build::build.ui.Widget', 'build::build.utility.Ob
 					}.bind(this),
 					publish : function() {
 						this.refreshChildren();
-					}.bind(this)
+					}.bind(this),
+					all : function() {
+						this.refreshChildren();
+					}
 				};
 			}
 		}

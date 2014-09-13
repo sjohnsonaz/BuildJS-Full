@@ -1,10 +1,10 @@
 /**
- * @class build.ui.Switcher
+ * @class build.ui.Replacer
  * @extends build.ui.Container
  */
-Build('build.ui.Switcher', [ 'build::build.ui.Container', 'build::build.utility.Navigation' ], function(define, $super) {
+Build('build.ui.Replacer', [ 'build::build.ui.Container', 'build::build.utility.Navigation' ], function(define, $super) {
 	define({
-		$extends : 'build.ui.Container',
+		$extends : 'build.ui.Switcher',
 		/**
 		 * @constructor
 		 */
@@ -13,7 +13,7 @@ Build('build.ui.Switcher', [ 'build::build.ui.Container', 'build::build.utility.
 		 * @property active
 		 * @property hideMode
 		 */
-		$constructor : function Switcher(active) {
+		$constructor : function Replacer(active) {
 			$super(this)();
 			this.lockable = false;
 			var Navigation = build.utility.Navigation();
