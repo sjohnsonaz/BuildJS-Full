@@ -31,7 +31,7 @@ Build('build.utility.Dom', [], function(define, $super) {
 			 * Appends multiple children via a DocumentFragment.
 			 */
 			appendChildren : function(element, children) {
-				if (!children instanceof Array) {
+				if (!(children instanceof Array)) {
 					element.appendChild(children);
 				} else {
 					var fragment = document.createDocumentFragment();

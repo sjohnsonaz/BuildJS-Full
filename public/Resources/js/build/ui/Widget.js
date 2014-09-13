@@ -334,6 +334,55 @@ Build('build.ui.Widget', [ 'build::build.Module', 'build::build.utility.Observab
 				});
 			},
 			/**
+			 * @method modifyElement
+			 * Prevents multiple DOM reflows.
+			 */
+			modifyElement : function(callback, async) {
+				var element = this.innerElement;
+				var parentNode = element.parentNode;
+				var nextSibling = element.nextSibling;
+				parentNode.removeChild(element);
+				if (async) {
+					callback(function() {
+						if (nextSibling) {
+							parentNode.insertBefore(element, nextSibling);
+						} else {
+							parentNode.appendChild(element);
+						}
+					});
+				} else {
+					callback();
+					if (nextSibling) {
+						parentNode.insertBefore(element, nextSibling);
+					} else {
+						parentNode.appendChild(element);
+					}
+				}
+			},
+			/**
+			 * @method appendChildren
+			 * Appends multiple children via a DocumentFragment.
+			 */
+			appendChildren : function(children, referenceElement) {
+				if (!(children instanceof Array)) {
+					if (referenceElement) {
+						this.innerElement.insertBefore(children, referenceElement);
+					} else {
+						this.innerElement.appendChild(children);
+					}
+				} else {
+					var fragment = document.createDocumentFragment();
+					for (var index = 0, length = children.length; index < length; index++) {
+						fragment.appendChild(children[index]);
+					}
+					if (referenceElement) {
+						this.innerElement.insertBefore(fragment, referenceElement);
+					} else {
+						this.innerElement.appendChild(fragment);
+					}
+				}
+			},
+			/**
 			 * 
 			 */
 			getPreloadContainer : function() {

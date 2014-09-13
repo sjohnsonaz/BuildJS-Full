@@ -196,11 +196,31 @@ Build('build.ui.Container', [ 'build::build.ui.Widget', 'build::build.utility.Ob
 					}.bind(this),
 					reverse : function() {
 						// Sort in opposite direction
-						this.refreshChildren();
+						// Array is sorted, we can simply remove all elements, and re-append them.
+						this.modifyElement(function() {
+							var element = this.innerElement;
+							while (element.firstChild) {
+								element.removeChild(element.firstChild);
+							}
+
+							for (var index = 0, length = this.children.length; index < length; index++) {
+								element.appendChild(this.children[index].element);
+							}
+						}.bind(this));
 					}.bind(this),
 					sort : function() {
 						// Sort based on function
-						this.refreshChildren();
+						// Array is sorted, we can simply remove all elements, and re-append them.
+						this.modifyElement(function() {
+							var element = this.innerElement;
+							while (element.firstChild) {
+								element.removeChild(element.firstChild);
+							}
+
+							for (var index = 0, length = this.children.length; index < length; index++) {
+								element.appendChild(this.children[index].element);
+							}
+						}.bind(this));
 					}.bind(this),
 					splice : function(index, howMany) {
 						var element = this.innerElement;

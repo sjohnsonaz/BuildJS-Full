@@ -173,8 +173,11 @@ Build('build.ui.Switcher', [ 'build::build.ui.Container', 'build::build.utility.
 						switch (this.hideMode) {
 						case 'DOM':
 							if (this.active == this.children.length) {
-								this.destroyChild(element.lastChild);
-								element.removeChild(element.lastChild);
+								var element = this.innerElement;
+								if (element) {
+									this.destroyChild(element.lastChild);
+									element.removeChild(element.lastChild);
+								}
 							}
 							break;
 						case 'DISPLAY':
@@ -195,33 +198,86 @@ Build('build.ui.Switcher', [ 'build::build.ui.Container', 'build::build.utility.
 					}.bind(this),
 					unshift : function(child) {
 						// Add to beginning of array
-						if (this.hideMode != 'DOM' || this.children.length == 1) {
+						switch (this.hideMode) {
+						case 'DOM':
+							this.linkChild(child);
+							break;
+						case 'DISPLAY':
 							var element = this.innerElement;
 							if (element) {
 								child = this.createChild(child);
 								element.insertBefore(child, element.firstChild);
 							}
+							break;
+						case 'VISIBILITY':
+							var element = this.innerElement;
+							if (element) {
+								child = this.createChild(child);
+								element.insertBefore(child, element.firstChild);
+							}
+							break;
+						}
+						if (this.children.length == 1) {
+							this.toggleChildElement(child, true);
 						} else {
-							this.linkChild(child);
+							this.toggleChildElement(child, false);
 						}
 					}.bind(this),
 					shift : function() {
 						// Remove from beginning of array
-						if (this.hideMode != 'DOM') {
+						switch (this.hideMode) {
+						case 'DOM':
+							if (this.active == this.children.length) {
+								var element = this.innerElement;
+								if (element) {
+									this.destroyChild(element.firstChild);
+									element.removeChild(element.firstChild);
+								}
+							}
+							break;
+						case 'DISPLAY':
 							var element = this.innerElement;
 							if (element) {
 								this.destroyChild(element.firstChild);
 								element.removeChild(element.firstChild);
 							}
+							break;
+						case 'VISIBILITY':
+							var element = this.innerElement;
+							if (element) {
+								this.destroyChild(element.firstChild);
+								element.removeChild(element.firstChild);
+							}
+							break;
 						}
 					}.bind(this),
 					reverse : function() {
 						// Sort in opposite direction
-						this.refreshChildren();
+						// Array is sorted, we can simply remove all elements, and re-append them.
+						this.modifyElement(function() {
+							var element = this.innerElement;
+							while (element.firstChild) {
+								element.removeChild(element.firstChild);
+							}
+
+							for (var index = 0, length = this.children.length; index < length; index++) {
+								element.appendChild(this.children[index].element);
+							}
+						}.bind(this));
 					}.bind(this),
 					sort : function() {
 						// Sort based on function
-						this.refreshChildren();
+						// Array is sorted, we can simply remove all elements, and re-append them.
+						this.modifyElement(function() {
+							var element = this.innerElement;
+							while (element.firstChild) {
+								element.removeChild(element.firstChild);
+							}
+
+							for (var index = 0, length = this.children.length; index < length; index++) {
+								element.appendChild(this.children[index].element);
+							}
+						}.bind(this));
 					}.bind(this),
 					splice : function(index, howMany) {
 						var element = this.innerElement;
