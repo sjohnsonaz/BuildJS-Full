@@ -149,12 +149,6 @@ Build('build.ui.Switcher', [ 'build::build.ui.Container', 'build::build.utility.
 							this.linkChild(child);
 							break;
 						case 'DISPLAY':
-							var element = this.innerElement;
-							if (element) {
-								child = this.createChild(child);
-								element.appendChild(child);
-							}
-							break;
 						case 'VISIBILITY':
 							var element = this.innerElement;
 							if (element) {
@@ -181,12 +175,6 @@ Build('build.ui.Switcher', [ 'build::build.ui.Container', 'build::build.utility.
 							}
 							break;
 						case 'DISPLAY':
-							var element = this.innerElement;
-							if (element) {
-								this.destroyChild(element.lastChild);
-								element.removeChild(element.lastChild);
-							}
-							break;
 						case 'VISIBILITY':
 							var element = this.innerElement;
 							if (element) {
@@ -203,12 +191,6 @@ Build('build.ui.Switcher', [ 'build::build.ui.Container', 'build::build.utility.
 							this.linkChild(child);
 							break;
 						case 'DISPLAY':
-							var element = this.innerElement;
-							if (element) {
-								child = this.createChild(child);
-								element.insertBefore(child, element.firstChild);
-							}
-							break;
 						case 'VISIBILITY':
 							var element = this.innerElement;
 							if (element) {
@@ -236,12 +218,6 @@ Build('build.ui.Switcher', [ 'build::build.ui.Container', 'build::build.utility.
 							}
 							break;
 						case 'DISPLAY':
-							var element = this.innerElement;
-							if (element) {
-								this.destroyChild(element.firstChild);
-								element.removeChild(element.firstChild);
-							}
-							break;
 						case 'VISIBILITY':
 							var element = this.innerElement;
 							if (element) {
@@ -254,30 +230,47 @@ Build('build.ui.Switcher', [ 'build::build.ui.Container', 'build::build.utility.
 					reverse : function() {
 						// Sort in opposite direction
 						// Array is sorted, we can simply remove all elements, and re-append them.
-						this.modifyElement(function() {
-							var element = this.innerElement;
-							while (element.firstChild) {
-								element.removeChild(element.firstChild);
-							}
+						// Remove from beginning of array
+						switch (this.hideMode) {
+						case 'DOM':
+							break;
+						case 'DISPLAY':
+						case 'VISIBILITY':
+							this.modifyElement(function() {
+								var element = this.innerElement;
+								while (element.firstChild) {
+									element.removeChild(element.firstChild);
+								}
 
-							for (var index = 0, length = this.children.length; index < length; index++) {
-								element.appendChild(this.children[index].element);
-							}
-						}.bind(this));
+								for (var index = 0, length = this.children.length; index < length; index++) {
+									element.appendChild(this.children[index].element);
+								}
+							}.bind(this));
+							break;
+						}
+						// TODO: Reset the active variable.
 					}.bind(this),
 					sort : function() {
 						// Sort based on function
 						// Array is sorted, we can simply remove all elements, and re-append them.
-						this.modifyElement(function() {
-							var element = this.innerElement;
-							while (element.firstChild) {
-								element.removeChild(element.firstChild);
-							}
+						switch (this.hideMode) {
+						case 'DOM':
+							break;
+						case 'DISPLAY':
+						case 'VISIBILITY':
+							this.modifyElement(function() {
+								var element = this.innerElement;
+								while (element.firstChild) {
+									element.removeChild(element.firstChild);
+								}
 
-							for (var index = 0, length = this.children.length; index < length; index++) {
-								element.appendChild(this.children[index].element);
-							}
-						}.bind(this));
+								for (var index = 0, length = this.children.length; index < length; index++) {
+									element.appendChild(this.children[index].element);
+								}
+							}.bind(this));
+							break;
+						}
+						// TODO: Reset the active variable.
 					}.bind(this),
 					splice : function(index, howMany) {
 						var element = this.innerElement;

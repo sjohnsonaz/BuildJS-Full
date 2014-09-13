@@ -14,6 +14,7 @@ Build('build.widget.tab.TabHeader', [ 'build::build.ui.Container', 'build::build
 				},
 				$prototype : {
 					type : 'ul',
+					// TODO: Manage this correctly.
 					createChild : function(child) {
 						var title = build.widget.tab.TabTitle.create();
 						build.binding.PropertyBinding.create(title, {
