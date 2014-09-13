@@ -42,34 +42,39 @@ Build('build.ui.Switcher', [ 'build::build.ui.Container', 'build::build.utility.
 			 */
 			showChild : function(index, oldIndex) {
 				var child = this.children[index];
-				var oldChild = this.children[oldIndex];
+				var oldChild = oldIndex !== index ? this.children[oldIndex] : undefined;
+				if (oldChild) {
+					this.toggleChildElement(oldChild.element, false);
+				}
+				if (child) {
+					this.toggleChildElement(child.element, true);
+				}
+			},
+			/**
+			 * @method toggleChildElement
+			 */
+			toggleChildElement : function(element, toggle) {
 				switch (this.hideMode) {
 				case 'DOM':
-					if (oldChild) {
-						this.innerElement.removeChild(oldChild.element);
-					}
-					if (child) {
-						this.innerElement.appendChild(child.element);
+					if (toggle) {
+						this.innerElement.appendChild(element);
+					} else {
+						this.innerElement.removeChild(element);
 					}
 					break;
 				case 'DISPLAY':
-					if (oldChild) {
-						oldChild.element.classList.add('hidden');
-					}
-					if (child) {
-						child.element.classList.remove('hidden');
+					if (toggle) {
+						element.classList.remove('hidden');
+					} else {
+						element.classList.add('hidden');
 					}
 					break;
 				case 'VISIBILITY':
-					if (oldChild) {
-						oldChild.element.classList.add('hidden-soft');
+					if (toggle) {
+						element.classList.remove('hidden-soft');
+					} else {
+						element.classList.add('hidden-soft');
 					}
-					if (child) {
-						child.element.classList.remove('hidden-soft');
-					}
-					break;
-				default:
-					this.refreshChildren();
 					break;
 				}
 			},
@@ -137,14 +142,29 @@ Build('build.ui.Switcher', [ 'build::build.ui.Container', 'build::build.utility.
 			createChildrenHandler : function() {
 				return {
 					push : function(child) {
-						if (this.hideMode != 'DOM' || this.children.length == 1) {
+						switch (this.hideMode) {
+						case 'DOM':
+							this.linkChild(child);
+							break;
+						case 'DISPLAY':
 							var element = this.innerElement;
 							if (element) {
 								child = this.createChild(child);
 								element.appendChild(child);
 							}
+							break;
+						case 'VISIBILITY':
+							var element = this.innerElement;
+							if (element) {
+								child = this.createChild(child);
+								element.appendChild(child);
+							}
+							break;
+						}
+						if (this.children.length == 1) {
+							this.toggleChildElement(child, true);
 						} else {
-							this.linkChild(child);
+							this.toggleChildElement(child, false);
 						}
 					}.bind(this),
 					pop : function() {
