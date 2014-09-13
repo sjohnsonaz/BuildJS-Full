@@ -105,6 +105,7 @@ Build('build.ui.Switcher', [ 'build::build.ui.Container', 'build::build.utility.
 			refreshDom : function() {
 				var element = this.innerElement;
 				while (element.firstChild) {
+					this.destroyChild(element.firstChild);
 					element.removeChild(element.firstChild);
 				}
 				if (this.children) {
@@ -137,6 +138,7 @@ Build('build.ui.Switcher', [ 'build::build.ui.Container', 'build::build.utility.
 			/**
 			 * @method createChildrenHandler
 			 * We attempt to keep the active child active.
+			 * If active child is removed, do not change active.
 			 * If there are no children, active = 0.
 			 */
 			createChildrenHandler : function() {
@@ -168,12 +170,27 @@ Build('build.ui.Switcher', [ 'build::build.ui.Container', 'build::build.utility.
 						}
 					}.bind(this),
 					pop : function() {
-						if (this.hideMode != 'DOM') {
+						switch (this.hideMode) {
+						case 'DOM':
+							if (this.active == this.children.length) {
+								this.destroyChild(element.lastChild);
+								element.removeChild(element.lastChild);
+							}
+							break;
+						case 'DISPLAY':
 							var element = this.innerElement;
 							if (element) {
 								this.destroyChild(element.lastChild);
 								element.removeChild(element.lastChild);
 							}
+							break;
+						case 'VISIBILITY':
+							var element = this.innerElement;
+							if (element) {
+								this.destroyChild(element.lastChild);
+								element.removeChild(element.lastChild);
+							}
+							break;
 						}
 					}.bind(this),
 					unshift : function(child) {
