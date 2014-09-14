@@ -29,7 +29,11 @@ Build('build.ui.Container', [ 'build::build.ui.Widget', 'build::build.utility.Ob
 				}
 				return value;
 			}.bind(this));
-			this.template(this.element, this.innerElement);
+			this.watchValue('template', null, null, function(value, cancel) {
+				// We need to clear the children using the old template first.
+				this.clearChildren();
+				return value;
+			}.bind(this));
 		},
 		$prototype : {
 			init : function() {
@@ -38,8 +42,9 @@ Build('build.ui.Container', [ 'build::build.ui.Widget', 'build::build.utility.Ob
 				this.subscribe('children', function(value) {
 					this.refreshChildren();
 				}.bind(this));
-			},
-			template : function(element, innerElement) {
+				this.subscribe('template', function(value) {
+					this.refreshChildren();
+				}.bind(this));
 			},
 			/**
 			 * @method clearChildren
@@ -103,8 +108,24 @@ Build('build.ui.Container', [ 'build::build.ui.Widget', 'build::build.utility.Ob
 			/**
 			 * @method createChild
 			 * @param child
+			 * 
+			 * How to make a template:
+			 * 
+			 * (function() {
+			 *     return {
+			 *         create : function(child) {
+			 *             return child
+			 *         },
+			 *         destroy : function(child) {
+			 *         }
+			 *     };
+			 * })();
 			 */
 			createChild : function(child) {
+				// If we have a template, run the child through there first.
+				if (this.template && this.template.create) {
+					child = this.template.create(child);
+				}
 				// If we have a Widget, return the element
 				if (child instanceof build.ui.Widget) {
 					if (child.parent) {
@@ -152,6 +173,10 @@ Build('build.ui.Container', [ 'build::build.ui.Widget', 'build::build.utility.Ob
 				if (child && child.controller) {
 					child.controller.parent = null;
 				}
+				// If we have a template, run child through there
+				if (this.template && this.template.destroy) {
+					this.template.destroy(child);
+				}
 			},
 			destroy : function(isDestroying) {
 				$super().destroy(this)();
@@ -171,6 +196,15 @@ Build('build.ui.Container', [ 'build::build.ui.Widget', 'build::build.utility.Ob
 					}
 				}
 			},
+			defaultTemplate : (function() {
+				return {
+					create : function(child) {
+						return child;
+					},
+					destroy : function(child) {
+					}
+				};
+			})(),
 			createChildrenHandler : function() {
 				return {
 					push : function(child) {

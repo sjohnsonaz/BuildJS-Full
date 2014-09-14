@@ -74,6 +74,15 @@ Build('demo.ui.form.ViewModelPanel', [ 'build::build.ui.Container', 'build::buil
 			});
 			build.binding.ValueBinding.create(viewModelCheckBox0, formModel, 'testTrue');
 
+			viewModelContainer2.template = (function() {
+				return {
+					create : function(child) {
+						return 'element: ' + child;
+					},
+					destroy : function(child) {
+					}
+				};
+			})();
 			build.binding.ForEachBinding.create(viewModelContainer2, formModel, 'testArray');
 
 			this.addChild(viewModelText0);
