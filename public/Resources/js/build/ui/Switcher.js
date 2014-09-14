@@ -169,7 +169,7 @@ Build('build.ui.Switcher', [ 'build::build.ui.Container', 'build::build.utility.
 							}
 							var elementToAdd;
 							while (elementToAdd = elementsToAdd.pop()) {
-								child = this.createChild(child);
+								elementToAdd = this.createChild(elementToAdd);
 								element.insertBefore(elementToAdd, nextSibling);
 							}
 						}

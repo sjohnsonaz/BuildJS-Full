@@ -13,14 +13,16 @@ Build('demo.application.DemoApplication', [ 'build::build.ui.application.AdminAp
 			// Add title
 			this.title = 'BuildJS';
 
+			var lastMenuItem = this.menu.children[this.menu.children.length - 1];
+
 			var menuElement0 = build.widget.menu.MenuElement.create();
 			menuElement0.text = 'My Link 0';
 			menuElement0.url = 'test.html';
-			this.menu.addChild(menuElement0);
+			this.menu.addChild(menuElement0, lastMenuItem);
 			var menuElement1 = build.widget.menu.MenuElement.create();
 			menuElement1.text = 'My Link 1';
 			menuElement1.url = 'test.html';
-			this.menu.addChild(menuElement1);
+			this.menu.addChild(menuElement1, lastMenuItem);
 
 			// Add tab container
 			var tabContainer = build.widget.tab.TabContainer.create();

@@ -78,8 +78,17 @@ Build('build.ui.Container', [ 'build::build.ui.Widget', 'build::build.utility.Ob
 			 * @method addChild
 			 * @param child
 			 */
-			addChild : function(child) {
-				this.children.push(child);
+			addChild : function(child, beforeElement) {
+				if (beforeElement) {
+					var index = this.children.indexOf(beforeElement);
+					if (index != -1) {
+						this.children.splice(index, 0, child);
+					} else {
+						this.children.push(child);
+					}
+				} else {
+					this.children.push(child);
+				}
 			},
 			/**
 			 * @method removeChild
@@ -235,7 +244,7 @@ Build('build.ui.Container', [ 'build::build.ui.Widget', 'build::build.utility.Ob
 							}
 							var elementToAdd;
 							while (elementToAdd = elementsToAdd.pop()) {
-								child = this.createChild(child);
+								elementToAdd = this.createChild(elementToAdd);
 								element.insertBefore(elementToAdd, nextSibling);
 							}
 						}
