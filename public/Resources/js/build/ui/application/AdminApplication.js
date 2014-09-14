@@ -12,7 +12,6 @@ Build('build.ui.application.AdminApplication', [ 'build::build.ui.application.Au
 			this.homeMenuElement.action = function(MenuElement, event) {
 				this.section(MenuElement.pathname.substring(1));
 			}.bind(this);
-			this.menu.children.unshift(this.homeMenuElement);
 
 			this.userSeriveConnection = new build.service.UserServiceConnection();
 			this.adminPanel = build.widget.tab.TabContainer.create();
@@ -40,6 +39,7 @@ Build('build.ui.application.AdminApplication', [ 'build::build.ui.application.Au
 				this.section(MenuElement.pathname.substring(1));
 			}.bind(this);
 			this.menu.children.unshift(this.adminMenuElement);
+			this.menu.children.unshift(this.homeMenuElement);
 		}
 	});
 });
