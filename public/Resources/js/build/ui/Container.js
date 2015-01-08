@@ -137,6 +137,12 @@ Build('build.ui.Container', [ 'build::build.ui.Widget', 'build::build.utility.Ob
 						child.parent = this;
 					}
 					return child.element;
+				} else if (child instanceof HTMLElement) {
+					// If we have an element, return the element
+					if (child.controller) {
+						child.controller.parent = this;
+					}
+					return child;
 				} else {
 					// If we have anything else, wrap the element in a div.
 					// TODO: Remove iteratorType.
@@ -169,13 +175,13 @@ Build('build.ui.Container', [ 'build::build.ui.Widget', 'build::build.utility.Ob
 			 * @param child
 			 */
 			destroyChild : function(child) {
-				// TODO: Do we need to do this here?
-				if (child && child.controller) {
-					child.controller.parent = null;
-				}
 				// If we have a template, run child through there
 				if (this.template && this.template.destroy) {
 					this.template.destroy(child);
+				}
+				// TODO: Do we need to do this here?
+				if (child && child.controller) {
+					child.controller.parent = null;
 				}
 			},
 			destroy : function(isDestroying) {
