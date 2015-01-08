@@ -37,7 +37,7 @@ Build('build.widget.tab.TabHeader', [ 'build::build.ui.Container', 'build::build
 					});
 					return title.element;
 				},
-				destroy : function() {
+				destroy : function(child, element) {
 
 				}
 			}

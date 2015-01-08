@@ -77,7 +77,12 @@ Build('build.ui.Container', [ 'build::build.ui.Widget', 'build::build.utility.Ob
 			 */
 			childIterator : function(child, index, array) {
 				if (child) {
-					this.innerElement.appendChild(this.createChild(child));
+					var element = this.createChild(child);
+					if (element instanceof HTMLElement) {
+						this.innerElement.appendChild(element);
+					} else {
+						console.log('no element');
+					}
 				}
 			},
 			/**
@@ -123,41 +128,46 @@ Build('build.ui.Container', [ 'build::build.ui.Widget', 'build::build.utility.Ob
 			 * })();
 			 */
 			createChild : function(child) {
+				var element = null;
+				
 				// If we have a template, run the child through there first.
-				// If we have a managedTemplate, generate the template from there
+				// If we have a managedTemplate, generate the template from there.
 				if (this.managedTemplate) {
-					// TODO: This will not work if a child is contained multiple times.
-					// That should not be a valid case.
-					child.tempTemplate = this.managedTemplate();
-					child = child.tempTemplate.create(child);
+					var tempTemplate = this.managedTemplate();
+					element = tempTemplate.create(child);
+					element.tempTemplate = tempTemplate;
+					//element.controller = child;
 				} else if (this.template && this.template.create) {
-					child = this.template.create(child);
-				}
-				// If we have a Widget, return the element
-				if (child instanceof build.ui.Widget) {
+					element = this.template.create(child);
+					//element.controller = child;
+				} else if (child instanceof build.ui.Widget) {
+					// If we have a Widget, return the element
+					// We are including the widget directly, fix Widget parent
 					if (child.parent) {
 						if (child.parent != this) {
-							child.parent.children.remove(child);
-							child.parent = this;
+							//child.parent.children.remove(child);
+							//child.parent = this;
 						}
 					} else {
 						child.parent = this;
 					}
-					return child.element;
+					element = child.element;
 				} else if (child instanceof HTMLElement) {
-					// If we have an element, return the element
-					if (child.controller) {
-						child.controller.parent = this;
-					}
-					return child;
-				} else {
-					// If we have anything else, wrap the element in a div.
-					// TODO: Remove iteratorType.
-					var iterator = document.createElement(this.iteratorType || 'div');
-					iterator.innerHTML = child;
-					iterator.className = 'container-child';
-					return iterator;
+					//if (child.controller) {
+					//child.controller.parent = this;
+					//}
+					element = child;
 				}
+				
+				// If we still don't have an element, wrap the content in a div.
+				if (!(element instanceof HTMLElement)) {
+					// TODO: Remove iteratorType.
+					element = document.createElement(this.iteratorType || 'div');
+					element.innerHTML = child;
+					element.className = 'container-child';
+				}
+				
+				return element;
 			},
 			/**
 			 * @method linkChild
@@ -181,16 +191,16 @@ Build('build.ui.Container', [ 'build::build.ui.Widget', 'build::build.utility.Ob
 			 * @method destroyChild
 			 * @param child
 			 */
-			destroyChild : function(child) {
+			destroyChild : function(element) {
 				// If we have a template, run child through there
-				if (child.tempTemplate) {
-					child.tempTemplate.destroy(child);
+				if (element.tempTemplate) {
+					element.tempTemplate.destroy(element.controller, element);
 				} else if (this.template && this.template.destroy) {
-					this.template.destroy(child);
+					this.template.destroy(element.controller, element);
 				}
 				// TODO: Do we need to do this here?
-				if (child && child.controller) {
-					child.controller.parent = null;
+				if (element && element.controller) {
+					//element.controller.parent = null;
 				}
 			},
 			destroy : function(isDestroying) {
