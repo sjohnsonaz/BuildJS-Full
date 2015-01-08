@@ -11,40 +11,36 @@ Build('build.widget.tab.TabHeader', [ 'build::build.ui.Container', 'build::build
 		 */
 		$constructor : function TabHeader() {
 			$super(this)();
-			this.template = this.tabTemplate;
 		},
 		$prototype : {
 			type : 'ul',
-			// TODO: Manage this correctly.
-			tabTemplate : (function() {
-				return {
-					create : function(child) {
-						var title = build.widget.tab.TabTitle.create();
-						build.binding.PropertyBinding.create(title, {
-							sources : [ {
-								source : child,
-								property : 'title'
-							}, ],
+			staticTemplate : {
+				create : function(child) {
+					var title = build.widget.tab.TabTitle.create();
+					build.binding.PropertyBinding.create(title, {
+						sources : [ {
+							source : child,
 							property : 'title'
-						});
-						build.binding.EventBinding.create(title, child, 'openTab', 'click');
-						build.binding.ClassNameBinding.create(title, {
-							format : function() {
-								return child.parent.children[child.parent.active] == child;
-							},
-							sources : [ {
-								source : child.parent,
-								property : 'active'
-							} ],
-							className : 'tab-active'
-						});
-						return title.element;
-					},
-					destroy : function() {
+						}, ],
+						property : 'title'
+					});
+					build.binding.EventBinding.create(title, child, 'openTab', 'click');
+					build.binding.ClassNameBinding.create(title, {
+						format : function() {
+							return child.parent.children[child.parent.active] == child;
+						},
+						sources : [ {
+							source : child.parent,
+							property : 'active'
+						} ],
+						className : 'tab-active'
+					});
+					return title.element;
+				},
+				destroy : function() {
 
-					}
-				};
-			})()
+				}
+			}
 		}
 	});
 });

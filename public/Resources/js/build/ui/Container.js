@@ -29,8 +29,9 @@ Build('build.ui.Container', [ 'build::build.ui.Widget', 'build::build.utility.Ob
 				}
 				return value;
 			}.bind(this));
-			this.watchValue('template', null, null, function(value, cancel) {
+			this.watchValue('template', this.staticTemplate, null, function(value, cancel) {
 				// We need to clear the children using the old template first.
+				// TODO: Only run if the old template has been used.
 				this.clearChildren();
 				return value;
 			}.bind(this));
@@ -123,7 +124,13 @@ Build('build.ui.Container', [ 'build::build.ui.Widget', 'build::build.utility.Ob
 			 */
 			createChild : function(child) {
 				// If we have a template, run the child through there first.
-				if (this.template && this.template.create) {
+				// If we have a managedTemplate, generate the template from there
+				if (this.managedTemplate) {
+					// TODO: This will not work if a child is contained multiple times.
+					// That should not be a valid case.
+					child.tempTemplate = this.managedTemplate();
+					child = child.tempTemplate.create(child);
+				} else if (this.template && this.template.create) {
 					child = this.template.create(child);
 				}
 				// If we have a Widget, return the element
@@ -176,7 +183,9 @@ Build('build.ui.Container', [ 'build::build.ui.Widget', 'build::build.utility.Ob
 			 */
 			destroyChild : function(child) {
 				// If we have a template, run child through there
-				if (this.template && this.template.destroy) {
+				if (child.tempTemplate) {
+					child.tempTemplate.destroy(child);
+				} else if (this.template && this.template.destroy) {
 					this.template.destroy(child);
 				}
 				// TODO: Do we need to do this here?
