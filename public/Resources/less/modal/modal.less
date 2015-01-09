@@ -1,0 +1,46 @@
+@import "modal-settings.less";
+.modal {
+	display: none;
+	position: fixed;
+	z-index: 2000;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	&.modal-open {
+		display: block;
+	}
+
+	.modal-mask {
+		position: absolute;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: 0;
+		background-color: rgba(1, 1, 1, 0.5);
+	}
+
+	.modal-scroll {
+		position: absolute;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: 0;
+		overflow-y: auto;
+		.modal-content {
+			position: absolute;
+			left: 50%;
+			width: 75%;
+			min-height: 50px;
+			margin: 30px 0 30px -37.5%;
+			border-radius: 10px;
+			background-color: #fff;
+			box-shadow: 5px 5px 20px -2px #000;
+			&:after {
+				display: table;
+				clear: both;
+				content: '';
+			}
+		}
+	}
+}

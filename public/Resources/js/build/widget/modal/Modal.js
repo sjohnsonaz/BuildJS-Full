@@ -14,11 +14,27 @@ Build('build.widget.modal.Modal', [ 'build::build.ui.Container' ], function(defi
 		 */
 		$constructor : function Modal() {
 			$super(this)();
+			this.watchValue('open', false);
 			this.mask = document.createElement('div');
 			this.mask.className = 'modal-mask';
+			this.scroller = document.createElement('div');
+			this.scroller.className = 'modal-scroll';
 			this.body = document.createElement('div');
-			this.body.className = 'modal-body';
-			this.mask.appendChild(this.body);
+			this.body.className = 'modal-content';
+			
+			this.innerElement = this.body;
+			this.scroller.appendChild(this.body);
+			this.element.appendChild(this.mask);
+			this.element.appendChild(this.scroller);
+			
+			build.binding.ClassNameBinding.create(this, {
+				format : '{0}',
+				sources : [ {
+					source : this,
+					property : 'open'
+				} ],
+				className : 'modal-open'
+			});
 		},
 		$prototype : {
 			/**
