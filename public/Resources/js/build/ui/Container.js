@@ -129,7 +129,7 @@ Build('build.ui.Container', [ 'build::build.ui.Widget', 'build::build.utility.Ob
 			 */
 			createChild : function(child) {
 				var element = null;
-				
+
 				// If we have a template, run the child through there first.
 				// If we have a managedTemplate, generate the template from there.
 				if (this.managedTemplate) {
@@ -158,7 +158,7 @@ Build('build.ui.Container', [ 'build::build.ui.Widget', 'build::build.utility.Ob
 					//}
 					element = child;
 				}
-				
+
 				// If we still don't have an element, wrap the content in a div.
 				if (!(element instanceof HTMLElement)) {
 					// TODO: Remove iteratorType.
@@ -166,7 +166,7 @@ Build('build.ui.Container', [ 'build::build.ui.Widget', 'build::build.utility.Ob
 					element.innerHTML = child;
 					element.className = 'container-child';
 				}
-				
+
 				return element;
 			},
 			/**
@@ -192,15 +192,17 @@ Build('build.ui.Container', [ 'build::build.ui.Widget', 'build::build.utility.Ob
 			 * @param child
 			 */
 			destroyChild : function(element) {
-				// If we have a template, run child through there
-				if (element.tempTemplate) {
-					element.tempTemplate.destroy(element.controller, element);
-				} else if (this.template && this.template.destroy) {
-					this.template.destroy(element.controller, element);
-				}
-				// TODO: Do we need to do this here?
-				if (element && element.controller) {
-					//element.controller.parent = null;
+				if (element) {
+					// If we have a template, run child through there
+					if (element.tempTemplate) {
+						element.tempTemplate.destroy(element.controller, element);
+					} else if (this.template && this.template.destroy) {
+						this.template.destroy(element.controller, element);
+					}
+					// TODO: Do we need to do this here?
+					if (element && element.controller) {
+						//element.controller.parent = null;
+					}
 				}
 			},
 			destroy : function(isDestroying) {
@@ -214,7 +216,9 @@ Build('build.ui.Container', [ 'build::build.ui.Widget', 'build::build.utility.Ob
 				var child;
 				while (child = this.children.pop()) {
 					if (child) {
-						child.destroy();
+						if (child.destroy) {
+							child.destroy();
+						}
 						delete child;
 					} else {
 						console.log('already destroyed?');
@@ -242,8 +246,10 @@ Build('build.ui.Container', [ 'build::build.ui.Widget', 'build::build.utility.Ob
 					pop : function() {
 						var element = this.innerElement;
 						if (element) {
-							this.destroyChild(element.lastChild);
-							element.removeChild(element.lastChild);
+							if (element.lastChild) {
+								this.destroyChild(element.lastChild);
+								element.removeChild(element.lastChild);
+							}
 						}
 					}.bind(this),
 					unshift : function(child) {
@@ -258,8 +264,10 @@ Build('build.ui.Container', [ 'build::build.ui.Widget', 'build::build.utility.Ob
 						// Remove from beginning of array
 						var element = this.innerElement;
 						if (element) {
-							this.destroyChild(element.firstChild);
-							element.removeChild(element.firstChild);
+							if (element.firstChild) {
+								this.destroyChild(element.firstChild);
+								element.removeChild(element.firstChild);
+							}
 						}
 					}.bind(this),
 					reverse : function() {

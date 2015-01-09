@@ -100,8 +100,10 @@ Build('build.ui.Switcher', [ 'build::build.ui.Container', 'build::build.utility.
 					pop : function() {
 						var element = this.innerElement;
 						if (element) {
-							this.destroyChild(element.lastChild);
-							element.removeChild(element.lastChild);
+							if (element.lastChild) {
+								this.destroyChild(element.lastChild);
+								element.removeChild(element.lastChild);
+							}
 						}
 					}.bind(this),
 					unshift : function(child) {
@@ -121,8 +123,10 @@ Build('build.ui.Switcher', [ 'build::build.ui.Container', 'build::build.utility.
 						// Remove from beginning of array
 						var element = this.innerElement;
 						if (element) {
-							this.destroyChild(element.firstChild);
-							element.removeChild(element.firstChild);
+							if (element.firstChild) {
+								this.destroyChild(element.firstChild);
+								element.removeChild(element.firstChild);
+							}
 						}
 					}.bind(this),
 					reverse : function() {
