@@ -14,7 +14,8 @@ Build('build.widget.modal.Modal', [ 'build::build.ui.Container' ], function(defi
 		 */
 		$constructor : function Modal() {
 			$super(this)();
-			this.watchValue('open', false);
+			this.watchClass('open', 'modal-open');
+			this.open = false;
 			this.watchValue('clickToClose', true);
 			this.mask = document.createElement('div');
 			this.mask.className = 'modal-mask';
@@ -33,41 +34,7 @@ Build('build.widget.modal.Modal', [ 'build::build.ui.Container' ], function(defi
 					this.open = false;
 				}
 			}.bind(this));
-
-			build.binding.ClassNameBinding.create(this, {
-				format : '{0}',
-				sources : [ {
-					source : this,
-					property : 'open'
-				} ],
-				className : 'modal-open'
-			});
 		},
-		$prototype : {
-			/**
-			 * 
-			 */
-			refreshChildren : function() {
-				var element = this.body;
-				if (element) {
-					this.clearChildren(element);
-					if (this.children) {
-						this.children.forEach(this.childIterator.bind(this));
-					}
-				}
-			},
-			/**
-			 * 
-			 */
-			show : function() {
-				document.body.appendChild(this.body);
-			},
-			/**
-			 * 
-			 */
-			hide : function() {
-				document.body.removeChild(this.body);
-			}
-		}
+		$prototype : {}
 	});
 });
