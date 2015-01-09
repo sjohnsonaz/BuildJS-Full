@@ -21,12 +21,16 @@ Build('build.widget.modal.Modal', [ 'build::build.ui.Container' ], function(defi
 			this.scroller.className = 'modal-scroll';
 			this.body = document.createElement('div');
 			this.body.className = 'modal-content';
-			
+
 			this.innerElement = this.body;
 			this.scroller.appendChild(this.body);
 			this.element.appendChild(this.mask);
 			this.element.appendChild(this.scroller);
-			
+
+			this.scroller.addEventListener('click', function() {
+				this.open = false;
+			}.bind(this));
+
 			build.binding.ClassNameBinding.create(this, {
 				format : '{0}',
 				sources : [ {
