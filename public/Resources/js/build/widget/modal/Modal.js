@@ -15,6 +15,7 @@ Build('build.widget.modal.Modal', [ 'build::build.ui.Container' ], function(defi
 		$constructor : function Modal() {
 			$super(this)();
 			this.watchValue('open', false);
+			this.watchValue('clickToClose', true);
 			this.mask = document.createElement('div');
 			this.mask.className = 'modal-mask';
 			this.scroller = document.createElement('div');
@@ -28,7 +29,9 @@ Build('build.widget.modal.Modal', [ 'build::build.ui.Container' ], function(defi
 			this.element.appendChild(this.scroller);
 
 			this.scroller.addEventListener('click', function() {
-				this.open = false;
+				if (this.clickToClose) {
+					this.open = false;
+				}
 			}.bind(this));
 
 			build.binding.ClassNameBinding.create(this, {
