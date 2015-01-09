@@ -10,7 +10,6 @@ Build('build.ui.form.FormControl', [ 'build::build.ui.Widget' ], function(define
 		 */
 		/**
 		 * @property type
-		 * @property directAppend
 		 * @property label
 		 * @property control
 		 * @property labelIterator

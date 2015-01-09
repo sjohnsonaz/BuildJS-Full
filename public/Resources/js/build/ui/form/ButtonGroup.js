@@ -9,11 +9,9 @@ Build('build.ui.form.ButtonGroup', [ 'build::build.ui.Container' ], function(def
 		 * @constructor
 		 */
 		/**
-		 * @property directAppend
 		 */
 		$constructor : function ButtonGroup() {
 			$super(this)();
-			this.directAppend = true;
 		}
 	});
 });

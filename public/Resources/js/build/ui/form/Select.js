@@ -3,7 +3,6 @@ Build('build.ui.form.Select', [ 'build::build.ui.Container', 'build::build.ui.fo
 		$extends : 'build.ui.Container',
 		$constructor : function Select() {
 			$super(this)();
-			this.directAppend = true;
 			Object.defineProperty(this, 'value', {
 				get : function() {
 					if (this.element) {
