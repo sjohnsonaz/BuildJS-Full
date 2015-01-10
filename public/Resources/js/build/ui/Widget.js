@@ -19,7 +19,10 @@ Build('build.ui.Widget', [ 'build::build.Module', 'build::build.utility.Observab
 			$super(this)();
 			this.createElement();
 			this.watchProperty('id');
-			this.id = this.uniqueId();
+			// id is left blank by default.
+			if (Build.debug) {
+				this.id = this.uniqueId();
+			}
 			this.watchProperty('className');
 			this.className = this.uniqueClass();
 			// A Widget may be contained by Container.

@@ -60,7 +60,7 @@ Build('demo.application.DemoApplication', [ 'build::build.ui.application.AdminAp
 		}
 	});
 });
-
+Build.debug = true;
 Build(function() {
 	console.log('Application started...');
 	application = demo.application.DemoApplication.create();

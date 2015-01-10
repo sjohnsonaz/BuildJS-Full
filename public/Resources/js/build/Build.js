@@ -566,6 +566,7 @@ var Build = build.Build = (function() {
 	Build.loadScript = loadScript;
 	Build.CallbackQueue = CallbackQueue;
 	Build.onload = onload;
+	Build.debug = false;
 	return Build;
 })();
 
