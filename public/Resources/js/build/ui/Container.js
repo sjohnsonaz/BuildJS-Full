@@ -10,6 +10,12 @@ Build('build.ui.Container', [ 'build::build.ui.Widget', 'build::build.utility.Ob
 		 */
 		$constructor : function Container() {
 			$super(this)();
+			// Create setter method to transfer elements from this.element.
+			this.watchValue('innerElement', this.element, null, function(value, cancel) {
+				//if (value != this.element) {
+				//}
+				return value;
+			});
 			Object.defineProperty(this, 'innerElement', {
 				value : this.element,
 				configurable : true,
