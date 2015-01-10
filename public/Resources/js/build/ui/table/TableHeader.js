@@ -10,6 +10,7 @@ Build('build.ui.table.TableHeader', [ 'build.ui.Container' ], function(define, $
 		 */
 		$constructor : function TableHeader() {
 			$super(this)();
+			this.innerElement = document.createElement('tr');
 		},
 		$prototype : {
 			type : 'thead'

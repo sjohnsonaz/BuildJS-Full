@@ -10,6 +10,7 @@ Build('build.ui.table.TableFooter', [ 'build.ui.Container' ], function(define, $
 		 */
 		$constructor : function TableFooter() {
 			$super(this)();
+			this.innerElement = document.createElement('tr');
 		},
 		$prototype : {
 			type : 'tfoot'
