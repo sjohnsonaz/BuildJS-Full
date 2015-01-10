@@ -9,10 +9,10 @@ Build('build.ui.table.Caption', [ 'build.ui.Container' ], function(define, $supe
 		 * @constructor
 		 */
 		$constructor : function Caption() {
-
+			$super(this)();
 		},
 		$prototype : {
-
+			type : 'caption'
 		}
 	});
 });

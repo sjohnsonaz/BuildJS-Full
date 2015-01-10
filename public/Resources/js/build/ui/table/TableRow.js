@@ -9,10 +9,10 @@ Build('build.ui.table.TableRow', [ 'build.ui.Container' ], function(define, $sup
 		 * @constructor
 		 */
 		$constructor : function TableRow() {
-
+			$super(this)();
 		},
 		$prototype : {
-
+			type : 'tr'
 		}
 	});
 });

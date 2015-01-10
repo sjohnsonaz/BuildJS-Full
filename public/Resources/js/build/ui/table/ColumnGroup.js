@@ -9,10 +9,10 @@ Build('build.ui.table.ColumnGroup', [ 'build.ui.Container' ], function(define, $
 		 * @constructor
 		 */
 		$constructor : function ColumnGroup() {
-
+			$super(this)();
 		},
 		$prototype : {
-
+			type : 'colgroup'
 		}
 	});
 });

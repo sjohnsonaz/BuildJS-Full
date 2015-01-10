@@ -9,10 +9,10 @@ Build('build.ui.table.TableHeaderCell', [ 'build.ui.Container' ], function(defin
 		 * @constructor
 		 */
 		$constructor : function TableHeaderCell() {
-
+			$super(this)();
 		},
 		$prototype : {
-
+			type : 'th'
 		}
 	});
 });

@@ -9,10 +9,10 @@ Build('build.ui.table.TableFooter', [ 'build.ui.Container' ], function(define, $
 		 * @constructor
 		 */
 		$constructor : function TableFooter() {
-
+			$super(this)();
 		},
 		$prototype : {
-
+			type : 'tfoot'
 		}
 	});
 });

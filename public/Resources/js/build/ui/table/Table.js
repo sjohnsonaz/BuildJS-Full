@@ -9,10 +9,10 @@ Build('build.ui.table.Table', [ 'build.ui.Container' ], function(define, $super)
 		 * @constructor
 		 */
 		$constructor : function Table() {
-
+			$super(this)();
 		},
 		$prototype : {
-
+			type : 'table'
 		}
 	});
 });

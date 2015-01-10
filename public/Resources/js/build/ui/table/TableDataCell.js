@@ -9,10 +9,10 @@ Build('build.ui.table.TableDataCell', [ 'build.ui.Container' ], function(define,
 		 * @constructor
 		 */
 		$constructor : function TableDataCell() {
-
+			$super(this)();
 		},
 		$prototype : {
-
+			type : 'td'
 		}
 	});
 });

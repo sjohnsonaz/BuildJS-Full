@@ -9,10 +9,10 @@ Build('build.ui.table.Column', [ 'build.ui.Container' ], function(define, $super
 		 * @constructor
 		 */
 		$constructor : function Column() {
-
+			$super(this)();
 		},
 		$prototype : {
-
+			type : 'col'
 		}
 	});
 });
