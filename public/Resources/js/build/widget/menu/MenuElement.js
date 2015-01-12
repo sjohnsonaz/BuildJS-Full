@@ -52,6 +52,7 @@ Build('build.widget.menu.MenuElement', [ 'build::build.ui.Container', 'build::bu
 			this.link.addEvent('click', function(event) {
 				Build.safe(this.action)(this, event);
 			}.bind(this));
+			this.children.push(this.link);
 		},
 		$prototype : {
 			type : 'li',
@@ -67,15 +68,6 @@ Build('build.widget.menu.MenuElement', [ 'build::build.ui.Container', 'build::bu
 						this.link.allowDefault();
 					}
 				}.bind(this));
-			},
-			/**
-			 * 
-			 */
-			refreshChildren : function() {
-				if (this.element) {
-					this.clearChildren();
-					this.element.appendChild(this.link.element);
-				}
 			},
 			/**
 			 * 

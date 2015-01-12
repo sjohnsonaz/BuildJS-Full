@@ -10,12 +10,16 @@ Build('build.ui.Container', [ 'build::build.ui.Widget', 'build::build.utility.Ob
 		 */
 		$constructor : function Container() {
 			$super(this)();
-			// Create setter method to transfer elements from this.element.
+			// TODO: This should be protected in a Document Fragment.
 			this.watchValue('innerElement', this.element, null, function(value, cancel) {
-				//if (value != this.element) {
-				//}
+				var oldElement = this.innerElement || this.element;
+				if (value != oldElement) {
+					while (oldElement.firstChild) {
+						value.appendChild(oldElement.firstChild);
+					}
+				}
 				return value;
-			});
+			}.bind(this));
 			Object.defineProperty(this, 'innerElement', {
 				value : this.element,
 				configurable : true,
@@ -35,10 +39,10 @@ Build('build.ui.Container', [ 'build::build.ui.Widget', 'build::build.utility.Ob
 				}
 				return value;
 			}.bind(this));
-			this.watchValue('template', this.staticTemplate, null, function(value, cancel) {
+			this.watchValue('template', this.template, null, function(value, cancel) {
 				// We need to clear the children using the old template first.
 				// TODO: Only run if the old template has been used.
-				this.clearChildren();
+				this.refreshChildren();
 				return value;
 			}.bind(this));
 		},
@@ -47,9 +51,6 @@ Build('build.ui.Container', [ 'build::build.ui.Widget', 'build::build.utility.Ob
 				$super().init(this)();
 				this.refreshChildren();
 				this.subscribe('children', function(value) {
-					this.refreshChildren();
-				}.bind(this));
-				this.subscribe('template', function(value) {
 					this.refreshChildren();
 				}.bind(this));
 			},
@@ -138,13 +139,10 @@ Build('build.ui.Container', [ 'build::build.ui.Widget', 'build::build.utility.Ob
 
 				// If we have a template, run the child through there first.
 				// If we have a managedTemplate, generate the template from there.
-				if (this.managedTemplate) {
-					var tempTemplate = this.managedTemplate();
-					element = tempTemplate.create(child);
-					element.tempTemplate = tempTemplate;
-					//element.controller = child;
-				} else if (this.template && this.template.create) {
-					element = this.template.create(child);
+				var template = (typeof this.template === 'function') ? this.template() : this.template;
+				if (template && template.create) {
+					element = template.create(child);
+					element.tempTemplate = template;
 					//element.controller = child;
 				} else if (child instanceof build.ui.Widget) {
 					// If we have a Widget, return the element
@@ -202,8 +200,6 @@ Build('build.ui.Container', [ 'build::build.ui.Widget', 'build::build.utility.Ob
 					// If we have a template, run child through there
 					if (element.tempTemplate) {
 						element.tempTemplate.destroy(element.controller, element);
-					} else if (this.template && this.template.destroy) {
-						this.template.destroy(element.controller, element);
 					}
 					// TODO: Do we need to do this here?
 					if (element && element.controller) {

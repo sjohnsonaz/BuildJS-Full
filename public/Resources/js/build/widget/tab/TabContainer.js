@@ -38,39 +38,6 @@ Build('build.widget.tab.TabContainer', [ 'build::build.ui.Switcher', 'build::bui
 			this.innerElement.className = 'tab-body';
 			this.element.appendChild(this.innerElement);
 		},
-		$prototype : {
-			/**
-			 * @method refreshChildren
-			 */
-			/*refreshChildren : function() {
-				$super().refreshChildren(this)();
-				if (this.element) {
-					var ul = document.createElement('ul');
-					this.children.forEach(function(child, index, children) {
-						var li = document.createElement('li');
-						var a = document.createElement('a');
-						li.appendChild(a);
-						ul.appendChild(li);
-						child.subscribe('title', function(value) {
-							a.innerHTML = value;
-						});
-						this.subscribe('active', function(value) {
-							if (index == value) {
-								li.className = 'tab-active';
-							} else {
-								li.className = '';
-							}
-						});
-						// li.dataset.bind = "css: { 'tab-active':
-						// $parent.active() == $index() }, attr: { 'data-index'
-						// : $index, 'data-parent' : $parent.active }";
-						a.addEventListener('click', function() {
-							this.openTab(child);
-						}.bind(this));
-					}.bind(this));
-					this.element.insertBefore(ul, this.element.firstChild);
-				}
-			}*/
-		}
+		$prototype : {}
 	});
 });
