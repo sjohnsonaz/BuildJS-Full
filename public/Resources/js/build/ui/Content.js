@@ -13,20 +13,11 @@ Build('build.ui.Content', [ 'build::build.ui.Widget' ], function(define, $super)
 		 * @property textHelpers
 		 */
 		$constructor : function Content(text) {
-			$super(this)(text);
-			var templateParser = null;
+			$super(this)();
 			this.watchProperty('text', 'innerHTML', null, function(value) {
-				return templateParser ? templateParser.parse(value, this) : value;
+				return this.formatString(value, this);
 			}.bind(this));
-			this.watchValue('textHelpers', false, null, function(value) {
-				if (value) {
-					templateParser = build.utility.TemplateParser();
-				} else {
-					templateParser = null;
-				}
-				this.text = this.text;
-				return value;
-			}.bind(this));
+			this.watchProperty('rawText', 'innerHTML');
 			this.text = text || '';
 		}
 	});

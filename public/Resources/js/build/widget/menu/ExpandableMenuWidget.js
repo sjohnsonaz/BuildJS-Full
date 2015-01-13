@@ -15,7 +15,7 @@ Build('build.widget.menu.ExpandableMenuWidget', [ 'build::build.widget.menu.Menu
 		$constructor : function ExpandableMenuWidget() {
 			$super(this)();
 			this.title = build.widget.menu.MenuTitle.create();
-			this.expandButton = build.ui.form.Button.create('{{i:bars}}');
+			this.expandButton = build.ui.form.Button.create('{i:[bars]}');
 			this.expandButton.addClass('expand-button');
 			this.expandButton.addEvent('click', function(button, event) {
 				this.expand = !this.expand;

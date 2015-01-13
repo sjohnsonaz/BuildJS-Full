@@ -308,6 +308,51 @@ Build('build.Module', [], function(define, $super) {
 						delete this.handlers[property];
 					}
 				}
+			},
+			formatString : function(pattern, values) {
+				if (typeof pattern === 'string') {
+					if (!(values instanceof Array) && typeof values !== 'object') {
+						values = Array.prototype.slice.call(arguments).splice(1, 1);
+					}
+					return pattern.replace(/\{\{|\}\}|\{(\d+)\}|\{(\w+):(.+)\}/g, function(match, index, helperName, argsText) {
+						if (match == "{{") {
+							return "{";
+						}
+						if (match == "}}") {
+							return "}";
+						}
+						if (helperName) {
+							var helper = build.Module.helpers[helperName];
+							if (typeof helper === 'function') {
+								var argsIndexes = argsText.match(/\[(.*)\]|(\d+)|([A-Za-z_][A-Za-z0-9_]*)/g);
+								var args = [];
+								for (var argIndex = 0, length = argsIndexes.length; argIndex < length; argIndex++) {
+									var value = argsIndexes[argIndex];
+									if (value[0] === '[') {
+										args[argIndex] = value.substring(1, value.length - 1);
+									} else {
+										args[argIndex] = values[value];
+									}
+								}
+								return helper.apply(this, args);
+							} else {
+								// Helper not found
+								return '';
+							}
+						} else {
+							return values[index];
+						}
+					});
+				} else {
+					return pattern;
+				}
+			}
+		},
+		$static : {
+			helpers : {
+				'i' : function(value) {
+					return '<i class="fa fa-' + value + '"></i>';
+				}
 			}
 		}
 	});
