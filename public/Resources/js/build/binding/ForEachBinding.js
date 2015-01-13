@@ -10,7 +10,9 @@ Build('build.binding.ForEachBinding', [ 'build::build.binding.BindingHandler' ],
 		 */
 		$constructor : function ForEachBinding(destination, source, property, template) {
 			$super(this)(destination);
-			destination.template = template;
+			if (template) {
+				destination.template = template;
+			}
 			this.source = source;
 			this.property = property;
 		},
