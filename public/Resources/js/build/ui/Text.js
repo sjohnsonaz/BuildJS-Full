@@ -16,7 +16,7 @@ Build('build.ui.Text', [ 'build::build.Module' ], function(define, $super) {
 				writable : true,
 				enumerable : false
 			});
-			this.watchProperty('data');
+			this.watchProperty('text');
 		},
 		$prototype : {
 			/**
