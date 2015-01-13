@@ -156,6 +156,8 @@ Build('build.ui.Container', [ 'build::build.ui.Widget', 'build::build.utility.Ob
 						child.parent = this;
 					}
 					element = child.element;
+				} else if (child instanceof build.ui.Text) {
+					element = child.element;
 				} else if (child instanceof HTMLElement) {
 					//if (child.controller) {
 					//child.controller.parent = this;
@@ -164,7 +166,7 @@ Build('build.ui.Container', [ 'build::build.ui.Widget', 'build::build.utility.Ob
 				}
 
 				// If we still don't have an element, wrap the content in a div.
-				if (!(element instanceof HTMLElement)) {
+				if (!(element instanceof Node)) {
 					// TODO: Remove iteratorType.
 					element = document.createElement(this.iteratorType || 'div');
 					element.innerHTML = child;

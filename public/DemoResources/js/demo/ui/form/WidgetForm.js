@@ -1,7 +1,7 @@
 Build('demo.ui.form.WidgetForm', [ 'build::build.ui.form.Form', 'build::build.ui.form.Button', 'build::build.ui.form.ButtonGroup', 'build::build.ui.element.Header1', 'build::build.ui.element.Paragraph', 'build::build.ui.form.FieldSet',
 		'build::build.ui.form.FormControl', 'build::build.ui.form.Label', 'build::build.ui.form.Text', 'build::build.ui.form.TextArea', 'demo::demo.singleton.SingletonTest', 'demo::demo.alternatebase.ArrayChild',
 		'build::build.utility.TemplateParser', 'build::build.widget.progress.ProgressBar', 'build::build.ui.form.Select', 'build::build.ui.form.CheckBox', 'build::build.ui.form.RadioButton', 'build::build.ui.element.Image',
-		'build::build.widget.modal.Modal' ], function(define, $super) {
+		'build::build.widget.modal.Modal', 'build::build.ui.Text' ], function(define, $super) {
 	define({
 		$extends : 'build.ui.form.Form',
 		$constructor : function WidgetForm() {
@@ -73,6 +73,7 @@ Build('demo.ui.form.WidgetForm', [ 'build::build.ui.form.Form', 'build::build.ui
 			this.addChild(fieldSet);
 
 			modal = build.widget.modal.Modal.create();
+			modal.children.push(build.ui.Text.create('Modal text'));
 			this.addChild(modal);
 		}
 	});
