@@ -26,14 +26,33 @@ Build('build.binding.BindingHandler', [ 'build::build.Module' ], function(define
 				if (!(values instanceof Array)) {
 					values = Array.prototype.slice.call(arguments).splice(1, 1);
 				}
-				return pattern.replace(/\{\{|\}\}|\{(\d+)\}/g, function(m, n) {
-					if (m == "{{") {
+				return pattern.replace(/\{\{|\}\}|\{(\d+)\}|\{(\w+:\d+)\}/g, function(escape, index, helper) {
+					if (escape == "{{") {
 						return "{";
 					}
-					if (m == "}}") {
+					if (escape == "}}") {
 						return "}";
 					}
-					return values[n];
+					if (helper) {
+						var data = helper.split(/\s*:\s*/);
+						if (data.length > 1) {
+							var templateHelper = build.binding.BindingHandler.helpers[data[0]];
+							if (typeof templateHelper === 'function') {
+								var argsIndexes = data[1].split(/\s*,\s*/);
+								var args = argsIndexes.map(function(value) {
+									return values[value];
+								});
+								return templateHelper.apply(this, args);
+							} else {
+								// Helper not found
+								return '';
+							}
+						} else {
+							// This should not happen
+							return '';
+						}
+					}
+					return values[index];
 				});
 			}
 		},
@@ -45,7 +64,11 @@ Build('build.binding.BindingHandler', [ 'build::build.Module' ], function(define
 				result.init.apply(result, arguments);
 				return result;
 			},
-			helpers : {}
+			helpers : {
+				'i' : function(value) {
+					return '<i class="fa fa-' + value + '"></i>';
+				}
+			}
 		}
 	});
 });
