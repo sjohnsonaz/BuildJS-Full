@@ -45,6 +45,7 @@ Build('build.binding.BindingHandler', [ 'build::build.Module' ], function(define
 				result.init.apply(result, arguments);
 				return result;
 			},
+			helpers : {}
 		}
 	});
 });

@@ -23,7 +23,7 @@ Build('build.binding.IfBinding', [ 'build::build.binding.OneWayBinding' ], funct
 				if (this.format) {
 					switch (typeof this.format) {
 					case 'function':
-						this.format() ? this.evaluate(true) : this.evaluate(false);
+						this.format.apply(this, this.cache) ? this.evaluate(true) : this.evaluate(false);
 						break;
 					case 'string':
 						var condition = this.formatString(this.format, this.cache);
