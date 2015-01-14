@@ -8,15 +8,18 @@ Build('build.ui.Text', [ 'build::build.Module' ], function(define, $super) {
 		/**
 		 * @constructor
 		 */
-		$constructor : function Text(data) {
+		$constructor : function Text(text) {
 			$super(this)();
 			Object.defineProperty(this, 'element', {
-				value : document.createTextNode(data),
+				value : document.createTextNode(text ? this.formatString(text, this) : ''),
 				configurable : true,
 				writable : true,
 				enumerable : false
 			});
-			this.watchProperty('text');
+			this.watchProperty('text', 'data', null, function(value) {
+				return this.formatString(value, this);
+			}.bind(this));
+			this.watchProperty('rawText', 'data');
 		},
 		$prototype : {
 			/**

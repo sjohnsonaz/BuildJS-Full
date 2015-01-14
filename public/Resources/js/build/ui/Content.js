@@ -18,7 +18,9 @@ Build('build.ui.Content', [ 'build::build.ui.Widget' ], function(define, $super)
 				return this.formatString(value, this);
 			}.bind(this));
 			this.watchProperty('rawText', 'innerHTML');
-			this.text = text || '';
+			if (text) {
+				this.text = text;
+			}
 		}
 	});
 });
