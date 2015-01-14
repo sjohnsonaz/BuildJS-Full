@@ -314,7 +314,7 @@ Build('build.Module', [], function(define, $super) {
 					if (!(values instanceof Array) && typeof values !== 'object') {
 						values = Array.prototype.slice.call(arguments).splice(1, 1);
 					}
-					return pattern.replace(/\{\{|\}\}|\{(\d+)\}|\{(\w+):(.+)\}/g, function(match, index, helperName, argsText) {
+					return pattern.replace(/\{\{|\}\}|\{(\d+)\}|\{(\w+):(.+)\}/g, function(match, valueIndex, helperName, argsText) {
 						if (match == "{{") {
 							return "{";
 						}
@@ -326,15 +326,15 @@ Build('build.Module', [], function(define, $super) {
 							if (typeof helper === 'function') {
 								var argsIndexes = argsText.match(/\[(.*)\]|(\d+)|([A-Za-z_][A-Za-z0-9_]*)(.[A-Za-z_][A-Za-z0-9_]*)*/g);
 								var args = [];
-								for (var argIndex = 0, length = argsIndexes.length; argIndex < length; argIndex++) {
-									var value = argsIndexes[argIndex];
-									if (value[0] === '[') {
-										args[argIndex] = value.substring(1, value.length - 1);
+								for (var index = 0, length = argsIndexes.length; index < length; index++) {
+									var argIndex = argsIndexes[index];
+									if (argIndex[0] === '[') {
+										args[index] = argIndex.substring(1, argIndex.length - 1);
 									} else {
-										if (typeof value === 'string') {
-											args[argIndex] = getValue(values, value);
+										if (typeof argIndex === 'string') {
+											args[index] = getValue(values, argIndex);
 										} else {
-											args[argIndex] = values[value];
+											args[index] = values[argIndex];
 										}
 									}
 								}
@@ -344,7 +344,7 @@ Build('build.Module', [], function(define, $super) {
 								return '';
 							}
 						} else {
-							return values[index];
+							return values[valueIndex];
 						}
 					});
 				} else {
