@@ -324,14 +324,18 @@ Build('build.Module', [], function(define, $super) {
 						if (helperName) {
 							var helper = build.Module.helpers[helperName];
 							if (typeof helper === 'function') {
-								var argsIndexes = argsText.match(/\[(.*)\]|(\d+)|([A-Za-z_][A-Za-z0-9_]*)/g);
+								var argsIndexes = argsText.match(/\[(.*)\]|(\d+)|([A-Za-z_][A-Za-z0-9_]*)(.[A-Za-z_][A-Za-z0-9_]*)*/g);
 								var args = [];
 								for (var argIndex = 0, length = argsIndexes.length; argIndex < length; argIndex++) {
 									var value = argsIndexes[argIndex];
 									if (value[0] === '[') {
 										args[argIndex] = value.substring(1, value.length - 1);
 									} else {
-										args[argIndex] = values[value];
+										if (typeof value === 'string') {
+											args[argIndex] = getValue(values, value);
+										} else {
+											args[argIndex] = values[value];
+										}
 									}
 								}
 								return helper.apply(this, args);
@@ -356,4 +360,19 @@ Build('build.Module', [], function(define, $super) {
 			}
 		}
 	});
+
+	function getValue(obj, name) {
+		var value = obj[name];
+		if (typeof value === 'undefined') {
+			var nameArray = name.split('.');
+			value = obj;
+			for (var index = 0, length = nameArray.length; index < length; index++) {
+				if (typeof value === 'undefined') {
+					break;
+				}
+				value = value[nameArray[index]];
+			}
+		}
+		return value;
+	}
 });
