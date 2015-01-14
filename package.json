@@ -17,7 +17,7 @@
   },
   "dependencies": {
     "express": "3.x.x",
-    "node-minify": "0.9.x",
+    "node-minify": "1.0.x",
     "connect-mongo": "0.3.x",
     "ejs": "0.8.x",
     "express-ejs-layouts": "0.3.x",
