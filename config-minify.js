@@ -37,6 +37,12 @@ module.exports = function(min) {
 			destination : min.getDestination(minFolders.css, 'Build', timestamp, null, 'css'),
 			include : [ '.css' ],
 			exclude : []
+		}, {
+			algorithm : 'uglifyjs',
+			source : [ '/public/DemoResources/js' ],
+			destination : min.getDestination(minFolders.js, 'Demo', timestamp, null, 'js'),
+			include : [ '.js' ],
+			exclude : [ 'application' ]
 		} ]
 	};
 };
