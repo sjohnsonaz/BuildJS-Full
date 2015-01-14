@@ -280,10 +280,12 @@ Build('build.Module', [], function(define, $super) {
 			destroy : function(isDestroying) {
 				// Unsubscribe from all.
 				if (this.subscribers) {
+					// TODO: Determine if Object.hasOwnProperty is necessary
 					for ( var property in this.subscribers) {
 						var propertySubscribers = this.subscribers[property];
 						for (var index = 0, length = propertySubscribers.length; index < length; index++) {
 							var subscription = propertySubscribers[index];
+							// TODO: Destroy function subscribers
 							if (typeof subscription.subscriber === 'object') {
 								subscription.subscriber.subscriptionUnlink(subscription);
 							}
@@ -303,6 +305,7 @@ Build('build.Module', [], function(define, $super) {
 
 				// Destroy all binding handlers.
 				if (this.handlers) {
+					// TODO: Determine if Object.hasOwnProperty is necessary
 					for ( var property in this.handlers) {
 						this.handlers[property].destroy();
 						delete this.handlers[property];
