@@ -18,7 +18,7 @@ module.exports = function(min) {
 			source : [ /* '/public/Resources/js/build/Build.js', */'/public/Resources/js' ],
 			destination : min.getDestination(minFolders.js, 'Build', timestamp, 'browser', 'js'),
 			include : [ '.js' ],
-			exclude : []
+			exclude : [ 'Build.js' ]
 		}, {
 			algorithm : 'uglifyjs',
 			source : [ '/public/Resources/js/build/Build.js', '/public/NodeResources/js' ],

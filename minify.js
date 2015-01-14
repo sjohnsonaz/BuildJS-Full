@@ -70,7 +70,9 @@ function addFile(path, extensionsIncluded, extensionsExcluded) {
 	var files = [];
 	var stat = fs.statSync(path);
 	if (stat.isFile()) {
-		files.push(path);
+		if (path.indexOf(extensionsExcluded[0]) == -1) {
+			files.push(path);
+		}
 	} else if (stat.isDirectory()) {
 		var contents = fs.readdirSync(path);
 		for ( var index = 0, length = contents.length; index < length; index++) {
