@@ -26,6 +26,7 @@ Build('build.binding.BindingHandler', [ 'build::build.Module' ], function(define
 		$static : {
 			create : function(destination, source) {
 				var result = Object.create(this.prototype);
+				result.constructor = this;
 				result = this.apply(result, arguments) || result;
 				result.link.apply(result, arguments);
 				result.init.apply(result, arguments);

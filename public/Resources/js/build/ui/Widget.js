@@ -415,6 +415,7 @@ Build('build.ui.Widget', [ 'build::build.Module', 'build::build.utility.Observab
 			 */
 			create : function() {
 				var result = Object.create(this.prototype);
+				result.constructor = this;
 				result = this.apply(result, arguments) || result;
 				result.init.apply(result, arguments);
 				return result;
