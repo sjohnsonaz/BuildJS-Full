@@ -1,8 +1,8 @@
 /**
- * @class demo.viewmodel.FormModel
+ * @class demo.example.viewmodel.FormModel
  * @extends build.viewmodel.ViewModel
  */
-Build('demo.viewmodel.FormModel', [ 'build::build.viewmodel.ViewModel', 'build::build.utility.ObservableArray' ], function(define, $super) {
+Build('demo.example.viewmodel.FormModel', [ 'build::build.viewmodel.ViewModel', 'build::build.utility.ObservableArray' ], function(define, $super) {
 	define({
 		$extends : 'build.viewmodel.ViewModel',
 		/**

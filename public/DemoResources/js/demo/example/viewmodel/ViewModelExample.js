@@ -1,21 +1,21 @@
 /**
- * @class demo.ui.form.ViewModelPanel
+ * @class demo.example.viewmodel.ViewModelExample
  * @extends build.ui.Container
  */
-Build('demo.ui.form.ViewModelPanel', [ 'build::build.ui.Container', 'build::build.ui.element.Paragraph', 'build::build.ui.element.Div', 'build::build.ui.form.Text', 'build::build.ui.form.CheckBox', 'build::build.binding.TextBinding',
-		'build::build.binding.ValueBinding', 'build::build.binding.IfBinding', 'build::build.binding.ForEachBinding', 'demo::demo.viewmodel.FormModel' ], function(define, $super) {
+Build('demo.example.viewmodel.ViewModelExample', [ 'build::build.ui.Container', 'build::build.ui.element.Paragraph', 'build::build.ui.element.Div', 'build::build.ui.form.Text', 'build::build.ui.form.CheckBox', 'build::build.binding.TextBinding',
+		'build::build.binding.ValueBinding', 'build::build.binding.IfBinding', 'build::build.binding.ForEachBinding', 'demo::demo.example.viewmodel.FormModel' ], function(define, $super) {
 	define({
 		$extends : 'build.ui.Container',
 		/**
 		 * @constructor
 		 */
-		$constructor : function ViewModelPanel() {
+		$constructor : function ViewModelExample() {
 			$super(this)();
 			var header0 = build.ui.element.Header1.create('View Model Form');
 			this.addChild(header0);
 
 			//public
-			formModel = new demo.viewmodel.FormModel();
+			formModel = new demo.example.viewmodel.FormModel();
 			var viewModelParagraph0 = build.ui.element.Paragraph.create('');
 			var viewModelText0 = build.ui.form.Text.create();
 			var viewModelCheckBox0 = build.ui.form.CheckBox.create('test0', 'test0', 'test0');
