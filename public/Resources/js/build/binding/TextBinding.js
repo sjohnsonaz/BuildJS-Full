@@ -26,7 +26,7 @@ Build('build.binding.TextBinding', [ 'build::build.binding.OneWayBinding' ], fun
 						break;
 					}
 				} else {
-					this.destination.text = value;
+					this.destination.text = this.cache[0];
 				}
 			}
 		}
