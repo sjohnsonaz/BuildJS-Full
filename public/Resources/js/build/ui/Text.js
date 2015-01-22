@@ -64,8 +64,16 @@ Build('build.ui.Text', [ 'build::build.Module' ], function(define, $super) {
 			 * @static
 			 */
 			create : function() {
-				var result = Object.create(this.prototype);
-				result.constructor = this;
+				var result;
+				if (Build.debug) {
+					result = Object.create(this.prototype, {
+						constructor : {
+							value : this
+						}
+					});
+				} else {
+					result = Object.create(this.prototype);
+				}
 				result = this.apply(result, arguments) || result;
 				result.init.apply(result, arguments);
 				return result;

@@ -122,9 +122,12 @@ var Build = build.Build = (function() {
 			if (Object.keys($child.prototype).length) {
 				copyReplace($prototype, $child.prototype);
 			}
-			$child.prototype = Object.create($parent.prototype);
+			$child.prototype = Object.create($parent.prototype, {
+				constructor : {
+					value : $child
+				}
+			});
 			copyReplace($child.prototype, $prototype);
-			$child.prototype.constructor = $child;
 
 			copyNoReplace($child, $parent);
 
@@ -179,7 +182,15 @@ var Build = build.Build = (function() {
 		var result = undefined;
 		return function() {
 			if (!result) {
-				result = Object.create($constructor.prototype);
+				if (Build.debug) {
+					result = Object.create($constructor.prototype, {
+						constructor : {
+							value : $constructor
+						}
+					});
+				} else {
+					result = Object.create($constructor.prototype);
+				}
 				$constructor.apply(result, arguments);
 			}
 			return result;
