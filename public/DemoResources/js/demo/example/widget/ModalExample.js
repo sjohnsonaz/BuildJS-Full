@@ -7,7 +7,7 @@ Build('demo.example.widget.ModalExample', [ 'build::build.ui.Container', 'build:
 			var header0 = build.ui.element.Header2.create('Modals');
 			this.addChild(header0);
 
-			modal = build.widget.modal.Modal.create();
+			var modal = build.widget.modal.Modal.create();
 
 			var button0 = build.ui.form.Button.create('Open Modal');
 			var button1 = build.ui.form.Button.create('Close Modal');
