@@ -2,7 +2,7 @@
  * @class build.ui.element.Header2
  * @extends build.ui.element.Element
  */
-Build('build.ui.element.Header1', [ 'build::build.ui.element.Element' ], function(define, $super) {
+Build('build.ui.element.Header2', [ 'build::build.ui.element.Element' ], function(define, $super) {
 	define({
 		$extends : 'build.ui.element.Element',
 		/**
@@ -15,7 +15,7 @@ Build('build.ui.element.Header1', [ 'build::build.ui.element.Element' ], functio
 			$super(this)(text);
 		},
 		$prototype : {
-			type : 'h1'
+			type : 'h2'
 		}
 	});
 });
