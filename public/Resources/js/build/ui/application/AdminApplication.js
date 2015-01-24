@@ -10,7 +10,7 @@ Build('build.ui.application.AdminApplication', [ 'build::build.ui.application.Au
 			this.homeMenuElement.text = 'Home';
 			this.homeMenuElement.url = 'home';
 			this.homeMenuElement.action = function(MenuElement, event) {
-				this.section(MenuElement.pathname.substring(1));
+				this.section(MenuElement.pathname.replace('/', ''));
 			}.bind(this);
 
 			this.userSeriveConnection = new build.service.UserServiceConnection();
@@ -36,7 +36,7 @@ Build('build.ui.application.AdminApplication', [ 'build::build.ui.application.Au
 			this.adminMenuElement.text = 'Admin';
 			this.adminMenuElement.url = 'admin';
 			this.adminMenuElement.action = function(MenuElement, event) {
-				this.section(MenuElement.pathname.substring(1));
+				this.section(MenuElement.pathname.replace('/', ''));
 			}.bind(this);
 			this.menu.children.unshift(this.adminMenuElement);
 			this.menu.children.unshift(this.homeMenuElement);
