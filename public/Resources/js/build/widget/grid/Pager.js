@@ -14,13 +14,9 @@ Build('build.widget.grid.Pager', [ 'build.ui.Container', 'build.ui.element.Link'
 			this.watchValue('currentItem', 0);
 
 			this.startLink = build.ui.element.Link.create('{i:[fast-backward]}');
-			this.startLink.textHelpers = true;
 			this.backLink = build.ui.element.Link.create('{i:[step-backward]}');
-			this.backLink.textHelpers = true;
 			this.forwardLink = build.ui.element.Link.create('{i:[step-forward]}');
-			this.forwardLink.textHelpers = true;
 			this.endLink = build.ui.element.Link.create('{i:[fast-forward]}');
-			this.endLink.textHelpers = true;
 
 			this.startElement = document.createElement('li');
 			this.startElement.className = 'panel-iterator';

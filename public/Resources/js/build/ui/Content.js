@@ -10,7 +10,7 @@ Build('build.ui.Content', [ 'build::build.ui.Widget' ], function(define, $super)
 		 */
 		/**
 		 * @property text
-		 * @property textHelpers
+		 * @property rawText
 		 */
 		$constructor : function Content(text) {
 			$super(this)();

@@ -10,12 +10,8 @@ Build('build.ui.form.FormElement', [ 'build::build.ui.element.Element' ], functi
 		 * @param text
 		 * @param value
 		 */
-		/**
-		 * @property textHelpers
-		 */
 		$constructor : function FormElement(text, value) {
 			$super(this)(text);
-			this.textHelpers = true;
 		}
 	});
 });
