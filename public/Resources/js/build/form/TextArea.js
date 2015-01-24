@@ -1,10 +1,10 @@
 /**
- * @class build.ui.form.TextArea
- * @extends build.ui.form.FormElement
+ * @class build.form.TextArea
+ * @extends build.form.FormElement
  */
-Build('build.ui.form.TextArea', [ 'build::build.ui.form.FormElement' ], function(define, $super) {
+Build('build.form.TextArea', [ 'build::build.form.FormElement' ], function(define, $super) {
 	define({
-		$extends : 'build.ui.form.FormElement',
+		$extends : 'build.form.FormElement',
 		/**
 		 * @constructor
 		 * @param text

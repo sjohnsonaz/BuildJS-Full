@@ -1,11 +1,11 @@
 /**
  * @class build.widget.user.UserEditForm
- * @extends build.ui.form.Form
+ * @extends build.form.Form
  */
-Build('build.widget.user.UserEditForm', [ 'build::build.ui.form.Form', 'build::build.ui.element.Div', 'build::build.ui.form.Text', 'build::build.ui.form.Password', 'build::build.ui.form.Button', 'build::build.ui.form.Submit',
-		'build::build.ui.form.ButtonGroup', 'build::build.ui.form.FormControl', 'build::build.ui.form.Label' ], function(define, $super) {
+Build('build.widget.user.UserEditForm', [ 'build::build.form.Form', 'build::build.ui.element.Div', 'build::build.form.Text', 'build::build.form.Password', 'build::build.form.Button', 'build::build.form.Submit',
+		'build::build.form.ButtonGroup', 'build::build.form.FormControl', 'build::build.form.Label' ], function(define, $super) {
 	define({
-		$extends : 'build.ui.form.Form',
+		$extends : 'build.form.Form',
 		/**
 		 * @constructor
 		 * @param userServiceConnection
@@ -30,25 +30,25 @@ Build('build.widget.user.UserEditForm', [ 'build::build.ui.form.Form', 'build::b
 			this.message = build.ui.element.Div.create();
 			this.addChild(this.message);
 
-			this.username = build.ui.form.Text.create();
+			this.username = build.form.Text.create();
 			this.username.placeholder = 'Username';
-			this.addChild(build.ui.form.FormControl.create(build.ui.form.Label.create('Username'), this.username));
+			this.addChild(build.form.FormControl.create(build.form.Label.create('Username'), this.username));
 
-			this.firstName = build.ui.form.Text.create();
+			this.firstName = build.form.Text.create();
 			this.firstName.placeholder = 'First Name';
-			this.addChild(build.ui.form.FormControl.create(build.ui.form.Label.create('First Name'), this.firstName));
+			this.addChild(build.form.FormControl.create(build.form.Label.create('First Name'), this.firstName));
 
-			this.lastName = build.ui.form.Text.create();
+			this.lastName = build.form.Text.create();
 			this.lastName.placeholder = 'Last Name';
-			this.addChild(build.ui.form.FormControl.create(build.ui.form.Label.create('Last Name'), this.lastName));
+			this.addChild(build.form.FormControl.create(build.form.Label.create('Last Name'), this.lastName));
 
-			this.password = build.ui.form.Text.create();
+			this.password = build.form.Text.create();
 			this.password.placeholder = 'Password';
-			this.addChild(build.ui.form.FormControl.create(build.ui.form.Label.create('Password'), this.password));
+			this.addChild(build.form.FormControl.create(build.form.Label.create('Password'), this.password));
 
-			this.cancel = build.ui.form.Button.create('Cancel');
-			this.submit = build.ui.form.Submit.create('Save');
-			var buttonGroup = build.ui.form.ButtonGroup.create();
+			this.cancel = build.form.Button.create('Cancel');
+			this.submit = build.form.Submit.create('Save');
+			var buttonGroup = build.form.ButtonGroup.create();
 			buttonGroup.addChild(this.cancel);
 			buttonGroup.addChild(this.submit);
 			this.addChild(buttonGroup);

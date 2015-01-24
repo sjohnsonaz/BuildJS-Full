@@ -1,4 +1,4 @@
-Build('build.ui.form.Select', [ 'build::build.ui.Container', 'build::build.ui.form.Option' ], function(define, $super) {
+Build('build.form.Select', [ 'build::build.ui.Container', 'build::build.form.Option' ], function(define, $super) {
 	define({
 		$extends : 'build.ui.Container',
 		$constructor : function Select() {
@@ -49,7 +49,7 @@ Build('build.ui.form.Select', [ 'build::build.ui.Container', 'build::build.ui.fo
 		$prototype : {
 			type : 'select',
 			addOption : function(value, text, selected) {
-				var option = build.ui.form.Option.create(text);
+				var option = build.form.Option.create(text);
 				option.value = value;
 				option.selected = !!selected;
 				this.addChild(option);

@@ -1,10 +1,10 @@
 /**
  * @class build.widget.user.UserListForm
- * @extends build.ui.form.Form 
+ * @extends build.form.Form 
  */
-Build('build.widget.user.UserListForm', [ 'build::build.ui.form.Form', 'build::build.widget.grid.Grid', 'build::build.ui.form.Button', 'build::build.ui.form.ButtonGroup' ], function(define, $super) {
+Build('build.widget.user.UserListForm', [ 'build::build.form.Form', 'build::build.widget.grid.Grid', 'build::build.form.Button', 'build::build.form.ButtonGroup' ], function(define, $super) {
 	define({
-		$extends : 'build.ui.form.Form',
+		$extends : 'build.form.Form',
 		/**
 		 * @constructor
 		 * @param userServiceConnection
@@ -16,7 +16,7 @@ Build('build.widget.user.UserListForm', [ 'build::build.ui.form.Form', 'build::b
 		 */
 		$constructor : function UserListForm(userServiceConnection) {
 			$super(this)();
-			this.createButton = build.ui.form.Button.create('New User');
+			this.createButton = build.form.Button.create('New User');
 			this.createButton.addClass('pull-right');
 			this.addChild(this.createButton);
 			this.userTable = build.widget.grid.Grid.create();
@@ -38,11 +38,11 @@ Build('build.widget.user.UserListForm', [ 'build::build.ui.form.Form', 'build::b
 				this.userTable.removeAll();
 				for (var index = 0, length = model.length; index < length; index++) {
 					var user = model[index];
-					var viewUserButton = build.ui.form.Button.create('View');
-					var editUserButton = build.ui.form.Button.create('Edit');
-					var deleteUserButton = build.ui.form.Button.create('Delete');
-					var permissionButton = build.ui.form.Button.create('Permission');
-					var buttonGroup = build.ui.form.ButtonGroup.create();
+					var viewUserButton = build.form.Button.create('View');
+					var editUserButton = build.form.Button.create('Edit');
+					var deleteUserButton = build.form.Button.create('Delete');
+					var permissionButton = build.form.Button.create('Permission');
+					var buttonGroup = build.form.ButtonGroup.create();
 					(function(user) {
 						viewUserButton.addEvent('click', function(button, event) {
 							event.preventDefault();

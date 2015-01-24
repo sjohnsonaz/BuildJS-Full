@@ -1,8 +1,8 @@
 /**
- * @class build.ui.form.FormControl
+ * @class build.form.FormControl
  * @extends build.ui.Widget
  */
-Build('build.ui.form.FormControl', [ 'build::build.ui.Widget' ], function(define, $super) {
+Build('build.form.FormControl', [ 'build::build.ui.Widget' ], function(define, $super) {
 	define({
 		$extends : 'build.ui.Widget',
 		/**

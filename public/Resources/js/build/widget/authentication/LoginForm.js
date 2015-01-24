@@ -1,11 +1,11 @@
 /**
  * @class build.widget.authentication.LoginForm
- * @extends build.ui.form.Form
+ * @extends build.form.Form
  */
-Build('build.widget.authentication.LoginForm', [ 'build::build.ui.form.Form', 'build::build.ui.element.Div', 'build::build.ui.form.Text', 'build::build.ui.form.Password', 'build::build.ui.form.Submit', 'build::build.ui.form.FormControl',
-		'build::build.ui.form.Label' ], function(define, $super) {
+Build('build.widget.authentication.LoginForm', [ 'build::build.form.Form', 'build::build.ui.element.Div', 'build::build.form.Text', 'build::build.form.Password', 'build::build.form.Submit', 'build::build.form.FormControl',
+		'build::build.form.Label' ], function(define, $super) {
 	define({
-		$extends : 'build.ui.form.Form',
+		$extends : 'build.form.Form',
 		/**
 		 * @constructor
 		 * @param authenticationServiceConnection
@@ -23,17 +23,17 @@ Build('build.widget.authentication.LoginForm', [ 'build::build.ui.form.Form', 'b
 			this.action = '#';
 
 			this.message = build.ui.element.Div.create();
-			this.username = build.ui.form.Text.create();
+			this.username = build.form.Text.create();
 			this.username.placeholder = 'Username';
-			this.password = build.ui.form.Password.create();
+			this.password = build.form.Password.create();
 			this.password.placeholder = 'Password';
-			this.submit = build.ui.form.Submit.create('{i:[sign-in]} Login');
+			this.submit = build.form.Submit.create('{i:[sign-in]} Login');
 			this.authenticationServiceConnection = authenticationServiceConnection;
 
 			this.addChild(this.message);
-			this.addChild(build.ui.form.FormControl.create(build.ui.form.Label.create('Username', this.username), this.username));
-			this.addChild(build.ui.form.FormControl.create(build.ui.form.Label.create('Password', this.password), this.password));
-			this.addChild(build.ui.form.FormControl.create(null, this.submit));
+			this.addChild(build.form.FormControl.create(build.form.Label.create('Username', this.username), this.username));
+			this.addChild(build.form.FormControl.create(build.form.Label.create('Password', this.password), this.password));
+			this.addChild(build.form.FormControl.create(null, this.submit));
 
 			this.addEvent('submit', function(form, event) {
 				event.preventDefault();

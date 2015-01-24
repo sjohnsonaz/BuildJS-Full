@@ -1,8 +1,8 @@
 /**
- * @class build.ui.form.Form
+ * @class build.form.Form
  * @extends build.ui.Container
  */
-Build('build.ui.form.Form', [ 'build::build.ui.Container' ], function(define, $super) {
+Build('build.form.Form', [ 'build::build.ui.Container' ], function(define, $super) {
 	// TODO: Create navigation prevention on form change.
 	define({
 		$extends : 'build.ui.Container',

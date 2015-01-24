@@ -1,4 +1,4 @@
-Build('build.ui.form.Option', [ 'build::build.ui.element.Element' ], function(define, $super) {
+Build('build.form.Option', [ 'build::build.ui.element.Element' ], function(define, $super) {
 	define({
 		$extends : 'build.ui.element.Element',
 		$constructor : function Option(text) {

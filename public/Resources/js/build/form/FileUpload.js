@@ -1,10 +1,10 @@
 /**
- * @class build.ui.form.FileUpload
- * @extends build.ui.form.FormElement
+ * @class build.form.FileUpload
+ * @extends build.form.FormElement
  */
-Build('build.ui.form.FileUpload', [ 'build::build.ui.form.FormElement' ], function(define, $super) {
+Build('build.form.FileUpload', [ 'build::build.form.FormElement' ], function(define, $super) {
 	define({
-		$extends : 'build.ui.form.FormElement',
+		$extends : 'build.form.FormElement',
 		/**
 		 * @constructor
 		 */

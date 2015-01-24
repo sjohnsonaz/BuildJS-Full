@@ -1,8 +1,8 @@
 /**
- * @class build.ui.form.FieldSet
+ * @class build.form.FieldSet
  * @extends build.ui.element.Element
  */
-Build('build.ui.form.FieldSet', [ 'build::build.ui.Container', 'build::build.ui.form.Legend' ], function(define, $super) {
+Build('build.form.FieldSet', [ 'build::build.ui.Container', 'build::build.form.Legend' ], function(define, $super) {
 	define({
 		$extends : 'build.ui.Container',
 		/**
@@ -15,7 +15,7 @@ Build('build.ui.form.FieldSet', [ 'build::build.ui.Container', 'build::build.ui.
 		 */
 		$constructor : function FieldSet(text) {
 			$super(this)();
-			this.legend = build.ui.form.Legend.create(text);
+			this.legend = build.form.Legend.create(text);
 			this.children.push(this.legend);
 		},
 		$prototype : {

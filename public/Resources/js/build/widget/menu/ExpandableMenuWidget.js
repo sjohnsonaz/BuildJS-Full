@@ -2,7 +2,7 @@
  * @class build.widget.menu.ExpandableMenuWidget
  * @extends build.widget.menu.MenuWidget
  */
-Build('build.widget.menu.ExpandableMenuWidget', [ 'build::build.widget.menu.MenuWidget', 'build::build.ui.form.Button', 'build::build.widget.menu.MenuTitle' ], function(define, $super) {
+Build('build.widget.menu.ExpandableMenuWidget', [ 'build::build.widget.menu.MenuWidget', 'build::build.form.Button', 'build::build.widget.menu.MenuTitle' ], function(define, $super) {
 	define({
 		$extends : 'build.widget.menu.MenuWidget',
 		/**
@@ -15,7 +15,7 @@ Build('build.widget.menu.ExpandableMenuWidget', [ 'build::build.widget.menu.Menu
 		$constructor : function ExpandableMenuWidget() {
 			$super(this)();
 			this.title = build.widget.menu.MenuTitle.create();
-			this.expandButton = build.ui.form.Button.create('{i:[bars]}');
+			this.expandButton = build.form.Button.create('{i:[bars]}');
 			this.expandButton.addClass('expand-button');
 			this.expandButton.addEvent('click', function(button, event) {
 				this.expand = !this.expand;

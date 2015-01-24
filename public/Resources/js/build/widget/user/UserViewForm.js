@@ -1,10 +1,10 @@
 /**
  * @class build.widget.user.UserViewForm
- * @extends build.ui.form.Form
+ * @extends build.form.Form
  */
-Build('build.widget.user.UserViewForm', [ 'build::build.ui.form.Form' ], function(define, $super) {
+Build('build.widget.user.UserViewForm', [ 'build::build.form.Form' ], function(define, $super) {
 	define({
-		$extends : 'build.ui.form.Form',
+		$extends : 'build.form.Form',
 		/**
 		 * @constructor
 		 */

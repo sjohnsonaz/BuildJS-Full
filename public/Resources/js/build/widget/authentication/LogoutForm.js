@@ -1,10 +1,10 @@
 /**
  * @class build.widget.authentication.LogoutForm
- * @extends build.ui.form.Form
+ * @extends build.form.Form
  */
-Build('build.widget.authentication.LogoutForm', [ 'build::build.ui.form.Form', 'build::build.ui.element.Div', 'build::build.ui.form.Submit', 'build::build.ui.form.FormControl', 'build::build.ui.form.Label' ], function(define, $super) {
+Build('build.widget.authentication.LogoutForm', [ 'build::build.form.Form', 'build::build.ui.element.Div', 'build::build.form.Submit', 'build::build.form.FormControl', 'build::build.form.Label' ], function(define, $super) {
 	define({
-		$extends : 'build.ui.form.Form',
+		$extends : 'build.form.Form',
 		/**
 		 * @constructor
 		 * @param authenticationServiceConnection
@@ -20,11 +20,11 @@ Build('build.widget.authentication.LogoutForm', [ 'build::build.ui.form.Form', '
 			this.action = '#';
 
 			this.username = build.ui.element.Div.create('');
-			this.submit = build.ui.form.Submit.create('{i:[sign-out]} Logout');
+			this.submit = build.form.Submit.create('{i:[sign-out]} Logout');
 			this.authenticationServiceConnection = authenticationServiceConnection;
 
 			this.addChild(this.username);
-			this.addChild(build.ui.form.FormControl.create(null, this.submit));
+			this.addChild(build.form.FormControl.create(null, this.submit));
 
 			this.addEvent('submit', function(form, event) {
 				event.preventDefault();
