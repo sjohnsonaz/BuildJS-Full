@@ -2,7 +2,7 @@
  * @class demo.example.viewmodel.ViewModelExample
  * @extends build.ui.Container
  */
-Build('demo.example.viewmodel.ViewModelExample', [ 'build::build.ui.Container', 'build::build.ui.element.Paragraph', 'build::build.ui.element.Div', 'build::build.form.Text', 'build::build.form.CheckBox', 'build::build.binding.TextBinding',
+Build('demo.example.viewmodel.ViewModelExample', [ 'build::build.ui.Container', 'build::build.ui.element.Paragraph', 'build::build.ui.element.Div', 'build::build.form.input.Text', 'build::build.form.input.CheckBox', 'build::build.binding.TextBinding',
 		'build::build.binding.ValueBinding', 'build::build.binding.IfBinding', 'build::build.binding.ForEachBinding', 'demo::demo.example.viewmodel.FormModel' ], function(define, $super) {
 	define({
 		$extends : 'build.ui.Container',
@@ -17,8 +17,8 @@ Build('demo.example.viewmodel.ViewModelExample', [ 'build::build.ui.Container', 
 			//public
 			formModel = new demo.example.viewmodel.FormModel();
 			var viewModelParagraph0 = build.ui.element.Paragraph.create('');
-			var viewModelText0 = build.form.Text.create();
-			var viewModelCheckBox0 = build.form.CheckBox.create('test0', 'test0', 'test0');
+			var viewModelText0 = build.form.input.Text.create();
+			var viewModelCheckBox0 = build.form.input.CheckBox.create('test0', 'test0', 'test0');
 			var viewModelContainer0 = build.ui.Container.create();
 			var viewModelParagraph1 = build.ui.element.Paragraph.create('Evaluated to true!');
 			var viewModelParagraph2 = build.ui.element.Paragraph.create('Evaluated to false!');

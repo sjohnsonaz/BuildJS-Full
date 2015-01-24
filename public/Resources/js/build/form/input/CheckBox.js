@@ -1,8 +1,8 @@
 /**
- * @class build.form.RadioButton
+ * @class build.form.input.CheckBox
  * @extends build.form.FormElement
  */
-Build('build.form.CheckBox', [ 'build::build.form.FormElement' ], function(define, $super) {
+Build('build.form.input.CheckBox', [ 'build::build.form.FormElement' ], function(define, $super) {
 	define({
 		$extends : 'build.form.FormElement',
 		/**

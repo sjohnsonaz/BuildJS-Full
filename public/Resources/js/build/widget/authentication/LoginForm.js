@@ -2,7 +2,7 @@
  * @class build.widget.authentication.LoginForm
  * @extends build.form.Form
  */
-Build('build.widget.authentication.LoginForm', [ 'build::build.form.Form', 'build::build.ui.element.Div', 'build::build.form.Text', 'build::build.form.Password', 'build::build.form.Submit', 'build::build.form.FormControl',
+Build('build.widget.authentication.LoginForm', [ 'build::build.form.Form', 'build::build.ui.element.Div', 'build::build.form.input.Text', 'build::build.form.input.Password', 'build::build.form.input.Submit', 'build::build.form.FormControl',
 		'build::build.form.Label' ], function(define, $super) {
 	define({
 		$extends : 'build.form.Form',
@@ -23,11 +23,11 @@ Build('build.widget.authentication.LoginForm', [ 'build::build.form.Form', 'buil
 			this.action = '#';
 
 			this.message = build.ui.element.Div.create();
-			this.username = build.form.Text.create();
+			this.username = build.form.input.Text.create();
 			this.username.placeholder = 'Username';
-			this.password = build.form.Password.create();
+			this.password = build.form.input.Password.create();
 			this.password.placeholder = 'Password';
-			this.submit = build.form.Submit.create('{i:[sign-in]} Login');
+			this.submit = build.form.input.Submit.create('{i:[sign-in]} Login');
 			this.authenticationServiceConnection = authenticationServiceConnection;
 
 			this.addChild(this.message);

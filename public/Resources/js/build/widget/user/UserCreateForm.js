@@ -2,7 +2,7 @@
  * @class build.widget.user.UserCreateForm
  * @extends build.form.Form
  */
-Build('build.widget.user.UserCreateForm', [ 'build::build.form.Form', 'build::build.ui.element.Div', 'build::build.form.Text', 'build::build.form.Password', 'build::build.form.input.Button', 'build::build.form.Submit',
+Build('build.widget.user.UserCreateForm', [ 'build::build.form.Form', 'build::build.ui.element.Div', 'build::build.form.input.Text', 'build::build.form.input.Password', 'build::build.form.input.Button', 'build::build.form.input.Submit',
 		'build::build.form.ButtonGroup', 'build::build.form.FormControl', 'build::build.form.Label' ], function(define, $super) {
 	define({
 		$extends : 'build.form.Form',
@@ -30,24 +30,24 @@ Build('build.widget.user.UserCreateForm', [ 'build::build.form.Form', 'build::bu
 			this.message = build.ui.element.Div.create();
 			this.addChild(this.message);
 
-			this.username = build.form.Text.create();
+			this.username = build.form.input.Text.create();
 			this.username.placeholder = 'Username';
 			this.addChild(build.form.FormControl.create(build.form.Label.create('Username'), this.username));
 
-			this.firstName = build.form.Text.create();
+			this.firstName = build.form.input.Text.create();
 			this.firstName.placeholder = 'First Name';
 			this.addChild(build.form.FormControl.create(build.form.Label.create('First Name'), this.firstName));
 
-			this.lastName = build.form.Text.create();
+			this.lastName = build.form.input.Text.create();
 			this.lastName.placeholder = 'Last Name';
 			this.addChild(build.form.FormControl.create(build.form.Label.create('Last Name'), this.lastName));
 
-			this.password = build.form.Text.create();
+			this.password = build.form.input.Text.create();
 			this.password.placeholder = 'Password';
 			this.addChild(build.form.FormControl.create(build.form.Label.create('Password'), this.password));
 
 			this.cancel = build.form.input.Button.create('Cancel');
-			this.submit = build.form.Submit.create('Save');
+			this.submit = build.form.input.Submit.create('Save');
 			var buttonGroup = build.form.ButtonGroup.create();
 			buttonGroup.addChild(this.cancel);
 			buttonGroup.addChild(this.submit);

@@ -1,8 +1,8 @@
 /**
- * @class build.form.Submit
+ * @class build.form.input.Submit
  * @extends build.form.input.Button
  */
-Build('build.form.Submit', [ 'build::build.form.input.Button' ], function(define, $super) {
+Build('build.form.input.Submit', [ 'build::build.form.input.Button' ], function(define, $super) {
 	define({
 		$extends : 'build.form.input.Button',
 		/**

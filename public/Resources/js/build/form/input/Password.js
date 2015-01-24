@@ -1,10 +1,10 @@
 /**
- * @class build.form.Password
- * @extends build.form.Text
+ * @class build.form.input.Password
+ * @extends build.form.input.Text
  */
-Build('build.form.Password', [ 'build::build.form.Text' ], function(define, $super) {
+Build('build.form.input.Password', [ 'build::build.form.input.Text' ], function(define, $super) {
 	define({
-		$extends : 'build.form.Text',
+		$extends : 'build.form.input.Text',
 		/**
 		 * @constructor
 		 * @param text
