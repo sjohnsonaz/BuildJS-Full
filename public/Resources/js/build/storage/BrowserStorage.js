@@ -20,8 +20,12 @@ Build('build.storage.BrowserStorage', [ 'build::build.Module' ], function(define
 			 * @param set
 			 */
 			// TODO: Apply value change detection on setter methods.
-			watchLocalStorage : function(name, value, get, set) {
-				Object.defineProperty(this, name, {
+			watchLocalStorage : function(name, value, get, set, definition) {
+				var firstValue = this.runSet(value, set);
+				if (typeof firstValue !== 'undefined') {
+					localStorage.setItem(name, JSON.stringify(firstValue));
+				}
+				Object.defineProperty(this, name, Build.merge({
 					configurable : true,
 					enumerable : true,
 					get : typeof get === 'function' ? function() {
@@ -32,14 +36,14 @@ Build('build.storage.BrowserStorage', [ 'build::build.Module' ], function(define
 					set : typeof set == 'function' ? function(value) {
 						value = set(value, cancel);
 						if (value !== cancel) {
-							localStorage.setItem(JSON.stringify(name), value);
+							localStorage.setItem(name, JSON.stringify(value));
 							this.publish(name);
 						}
 					} : function(value) {
-						localStorage.setItem(JSON.stringify(name), value);
+						localStorage.setItem(name, JSON.stringify(value));
 						this.publish(name);
 					}
-				});
+				}, definition));
 			},
 			/**
 			 * @method watchSessionStorage
@@ -49,8 +53,12 @@ Build('build.storage.BrowserStorage', [ 'build::build.Module' ], function(define
 			 * @param set
 			 */
 			// TODO: Apply value change detection on setter methods.
-			watchSessionStorage : function(name, value, get, set) {
-				Object.defineProperty(this, name, {
+			watchSessionStorage : function(name, value, get, set, definition) {
+				var firstValue = this.runSet(value, set);
+				if (typeof firstValue !== 'undefined') {
+					sessionStorage.setItem(name, JSON.stringify(firstValue));
+				}
+				Object.defineProperty(this, name, Build.merge({
 					configurable : true,
 					enumerable : true,
 					get : typeof get === 'function' ? function() {
@@ -61,14 +69,14 @@ Build('build.storage.BrowserStorage', [ 'build::build.Module' ], function(define
 					set : typeof set == 'function' ? function(value) {
 						value = set(value, cancel);
 						if (value !== cancel) {
-							sessionStorage.setItem(JSON.stringify(name), value);
+							sessionStorage.setItem(name, JSON.stringify(value));
 							this.publish(name);
 						}
 					} : function(value) {
-						sessionStorage.setItem(JSON.stringify(name), value);
+						sessionStorage.setItem(name, JSON.stringify(value));
 						this.publish(name);
 					}
-				});
+				}, definition));
 			}
 		}
 	});

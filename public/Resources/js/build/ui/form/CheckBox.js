@@ -10,11 +10,9 @@ Build('build.ui.form.CheckBox', [ 'build::build.ui.form.FormElement' ], function
 		 */
 		$constructor : function CheckBox(name, value) {
 			$super(this)(null, value);
-			this.watchProperty('name');
-			this.watchProperty('value', 'checked');
+			this.watchProperty('name', 'name', name);
+			this.watchProperty('value', 'checked', value);
 			this.element.type = 'checkbox';
-			this.name = name;
-			this.value = value;
 			this.element.addEventListener('change', function() {
 				this.value = this.element.checked;
 			}.bind(this));

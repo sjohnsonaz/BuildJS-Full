@@ -14,8 +14,7 @@ Build('build.widget.modal.Modal', [ 'build::build.ui.Container' ], function(defi
 		 */
 		$constructor : function Modal() {
 			$super(this)();
-			this.watchClass('open', 'modal-open');
-			this.open = false;
+			this.watchClass('open', 'modal-open', false);
 			this.watchValue('clickToClose', true);
 			this.mask = document.createElement('div');
 			this.mask.className = 'modal-mask';

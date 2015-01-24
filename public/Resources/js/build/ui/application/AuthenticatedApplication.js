@@ -45,8 +45,7 @@ Build('build.ui.application.AuthenticatedApplication', [ 'build::build.ui.Applic
 			// this.router.add('#/test/:id', function(id) {
 			// console.log('test started: ' + id);
 			// });
-			this.watchClass('menuFixedTop', 'application-menu-fixed-top');
-			this.menuFixedTop = true;
+			this.watchClass('menuFixedTop', 'application-menu-fixed-top', true);
 		},
 		$prototype : {
 			init : function() {

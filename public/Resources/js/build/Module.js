@@ -69,15 +69,24 @@ Build('build.Module', [], function(define, $super) {
 				}
 			},
 			/**
+			 * @method runSet
+			 * @param value
+			 * @param set
+			 */
+			runSet : function(value, set, defaultValue) {
+				var output = typeof set === 'function' ? set(value, cancel) : value;
+				return output !== cancel ? output : defaultValue;
+			},
+			/**
 			 * @method watchValue
 			 * @param name
 			 * @param value
 			 * @param get
 			 * @param set
 			 */
-			watchValue : function(name, value, get, set) {
-				var hidden = typeof set === 'function' ? set(value, cancel) : value;
-				Object.defineProperty(this, name, {
+			watchValue : function(name, value, get, set, definition) {
+				var hidden = this.runSet(value, set);
+				Object.defineProperty(this, name, Build.merge({
 					configurable : true,
 					enumerable : true,
 					get : typeof get === 'function' ? function() {
@@ -99,7 +108,7 @@ Build('build.Module', [], function(define, $super) {
 							this.publish(name);
 						}
 					}
-				});
+				}, definition));
 			},
 			/**
 			 * @method subscribe

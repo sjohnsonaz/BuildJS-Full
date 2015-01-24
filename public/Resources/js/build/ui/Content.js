@@ -14,13 +14,10 @@ Build('build.ui.Content', [ 'build::build.ui.Widget' ], function(define, $super)
 		 */
 		$constructor : function Content(text) {
 			$super(this)();
-			this.watchProperty('text', 'innerHTML', null, function(value) {
+			this.watchProperty('text', 'innerHTML', text || '', null, function(value) {
 				return this.formatString(value, this);
 			}.bind(this));
 			this.watchProperty('rawText', 'innerHTML');
-			if (text) {
-				this.text = text;
-			}
 		}
 	});
 });

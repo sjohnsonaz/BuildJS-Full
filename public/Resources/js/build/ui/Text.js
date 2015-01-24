@@ -16,7 +16,7 @@ Build('build.ui.Text', [ 'build::build.Module' ], function(define, $super) {
 				writable : true,
 				enumerable : false
 			});
-			this.watchProperty('text', 'data', null, function(value) {
+			this.watchProperty('text', 'data', undefined, null, function(value) {
 				return this.formatString(value, this);
 			}.bind(this));
 			this.watchProperty('rawText', 'data');
@@ -31,9 +31,14 @@ Build('build.ui.Text', [ 'build::build.Module' ], function(define, $super) {
 			 * @method watchProperty
 			 */
 			// TODO: Fix value change detection on setter methods.
-			watchProperty : function(property, name, get, set) {
+			watchProperty : function(property, name, value, get, set, definition) {
 				name = name || property;
-				Object.defineProperty(this, property, {
+				// TODO: Decide action on undefined
+				var firstValue = this.runSet(value, set, '');
+				if (typeof firstValue !== 'undefined') {
+					this.element[name] = firstValue;
+				}
+				Object.defineProperty(this, property, Build.merge({
 					configurable : true,
 					enumerable : true,
 					get : typeof get === 'function' ? function() {
@@ -55,7 +60,7 @@ Build('build.ui.Text', [ 'build::build.Module' ], function(define, $super) {
 						this.publish(property);
 						//}
 					}
-				});
+				}, definition));
 			}
 		},
 		$static : {

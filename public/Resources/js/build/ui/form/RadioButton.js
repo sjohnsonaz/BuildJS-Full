@@ -10,9 +10,8 @@ Build('build.ui.form.RadioButton', [ 'build::build.ui.form.FormElement' ], funct
 		 */
 		$constructor : function RadioButton(name, value) {
 			$super(this)(null, value);
-			this.watchProperty('name');
+			this.watchProperty('name', 'name', name);
 			this.element.type = 'radio';
-			this.name = name;
 		},
 		$prototype : {
 			type : 'input'

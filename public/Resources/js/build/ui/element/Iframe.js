@@ -8,7 +8,7 @@ Build('build.ui.element.Iframe', [ 'build::build.ui.Widget', 'build::build.utili
 		$constructor : function Iframe() {
 			$super(this)();
 			this.watchProperty('src');
-			this.watchProperty('content', 'contentWindow', null, function(value, cancel) {
+			this.watchProperty('content', 'contentWindow', undefined, null, function(value, cancel) {
 				if (!value) {
 					return cancel;
 				}

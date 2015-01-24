@@ -20,8 +20,7 @@ Build('build.widget.menu.ExpandableMenuWidget', [ 'build::build.widget.menu.Menu
 			this.expandButton.addEvent('click', function(button, event) {
 				this.expand = !this.expand;
 			}.bind(this));
-			this.watchClass('expand', 'expandable-menu-widget-expand');
-			this.expand = false;
+			this.watchClass('expand', 'expandable-menu-widget-expand', false);
 			this.innerElement = document.createElement('div');
 			this.innerElement.className = 'menu-body';
 			this.element.appendChild(this.innerElement);

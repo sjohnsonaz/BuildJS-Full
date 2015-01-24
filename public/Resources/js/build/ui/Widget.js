@@ -18,13 +18,9 @@ Build('build.ui.Widget', [ 'build::build.Module', 'build::build.utility.Observab
 		$constructor : function Widget() {
 			$super(this)();
 			this.createElement();
-			this.watchProperty('id');
 			// id is left blank by default.
-			if (Build.debug) {
-				this.id = this.uniqueId();
-			}
-			this.watchProperty('className');
-			this.className = this.uniqueClass();
+			this.watchProperty('id', 'id', Build.debug ? this.uniqueId() : undefined);
+			this.watchProperty('className', 'className', this.uniqueClass());
 			// A Widget may be contained by Container.
 			this.watchProperty('parent');
 			// TODO: Add options via watch method.
@@ -164,9 +160,14 @@ Build('build.ui.Widget', [ 'build::build.Module', 'build::build.utility.Observab
 			 * @method watchProperty
 			 */
 			// TODO: Fix value change detection on setter methods.
-			watchProperty : function(property, name, get, set) {
+			watchProperty : function(property, name, value, get, set, definition) {
 				name = name || property;
-				Object.defineProperty(this, property, {
+				// TODO: Decide action on undefined
+				var firstValue = this.runSet(value, set, '');
+				if (typeof firstValue !== 'undefined') {
+					this.element[name] = firstValue;
+				}
+				Object.defineProperty(this, property, Build.merge({
 					configurable : true,
 					enumerable : true,
 					get : typeof get === 'function' ? function() {
@@ -188,14 +189,19 @@ Build('build.ui.Widget', [ 'build::build.Module', 'build::build.utility.Observab
 						this.publish(property);
 						//}
 					}
-				});
+				}, definition));
 			},
 			/**
 			 * @method watchAttribute
 			 */
-			watchAttribute : function(property, attribute, get, set) {
+			watchAttribute : function(property, attribute, value, get, set, definition) {
 				attribute = attribute || property;
-				Object.defineProperty(this, property, {
+				// TODO: Decide action on undefined
+				var firstValue = this.runSet(value, set, '');
+				if (typeof firstValue !== 'undefined') {
+					this.element.setAttribute(attribute, firstValue);
+				}
+				Object.defineProperty(this, property, Build.merge({
 					configurable : true,
 					enumerable : true,
 					get : typeof get === 'function' ? function() {
@@ -217,16 +223,21 @@ Build('build.ui.Widget', [ 'build::build.Module', 'build::build.utility.Observab
 							this.publish(property);
 						}
 					}
-				});
+				}, definition));
 			},
 			/**
 			 * @method watchStyle
 			 */
 			// TODO: Apply value change detection on setter methods.
-			watchStyle : function(property, style, unit, get, set) {
+			watchStyle : function(property, style, unit, value, get, set, definition) {
 				style = style || property;
+				// TODO: Decide action on undefined
+				var firstValue = unit ? (this.runSet(value, set) || 0) + unit : this.runSet(value, set);
+				if (typeof firstValue !== 'undefined') {
+					this.element.style[style] = firstValue;
+				}
 				if (unit) {
-					Object.defineProperty(this, property, {
+					Object.defineProperty(this, property, Build.merge({
 						configurable : true,
 						enumerable : true,
 						get : typeof get === 'function' ? function() {
@@ -244,9 +255,9 @@ Build('build.ui.Widget', [ 'build::build.Module', 'build::build.utility.Observab
 							this.element.style[style] = (value || 0) + unit;
 							this.publish(property);
 						}
-					});
+					}, definition));
 				} else {
-					Object.defineProperty(this, property, {
+					Object.defineProperty(this, property, Build.merge({
 						configurable : true,
 						enumerable : true,
 						get : typeof get === 'function' ? function() {
@@ -264,16 +275,21 @@ Build('build.ui.Widget', [ 'build::build.Module', 'build::build.utility.Observab
 							this.element.style[style] = value;
 							this.publish(property);
 						}
-					});
+					}, definition));
 				}
 			},
 			// TODO: Remove this polyfill once IE10 support is dropped.
 			/**
 			 * @method watchData
 			 */
-			watchData : function(property, data, get, set) {
+			watchData : function(property, data, value, get, set, definition) {
 				data = data || property;
-				Object.defineProperty(this, property, {
+				// TODO: Decide action on undefined
+				var firstValue = this.runSet(value, set);
+				if (typeof firstValue !== 'undefined') {
+					this.element.dataset ? this.element.dataset[data] = firstValue : this.element.setAttribute('data-' + data, firstValue);
+				}
+				Object.defineProperty(this, property, Build.merge({
 					configurable : true,
 					enumerable : true,
 					get : typeof get === 'function' ? function() {
@@ -297,14 +313,23 @@ Build('build.ui.Widget', [ 'build::build.Module', 'build::build.utility.Observab
 							this.publish(property);
 						}
 					}
-				});
+				}, definition));
 			},
 			/**
 			 * @method watchClass
 			 */
-			watchClass : function(property, className, get, set) {
+			watchClass : function(property, className, value, get, set, definition) {
 				className = className || property;
-				Object.defineProperty(this, property, {
+				// TODO: Decide action on undefined
+				var firstValue = this.runSet(value, set);
+				if (typeof firstValue !== 'undefined') {
+					if (firstValue) {
+						this.element.classList.add(className);
+					} else {
+						this.element.classList.remove(className);
+					}
+				}
+				Object.defineProperty(this, property, Build.merge({
 					configurable : true,
 					enumerable : true,
 					get : typeof get === 'function' ? function() {
@@ -334,7 +359,7 @@ Build('build.ui.Widget', [ 'build::build.Module', 'build::build.utility.Observab
 							this.publish(property);
 						}
 					}
-				});
+				}, definition));
 			},
 			/**
 			 * @method modifyElement

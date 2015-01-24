@@ -17,10 +17,8 @@ Build('build.ui.form.Form', [ 'build::build.ui.Container' ], function(define, $s
 		 */
 		$constructor : function Form() {
 			$super(this)();
-			this.watchProperty('method');
-			this.watchProperty('action');
-			this.method = 'GET';
-			this.action = '';
+			this.watchProperty('method', 'method', 'GET');
+			this.watchProperty('action', 'action', '');
 			var modelHidden = null;
 			Object.defineProperty(this, 'model', {
 				get : function() {
