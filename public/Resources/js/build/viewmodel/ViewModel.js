@@ -45,7 +45,11 @@ Build('build.viewmodel.ViewModel', [ 'build::build.Module' ], function(define, $
 		},
 		$static : {
 			wrap : function(data) {
-				var result = Object.create(this.prototype);
+				var result = Object.create(this.prototype, Build.debug ? {
+					constructor : {
+						value : this
+					}
+				} : undefined);
 				result = this.apply(result, arguments) || result;
 				result.createElement();
 				result.init.apply(result, arguments);

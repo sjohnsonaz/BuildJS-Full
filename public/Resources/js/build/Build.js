@@ -182,15 +182,11 @@ var Build = build.Build = (function() {
 		var result = undefined;
 		return function() {
 			if (!result) {
-				if (Build.debug) {
-					result = Object.create($constructor.prototype, {
-						constructor : {
-							value : $constructor
-						}
-					});
-				} else {
-					result = Object.create($constructor.prototype);
-				}
+				result = Object.create($constructor.prototype, Build.debug ? {
+					constructor : {
+						value : $constructor
+					}
+				} : undefined);
 				$constructor.apply(result, arguments);
 			}
 			return result;

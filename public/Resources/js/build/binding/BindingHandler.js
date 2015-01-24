@@ -25,16 +25,11 @@ Build('build.binding.BindingHandler', [ 'build::build.Module' ], function(define
 		},
 		$static : {
 			create : function(destination, source) {
-				var result;
-				if (Build.debug) {
-					result = Object.create(this.prototype, {
-						constructor : {
-							value : this
-						}
-					});
-				} else {
-					result = Object.create(this.prototype);
-				}
+				var result = Object.create(this.prototype, Build.debug ? {
+					constructor : {
+						value : this
+					}
+				} : undefined);
 				result = this.apply(result, arguments) || result;
 				result.link.apply(result, arguments);
 				result.init.apply(result, arguments);
