@@ -454,6 +454,24 @@ Build('build.ui.Widget', [ 'build::build.Module', 'build::build.utility.Observab
 				return result;
 			},
 			/**
+			 * @method createType
+			 * @static
+			 */
+			createType : function(type) {
+				var result = Object.create(this.prototype, Build.debug ? {
+					constructor : {
+						value : this
+					},
+					type : {
+						value : type
+					}
+				} : undefined);
+				var args = Array.prototype.slice.call(arguments, 1);
+				result = this.apply(result, args) || result;
+				result.init.apply(result, args);
+				return result;
+			},
+			/**
 			 * 
 			 */
 			getController : function(element) {
