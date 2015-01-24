@@ -2,7 +2,7 @@
  * @class build.widget.user.UserEditForm
  * @extends build.form.Form
  */
-Build('build.widget.user.UserEditForm', [ 'build::build.form.Form', 'build::build.ui.element.Div', 'build::build.form.Text', 'build::build.form.Password', 'build::build.form.Button', 'build::build.form.Submit',
+Build('build.widget.user.UserEditForm', [ 'build::build.form.Form', 'build::build.ui.element.Div', 'build::build.form.Text', 'build::build.form.Password', 'build::build.form.input.Button', 'build::build.form.Submit',
 		'build::build.form.ButtonGroup', 'build::build.form.FormControl', 'build::build.form.Label' ], function(define, $super) {
 	define({
 		$extends : 'build.form.Form',
@@ -46,7 +46,7 @@ Build('build.widget.user.UserEditForm', [ 'build::build.form.Form', 'build::buil
 			this.password.placeholder = 'Password';
 			this.addChild(build.form.FormControl.create(build.form.Label.create('Password'), this.password));
 
-			this.cancel = build.form.Button.create('Cancel');
+			this.cancel = build.form.input.Button.create('Cancel');
 			this.submit = build.form.Submit.create('Save');
 			var buttonGroup = build.form.ButtonGroup.create();
 			buttonGroup.addChild(this.cancel);
