@@ -1,7 +1,7 @@
-Build('build.ui.application.AdminApplication', [ 'build::build.ui.application.AuthenticatedApplication', 'build::build.ui.Container', 'build::build.service.UserServiceConnection', 'build::build.widget.tab.TabPanel', 'build::build.widget.tab.TabContainer',
+Build('build.application.AdminApplication', [ 'build::build.application.AuthenticatedApplication', 'build::build.ui.Container', 'build::build.service.UserServiceConnection', 'build::build.widget.tab.TabPanel', 'build::build.widget.tab.TabContainer',
 		'build::build.widget.user.UserWidget' ], function(define, $super) {
 	define({
-		$extends : 'build.ui.application.AuthenticatedApplication',
+		$extends : 'build.application.AuthenticatedApplication',
 		$constructor : function AdminApplication() {
 			$super(this)();
 			this.homePanel = build.ui.Container.create();

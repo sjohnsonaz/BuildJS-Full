@@ -2,9 +2,9 @@ Build.paths.main = '/Resources/js/';
 Build.paths.build = '/Resources/js/';
 Build.paths.demo = '/DemoResources/js/';
 
-Build('demo.application.DemoApplication', [ 'build::build.ui.application.AdminApplication', 'build::build.widget.menu.MenuElement', 'demo::demo.example.ExampleContainer' ], function(define, $super) {
+Build('demo.application.DemoApplication', [ 'build::build.application.AdminApplication', 'build::build.widget.menu.MenuElement', 'demo::demo.example.ExampleContainer' ], function(define, $super) {
 	define({
-		$extends : 'build.ui.application.AdminApplication',
+		$extends : 'build.application.AdminApplication',
 		$constructor : function Application() {
 			$super(this)();
 
