@@ -13,9 +13,9 @@ Build('build.form.input.Password', [ 'build::build.form.input.Text' ], function(
 		/**
 		 * @property type
 		 */
-		$constructor : function Password(text, value) {
+		$constructor : function Password(text, value, textType) {
 			$super(this)(text, value);
-			this.element.type = 'password';
+			this.textType = textType || 'password';
 		},
 		$prototype : {
 			type : 'input'
