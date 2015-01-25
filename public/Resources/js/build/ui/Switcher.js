@@ -73,16 +73,17 @@ Build('build.ui.Switcher', [ 'build::build.ui.Container', 'build::build.utility.
 			/**
 			 * @method refreshChildren
 			 */
-			refreshChildren : function() {
-				$super().refreshChildren(this)();
+			refreshChildren : function(children) {
+				$super().refreshChildren(this)(children);
 				var hiddenClass = !this.hiddenSoft ? 'hidden' : 'hidden-soft';
 				var element = this.innerElement;
 				if (element) {
-					for (var index = 0, length = this.children.length; index < length; index++) {
-						var child = this.children[index];
+					children = children || this.children;
+					for (var index = 0, length = children.length; index < length; index++) {
+						var child = children[index];
 						child.element.classList.add(hiddenClass);
 					}
-					var activeChild = this.children[this.active];
+					var activeChild = children[this.active];
 					if (activeChild && activeChild.element) {
 						activeChild.element.classList.remove(hiddenClass);
 					}

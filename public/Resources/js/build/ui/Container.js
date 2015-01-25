@@ -8,8 +8,12 @@ Build('build.ui.Container', [ 'build::build.ui.Widget', 'build::build.utility.Ob
 		/**
 		 * @constructor
 		 */
-		$constructor : function Container() {
+		$constructor : function Container(text) {
 			$super(this)();
+			this.watchProperty('text', 'innerHTML', text || '', null, function(value) {
+				return this.formatString(value, this);
+			}.bind(this));
+			this.watchProperty('rawText', 'innerHTML');
 			// TODO: This should be protected in a Document Fragment.
 			this.watchValue('innerElement', this.element, null, function(value, cancel) {
 				var oldElement = this.innerElement || this.element;
@@ -29,13 +33,15 @@ Build('build.ui.Container', [ 'build::build.ui.Widget', 'build::build.utility.Ob
 			var childrenHandler = this.createChildrenHandler();
 			var baseArray = build.utility.ObservableArray();
 			this.watchValue('children', baseArray, null, function(value, cancel) {
-				if (this.children) {
-					this.children.unsubscribe(childrenHandler);
-				}
-				if (value) {
+				if (this.children != value) {
+					if (this.children) {
+						this.children.unsubscribe(childrenHandler);
+					}
+					if (!value) {
+						value = baseArray;
+					}
 					value.subscribe(childrenHandler);
-				} else {
-					baseArray.subscribe(childrenHandler);
+					this.refreshChildren(value);
 				}
 				return value;
 			}.bind(this));
@@ -47,13 +53,6 @@ Build('build.ui.Container', [ 'build::build.ui.Widget', 'build::build.utility.Ob
 			}.bind(this));
 		},
 		$prototype : {
-			init : function() {
-				$super().init(this)();
-				this.refreshChildren();
-				this.subscribe('children', function(value) {
-					this.refreshChildren();
-				}.bind(this));
-			},
 			/**
 			 * @method clearChildren
 			 */
@@ -70,12 +69,13 @@ Build('build.ui.Container', [ 'build::build.ui.Widget', 'build::build.utility.Ob
 			/**
 			 * @method refreshChildren
 			 */
-			refreshChildren : function() {
+			refreshChildren : function(children) {
 				var element = this.innerElement;
 				if (element) {
 					this.clearChildren(element);
-					if (this.children) {
-						this.children.forEach(this.childIterator.bind(this));
+					children = children || this.children;
+					if (children) {
+						children.forEach(this.childIterator.bind(this));
 					}
 				}
 			},
@@ -217,15 +217,17 @@ Build('build.ui.Container', [ 'build::build.ui.Widget', 'build::build.utility.Ob
 						element.removeChild(element.firstChild);
 					}
 				}
-				var child;
-				while (child = this.children.pop()) {
-					if (child) {
-						if (child.destroy) {
-							child.destroy();
+				if (this.children) {
+					var child;
+					while (child = this.children.pop()) {
+						if (child) {
+							if (child.destroy) {
+								child.destroy();
+							}
+							delete child;
+						} else {
+							console.log('already destroyed?');
 						}
-						delete child;
-					} else {
-						console.log('already destroyed?');
 					}
 				}
 			},
