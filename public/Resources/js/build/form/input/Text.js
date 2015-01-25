@@ -37,7 +37,10 @@ Build('build.form.input.Text', [ 'build::build.form.FormElement' ], function(def
 			});
 		},
 		$prototype : {
-			type : 'input'
+			type : 'input',
+			validateEmail : function() {
+				return !!this.value.match(/[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\.)+[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?/g);
+			}
 		},
 		$static : {
 			textTypes : textTypes
