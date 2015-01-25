@@ -22,6 +22,7 @@ Build('build.ui.Switcher', [ 'build::build.ui.Container', 'build::build.utility.
 				return value;
 			}.bind(this));
 			this.watchValue('active', 0, null, function(value, cancel) {
+				// TODO: Locking may prevent manipulating children.
 				var output = (this.lockable && Navigation.locked) ? (Navigation.run() ? value : cancel) : value;
 				if (output != cancel && value !== this.active) {
 					// Correct for index out of range.
@@ -31,6 +32,16 @@ Build('build.ui.Switcher', [ 'build::build.ui.Container', 'build::build.utility.
 					this.showChild(output, this.active || 0);
 				}
 				return output;
+			}.bind(this));
+			this.watchValue('activeChild', undefined, function(value) {
+				return this.children[this.active];
+			}.bind(this), function(value, cancel) {
+				if (!value) {
+					return cancel;
+				} else {
+					var index = this.children.indexOf(value);
+					return index != -1 ? index : cancel;
+				}
 			}.bind(this));
 		},
 		$prototype : {
@@ -132,6 +143,7 @@ Build('build.ui.Switcher', [ 'build::build.ui.Container', 'build::build.utility.
 					reverse : function() {
 						// Sort in opposite direction
 						// Array is sorted, we can simply remove all elements, and re-append them.
+						var activeChild = this.activeChild;
 						// Remove from beginning of array
 						this.modifyElement(function() {
 							var element = this.innerElement;
@@ -143,11 +155,13 @@ Build('build.ui.Switcher', [ 'build::build.ui.Container', 'build::build.utility.
 								element.appendChild(this.children[index].element);
 							}
 						}.bind(this));
-						// TODO: Reset the active variable.
+						this.activeChild = activeChild;
 					}.bind(this),
 					sort : function() {
 						// Sort based on function
 						// Array is sorted, we can simply remove all elements, and re-append them.
+						// Find the active child.
+						var activeChild = this.activeChild;
 						this.modifyElement(function() {
 							var element = this.innerElement;
 							while (element.firstChild) {
@@ -158,7 +172,7 @@ Build('build.ui.Switcher', [ 'build::build.ui.Container', 'build::build.utility.
 								element.appendChild(this.children[index].element);
 							}
 						}.bind(this));
-						// TODO: Reset the active variable.
+						this.activeChild = activeChild;
 					}.bind(this),
 					splice : function(index, howMany) {
 						var element = this.innerElement;
