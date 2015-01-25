@@ -2,7 +2,7 @@
  * @class build.widget.user.UserDeleteForm
  * @extends build.form.Form
  */
-Build('build.widget.user.UserDeleteForm', [ 'build::build.form.Form', 'build::build.form.ButtonGroup', 'build::build.form.input.Button', 'build::build.form.input.Submit', 'build::build.ui.element.Paragraph' ], function(define, $super) {
+Build('build.widget.user.UserDeleteForm', [ 'build::build.form.Form', 'build::build.form.container.ButtonGroup', 'build::build.form.input.Button', 'build::build.form.input.Submit', 'build::build.ui.element.Paragraph' ], function(define, $super) {
 	define({
 		$extends : 'build.form.Form',
 		/**
@@ -19,7 +19,7 @@ Build('build.widget.user.UserDeleteForm', [ 'build::build.form.Form', 'build::bu
 			this.cancel = build.form.input.Button.create('Cancel');
 			this.submit = build.form.input.Submit.create('Delete');
 			this.addChild(this.message);
-			var buttonGroup = build.form.ButtonGroup.create();
+			var buttonGroup = build.form.container.ButtonGroup.create();
 			buttonGroup.addChild(this.cancel);
 			buttonGroup.addChild(this.submit);
 			this.addChild(buttonGroup);

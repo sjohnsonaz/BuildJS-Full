@@ -1,4 +1,4 @@
-Build('demo.example.widget.FormExample', [ 'build::build.form.Form', 'build::build.ui.element.Header2', 'build::build.ui.element.Paragraph', 'build::build.form.FieldSet', 'build::build.form.FormControl', 'build::build.form.Label',
+Build('demo.example.widget.FormExample', [ 'build::build.form.Form', 'build::build.ui.element.Header2', 'build::build.ui.element.Paragraph', 'build::build.form.FieldSet', 'build::build.form.container.FormControl', 'build::build.form.Label',
 		'build::build.form.input.Text', 'build::build.form.input.TextArea', 'demo::demo.example.widget.TestServiceConnection' ], function(define, $super) {
 	define({
 		$extends : 'build.form.Form',
@@ -13,7 +13,7 @@ Build('demo.example.widget.FormExample', [ 'build::build.form.Form', 'build::bui
 			text.subscribe(function(value) {
 				console.log('Entered value: ' + value);
 			});
-			fieldSet.addChild(build.form.FormControl.create(build.form.Label.create('Text Field'), text));
+			fieldSet.addChild(build.form.container.FormControl.create(build.form.Label.create('Text Field'), text));
 
 			this.wrap = function(model) {
 				text.value = model.text;
@@ -24,7 +24,7 @@ Build('demo.example.widget.FormExample', [ 'build::build.form.Form', 'build::bui
 
 			var textArea = build.form.input.TextArea.create();
 			textArea.placeholder = 'Text';
-			fieldSet.addChild(build.form.FormControl.create(null, textArea));
+			fieldSet.addChild(build.form.container.FormControl.create(null, textArea));
 			this.addChild(fieldSet);
 		},
 		$prototype : {

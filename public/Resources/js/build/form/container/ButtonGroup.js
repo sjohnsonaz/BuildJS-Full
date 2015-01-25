@@ -1,8 +1,8 @@
 /**
- * @class build.form.ButtonGroup
+ * @class build.form.container.ButtonGroup
  * @extends build.ui.Container
  */
-Build('build.form.ButtonGroup', [ 'build::build.ui.Container' ], function(define, $super) {
+Build('build.form.container.ButtonGroup', [ 'build::build.ui.Container' ], function(define, $super) {
 	define({
 		$extends : 'build.ui.Container',
 		/**

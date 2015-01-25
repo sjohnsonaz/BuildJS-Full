@@ -2,7 +2,7 @@
  * @class build.widget.authentication.LoginForm
  * @extends build.form.Form
  */
-Build('build.widget.authentication.LoginForm', [ 'build::build.form.Form', 'build::build.ui.element.Div', 'build::build.form.input.Text', 'build::build.form.input.Password', 'build::build.form.input.Submit', 'build::build.form.FormControl',
+Build('build.widget.authentication.LoginForm', [ 'build::build.form.Form', 'build::build.ui.element.Div', 'build::build.form.input.Text', 'build::build.form.input.Password', 'build::build.form.input.Submit', 'build::build.form.container.FormControl',
 		'build::build.form.Label' ], function(define, $super) {
 	define({
 		$extends : 'build.form.Form',
@@ -31,9 +31,9 @@ Build('build.widget.authentication.LoginForm', [ 'build::build.form.Form', 'buil
 			this.authenticationServiceConnection = authenticationServiceConnection;
 
 			this.addChild(this.message);
-			this.addChild(build.form.FormControl.create(build.form.Label.create('Username', this.username), this.username));
-			this.addChild(build.form.FormControl.create(build.form.Label.create('Password', this.password), this.password));
-			this.addChild(build.form.FormControl.create(null, this.submit));
+			this.addChild(build.form.container.FormControl.create(build.form.Label.create('Username', this.username), this.username));
+			this.addChild(build.form.container.FormControl.create(build.form.Label.create('Password', this.password), this.password));
+			this.addChild(build.form.container.FormControl.create(null, this.submit));
 
 			this.addEvent('submit', function(form, event) {
 				event.preventDefault();

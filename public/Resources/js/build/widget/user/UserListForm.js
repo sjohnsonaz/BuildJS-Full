@@ -2,7 +2,7 @@
  * @class build.widget.user.UserListForm
  * @extends build.form.Form 
  */
-Build('build.widget.user.UserListForm', [ 'build::build.form.Form', 'build::build.widget.grid.Grid', 'build::build.form.input.Button', 'build::build.form.ButtonGroup' ], function(define, $super) {
+Build('build.widget.user.UserListForm', [ 'build::build.form.Form', 'build::build.widget.grid.Grid', 'build::build.form.input.Button', 'build::build.form.container.ButtonGroup' ], function(define, $super) {
 	define({
 		$extends : 'build.form.Form',
 		/**
@@ -42,7 +42,7 @@ Build('build.widget.user.UserListForm', [ 'build::build.form.Form', 'build::buil
 					var editUserButton = build.form.input.Button.create('Edit');
 					var deleteUserButton = build.form.input.Button.create('Delete');
 					var permissionButton = build.form.input.Button.create('Permission');
-					var buttonGroup = build.form.ButtonGroup.create();
+					var buttonGroup = build.form.container.ButtonGroup.create();
 					(function(user) {
 						viewUserButton.addEvent('click', function(button, event) {
 							event.preventDefault();
