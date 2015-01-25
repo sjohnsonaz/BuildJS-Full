@@ -1,8 +1,8 @@
 /**
- * @class build.ui.table.Caption
+ * @class build.container.table.Caption
  * @extends build.ui.Container
  */
-Build('build.ui.table.Caption', [ 'build.ui.Container' ], function(define, $super) {
+Build('build.container.table.Caption', [ 'build.ui.Container' ], function(define, $super) {
 	define({
 		$extends : 'build.ui.Container',
 		/**

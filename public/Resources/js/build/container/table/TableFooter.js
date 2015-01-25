@@ -1,19 +1,19 @@
 /**
- * @class build.ui.table.TableHeader
+ * @class build.container.table.TableFooter
  * @extends build.ui.Container
  */
-Build('build.ui.table.TableHeader', [ 'build.ui.Container' ], function(define, $super) {
+Build('build.container.table.TableFooter', [ 'build.ui.Container' ], function(define, $super) {
 	define({
 		$extends : 'build.ui.Container',
 		/**
 		 * @constructor
 		 */
-		$constructor : function TableHeader() {
+		$constructor : function TableFooter() {
 			$super(this)();
 			this.innerElement = document.createElement('tr');
 		},
 		$prototype : {
-			type : 'thead'
+			type : 'tfoot'
 		}
 	});
 });
