@@ -1,5 +1,5 @@
 Build('demo.example.widget.FormFieldExample',
-		[ 'build::build.ui.Container', 'build::build.ui.element.Header2', 'build::build.ui.element.Paragraph', 'build::build.form.option.Select', 'build::build.form.input.CheckBox', 'build::build.form.RadioButton' ], function(define, $super) {
+		[ 'build::build.ui.Container', 'build::build.ui.element.Header2', 'build::build.ui.element.Paragraph', 'build::build.form.option.Select', 'build::build.form.input.CheckBox', 'build::build.form.input.RadioButton' ], function(define, $super) {
 			define({
 				$extends : 'build.ui.Container',
 				$constructor : function FormFieldExample() {
@@ -16,7 +16,7 @@ Build('demo.example.widget.FormFieldExample',
 
 					var checkbox = build.form.input.CheckBox.create('test', 'test', 'test');
 					this.addChild(checkbox);
-					var radiobutton = build.form.RadioButton.create('test', 'test', 'test');
+					var radiobutton = build.form.input.RadioButton.create('test', 'test', 'test');
 					this.addChild(radiobutton);
 				}
 			});
