@@ -2,8 +2,7 @@
  * @class build.widget.tab.TabHeader
  * @extends build.ui.Container
  */
-Build('build.widget.tab.TabHeader', [ 'build::build.ui.Container', 'build::build.binding.PropertyBinding', 'build::build.binding.EventBinding', 'build::build.binding.ClassNameBinding', 'build::build.ui.element.List',
-		'build::build.widget.tab.TabTitle' ], function(define, $super) {
+Build('build.widget.tab.TabHeader', [ 'build::build.ui.Container', 'build::build.binding.PropertyBinding', 'build::build.binding.EventBinding', 'build::build.binding.ClassNameBinding', 'build::build.widget.tab.TabTitle' ], function(define, $super) {
 	define({
 		$extends : 'build.ui.Container',
 		/**

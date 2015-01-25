@@ -1,8 +1,8 @@
 /**
- * @class build.ui.element.List
+ * @class build.container.list.ListItem
  * @extends build.ui.element.Element
  */
-Build('build.ui.element.List', [ 'build::build.ui.element.Element' ], function(define, $super) {
+Build('build.container.list.ListItem', [ 'build::build.ui.element.Element' ], function(define, $super) {
 	define({
 		$extends : 'build.ui.element.Element',
 		/**
