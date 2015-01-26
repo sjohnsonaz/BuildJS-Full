@@ -2,7 +2,7 @@
  * @class build.container.table.TableRow
  * @extends build.ui.Container
  */
-Build('build.container.table.TableRow', [ 'build.ui.Container' ], function(define, $super) {
+Build('build.container.table.TableRow', [ 'build::build.ui.Container' ], function(define, $super) {
 	define({
 		$extends : 'build.ui.Container',
 		/**
