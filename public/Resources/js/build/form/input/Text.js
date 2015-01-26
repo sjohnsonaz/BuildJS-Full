@@ -1,8 +1,8 @@
 /**
  * @class build.form.input.Text
- * @extends build.form.FormElement
+ * @extends build.ui.Container
  */
-Build('build.form.input.Text', [ 'build::build.form.FormElement' ], function(define, $super) {
+Build('build.form.input.Text', [ 'build::build.ui.Container' ], function(define, $super) {
 	var textTypes = {
 		text : 'text',
 		password : 'password',
@@ -12,7 +12,7 @@ Build('build.form.input.Text', [ 'build::build.form.FormElement' ], function(def
 		url : 'url'
 	};
 	define({
-		$extends : 'build.form.FormElement',
+		$extends : 'build.ui.Container',
 		/**
 		 * @constructor
 		 * @param text

@@ -1,6 +1,6 @@
 /**
  * @class build.form.FieldSet
- * @extends build.ui.element.Element
+ * @extends build.ui.Container
  */
 Build('build.form.FieldSet', [ 'build::build.ui.Container', 'build::build.form.Legend' ], function(define, $super) {
 	define({

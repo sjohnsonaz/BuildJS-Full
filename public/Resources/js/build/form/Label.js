@@ -1,10 +1,10 @@
 /**
  * @class build.form.Label
- * @extends build.form.FormElement
+ * @extends build.ui.Container
  */
-Build('build.form.Label', [ 'build::build.form.FormElement' ], function(define, $super) {
+Build('build.form.Label', [ 'build::build.ui.Container' ], function(define, $super) {
 	define({
-		$extends : 'build.form.FormElement',
+		$extends : 'build.ui.Container',
 		/**
 		 * @constructor
 		 * @param text

@@ -1,10 +1,10 @@
 /**
  * @class build.container.list.ListItem
- * @extends build.ui.element.Element
+ * @extends build.ui.Container
  */
-Build('build.container.list.ListItem', [ 'build::build.ui.element.Element' ], function(define, $super) {
+Build('build.container.list.ListItem', [ 'build::build.ui.Container' ], function(define, $super) {
 	define({
-		$extends : 'build.ui.element.Element',
+		$extends : 'build.ui.Container',
 		/**
 		 * @constructor
 		 */
