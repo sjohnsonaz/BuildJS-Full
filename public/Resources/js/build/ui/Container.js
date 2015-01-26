@@ -10,8 +10,8 @@ Build('build.ui.Container', [ 'build::build.ui.Widget', 'build::build.utility.Ob
 		 */
 		$constructor : function Container(text) {
 			$super(this)();
-			this.watchProperty('text', 'innerHTML', text || '', null, function(value) {
-				return this.formatString(value, this);
+			this.watchProperty('text', 'innerHTML', text || '', null, function(value, cancel) {
+				return (this.children && !this.children.length) ? this.formatString(value, this) : cancel;
 			}.bind(this));
 			this.watchProperty('rawText', 'innerHTML');
 			// TODO: This should be protected in a Document Fragment.
