@@ -28,7 +28,11 @@ Build('build.widget.modal.Modal', [ 'build::build.ui.Container' ], function(defi
 			this.element.appendChild(this.mask);
 			this.element.appendChild(this.scroller);
 
-			this.scroller.addEventListener('click', function() {
+			this.body.addEventListener('click', function(event) {
+				event.stopPropagation();
+			});
+
+			this.scroller.addEventListener('click', function(event) {
 				if (this.clickToClose) {
 					this.open = false;
 				}
