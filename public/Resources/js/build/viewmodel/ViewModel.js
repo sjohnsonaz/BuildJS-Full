@@ -2,19 +2,38 @@
  * @class build.viewmodel.ViewModel
  * @extends build.Module
  */
-Build('build.viewmodel.ViewModel', [ 'build::build.Module' ], function(define, $super) {
+Build('build.viewmodel.ViewModel', [ 'build::build.Module', 'build::build.utility.ObservableArray' ], function(define, $super) {
+	function getValue(type, value, defaultValue) {
+		if (type === 'array') {
+			return build.utility.ObservableArray(typeof value !== 'undefined' ? value : (defaultValue || []));
+		} else {
+			return typeof value !== 'undefined' ? value : defaultValue;
+		}
+	}
 	define({
 		$extends : 'build.Module',
 		/**
 		 * @constructor
 		 */
-		$constructor : function ViewModel(data) {
+		$constructor : function ViewModel(definition, data) {
 			$super(this)();
-			if (data) {
-
+			this.definition = definition || {};
+			if (definition) {
+				for ( var name in definition) {
+					var propertyDefinition = definition[name];
+					this.watchValue(name, getValue(propertyDefinition.type, data[name], propertyDefinition.value), propertyDefinition.get, propertyDefinition.set);
+				}
 			}
+
 		},
 		$prototype : {
+			populateq : function(data) {
+				data = data || {};
+				for ( var name in this.definition) {
+					var propertyDefinition = this.definition[name];
+					this[name] = getValue(propertyDefinition.type, data[name]);
+				}
+			},
 			property : function(name, value, type, validation) {
 				switch (typeof type) {
 				case 'string':
