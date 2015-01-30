@@ -34,13 +34,23 @@ module.exports = function(grunt) {
 					'public/min/css/Build.min.css' : 'public/Resources/css/base.css'
 				}
 			}
+		},
+		main : {
+			options : {
+				index : 'buildjsapp.js',
+				logDir : 'logs'
+			}
 		}
 	});
 
 	grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.loadNpmTasks('grunt-contrib-cssmin');
 	grunt.loadNpmTasks('grunt-contrib-less');
+	grunt.loadNpmTasks('grunt-forever');
 
 	grunt.registerTask('default', [ 'less', 'uglify', 'cssmin' ]);
+	grunt.registerTask('forever-start', [ 'forever:main:start' ]);
+	grunt.registerTask('forever-stop', [ 'forever:main:stop' ]);
+	grunt.registerTask('forever-restart', [ 'forever:main:restart' ]);
 
 };
