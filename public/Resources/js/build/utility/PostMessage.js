@@ -1,6 +1,9 @@
 var build = build || {};
 build.utility = build.utility || {};
 build.utility.PostMessage = (function() {
+	/**
+	 * @class build.utility.PostMessage
+	 */
 	function PostMessage(otherWindow, channel, targetOrigin) {
 		this.channel = channel;
 		this.otherWindow = otherWindow;

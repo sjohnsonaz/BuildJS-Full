@@ -6,6 +6,9 @@
 Build('build.widget.grid.Pager', [ 'build::build.ui.Container', 'build::build.ui.element.Link' ], function(define, $super) {
 	define({
 		$extends : 'build.ui.Widget',
+		/**
+		 * @constructor
+		 */
 		$constructor : function Pager() {
 			$super(this)();
 			this.iteratorType = 'li';

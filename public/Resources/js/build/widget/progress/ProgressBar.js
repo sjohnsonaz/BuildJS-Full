@@ -1,6 +1,13 @@
+/**
+ * @class build.widget.progress.ProgressBar
+ * @extends build.ui.Widget
+ */
 Build('build.widget.progress.ProgressBar', [ 'build::build.ui.Widget' ], function(define, $super) {
 	define({
 		$extends : 'build.ui.Widget',
+		/**
+		 * @constructor
+		 */
 		$constructor : function ProgressBar(progress) {
 			$super(this)();
 			this.progressElement = document.createElement('div');

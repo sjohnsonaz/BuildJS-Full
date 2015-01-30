@@ -10,6 +10,7 @@ Build('build.widget.menu.MenuElement', [ 'build::build.ui.Container', 'build::bu
 		 * @constructor
 		 */
 		/**
+		 * @constructor
 		 * @property type
 		 * @property link
 		 * @property url

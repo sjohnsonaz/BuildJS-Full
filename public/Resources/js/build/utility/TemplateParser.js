@@ -1,5 +1,11 @@
+/**
+ * @class build.utility.TemplateParser
+ */
 Build('build.utility.TemplateParser', [], function(define, $super) {
 	define({
+		/**
+		 * @constructor
+		 */
 		$constructor : function TemplateParser(regex) {
 			this.regex = regex || new RegExp(/{{([^{}]+)}}/g);
 			this.helpers = {};

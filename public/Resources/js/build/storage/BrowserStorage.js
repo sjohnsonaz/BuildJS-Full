@@ -1,5 +1,6 @@
 /**
  * @class build.storage.BrowserStorage
+ * @extends build.Module
  */
 Build('build.storage.BrowserStorage', [ 'build::build.Module' ], function(define, $super) {
 	define({

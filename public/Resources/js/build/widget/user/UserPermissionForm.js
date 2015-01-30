@@ -1,6 +1,13 @@
+/**
+ * @class build.widget.user.UserPermissionForm
+ * @extends build.form.Form
+ */
 Build('build.widget.user.UserPermissionForm', [ 'build::build.form.Form', 'build::build.form.container.ButtonGroup', 'build::build.form.input.Button', 'build::build.form.input.Submit', 'build::build.ui.element.Paragraph' ], function(define, $super) {
 	define({
 		$extends : 'build.form.Form',
+		/**
+		 * @constructor
+		 */
 		$constructor : function(userServiceConnection) {
 			$super(this)();
 			this.method = 'POST';
