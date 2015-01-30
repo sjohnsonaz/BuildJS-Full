@@ -35,10 +35,12 @@ module.exports = function(grunt) {
 				}
 			}
 		},
-		main : {
-			options : {
-				index : 'buildjsapp.js',
-				logDir : 'logs'
+		forever : {
+			main : {
+				options : {
+					index : 'server.js',
+					logDir : 'logs'
+				}
 			}
 		}
 	});
