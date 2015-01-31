@@ -1,14 +1,14 @@
 /**
- * @class demo.example.viewmodel.FormModel
+ * @class demo.example.viewmodel.TestViewModel
  * @extends build.viewmodel.ViewModel
  */
-Build('demo.example.viewmodel.FormModel', [ 'build::build.viewmodel.ViewModel' ], function(define, $super) {
+Build('demo.example.viewmodel.TestViewModel', [ 'build::build.viewmodel.ViewModel' ], function(define, $super) {
 	define({
 		$extends : 'build.viewmodel.ViewModel',
 		/**
 		 * @constructor
 		 */
-		$constructor : function FormModel(data) {
+		$constructor : function TestViewModel(data) {
 			$super(this)({
 				testValue : {},
 				testTrue : {},

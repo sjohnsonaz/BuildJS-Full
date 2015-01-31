@@ -15,8 +15,9 @@ Build('build.form.Form', [ 'build::build.ui.Container', 'build::build.binding.Va
 		 * @property action
 		 * @property model
 		 */
-		$constructor : function Form() {
+		$constructor : function Form(valueMap) {
 			$super(this)();
+			this.valueMap = valueMap;
 			this.watchProperty('method', 'method', 'GET');
 			this.watchProperty('action', 'action', '');
 			var modelHidden = null;
@@ -37,6 +38,10 @@ Build('build.form.Form', [ 'build::build.ui.Container', 'build::build.binding.Va
 					this.publish('model');
 				}
 			});
+			this.watchValue('viewModel', undefined, undefined, function(value, cancel) {
+				// TODO: Destroy bindings if changed.
+				this.mapViewModel(value);
+			}.bind(this));
 		},
 		$prototype : {
 			type : 'form',
@@ -66,12 +71,10 @@ Build('build.form.Form', [ 'build::build.ui.Container', 'build::build.binding.Va
 			 */
 			clear : function() {
 			},
-			mapViewModel : function(valueMap, viewModel) {
-				this.valueMap = valueMap;
-				this.viewModel = viewModel;
-				if (valueMap && viewModel) {
-					for ( var name in valueMap) {
-						var mapDefinition = valueMap[name];
+			mapViewModel : function(viewModel) {
+				if (this.valueMap && viewModel) {
+					for ( var name in this.valueMap) {
+						var mapDefinition = this.valueMap[name];
 						var sourceName = mapDefinition.name || name;
 						var viewModelDefinition = viewModel.definition[sourceName];
 						if (viewModelDefinition) {
