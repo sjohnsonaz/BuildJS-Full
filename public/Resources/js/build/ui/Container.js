@@ -242,11 +242,13 @@ Build('build.ui.Container', [ 'build::build.ui.Widget', 'build::build.utility.Ob
 			})(),
 			createChildrenHandler : function() {
 				return {
-					push : function(child) {
+					push : function() {
 						var element = this.innerElement;
 						if (element) {
-							child = this.createChild(child);
-							element.appendChild(child);
+							for (var index = 0, length = arguments.length; index < length; index++) {
+								var child = this.createChild(arguments[index]);
+								element.appendChild(child);
+							}
 						}
 					}.bind(this),
 					pop : function() {
@@ -258,12 +260,14 @@ Build('build.ui.Container', [ 'build::build.ui.Widget', 'build::build.utility.Ob
 							}
 						}
 					}.bind(this),
-					unshift : function(child) {
+					unshift : function() {
 						// Add to beginning of array
 						var element = this.innerElement;
 						if (element) {
-							child = this.createChild(child);
-							element.insertBefore(child, element.firstChild);
+							for (var index = arguments.length - 1; index >= 0; index--) {
+								var child = this.createChild(arguments[index]);
+								element.insertBefore(child, element.firstChild);
+							}
 						}
 					}.bind(this),
 					shift : function() {

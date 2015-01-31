@@ -11,8 +11,12 @@ Build('demo.example.viewmodel.TestViewModel', [ 'build::build.viewmodel.ViewMode
 		$constructor : function TestViewModel(data) {
 			$super(this)({
 				testValue : {},
-				testTrue : {},
-				testFalse : {},
+				testTrue : {
+					value : true
+				},
+				testFalse : {
+					value : false
+				},
 				testArray : {
 					type : 'array'
 				}

@@ -18,6 +18,7 @@ Build('build.viewmodel.ViewModel', [ 'build::build.Module', 'build::build.utilit
 		$constructor : function ViewModel(definition, data) {
 			$super(this)();
 			this.definition = definition || {};
+			data = data || {};
 			if (definition) {
 				for ( var name in definition) {
 					var propertyDefinition = definition[name];
@@ -27,11 +28,18 @@ Build('build.viewmodel.ViewModel', [ 'build::build.Module', 'build::build.utilit
 
 		},
 		$prototype : {
-			populateq : function(data) {
+			populate : function(data) {
 				data = data || {};
 				for ( var name in this.definition) {
 					var propertyDefinition = this.definition[name];
-					this[name] = getValue(propertyDefinition.type, data[name]);
+					if (propertyDefinition.type === 'array') {
+						this[name].removeAll();
+						if (data[name]) {
+							this[name].push.apply(this[name], data[name]);
+						}
+					} else {
+						this[name] = data[name];
+					}
 				}
 			},
 			property : function(name, value, type, validation) {

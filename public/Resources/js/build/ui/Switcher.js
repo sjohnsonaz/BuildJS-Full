@@ -100,8 +100,10 @@ Build('build.ui.Switcher', [ 'build::build.ui.Container', 'build::build.utility.
 					push : function(child) {
 						var element = this.innerElement;
 						if (element) {
-							child = this.createChild(child);
-							element.appendChild(child);
+							for (var index = 0, length = arguments.length; index < length; index++) {
+								var child = this.createChild(arguments[index]);
+								element.appendChild(child);
+							}
 						}
 						if (this.children.length == 1) {
 							this.toggleChildElement(child, true);
@@ -122,8 +124,10 @@ Build('build.ui.Switcher', [ 'build::build.ui.Container', 'build::build.utility.
 						// Add to beginning of array
 						var element = this.innerElement;
 						if (element) {
-							child = this.createChild(child);
-							element.insertBefore(child, element.firstChild);
+							for (var index = arguments.length - 1; index >= 0; index--) {
+								var child = this.createChild(arguments[index]);
+								element.insertBefore(child, element.firstChild);
+							}
 						}
 						if (this.children.length == 1) {
 							this.toggleChildElement(child, true);
