@@ -37,7 +37,7 @@ build.service.ServiceConnection = (function() {
 	function call(verb, url, sync, user, password, data, unsent, opened, headersReceived, loading, done) {
 		var request = new XMLHttpRequest();
 		if (sync) {
-			request.open(verb, url, sync, user, password);
+			request.open(verb, url, !sync, user, password);
 			switch (verb) {
 			case 'POST':
 			case 'PUT':
@@ -66,7 +66,7 @@ build.service.ServiceConnection = (function() {
 					break;
 				}
 			};
-			request.open(verb, url, sync, user, password);
+			request.open(verb, url, !sync, user, password);
 			switch (verb) {
 			case 'POST':
 			case 'PUT':
