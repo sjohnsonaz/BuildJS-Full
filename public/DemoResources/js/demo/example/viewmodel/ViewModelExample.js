@@ -2,7 +2,7 @@
  * @class demo.example.viewmodel.ViewModelExample
  * @extends build.ui.Container
  */
-Build('demo.example.viewmodel.ViewModelExample', [ 'demo::demo.example.viewmodel.TestForm', 'demo::demo.example.viewmodel.TestViewModel' ], function(define, $super) {
+Build('demo.example.viewmodel.ViewModelExample', [ 'demo::demo.example.viewmodel.TestForm', 'demo::demo.example.viewmodel.TestViewModel', 'demo::demo.example.viewmodel.TestDataDisplay' ], function(define, $super) {
 	define({
 		$extends : 'build.form.Form',
 		/**
@@ -20,7 +20,9 @@ Build('demo.example.viewmodel.ViewModelExample', [ 'demo::demo.example.viewmodel
 				testArray : [ 1, 2, 3 ]
 			});
 			var testForm = demo.example.viewmodel.TestForm.create(testViewModel);
+			var testDataDisplay = demo.example.viewmodel.TestDataDisplay.create(testViewModel);
 			this.addChild(testForm);
+			this.addChild(testDataDisplay);
 		}
 	});
 });
