@@ -2,7 +2,7 @@
  * @class build.form.Form
  * @extends build.ui.Container
  */
-Build('build.form.Form', [ 'build::build.ui.Container' ], function(define, $super) {
+Build('build.form.Form', [ 'build::build.ui.Container', 'build::build.binding.ValueBinding', 'build::build.binding.ForEachBinding' ], function(define, $super) {
 	// TODO: Create navigation prevention on form change.
 	define({
 		$extends : 'build.ui.Container',
@@ -65,6 +65,26 @@ Build('build.form.Form', [ 'build::build.ui.Container' ], function(define, $supe
 			 * @method clear
 			 */
 			clear : function() {
+			},
+			mapViewModel : function(valueMap, viewModel) {
+				this.valueMap = valueMap;
+				this.viewModel = viewModel;
+				if (valueMap && viewModel) {
+					for ( var name in valueMap) {
+						var mapDefinition = valueMap[name];
+						var sourceName = mapDefinition.name || name;
+						var viewModelDefinition = viewModel.definition[sourceName];
+						if (viewModelDefinition) {
+							if (viewModelDefinition.type === 'array') {
+								if (this[name]) {
+									build.binding.ForEachBinding.create(this[name], viewModel, mapDefinition.name || name);
+								}
+							} else {
+								build.binding.ValueBinding.create(this[name], viewModel, mapDefinition.name || name);
+							}
+						}
+					}
+				}
 			}
 		}
 	});
