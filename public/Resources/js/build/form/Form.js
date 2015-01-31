@@ -40,7 +40,10 @@ Build('build.form.Form', [ 'build::build.ui.Container', 'build::build.binding.Va
 			});
 			this.watchValue('viewModel', undefined, undefined, function(value, cancel) {
 				// TODO: Destroy bindings if changed.
-				this.mapViewModel(value);
+				if (value) {
+					this.mapViewModel(value);
+					this.createBindings(value);
+				}
 			}.bind(this));
 		},
 		$prototype : {
@@ -88,6 +91,9 @@ Build('build.form.Form', [ 'build::build.ui.Container', 'build::build.binding.Va
 						}
 					}
 				}
+			},
+			createBindings : function(viewModel) {
+
 			}
 		}
 	});
