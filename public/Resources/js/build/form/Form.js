@@ -15,39 +15,27 @@ Build('build.form.Form', [ 'build::build.ui.Container', 'build::build.binding.Va
 		 * @property action
 		 * @property model
 		 */
-		$constructor : function Form(valueMap) {
+		$constructor : function Form(valueMap, viewModel) {
 			$super(this)();
-			this.valueMap = valueMap;
 			this.watchProperty('method', 'method', 'GET');
 			this.watchProperty('action', 'action', '');
-			var modelHidden = null;
-			Object.defineProperty(this, 'model', {
-				get : function() {
-					if (modelHidden) {
-						this.unwrap(modelHidden || {});
-					}
-					return modelHidden;
-				},
-				set : function(value) {
-					if (value) {
-						this.wrap(value);
-					} else {
-						this.clear();
-					}
-					modelHidden = value;
-					this.publish('model');
-				}
+			// valueMap and viewModel cannot be changed.
+			Object.defineProperty(this, 'valueMap', {
+				value : valueMap,
+				configurable : true,
+				enumerable : true
 			});
-			this.watchValue('viewModel', undefined, undefined, function(value, cancel) {
-				// TODO: Destroy bindings if changed.
-				if (value) {
-					this.mapViewModel(value);
-					this.createBindings(value);
-				}
-			}.bind(this));
+			Object.defineProperty(this, 'viewModel', {
+				value : viewModel,
+				configurable : true,
+				enumerable : true
+			});
 		},
 		$prototype : {
 			type : 'form',
+			init : function() {
+				this.mapViewModel(this.valueMap, this.viewModel);
+			},
 			/**
 			 * @method preventSubmit
 			 */
@@ -74,10 +62,10 @@ Build('build.form.Form', [ 'build::build.ui.Container', 'build::build.binding.Va
 			 */
 			clear : function() {
 			},
-			mapViewModel : function(viewModel) {
-				if (this.valueMap && viewModel) {
-					for ( var name in this.valueMap) {
-						var mapDefinition = this.valueMap[name];
+			mapViewModel : function(valueMap, viewModel) {
+				if (valueMap && viewModel) {
+					for ( var name in valueMap) {
+						var mapDefinition = valueMap[name];
 						var sourceName = mapDefinition.name || name;
 						var viewModelDefinition = viewModel.definition[sourceName];
 						if (viewModelDefinition) {
@@ -91,9 +79,6 @@ Build('build.form.Form', [ 'build::build.ui.Container', 'build::build.binding.Va
 						}
 					}
 				}
-			},
-			createBindings : function(viewModel) {
-
 			}
 		}
 	});

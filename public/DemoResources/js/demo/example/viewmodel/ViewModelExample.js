@@ -13,14 +13,13 @@ Build('demo.example.viewmodel.ViewModelExample', [ 'demo::demo.example.viewmodel
 			var header0 = build.ui.element.Header1.create('View Model Form');
 			this.addChild(header0);
 
-			var testForm = demo.example.viewmodel.TestForm.create();
 			var testViewModel = new demo.example.viewmodel.TestViewModel({
 				testValue : 'Test Value',
 				testTrue : true,
 				testFalse : false,
 				testArray : [ 1, 2, 3 ]
 			});
-			testForm.viewModel = testViewModel;
+			var testForm = demo.example.viewmodel.TestForm.create(testViewModel);
 			this.addChild(testForm);
 		}
 	});
