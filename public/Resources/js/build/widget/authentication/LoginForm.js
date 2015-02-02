@@ -2,8 +2,8 @@
  * @class build.widget.authentication.LoginForm
  * @extends build.form.Form
  */
-Build('build.widget.authentication.LoginForm', [ 'build::build.form.Form', 'build::build.ui.element.Div', 'build::build.form.input.Text', 'build::build.form.input.Password', 'build::build.form.input.Submit', 'build::build.form.container.FormControl',
-		'build::build.form.Label' ], function(define, $super) {
+Build('build.widget.authentication.LoginForm', [ 'build::build.form.Form', 'build::build.ui.Content', 'build::build.form.input.Text', 'build::build.form.input.Password', 'build::build.form.input.Submit', 'build::build.form.container.FormControl',
+		'build::build.form.Label', 'build::build.binding.TextBinding', 'build::build.widget.authentication.LoginViewModel' ], function(define, $super) {
 	define({
 		$extends : 'build.form.Form',
 		/**
@@ -18,17 +18,28 @@ Build('build.widget.authentication.LoginForm', [ 'build::build.form.Form', 'buil
 		 * @property authenticationServiceConnection
 		 */
 		$constructor : function LoginForm(authenticationServiceConnection) {
-			$super(this)();
+			var viewModel = new build.widget.authentication.LoginViewModel();
+			$super(this)({
+				username : {},
+				password : {}
+			}, viewModel);
 			this.method = 'POST';
 			this.action = '#';
 
-			this.message = build.ui.element.Div.create();
+			this.message = build.ui.Content.create();
 			this.username = build.form.input.Text.create();
 			this.username.placeholder = 'Username';
 			this.password = build.form.input.Password.create();
 			this.password.placeholder = 'Password';
 			this.submit = build.form.input.Submit.create('{i:[sign-in]} Login');
 			this.authenticationServiceConnection = authenticationServiceConnection;
+
+			build.binding.TextBinding.create(this.message, {
+				sources : [ {
+					source : viewModel,
+					property : 'message'
+				}, ]
+			});
 
 			this.addChild(this.message);
 			this.addChild(build.form.container.FormControl.create(build.form.Label.create('Username', this.username), this.username));
@@ -48,36 +59,14 @@ Build('build.widget.authentication.LoginForm', [ 'build::build.form.Form', 'buil
 			/**
 			 * 
 			 */
-			wrap : function(model) {
-				this.username.text = model.username;
-				this.password.text = model.password;
-			},
-			/**
-			 * 
-			 */
-			unwrap : function(model) {
-				// model.username = this.username.text();
-				// model.password = this.password.text();
-			},
-			/**
-			 * 
-			 */
-			clear : function() {
-				this.message.text = '';
-				this.username.text = '';
-				this.password.text = '';
-			},
-			/**
-			 * 
-			 */
 			login : function(success, error) {
-				this.authenticationServiceConnection.login(this.username.value, this.password.value, function(data, request) {
+				this.authenticationServiceConnection.login(this.viewModel.username, this.viewModel.password, function(data, request) {
 					console.log(data);
 					if (data.success) {
 						this.runCallbacks('loginSuccess', data, request);
 						Build.safe(success)(data, request);
 					} else {
-						this.message.text = data.message;
+						this.viewModel.message = data.message;
 						console.log('not logged in');
 					}
 				}.bind(this), function(request) {
