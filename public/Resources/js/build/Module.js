@@ -15,11 +15,6 @@ Build('build.Module', [], function(define, $super) {
 		 * @property subscriptions
 		 */
 		$constructor : function Module() {
-			this.watchValue('bound', null, function(value, self) {
-
-			}, function(value, cancel) {
-
-			});
 			// this.callbacks = null;
 			// this.subscribers = null;
 			// this.subscriptions = null;
