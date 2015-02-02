@@ -28,6 +28,9 @@ Build('build.viewmodel.ViewModel', [ 'build::build.Module', 'build::build.utilit
 
 		},
 		$prototype : {
+			/**
+			 * 
+			 */
 			populate : function(data) {
 				data = data || {};
 				for ( var name in this.definition) {
@@ -39,6 +42,19 @@ Build('build.viewmodel.ViewModel', [ 'build::build.Module', 'build::build.utilit
 						}
 					} else {
 						this[name] = data[name];
+					}
+				}
+			},
+			/**
+			 * 
+			 */
+			clear : function() {
+				for ( var name in this.definition) {
+					var propertyDefinition = this.definition[name];
+					if (propertyDefinition.type == 'array') {
+						this[name].removeAll();
+					} else {
+						this[name] = '';
 					}
 				}
 			},
