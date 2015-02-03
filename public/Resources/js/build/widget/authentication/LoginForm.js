@@ -3,7 +3,7 @@
  * @extends build.form.Form
  */
 Build('build.widget.authentication.LoginForm', [ 'build::build.form.Form', 'build::build.ui.Content', 'build::build.form.input.Text', 'build::build.form.input.Password', 'build::build.form.input.Submit', 'build::build.form.container.FormControl',
-		'build::build.form.Label', 'build::build.binding.TextBinding', 'build::build.widget.authentication.LoginViewModel' ], function(define, $super) {
+		'build::build.form.Label', 'build::build.binding.TextBinding' ], function(define, $super) {
 	define({
 		$extends : 'build.form.Form',
 		/**
@@ -17,8 +17,7 @@ Build('build.widget.authentication.LoginForm', [ 'build::build.form.Form', 'buil
 		 * @property submit
 		 * @property authenticationServiceConnection
 		 */
-		$constructor : function LoginForm(authenticationServiceConnection) {
-			var viewModel = new build.widget.authentication.LoginViewModel();
+		$constructor : function LoginForm(viewModel) {
 			$super(this)({
 				username : {},
 				password : {}
@@ -32,13 +31,12 @@ Build('build.widget.authentication.LoginForm', [ 'build::build.form.Form', 'buil
 			this.password = build.form.input.Password.create();
 			this.password.placeholder = 'Password';
 			this.submit = build.form.input.Submit.create('{i:[sign-in]} Login');
-			this.authenticationServiceConnection = authenticationServiceConnection;
 
 			build.binding.TextBinding.create(this.message, {
 				sources : [ {
 					source : viewModel,
 					property : 'message'
-				}, ]
+				} ]
 			});
 
 			this.addChild(this.message);
@@ -51,28 +49,9 @@ Build('build.widget.authentication.LoginForm', [ 'build::build.form.Form', 'buil
 				// Force update for saved passwords.
 				// this.username.text = this.username.element.value;
 				// this.password.text = this.password.element.value;
-				this.login();
+				this.viewModel.login();
 				return false;
 			}, false, this);
-		},
-		$prototype : {
-			/**
-			 * 
-			 */
-			login : function(success, error) {
-				this.authenticationServiceConnection.login(this.viewModel.username, this.viewModel.password, function(data, request) {
-					console.log(data);
-					if (data.success) {
-						this.runCallbacks('loginSuccess', data, request);
-						Build.safe(success)(data, request);
-					} else {
-						this.viewModel.message = data.message;
-						console.log('not logged in');
-					}
-				}.bind(this), function(request) {
-					Build.safe(error)(data, request);
-				}.bind(this));
-			}
 		}
 	});
 });

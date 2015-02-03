@@ -2,7 +2,8 @@
  * @class build.widget.authentication.AuthenticationWidget
  * @extends build.ui.Switcher
  */
-Build('build.widget.authentication.AuthenticationWidget', [ 'build::build.ui.Switcher', 'build::build.widget.authentication.LoginForm', 'build::build.widget.authentication.LogoutForm' ], function(define, $super) {
+Build('build.widget.authentication.AuthenticationWidget', [ 'build::build.ui.Switcher', 'build::build.widget.authentication.LoginForm', 'build::build.widget.authentication.LoginViewModel', 'build::build.widget.authentication.LogoutForm' ], function(
+		define, $super) {
 	define({
 		$extends : 'build.ui.Switcher',
 		/**
@@ -15,7 +16,8 @@ Build('build.widget.authentication.AuthenticationWidget', [ 'build::build.ui.Swi
 		 */
 		$constructor : function AuthenticationWidget(authenticationServiceConnection) {
 			$super(this)();
-			this.loginForm = build.widget.authentication.LoginForm.create(authenticationServiceConnection);
+			this.loginViewModel = new build.widget.authentication.LoginViewModel(undefined, authenticationServiceConnection);
+			this.loginForm = build.widget.authentication.LoginForm.create(this.loginViewModel);
 			this.logoutForm = build.widget.authentication.LogoutForm.create(authenticationServiceConnection);
 			this.addChild(this.loginForm);
 			this.addChild(this.logoutForm);
@@ -44,7 +46,7 @@ Build('build.widget.authentication.AuthenticationWidget', [ 'build::build.ui.Swi
 			/**
 			 * @event loginSuccess
 			 */
-			this.loginForm.addCallback('loginSuccess', function(data, request) {
+			this.loginViewModel.addCallback('loginSuccess', function(data, request) {
 				this.logoutForm.model = data.user;
 				this.loginForm.model = null;
 				this.active = 1;
