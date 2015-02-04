@@ -205,7 +205,7 @@ var Build = build.Build = (function() {
 	 * @param {Boolean} $lockParent
 	 * @returns {Function}
 	 */
-	function assemble($name, $constructor, $prototype, $static, $parent, $singleton, $base, $lockParent) {
+	function assemble($name, $constructor, $prototype, $static, $parent, $singleton, $base, $lockParent, $post) {
 		$constructor = $base ? base($constructor, $base) : $constructor;
 
 		copyNoReplace($constructor, $static);
@@ -216,6 +216,8 @@ var Build = build.Build = (function() {
 		$constructor.$base = $base;
 
 		$constructor = $singleton ? singleton($constructor) : $constructor;
+
+		$constructor = typeof $post === 'function' ? ($post.call($constructor, arguments) || $constructor) : $constructor
 
 		definitions[$name] = $constructor;
 		namespace($name, $constructor);
@@ -323,7 +325,7 @@ var Build = build.Build = (function() {
 				if ($parent && $parent.$base) {
 					$definition.$base = $definition.$base || $parent.$base;
 				}
-				$constructor = assemble($name, $definition.$constructor, $definition.$prototype, $definition.$static, $parent, $definition.$singleton, $definition.$base, $definition.$lockParent);
+				$constructor = assemble($name, $definition.$constructor, $definition.$prototype, $definition.$static, $parent, $definition.$singleton, $definition.$base, $definition.$lockParent, $definition.$post);
 			}, function(scope) {
 				if (scope) {
 					return function() {
