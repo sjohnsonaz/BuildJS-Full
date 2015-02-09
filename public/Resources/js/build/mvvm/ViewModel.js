@@ -1,8 +1,8 @@
 /**
- * @class build.viewmodel.ViewModel
+ * @class build.mvvm.ViewModel
  * @extends build.Module
  */
-Build('build.viewmodel.ViewModel', [ 'build::build.Module', 'build::build.utility.ObservableArray' ], function(define, $super) {
+Build('build.mvvm.ViewModel', [ 'build::build.Module', 'build::build.utility.ObservableArray' ], function(define, $super) {
 	function getValue(type, value, defaultValue) {
 		if (type === 'array') {
 			return build.utility.ObservableArray(typeof value !== 'undefined' ? value : (defaultValue || []));

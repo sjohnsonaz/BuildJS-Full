@@ -2,10 +2,10 @@
  * @class build.form.Form
  * @extends build.ui.Container
  */
-Build('build.form.Form', [ 'build::build.viewmodel.View' ], function(define, $super) {
+Build('build.form.Form', [ 'build::build.mvvm.View' ], function(define, $super) {
 	// TODO: Create navigation prevention on form change.
 	define({
-		$extends : 'build.viewmodel.View',
+		$extends : 'build.mvvm.View',
 		/**
 		 * @constructor
 		 */

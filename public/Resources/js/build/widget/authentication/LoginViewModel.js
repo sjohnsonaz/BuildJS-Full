@@ -1,10 +1,10 @@
 /**
  * @class build.widget.authentication.LoginViewModel
- * @extends build.viewmodel.ViewModel
+ * @extends build.mvvm.ViewModel
  */
-Build('build.widget.authentication.LoginViewModel', [ 'build::build.viewmodel.ViewModel' ], function(define, $super) {
+Build('build.widget.authentication.LoginViewModel', [ 'build::build.mvvm.ViewModel' ], function(define, $super) {
 	define({
-		$extends : 'build.viewmodel.ViewModel',
+		$extends : 'build.mvvm.ViewModel',
 		/**
 		 * @constructor
 		 */

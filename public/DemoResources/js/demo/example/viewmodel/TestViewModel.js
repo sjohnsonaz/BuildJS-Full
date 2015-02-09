@@ -1,10 +1,10 @@
 /**
  * @class demo.example.viewmodel.TestViewModel
- * @extends build.viewmodel.ViewModel
+ * @extends build.mvvm.ViewModel
  */
-Build('demo.example.viewmodel.TestViewModel', [ 'build::build.viewmodel.ViewModel' ], function(define, $super) {
+Build('demo.example.viewmodel.TestViewModel', [ 'build::build.mvvm.ViewModel' ], function(define, $super) {
 	define({
-		$extends : 'build.viewmodel.ViewModel',
+		$extends : 'build.mvvm.ViewModel',
 		/**
 		 * @constructor
 		 */
