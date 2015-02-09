@@ -2,10 +2,10 @@
  * @class build.form.Form
  * @extends build.ui.Container
  */
-Build('build.form.Form', [ 'build::build.ui.Container', 'build::build.binding.ValueBinding', 'build::build.binding.ForEachBinding' ], function(define, $super) {
+Build('build.form.Form', [ 'build::build.viewmodel.View' ], function(define, $super) {
 	// TODO: Create navigation prevention on form change.
 	define({
-		$extends : 'build.ui.Container',
+		$extends : 'build.viewmodel.View',
 		/**
 		 * @constructor
 		 */
@@ -16,26 +16,12 @@ Build('build.form.Form', [ 'build::build.ui.Container', 'build::build.binding.Va
 		 * @property model
 		 */
 		$constructor : function Form(valueMap, viewModel) {
-			$super(this)();
+			$super(this)(valueMap, viewModel);
 			this.watchProperty('method', 'method', 'GET');
 			this.watchProperty('action', 'action', '');
-			// valueMap and viewModel cannot be changed.
-			Object.defineProperty(this, 'valueMap', {
-				value : valueMap,
-				configurable : true,
-				enumerable : true
-			});
-			Object.defineProperty(this, 'viewModel', {
-				value : viewModel,
-				configurable : true,
-				enumerable : true
-			});
 		},
 		$prototype : {
 			type : 'form',
-			init : function() {
-				this.mapViewModel(this.valueMap, this.viewModel);
-			},
 			/**
 			 * @method preventSubmit
 			 */
@@ -61,24 +47,6 @@ Build('build.form.Form', [ 'build::build.ui.Container', 'build::build.binding.Va
 			 * @method clear
 			 */
 			clear : function() {
-			},
-			mapViewModel : function(valueMap, viewModel) {
-				if (valueMap && viewModel) {
-					for ( var name in valueMap) {
-						var mapDefinition = valueMap[name];
-						var sourceName = mapDefinition.name || name;
-						var viewModelDefinition = viewModel.definition[sourceName];
-						if (viewModelDefinition) {
-							if (viewModelDefinition.type === 'array') {
-								if (this[name]) {
-									build.binding.ForEachBinding.create(this[name], viewModel, mapDefinition.name || name);
-								}
-							} else {
-								build.binding.ValueBinding.create(this[name], viewModel, mapDefinition.name || name);
-							}
-						}
-					}
-				}
 			}
 		}
 	});
