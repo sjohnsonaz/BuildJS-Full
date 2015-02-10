@@ -1,7 +1,14 @@
+/**
+ * @class build.mvc.controller.AuthenticationController
+ * @extends build.mvc.controller.Controller
+ */
 module.exports = function(Build) {
 	Build('build.mvc.controller.AuthenticationController', [ 'buildnode::build.mvc.controller.Controller', 'buildnode::build.mvc.model.UserModel' ], function(define, $super) {
 		define({
 			$extends : 'build.mvc.controller.Controller',
+			/**
+			 * @constructor
+			 */
 			$constructor : function AuthenticationController(app) {
 				$super(this)(app);
 				this.userModel = new build.mvc.model.UserModel(app.database.mongoose);

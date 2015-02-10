@@ -1,7 +1,14 @@
 module.exports = function(Build) {
+	/**
+	 * @class build.mvc.model.UserModel
+	 * @extends build.mvc.model.MongooseModel
+	 */
 	Build('build.mvc.model.UserModel', [ 'buildnode::build.mvc.model.MongooseModel' ], function(define, $super) {
 		define({
 			$extends : 'build.mvc.model.MongooseModel',
+			/**
+			 * @constructor
+			 */
 			$constructor : function UserModel(mongoose) {
 				$super(this)(mongoose);
 				this.schema = new mongoose.Schema({

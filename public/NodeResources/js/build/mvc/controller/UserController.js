@@ -1,6 +1,13 @@
+/**
+ * @class build.mvc.controller.UserController
+ * @extends build.mvc.controller.Controller
+ */
 Build('build.mvc.controller.UserController', [ 'buildnode::build.mvc.controller.Controller', 'buildnode::build.mvc.model.UserModel' ], function(define, $super) {
 	define({
 		$extends : 'build.mvc.controller.Controller',
+		/**
+		 * @constructor
+		 */
 		$constructor : function UserController(app) {
 			$super(this)(app);
 			this.userModel = new build.mvc.model.UserModel(app.database.mongoose);

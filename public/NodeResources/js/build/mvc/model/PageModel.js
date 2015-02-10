@@ -1,7 +1,14 @@
 module.exports = function(Build) {
+	/**
+	 * @class build.mvc.model.PageModel
+	 * @extends build.mvc.model.MongooseModel
+	 */
 	Build('build.mvc.model.PageModel', [ 'buildnode::build.mvc.model.MongooseModel' ], function(define, $super) {
 		define({
 			$extends : 'build.mvc.model.MongooseModel',
+			/**
+			 * @constructor
+			 */
 			$constructor : function PageModel(mongoose) {
 				$super(this)(mongoose);
 				var ObjectId = mongoose.Schema.Types.ObjectId;

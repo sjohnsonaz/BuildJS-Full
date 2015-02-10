@@ -1,8 +1,14 @@
 var fs = require('fs');
 var path = require('path');
 module.exports = function(Build) {
+	/**
+	 * @class build.mvc.Helper
+	 */
 	Build('build.mvc.Helper', [], function(define, $super) {
 		define({
+			/**
+			 * @constructor
+			 */
 			$constructor : function Helper() {
 
 			},

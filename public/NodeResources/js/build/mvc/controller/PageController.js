@@ -1,6 +1,13 @@
+/**
+ * @class build.mvc.controller.PageController
+ * @extends build.mvc.controller.Controller
+ */
 Build('build.mvc.controller.PageController', [ 'buildnode::build.mvc.controller.Controller', 'buildnode::build.mvc.model.PageModel' ], function(define, $super) {
 	define({
 		$extends : 'build.mvc.controller.Controller',
+		/**
+		 * @constructor
+		 */
 		$constructor : function PageController(app) {
 			$super(this)(app);
 			this.pageModel = new build.mvc.model.PageModel(app.database.mongoose);

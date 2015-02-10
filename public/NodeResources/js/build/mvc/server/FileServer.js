@@ -1,9 +1,16 @@
 var express = require('express');
 
 module.exports = function(Build) {
+	/**
+	 * @class build.mvc.server.FileServer
+	 * @extends build.mvc.server.Server
+	 */
 	Build('build.mvc.server.FileServer', [ 'buildnode::build.mvc.server.Server' ], function(define, $super) {
 		define({
 			$extends : 'build.mvc.server.Server',
+			/**
+			 * @constructor
+			 */
 			$constructor : function FileServer(config) {
 				$super(this)(config);
 				var app = express();

@@ -1,6 +1,12 @@
 module.exports = function(Build) {
+	/**
+	 * @class build.mvc.server.Server
+	 */
 	Build('build.mvc.server.Server', [], function(define, $super) {
 		define({
+			/**
+			 * @constructor
+			 */
 			$constructor : function Server(config) {
 				this.config = config;
 				this.controllers = [];

@@ -1,8 +1,14 @@
 var fs = require('fs');
 var path = require('path');
 module.exports = function(Build) {
-	Build('build.mvc.Widget', [], function(define, $super) {
+	/**
+	 * @class build.mvc.widget.Widget
+	 */
+	Build('build.mvc.wiget.Widget', [], function(define, $super) {
 		define({
+			/**
+			 * @constructor
+			 */
 			$constructor : function Widget() {
 
 			},

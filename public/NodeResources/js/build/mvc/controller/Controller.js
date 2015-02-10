@@ -1,6 +1,12 @@
+/**
+ * @class build.mvc.controller.Controller
+ */
 module.exports = function(Build) {
 	Build('build.mvc.controller.Controller', [], function(define, $super) {
 		define({
+			/**
+			 * @constructor
+			 */
 			$constructor : function Controller(app) {
 				this.app = app;
 			},

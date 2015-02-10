@@ -5,8 +5,14 @@ var mongoose = require('mongoose');
 var Server = mongo.Server;
 var Db = mongo.Db;
 module.exports = function(Build) {
+	/**
+	 * @class build.mvc.database.Database
+	 */
 	Build('build.mvc.database.Database', [], function(define, $super) {
 		define({
+			/**
+			 * @constructor
+			 */
 			$constructor : function Database(host, port, database, username, password, mongooseConnection) {
 				this.db = null;
 				this.server = null;
