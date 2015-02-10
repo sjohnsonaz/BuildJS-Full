@@ -1,7 +1,14 @@
+/**
+ * @class demo.example.widget.ModalExample
+ * @extends build.ui.Container
+ */
 Build('demo.example.widget.ModalExample', [ 'build::build.ui.Container', 'build::build.ui.element.Header2', 'build::build.ui.element.Paragraph', 'build::build.widget.modal.Modal', 'build::build.ui.Text', 'build::build.form.input.Button' ], function(
 		define, $super) {
 	define({
 		$extends : 'build.ui.Container',
+		/**
+		 * @constructor
+		 */
 		$constructor : function ModalExample() {
 			$super(this)();
 			var header0 = build.ui.element.Header2.create('Modals');

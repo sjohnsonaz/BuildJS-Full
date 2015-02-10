@@ -1,6 +1,6 @@
 /**
  * @class demo.example.viewmodel.ViewModelExample
- * @extends build.ui.Container
+ * @extends build.form.Form
  */
 Build('demo.example.viewmodel.ViewModelExample', [ 'demo::demo.example.viewmodel.TestForm', 'demo::demo.example.viewmodel.TestViewModel', 'demo::demo.example.viewmodel.TestDataDisplay' ], function(define, $super) {
 	define({

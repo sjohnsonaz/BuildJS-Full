@@ -1,9 +1,16 @@
+/**
+ * @class demo.example.widget.WidgetExample
+ * @extends build.ui.Container
+ */
 Build('demo.example.widget.WidgetExample', [ 'build::build.ui.Container', 'build::build.ui.element.Header1', 'demo::demo.example.widget.ButtonExample', 'demo::demo.example.widget.ProgressBarExample', 'demo::demo.example.widget.ImageExample',
 		'demo::demo.example.widget.FormFieldExample', 'demo::demo.example.widget.FormExample', 'demo::demo.example.widget.ModalExample', 'demo::demo.example.widget.CollapsibleExample', 'build::build.ui.element.Paragraph'
 //, 'demo::demo.singleton.SingletonTest', 'demo::demo.alternatebase.ArrayChild'
 ], function(define, $super) {
 	define({
 		$extends : 'build.ui.Container',
+		/**
+		 * @constructor
+		 */
 		$constructor : function WidgetExample() {
 			$super(this)();
 			var header0 = build.ui.element.Header1.create('Widget Form');
