@@ -8,7 +8,7 @@ module.exports = function(Build) {
 	Build('build.mvc.server.DynamicServer', [ 'buildnode::build.mvc.server.Server', 'buildnode::build.mvc.database.Database' ], function(define, $super) {
 		define({
 			$extends : 'build.mvc.server.Server',
-			$constructor : function(config) {
+			$constructor : function DynamicServer(config) {
 				$super(this)(config);
 				var app = express();
 				this.app = app;
@@ -26,7 +26,7 @@ module.exports = function(Build) {
 					});
 					app.use(express.compress());
 					app.use(expressLayouts);
-					for ( var index = 0, length = config.staticPaths.length; index < length; index++) {
+					for (var index = 0, length = config.staticPaths.length; index < length; index++) {
 						var staticPath = config.staticPaths[index];
 						app.use(staticPath.virtual, express.static(staticPath.local, {
 							maxAge : 86400000

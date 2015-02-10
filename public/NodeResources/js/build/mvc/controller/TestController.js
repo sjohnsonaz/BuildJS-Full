@@ -1,7 +1,7 @@
 Build('build.mvc.controller.TestController', [ 'buildnode::build.mvc.controller.Controller' ], function(define, $super) {
 	define({
 		$extends : 'build.mvc.controller.Controller',
-		$constructor : function(app) {
+		$constructor : function TestController(app) {
 			$super(this)(app);
 			this.index = this.route({
 				verb : 'all',

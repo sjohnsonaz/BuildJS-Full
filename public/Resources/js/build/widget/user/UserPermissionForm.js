@@ -8,7 +8,7 @@ Build('build.widget.user.UserPermissionForm', [ 'build::build.form.Form', 'build
 		/**
 		 * @constructor
 		 */
-		$constructor : function(userServiceConnection) {
+		$constructor : function UserPermissionForm(userServiceConnection) {
 			$super(this)();
 			this.method = 'POST';
 			this.action = '#';

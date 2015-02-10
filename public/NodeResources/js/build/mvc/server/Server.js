@@ -1,7 +1,7 @@
 module.exports = function(Build) {
 	Build('build.mvc.server.Server', [], function(define, $super) {
 		define({
-			$constructor : function(config) {
+			$constructor : function Server(config) {
 				this.config = config;
 				this.controllers = [];
 			},

@@ -25,7 +25,6 @@ Build('build.mvvm.ViewModel', [ 'build::build.Module', 'build::build.utility.Obs
 					this.watchValue(name, getValue(propertyDefinition.type, data[name], propertyDefinition.value), propertyDefinition.get, propertyDefinition.set);
 				}
 			}
-
 		},
 		$prototype : {
 			/**

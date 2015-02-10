@@ -7,7 +7,7 @@ var Db = mongo.Db;
 module.exports = function(Build) {
 	Build('build.mvc.database.Database', [], function(define, $super) {
 		define({
-			$constructor : function(host, port, database, username, password, mongooseConnection) {
+			$constructor : function Database(host, port, database, username, password, mongooseConnection) {
 				this.db = null;
 				this.server = null;
 				this.mongoose = mongoose;

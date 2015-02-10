@@ -1,7 +1,7 @@
 module.exports = function(Build) {
 	Build('build.mvc.controller.Controller', [], function(define, $super) {
 		define({
-			$constructor : function(app) {
+			$constructor : function Controller(app) {
 				this.app = app;
 			},
 			$prototype : {
@@ -40,7 +40,7 @@ module.exports = function(Build) {
 							permissions = [ permissions ];
 						}
 						var permissionResult = true;
-						for ( var permissionIndex = 0; permissionIndex < permissions.length; permissionIndex++) {
+						for (var permissionIndex = 0; permissionIndex < permissions.length; permissionIndex++) {
 							var permission = permissions[permissionIndex];
 							permissionResult = permission(request, response);
 							if (!permissionResult) {
@@ -80,9 +80,9 @@ module.exports = function(Build) {
 							response.send(false);
 						}
 					};
-					for ( var routeIndex = 0; routeIndex < routeStrings.length; routeIndex++) {
+					for (var routeIndex = 0; routeIndex < routeStrings.length; routeIndex++) {
 						var routeString = routeStrings[routeIndex];
-						for ( var index = 0; index < verbs.length; index++) {
+						for (var index = 0; index < verbs.length; index++) {
 							var verbString = verbs[index];
 							switch (verbString) {
 							case 'all':
