@@ -1,5 +1,5 @@
 Build('demo.example.widget.FormExample', [ 'build::build.form.Form', 'build::build.ui.element.Header2', 'build::build.ui.element.Paragraph', 'build::build.form.FieldSet', 'build::build.form.container.FormControl', 'build::build.form.Label',
-		'build::build.form.input.Text', 'build::build.form.input.TextArea', 'demo::demo.example.widget.TestServiceConnection' ], function(define, $super) {
+		'build::build.form.input.Text', 'build::build.form.input.TextArea', 'build::build.form.input.Range', 'demo::demo.example.widget.TestServiceConnection' ], function(define, $super) {
 	define({
 		$extends : 'build.form.Form',
 		$constructor : function FormExample() {
@@ -24,7 +24,9 @@ Build('demo.example.widget.FormExample', [ 'build::build.form.Form', 'build::bui
 
 			var textArea = build.form.input.TextArea.create();
 			textArea.placeholder = 'Text';
+			var range = build.form.input.Range.create();
 			fieldSet.addChild(build.form.container.FormControl.create(null, textArea));
+			fieldSet.addChild(build.form.container.FormControl.create(null, range));
 			this.addChild(fieldSet);
 		},
 		$prototype : {
