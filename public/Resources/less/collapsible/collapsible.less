@@ -4,6 +4,7 @@
 .collapsible {
 	display: block;
 	box-shadow: @box-shadow-height-0;
+	overflow: hidden;
 	.border-radius-all(@input-border-radius, @input-border-radius, @input-border-radius, @input-border-radius);
 	& > .collapsible-header {
 		display: block;
@@ -12,7 +13,7 @@
 		color: @input-default-color;
 		font-weight: bold;
 		text-decoration: none;
-		.border-radius-all(@input-border-radius, @input-border-radius, @input-border-radius, @input-border-radius);
+		.border-radius-all(@input-border-radius, @input-border-radius, 0, 0);
 		cursor: pointer;
 		-webkit-touch-callout: none;
 		-webkit-user-select: none;
@@ -20,9 +21,6 @@
 		-moz-user-select: none;
 		-ms-user-select: none;
 		user-select: none;
-	}
-	&.collapsible-open > .collapsible-header {
-		.border-radius-all(@input-border-radius, @input-border-radius, 0, 0);
 	}
 
 	& > .collapsible-body {
