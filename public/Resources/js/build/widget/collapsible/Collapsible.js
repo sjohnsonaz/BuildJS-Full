@@ -31,6 +31,7 @@ Build('build.widget.collapsible.Collapsible', [ 'build::build.ui.Container', 'bu
 						window.setTimeout(function() {
 							if (!finished) {
 								self.body.style.height = self.innerElement.scrollHeight + 'px';
+								self.element.classList.add('collapsible-open');
 								window.setTimeout(function() {
 									if (!finished) {
 										self.body.style.height = 'auto';
@@ -45,7 +46,10 @@ Build('build.widget.collapsible.Collapsible', [ 'build::build.ui.Container', 'bu
 							if (!finished) {
 								self.body.style.height = '0px';
 								window.setTimeout(function() {
-									finished = true;
+									if (!finished) {
+										self.element.classList.remove('collapsible-open');
+										finished = true;
+									}
 								}, 500);
 							}
 						}, 100);
@@ -55,8 +59,10 @@ Build('build.widget.collapsible.Collapsible', [ 'build::build.ui.Container', 'bu
 					// Do not animate.  All animations will be ignored.
 					if (value) {
 						self.body.style.height = 'auto';
+						self.element.classList.add('collapsible-open');
 					} else {
 						this.body.style.height = '0px';
+						self.element.classList.remove('collapsible-open');
 					}
 				}
 				return value;

@@ -1,13 +1,18 @@
 @import "collapsible-settings.less";
+@import "../mixins.less";
+
 .collapsible {
 	display: block;
-	border: 1px solid #000;
+	box-shadow: @box-shadow-height-0;
+	.border-radius-all(@input-border-radius, @input-border-radius, @input-border-radius, @input-border-radius);
 	& > .collapsible-header {
 		display: block;
-		padding: 5px;
-		min-height: 30px;
-		background-color: #aaa;
+		padding: @input-padding;
+		background-color: @input-default-background-color;
+		color: @input-default-color;
 		font-weight: bold;
+		text-decoration: none;
+		.border-radius-all(@input-border-radius, @input-border-radius, @input-border-radius, @input-border-radius);
 		cursor: pointer;
 		-webkit-touch-callout: none;
 		-webkit-user-select: none;
@@ -16,6 +21,9 @@
 		-ms-user-select: none;
 		user-select: none;
 	}
+	&.collapsible-open > .collapsible-header {
+		.border-radius-all(@input-border-radius, @input-border-radius, 0, 0);
+	}
 
 	& > .collapsible-body {
 		display: block;
@@ -23,13 +31,10 @@
 		overflow: hidden;
 		visibility: none;
 		transition: height 500ms ease-in-out;
+		.border-radius-all(0, 0, @input-border-radius, @input-border-radius);
 		& > .collapsible-content {
-			padding: 5px;
+			padding: @input-padding;
 		}
-	}
-
-	&.collapsible-open > .collapsible-body {
-		visibility: visible;
 	}
 }
 
