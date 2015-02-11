@@ -20,21 +20,44 @@ Build('build.widget.collapsible.Collapsible', [ 'build::build.ui.Container', 'bu
 			this.body.appendChild(this.innerElement);
 			this.element.appendChild(this.body);
 			this.body.style.height = '0px';
+			var finished = true;
 			this.watchValue('open', open || false, undefined, function(value, cancel) {
-				if (value) {
-					this.element.classList.add('collapsible-open');
-					this.body.style.height = this.innerElement.scrollHeight + 'px';
-					window.setTimeout(function() {
-						this.body.style.height = 'auto';
-					}.bind(this), 500);
-				} else {
-					this.body.style.height = this.innerElement.scrollHeight + 'px';
-					window.setTimeout(function() {
+				var self = this;
+				// We can animate
+				if (finished) {
+					finished = false;
+					if (value) {
 						this.body.style.height = '0px';
 						window.setTimeout(function() {
-							this.element.classList.remove('collapsible-open');
-						}.bind(this), 500);
-					}.bind(this), 1);
+							if (!finished) {
+								self.body.style.height = self.innerElement.scrollHeight + 'px';
+								window.setTimeout(function() {
+									if (!finished) {
+										self.body.style.height = 'auto';
+										finished = true;
+									}
+								}, 500);
+							}
+						}, 100);
+					} else {
+						self.body.style.height = self.innerElement.scrollHeight + 'px';
+						window.setTimeout(function() {
+							if (!finished) {
+								self.body.style.height = '0px';
+								window.setTimeout(function() {
+									finished = true;
+								}, 500);
+							}
+						}, 100);
+					}
+				} else {
+					finished = true;
+					// Do not animate.  All animations will be ignored.
+					if (value) {
+						self.body.style.height = 'auto';
+					} else {
+						this.body.style.height = '0px';
+					}
 				}
 				return value;
 			}.bind(this));
