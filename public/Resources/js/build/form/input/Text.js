@@ -26,7 +26,10 @@ Build('build.form.input.Text', [ 'build::build.ui.Container' ], function(define,
 		 */
 		$constructor : function Text(text, value, textType) {
 			$super(this)(text, value);
-			this.watchProperty('value');
+			var mask = undefined;
+			this.watchProperty('value', 'value', undefined, undefined, function(value, cancel) {
+				return mask ? mask.runMask(value + '') : value;
+			}.bind(this));
 			this.watchAttribute('placeholder');
 			this.watchAttribute('name');
 			// TODO: Add functionality for more active updates.
@@ -37,7 +40,6 @@ Build('build.form.input.Text', [ 'build::build.ui.Container' ], function(define,
 			this.watchProperty('textType', 'type', textType || 'text', null, function(value, cancel) {
 				return textTypes[value] || cancel;
 			});
-			var mask = undefined;
 			this.watchValue('mask', undefined, undefined, function(value, cancel) {
 				if (mask) {
 					removeMask(mask);
@@ -111,29 +113,34 @@ Build('build.form.input.Text', [ 'build::build.ui.Container' ], function(define,
 			}
 		}
 		function inputListener(event) {
+			runMask(element.value);
+		}
+		function runMask(value) {
+			var updated = false;
 			var selectionStart = element.selectionStart;
 			if (selectionStart <= firstPosition) {
 				selectionStart = firstPosition + 1;
 			}
 			var position = getPosition(pattern, selectionStart);
 			var valuePosition = getValuePosition(pattern, selectionStart);
-			var clean = element.value.replace(/\W+/g, "");
+			var clean = value.replace(/\W+/g, "");
 			if (clean.length <= patternLength) {
 				if (valuePosition > clean.length) {
 					position = getPatternPosition(pattern, clean.length);
 				}
-				var value = formatPattern(pattern, clean);
-				var match = matchValue(regexPattern, value);
+				var output = formatPattern(pattern, clean);
+				var match = matchValue(regexPattern, output);
 				if (match && match.length) {
-					element.value = value;
-					if (value != lastValue) {
+					element.value = output;
+					if (output != lastValue) {
 						element.selectionStart = position;
 						element.selectionEnd = position;
 					} else {
 						element.selectionStart = lastPosition;
 						element.selectionEnd = lastPosition;
 					}
-					lastValue = value;
+					lastValue = output;
+					updated = true;
 				} else {
 					element.value = lastValue;
 					element.selectionStart = lastPosition;
@@ -144,13 +151,15 @@ Build('build.form.input.Text', [ 'build::build.ui.Container' ], function(define,
 				element.selectionStart = lastPosition;
 				element.selectionEnd = lastPosition;
 			}
+			return element.value;
 		}
 		element.addEventListener('keydown', keyDownListener);
 		element.addEventListener('input', inputListener);
 		return {
 			element : element,
 			keyDownListener : keyDownListener,
-			inputListener : inputListener
+			inputListener : inputListener,
+			runMask : runMask
 		};
 	}
 
