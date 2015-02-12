@@ -52,6 +52,7 @@ Build('build.form.input.Text', [ 'build::build.ui.Container' ], function(define,
 		}
 	});
 	function createMask(element, pattern) {
+		var regexPattern = createRegex(pattern);
 		element.value = formatPattern(pattern, element.value.replace(/\W+/g, ""));
 		element.addEventListener('keydown', function(event) {
 			switch (event.keyCode) {
@@ -109,6 +110,14 @@ Build('build.form.input.Text', [ 'build::build.ui.Container' ], function(define,
 		});
 	}
 
+	function createRegex(pattern) {
+		pattern = pattern.replace(/(.{1})/g, '\\$1');
+		pattern = pattern.replace(/\\a/g, '[a-zA-Z ]');
+		//pattern = pattern.replace(/\\*/g, '[0-9a-zA-Z ]');
+		pattern = pattern.replace(/\\9/g, '[0-9 ]');
+		return pattern;
+	}
+
 	function formatPattern(pattern, value) {
 		var output = '';
 		var valueIndex = 0;
@@ -123,7 +132,7 @@ Build('build.form.input.Text', [ 'build::build.ui.Container' ], function(define,
 		}
 		return output;
 	}
-	
+
 	function getFirstPosition(pattern) {
 		for (var index = 0, length = pattern.length; index < length; index++) {
 			var character = pattern[index];
