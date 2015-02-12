@@ -198,3 +198,7 @@ build.utility.Mask = (function() {
 	Mask.createMask = createMask;
 	return Mask;
 })();
+
+if (typeof Build !== 'undefined') {
+	Build.register('build.utility.Mask', build.utility.Mask);
+}
