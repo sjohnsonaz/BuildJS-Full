@@ -117,8 +117,13 @@ Build('build.form.input.Text', [ 'build::build.ui.Container' ], function(define,
 			var match = matchValue(regexPattern, value);
 			if (match && match.length) {
 				element.value = value;
-				element.selectionStart = position;
-				element.selectionEnd = position;
+				if (value != lastValue) {
+					element.selectionStart = position;
+					element.selectionEnd = position;
+				} else {
+					element.selectionStart = lastPosition;
+					element.selectionEnd = lastPosition;
+				}
 				lastValue = value;
 			} else {
 				element.value = lastValue;
