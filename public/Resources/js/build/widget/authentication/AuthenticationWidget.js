@@ -3,7 +3,7 @@
  * @extends build.ui.Switcher
  */
 Build('build.widget.authentication.AuthenticationWidget', [ 'build::build.ui.Switcher', 'build::build.widget.authentication.LoginForm', 'build::build.widget.authentication.LoginViewModel', 'build::build.widget.authentication.LogoutForm' ], function(
-		define, $super) {
+		$define, $super) {
 	$define({
 		$extends : 'build.ui.Switcher',
 		/**
