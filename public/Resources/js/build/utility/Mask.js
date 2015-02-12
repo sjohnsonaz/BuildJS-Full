@@ -100,12 +100,32 @@ build.utility.Mask = (function() {
 			}
 			return element.value;
 		}
+		function focusListener() {
+			var selectionStart = element.selectionStart;
+			if (selectionStart <= firstPosition) {
+				selectionStart = firstPosition + 1;
+			}
+			var valuePosition = getValuePosition(pattern, selectionStart);
+			var clean = element.value.replace(/\W+/g, "");
+			var position;
+			if (valuePosition > clean.length) {
+				position = getPatternPosition(pattern, clean.length);
+			} else {
+				position = getPosition(pattern, selectionStart);
+			}
+			element.selectionStart = position;
+			element.selectionEnd = position;
+		}
 		function destroyMask() {
 			element.removeEventListener('keydown', keyDownListener);
 			element.removeEventListener('input', inputListener);
+			element.removeEventListener('focus', focusListener);
+			element.removeEventListener('click', focusListener);
 		}
 		element.addEventListener('keydown', keyDownListener);
 		element.addEventListener('input', inputListener);
+		element.addEventListener('focus', focusListener);
+		element.addEventListener('click', focusListener);
 		return {
 			element : element,
 			runMask : runMask,
