@@ -2,8 +2,8 @@
  * @class build.mvc.controller.Controller
  */
 module.exports = function(Build) {
-	Build('build.mvc.controller.Controller', [], function(define, $super) {
-		define({
+	Build('build.mvc.controller.Controller', [], function($define, $super) {
+		$define({
 			/**
 			 * @constructor
 			 */

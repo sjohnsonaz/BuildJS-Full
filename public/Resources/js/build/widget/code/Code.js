@@ -2,8 +2,8 @@
  * @class build.widget.code.Code
  * @extends build.ui.Content
  */
-Build('build.widget.code.Code', [ 'build::build.ui.Content' ], function(define, $super) {
-	define({
+Build('build.widget.code.Code', [ 'build::build.ui.Content' ], function($define, $super) {
+	$define({
 		$extends : 'build.ui.Widget',
 		/**
 		 * @constructor

@@ -2,8 +2,8 @@
  * @class build.widget.modal.Modal
  * @extends build.ui.Container
  */
-Build('build.widget.modal.Modal', [ 'build::build.ui.Container' ], function(define, $super) {
-	define({
+Build('build.widget.modal.Modal', [ 'build::build.ui.Container' ], function($define, $super) {
+	$define({
 		$extends : 'build.ui.Container',
 		/**
 		 * @constructor

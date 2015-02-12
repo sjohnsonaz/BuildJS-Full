@@ -4,8 +4,8 @@ module.exports = function(Build) {
 	/**
 	 * @class build.mvc.Helper
 	 */
-	Build('build.mvc.Helper', [], function(define, $super) {
-		define({
+	Build('build.mvc.Helper', [], function($define, $super) {
+		$define({
 			/**
 			 * @constructor
 			 */

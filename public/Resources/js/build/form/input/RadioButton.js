@@ -2,8 +2,8 @@
  * @class build.form.input.RadioButton
  * @extends build.form.Content
  */
-Build('build.form.input.RadioButton', [ 'build::build.ui.Content' ], function(define, $super) {
-	define({
+Build('build.form.input.RadioButton', [ 'build::build.ui.Content' ], function($define, $super) {
+	$define({
 		$extends : 'build.ui.Content',
 		/**
 		 * @constructor

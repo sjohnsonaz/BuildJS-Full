@@ -2,8 +2,8 @@
  * @class build.ui.element.HorizontalRule
  * @extends build.ui.element.Element
  */
-Build('build.ui.element.HorizontalRule', [ 'build::build.ui.element.Element' ], function(define, $super) {
-	define({
+Build('build.ui.element.HorizontalRule', [ 'build::build.ui.element.Element' ], function($define, $super) {
+	$define({
 		$extends : 'build.ui.element.Element',
 		/**
 		 * @constructor

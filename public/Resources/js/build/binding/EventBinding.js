@@ -2,8 +2,8 @@
  * @class build.binding.EventBinding
  * @extends build.binding.BindingHandler
  */
-Build('build.binding.EventBinding', [ 'build::build.binding.BindingHandler' ], function(define, $super) {
-	define({
+Build('build.binding.EventBinding', [ 'build::build.binding.BindingHandler' ], function($define, $super) {
+	$define({
 		$extends : 'build.binding.BindingHandler',
 		/**
 		 * @constructor

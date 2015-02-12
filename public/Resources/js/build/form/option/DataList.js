@@ -2,8 +2,8 @@
  * @class build.form.option.DataList
  * @extends build.ui.Container
  */
-Build('build.form.option.DataList', [ 'build::build.ui.Container', 'build::build.form.option.Option' ], function(define, $super) {
-	define({
+Build('build.form.option.DataList', [ 'build::build.ui.Container', 'build::build.form.option.Option' ], function($define, $super) {
+	$define({
 		$extends : 'build.ui.Container',
 		/**
 		 * @constructor

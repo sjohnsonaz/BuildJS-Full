@@ -3,8 +3,8 @@
  * @extends build.application.Application
  */
 Build('build.application.AuthenticatedApplication', [ 'build::build.application.Application', 'build::build.ui.Switcher', 'build::build.widget.menu.ExpandableMenuWidget', 'build::build.widget.menu.MenuElement',
-		'build::build.widget.authentication.AuthenticationWidget', 'build::build.service.AuthenticationServiceConnection' ], function(define, $super) {
-	define({
+		'build::build.widget.authentication.AuthenticationWidget', 'build::build.service.AuthenticationServiceConnection' ], function($define, $super) {
+	$define({
 		$extends : 'build.application.Application',
 		/**
 		 * @constructor

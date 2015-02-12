@@ -1,13 +1,13 @@
 /**
  * @class build.history.HashRouter
  */
-Build('build.history.HashRouter', [], function(define, $super) {
+Build('build.history.HashRouter', [], function($define, $super) {
 	var STRIP_COMMENTS = /((\/\/.*$)|(\/\*[\s\S]*?\*\/))/mg;
 	function getParameterNames(functionHandle) {
 		var definition = functionHandle.toString().replace(STRIP_COMMENTS, '');
 		return definition.slice(definition.indexOf('(') + 1, definition.indexOf(')')).match(/([^\s,]+)/g) || [];
 	}
-	define({
+	$define({
 		/**
 		 * @constructor
 		 * @property routes

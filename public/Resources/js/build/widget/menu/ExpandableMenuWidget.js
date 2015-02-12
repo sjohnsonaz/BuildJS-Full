@@ -2,8 +2,8 @@
  * @class build.widget.menu.ExpandableMenuWidget
  * @extends build.widget.menu.MenuWidget
  */
-Build('build.widget.menu.ExpandableMenuWidget', [ 'build::build.widget.menu.MenuWidget', 'build::build.form.input.Button', 'build::build.widget.menu.MenuTitle' ], function(define, $super) {
-	define({
+Build('build.widget.menu.ExpandableMenuWidget', [ 'build::build.widget.menu.MenuWidget', 'build::build.form.input.Button', 'build::build.widget.menu.MenuTitle' ], function($define, $super) {
+	$define({
 		$extends : 'build.widget.menu.MenuWidget',
 		/**
 		 * @constructor

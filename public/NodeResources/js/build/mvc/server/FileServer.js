@@ -5,8 +5,8 @@ module.exports = function(Build) {
 	 * @class build.mvc.server.FileServer
 	 * @extends build.mvc.server.Server
 	 */
-	Build('build.mvc.server.FileServer', [ 'buildnode::build.mvc.server.Server' ], function(define, $super) {
-		define({
+	Build('build.mvc.server.FileServer', [ 'buildnode::build.mvc.server.Server' ], function($define, $super) {
+		$define({
 			$extends : 'build.mvc.server.Server',
 			/**
 			 * @constructor

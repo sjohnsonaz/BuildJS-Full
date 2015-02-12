@@ -2,8 +2,8 @@
  * @class build.form.input.Range
  * @extends build.ui.Widget
  */
-Build('build.form.input.Range', [ 'build::build.ui.Widget' ], function(define, $super) {
-	define({
+Build('build.form.input.Range', [ 'build::build.ui.Widget' ], function($define, $super) {
+	$define({
 		$extends : 'build.ui.Widget',
 		/**
 		 * @constructor

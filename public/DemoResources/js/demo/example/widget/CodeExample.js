@@ -2,8 +2,8 @@
  * @class demo.example.widget.CodeExample
  * @extends build.ui.Container
  */
-Build('demo.example.widget.CodeExample', [ 'build::build.ui.Container', 'build::build.ui.element.Header2', 'build::build.ui.element.Paragraph', 'build::build.widget.code.Code' ], function(define, $super) {
-	define({
+Build('demo.example.widget.CodeExample', [ 'build::build.ui.Container', 'build::build.ui.element.Header2', 'build::build.ui.element.Paragraph', 'build::build.widget.code.Code' ], function($define, $super) {
+	$define({
 		$extends : 'build.ui.Container',
 		$constructor : function CodeExample() {
 			$super(this)();

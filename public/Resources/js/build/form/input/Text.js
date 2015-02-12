@@ -2,7 +2,7 @@
  * @class build.form.input.Text
  * @extends build.ui.Container
  */
-Build('build.form.input.Text', [ 'build::build.ui.Container', 'build::build.utility.Mask' ], function(define, $super) {
+Build('build.form.input.Text', [ 'build::build.ui.Container', 'build::build.utility.Mask' ], function($define, $super) {
 	var textTypes = {
 		text : 'text',
 		password : 'password',
@@ -11,7 +11,7 @@ Build('build.form.input.Text', [ 'build::build.ui.Container', 'build::build.util
 		email : 'email',
 		url : 'url'
 	};
-	define({
+	$define({
 		$extends : 'build.ui.Container',
 		/**
 		 * @constructor

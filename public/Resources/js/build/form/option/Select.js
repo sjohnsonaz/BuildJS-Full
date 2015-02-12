@@ -1,5 +1,5 @@
-Build('build.form.option.Select', [ 'build::build.ui.Container', 'build::build.form.option.Option' ], function(define, $super) {
-	define({
+Build('build.form.option.Select', [ 'build::build.ui.Container', 'build::build.form.option.Option' ], function($define, $super) {
+	$define({
 		$extends : 'build.ui.Container',
 		$constructor : function Select() {
 			$super(this)();

@@ -6,8 +6,8 @@ Build.paths.demo = '/DemoResources/js/';
  * @class demo.application.DomApplication
  * @extends build.application.Application
  */
-Build('demo.application.DomApplication', [ 'build::build.application.Application', 'build::build.ui.element.Div', 'build::build.form.input.Button' ], function(define, $super) {
-	define({
+Build('demo.application.DomApplication', [ 'build::build.application.Application', 'build::build.ui.element.Div', 'build::build.form.input.Button' ], function($define, $super) {
+	$define({
 		$extends : 'build.application.Application',
 		/**
 		 * @constructor

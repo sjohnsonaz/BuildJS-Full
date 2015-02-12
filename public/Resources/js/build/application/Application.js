@@ -2,8 +2,8 @@
  * @class build.application.Application
  * @extends build.ui.Container
  */
-Build('build.application.Application', [ 'build::build.ui.Container', 'build::build.history.HashRouter' ], function(define, $super) {
-	define({
+Build('build.application.Application', [ 'build::build.ui.Container', 'build::build.history.HashRouter' ], function($define, $super) {
+	$define({
 		$extends : 'build.ui.Container',
 		/** 
 		 * @constructor

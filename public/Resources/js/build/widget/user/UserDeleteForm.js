@@ -2,8 +2,8 @@
  * @class build.widget.user.UserDeleteForm
  * @extends build.form.Form
  */
-Build('build.widget.user.UserDeleteForm', [ 'build::build.form.Form', 'build::build.form.container.ButtonGroup', 'build::build.form.input.Button', 'build::build.form.input.Submit', 'build::build.ui.element.Paragraph' ], function(define, $super) {
-	define({
+Build('build.widget.user.UserDeleteForm', [ 'build::build.form.Form', 'build::build.form.container.ButtonGroup', 'build::build.form.input.Button', 'build::build.form.input.Submit', 'build::build.ui.element.Paragraph' ], function($define, $super) {
+	$define({
 		$extends : 'build.form.Form',
 		/**
 		 * @constructor

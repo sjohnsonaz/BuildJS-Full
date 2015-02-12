@@ -4,8 +4,8 @@ module.exports = function(Build) {
 	/**
 	 * @class build.mvc.widget.Widget
 	 */
-	Build('build.mvc.wiget.Widget', [], function(define, $super) {
-		define({
+	Build('build.mvc.wiget.Widget', [], function($define, $super) {
+		$define({
 			/**
 			 * @constructor
 			 */

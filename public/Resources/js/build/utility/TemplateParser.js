@@ -1,8 +1,8 @@
 /**
  * @class build.utility.TemplateParser
  */
-Build('build.utility.TemplateParser', [], function(define, $super) {
-	define({
+Build('build.utility.TemplateParser', [], function($define, $super) {
+	$define({
 		/**
 		 * @constructor
 		 */

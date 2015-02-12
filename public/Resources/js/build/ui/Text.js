@@ -2,8 +2,8 @@
  * @class build.ui.Text
  * @extends build.Module
  */
-Build('build.ui.Text', [ 'build::build.Module' ], function(define, $super) {
-	define({
+Build('build.ui.Text', [ 'build::build.Module' ], function($define, $super) {
+	$define({
 		$extends : 'build.Module',
 		/**
 		 * @constructor

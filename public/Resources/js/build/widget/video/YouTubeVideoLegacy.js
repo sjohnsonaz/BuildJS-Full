@@ -2,8 +2,8 @@
  * @class build.widget.video.YouTubeVideo
  * @extends build::build.ui.Widget
  */
-Build('build.widget.video.YouTubeVideo', [ 'build::build.ui.Widget', 'http://ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js' ], function(define, $super) {
-	define({
+Build('build.widget.video.YouTubeVideo', [ 'build::build.ui.Widget', 'http://ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js' ], function($define, $super) {
+	$define({
 		$extends : 'build.ui.Widget',
 		/**
 		 * @constructor

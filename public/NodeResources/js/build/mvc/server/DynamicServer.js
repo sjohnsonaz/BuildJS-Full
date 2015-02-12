@@ -9,8 +9,8 @@ module.exports = function(Build) {
 	 * @class build.mvc.server.DynamicServer
 	 * @extends build.mvc.server.Server
 	 */
-	Build('build.mvc.server.DynamicServer', [ 'buildnode::build.mvc.server.Server', 'buildnode::build.mvc.database.Database' ], function(define, $super) {
-		define({
+	Build('build.mvc.server.DynamicServer', [ 'buildnode::build.mvc.server.Server', 'buildnode::build.mvc.database.Database' ], function($define, $super) {
+		$define({
 			$extends : 'build.mvc.server.Server',
 			/**
 			 * @constructor

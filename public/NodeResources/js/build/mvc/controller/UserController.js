@@ -2,8 +2,8 @@
  * @class build.mvc.controller.UserController
  * @extends build.mvc.controller.Controller
  */
-Build('build.mvc.controller.UserController', [ 'buildnode::build.mvc.controller.Controller', 'buildnode::build.mvc.model.UserModel' ], function(define, $super) {
-	define({
+Build('build.mvc.controller.UserController', [ 'buildnode::build.mvc.controller.Controller', 'buildnode::build.mvc.model.UserModel' ], function($define, $super) {
+	$define({
 		$extends : 'build.mvc.controller.Controller',
 		/**
 		 * @constructor

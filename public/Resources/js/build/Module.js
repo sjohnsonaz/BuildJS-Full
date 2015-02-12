@@ -2,11 +2,11 @@
  * @class build.Module
  * Base class for self contained modules such as UI components.
  */
-Build('build.Module', [], function(define, $super) {
+Build('build.Module', [], function($define, $super) {
 	var cancel = {
 		cancel : true
 	};
-	define({
+	$define({
 		/**
 		 * @constructor
 		 * Creates a new Module instance.

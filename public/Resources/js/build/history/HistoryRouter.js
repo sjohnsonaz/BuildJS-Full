@@ -2,8 +2,8 @@
  * @class build.history.HistoryRouter
  * @extends build.Module
  */
-Build('build.history.HistoryRouter', [ 'build::build.Module' ], function(define, $super) {
-	define({
+Build('build.history.HistoryRouter', [ 'build::build.Module' ], function($define, $super) {
+	$define({
 		$extends : 'build.Module',
 		/**
 		 * @constructor

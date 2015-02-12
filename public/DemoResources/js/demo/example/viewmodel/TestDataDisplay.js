@@ -4,7 +4,7 @@
  */
 Build('demo.example.viewmodel.TestDataDisplay', [ 'build::build.ui.Container', 'build::build.ui.element.Paragraph', 'build::build.binding.TextBinding', 'build::build.binding.IfBinding', 'build::build.binding.ForEachBinding' ], function(define,
 		$super) {
-	define({
+	$define({
 		$extends : 'build.ui.Container',
 		/**
 		 * @constructor

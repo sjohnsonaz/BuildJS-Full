@@ -6,8 +6,8 @@ Build('demo.example.widget.WidgetExample', [ 'build::build.ui.Container', 'build
 		'demo::demo.example.widget.FormFieldExample', 'demo::demo.example.widget.FormExample', 'demo::demo.example.widget.ModalExample', 'demo::demo.example.widget.CollapsibleExample', 'demo::demo.example.widget.CodeExample',
 		'build::build.ui.element.Paragraph'
 //, 'demo::demo.singleton.SingletonTest', 'demo::demo.alternatebase.ArrayChild'
-], function(define, $super) {
-	define({
+], function($define, $super) {
+	$define({
 		$extends : 'build.ui.Container',
 		/**
 		 * @constructor

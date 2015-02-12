@@ -2,8 +2,8 @@
  * @class build.binding.OneWayBinding
  * @extends build.binding.BindingHandler
  */
-Build('build.binding.OneWayBinding', [ 'build::build.binding.BindingHandler' ], function(define, $super) {
-	define({
+Build('build.binding.OneWayBinding', [ 'build::build.binding.BindingHandler' ], function($define, $super) {
+	$define({
 		$extends : 'build.binding.BindingHandler',
 		/**
 		 * @constructor

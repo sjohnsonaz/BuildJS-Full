@@ -4,8 +4,8 @@
  * 
  * Monitor navigation locks 
  */
-Build('build.utility.Navigation', [ 'build::build.Module' ], function(define, $super) {
-	define({
+Build('build.utility.Navigation', [ 'build::build.Module' ], function($define, $super) {
+	$define({
 		$extends : 'build.Module',
 		/**
 		 * @constructor

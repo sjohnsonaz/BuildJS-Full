@@ -2,8 +2,8 @@
  * @class build.form.input.Password
  * @extends build.form.input.Text
  */
-Build('build.form.input.Password', [ 'build::build.form.input.Text' ], function(define, $super) {
-	define({
+Build('build.form.input.Password', [ 'build::build.form.input.Text' ], function($define, $super) {
+	$define({
 		$extends : 'build.form.input.Text',
 		/**
 		 * @constructor

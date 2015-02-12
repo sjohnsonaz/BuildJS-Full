@@ -3,8 +3,8 @@
  * @extends build.mvc.controller.Controller
  */
 module.exports = function(Build) {
-	Build('build.mvc.controller.AuthenticationController', [ 'buildnode::build.mvc.controller.Controller', 'buildnode::build.mvc.model.UserModel' ], function(define, $super) {
-		define({
+	Build('build.mvc.controller.AuthenticationController', [ 'buildnode::build.mvc.controller.Controller', 'buildnode::build.mvc.model.UserModel' ], function($define, $super) {
+		$define({
 			$extends : 'build.mvc.controller.Controller',
 			/**
 			 * @constructor

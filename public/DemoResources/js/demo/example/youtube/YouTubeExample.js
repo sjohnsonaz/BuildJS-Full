@@ -2,8 +2,8 @@
  * @class demo.example.youtube.YouTubeExample
  * @extends build.ui.Container
  */
-Build('demo.example.youtube.YouTubeExample', [ 'build::build.ui.Container', '#build::build.widget.video.YouTubeVideo' ], function(define, $super) {
-	define({
+Build('demo.example.youtube.YouTubeExample', [ 'build::build.ui.Container', '#build::build.widget.video.YouTubeVideo' ], function($define, $super) {
+	$define({
 		$extends : 'build.ui.Container',
 		/**
 		 * @constructor

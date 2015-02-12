@@ -2,8 +2,8 @@
  * @class build.widget.authentication.LoginViewModel
  * @extends build.mvvm.ViewModel
  */
-Build('build.widget.authentication.LoginViewModel', [ 'build::build.mvvm.ViewModel' ], function(define, $super) {
-	define({
+Build('build.widget.authentication.LoginViewModel', [ 'build::build.mvvm.ViewModel' ], function($define, $super) {
+	$define({
 		$extends : 'build.mvvm.ViewModel',
 		/**
 		 * @constructor

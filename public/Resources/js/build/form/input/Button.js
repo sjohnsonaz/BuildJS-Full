@@ -2,8 +2,8 @@
  * @class build.form.input.Button
  * @extends build.ui.Content
  */
-Build('build.form.input.Button', [ 'build::build.ui.Content' ], function(define, $super) {
-	define({
+Build('build.form.input.Button', [ 'build::build.ui.Content' ], function($define, $super) {
+	$define({
 		$extends : 'build.ui.Content',
 		/**
 		 * @constructor

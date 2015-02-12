@@ -2,8 +2,8 @@ module.exports = function(Build) {
 	/**
 	 * @class build.mvc.IsLoggedInPermission
 	 */
-	Build('build.mvc.IsLoggedInPermission', [], function(define, $super) {
-		define({
+	Build('build.mvc.IsLoggedInPermission', [], function($define, $super) {
+		$define({
 			/**
 			 * @constructor
 			 */

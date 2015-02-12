@@ -3,8 +3,8 @@
  * @extends build.application.AuthenticatedApplication
  */
 Build('build.application.AdminApplication', [ 'build::build.application.AuthenticatedApplication', 'build::build.ui.Container', 'build::build.service.UserServiceConnection', 'build::build.widget.tab.TabPanel', 'build::build.widget.tab.TabContainer',
-		'build::build.widget.user.UserWidget' ], function(define, $super) {
-	define({
+		'build::build.widget.user.UserWidget' ], function($define, $super) {
+	$define({
 		$extends : 'build.application.AuthenticatedApplication',
 		/**
 		 * @constructor

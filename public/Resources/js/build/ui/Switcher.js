@@ -2,8 +2,8 @@
  * @class build.ui.Switcher
  * @extends build.ui.Container
  */
-Build('build.ui.Switcher', [ 'build::build.ui.Container', 'build::build.utility.Navigation' ], function(define, $super) {
-	define({
+Build('build.ui.Switcher', [ 'build::build.ui.Container', 'build::build.utility.Navigation' ], function($define, $super) {
+	$define({
 		$extends : 'build.ui.Container',
 		/**
 		 * @constructor

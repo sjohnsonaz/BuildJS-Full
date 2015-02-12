@@ -3,8 +3,8 @@
  * @extends build.form.Form
  */
 Build('build.widget.user.UserEditForm', [ 'build::build.form.Form', 'build::build.ui.element.Div', 'build::build.form.input.Text', 'build::build.form.input.Password', 'build::build.form.input.Button', 'build::build.form.input.Submit',
-		'build::build.form.container.ButtonGroup', 'build::build.form.container.FormControl', 'build::build.form.Label' ], function(define, $super) {
-	define({
+		'build::build.form.container.ButtonGroup', 'build::build.form.container.FormControl', 'build::build.form.Label' ], function($define, $super) {
+	$define({
 		$extends : 'build.form.Form',
 		/**
 		 * @constructor

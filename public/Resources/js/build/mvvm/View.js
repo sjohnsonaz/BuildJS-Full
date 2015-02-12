@@ -2,8 +2,8 @@
  * @class build.mvvm.View
  * @extends build.ui.Container
  */
-Build('build.mvvm.View', [ 'build::build.ui.Container', 'build::build.binding.ValueBinding', 'build::build.binding.ForEachBinding' ], function(define, $super) {
-	define({
+Build('build.mvvm.View', [ 'build::build.ui.Container', 'build::build.binding.ValueBinding', 'build::build.binding.ForEachBinding' ], function($define, $super) {
+	$define({
 		$extends : 'build.ui.Container',
 		/**
 		 * @constructor

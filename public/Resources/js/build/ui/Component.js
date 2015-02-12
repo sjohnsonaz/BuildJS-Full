@@ -1,8 +1,8 @@
 /**
  * @class build.ui.Component
  */
-Build('build.ui.Component', [], function(define, $super) {
-	define({
+Build('build.ui.Component', [], function($define, $super) {
+	$define({
 		$extends : HTMLElement,
 		/**
 		 * @constructor

@@ -2,8 +2,8 @@
  * @class build.ui.Container
  * @extends build.ui.Widget
  */
-Build('build.ui.Container', [ 'build::build.ui.Widget', 'build::build.utility.ObservableArray' ], function(define, $super) {
-	define({
+Build('build.ui.Container', [ 'build::build.ui.Widget', 'build::build.utility.ObservableArray' ], function($define, $super) {
+	$define({
 		$extends : 'build.ui.Widget',
 		/**
 		 * @constructor

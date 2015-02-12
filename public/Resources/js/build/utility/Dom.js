@@ -3,8 +3,8 @@
  * Best Practices inspired by article at:
  * https://developers.google.com/speed/articles/javascript-dom
  */
-Build('build.utility.Dom', [], function(define, $super) {
-	define({
+Build('build.utility.Dom', [], function($define, $super) {
+	$define({
 		/**
 		 * @constructor
 		 */

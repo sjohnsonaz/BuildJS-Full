@@ -2,8 +2,8 @@
  * @class demo.example.viewmodel.ViewModelExample
  * @extends build.form.Form
  */
-Build('demo.example.viewmodel.ViewModelExample', [ 'demo::demo.example.viewmodel.TestForm', 'demo::demo.example.viewmodel.TestViewModel', 'demo::demo.example.viewmodel.TestDataDisplay' ], function(define, $super) {
-	define({
+Build('demo.example.viewmodel.ViewModelExample', [ 'demo::demo.example.viewmodel.TestForm', 'demo::demo.example.viewmodel.TestViewModel', 'demo::demo.example.viewmodel.TestDataDisplay' ], function($define, $super) {
+	$define({
 		$extends : 'build.form.Form',
 		/**
 		 * @constructor

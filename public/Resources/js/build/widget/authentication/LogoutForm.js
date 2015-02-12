@@ -2,8 +2,8 @@
  * @class build.widget.authentication.LogoutForm
  * @extends build.form.Form
  */
-Build('build.widget.authentication.LogoutForm', [ 'build::build.form.Form', 'build::build.ui.element.Div', 'build::build.form.input.Submit', 'build::build.form.container.FormControl', 'build::build.form.Label' ], function(define, $super) {
-	define({
+Build('build.widget.authentication.LogoutForm', [ 'build::build.form.Form', 'build::build.ui.element.Div', 'build::build.form.input.Submit', 'build::build.form.container.FormControl', 'build::build.form.Label' ], function($define, $super) {
+	$define({
 		$extends : 'build.form.Form',
 		/**
 		 * @constructor

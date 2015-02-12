@@ -2,8 +2,8 @@
  * @class build.binding.ForEachBinding
  * @extends build.binding.BindingHandler
  */
-Build('build.binding.ForEachBinding', [ 'build::build.binding.BindingHandler' ], function(define, $super) {
-	define({
+Build('build.binding.ForEachBinding', [ 'build::build.binding.BindingHandler' ], function($define, $super) {
+	$define({
 		$extends : 'build.binding.BindingHandler',
 		/**
 		 * @constructor

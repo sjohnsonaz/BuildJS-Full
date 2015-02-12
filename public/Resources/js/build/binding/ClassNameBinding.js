@@ -5,8 +5,8 @@
  * This toggles a class on a Widget.
  * This is unnecessary if a class is managed by watchClass already.
  */
-Build('build.binding.ClassNameBinding', [ 'build::build.binding.OneWayBinding' ], function(define, $super) {
-	define({
+Build('build.binding.ClassNameBinding', [ 'build::build.binding.OneWayBinding' ], function($define, $super) {
+	$define({
 		$extends : 'build.binding.OneWayBinding',
 		/**
 		 * @constructor

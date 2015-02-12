@@ -2,8 +2,8 @@
  * @class build.widget.collapsible.Collapsible
  * @extends build.ui.Container
  */
-Build('build.widget.collapsible.Collapsible', [ 'build::build.ui.Container', 'build::build.ui.Content' ], function(define, $super) {
-	define({
+Build('build.widget.collapsible.Collapsible', [ 'build::build.ui.Container', 'build::build.ui.Content' ], function($define, $super) {
+	$define({
 		$extends : 'build.ui.Container',
 		/**
 		 * @constructor

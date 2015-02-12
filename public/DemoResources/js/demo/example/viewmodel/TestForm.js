@@ -2,8 +2,8 @@
  * @class demo.example.viewmodel.TestForm
  * @extends build.form.Form
  */
-Build('demo.example.viewmodel.TestForm', [ 'build::build.form.Form', 'build::build.form.input.Text', 'build::build.form.input.CheckBox', 'build::build.ui.Container' ], function(define, $super) {
-	define({
+Build('demo.example.viewmodel.TestForm', [ 'build::build.form.Form', 'build::build.form.input.Text', 'build::build.form.input.CheckBox', 'build::build.ui.Container' ], function($define, $super) {
+	$define({
 		$extends : 'build.form.Form',
 		/**
 		 * @constructor

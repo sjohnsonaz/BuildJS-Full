@@ -2,8 +2,8 @@
  * @class build.form.option.Option
  * @extends build.ui.Content
  */
-Build('build.form.option.Option', [ 'build::build.ui.Content' ], function(define, $super) {
-	define({
+Build('build.form.option.Option', [ 'build::build.ui.Content' ], function($define, $super) {
+	$define({
 		$extends : 'build.ui.Content',
 		/**
 		 * @constructor

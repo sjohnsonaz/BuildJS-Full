@@ -3,8 +3,8 @@
  * @extends build.ui.Widget
  */
 // TODO: Change this to inherit cleanly from Widget.
-Build('build.widget.menu.MenuElement', [ 'build::build.ui.Container', 'build::build.ui.element.Link' ], function(define, $super) {
-	define({
+Build('build.widget.menu.MenuElement', [ 'build::build.ui.Container', 'build::build.ui.element.Link' ], function($define, $super) {
+	$define({
 		$extends : 'build.ui.Container',
 		/**
 		 * @constructor

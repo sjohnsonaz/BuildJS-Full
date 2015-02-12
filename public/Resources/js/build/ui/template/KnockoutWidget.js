@@ -2,8 +2,8 @@
  * @class build.ui.template.KnockoutWidget
  * @extends build.ui.Widget
  */
-Build('build.ui.template.KnockoutWidget', [ 'build::build.ui.Widget' ], function(define, $super) {
-	define({
+Build('build.ui.template.KnockoutWidget', [ 'build::build.ui.Widget' ], function($define, $super) {
+	$define({
 		$extends : 'build.ui.Widget',
 		/**
 		 * @constructor

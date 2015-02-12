@@ -2,8 +2,8 @@
  * @class build.widget.grid.Grid
  * @extends build.ui.Widget 
  */
-Build('build.widget.grid.Grid', [ 'build::build.ui.element.Table', 'build::build.widget.grid.Pager' ], function(define, $super) {
-	define({
+Build('build.widget.grid.Grid', [ 'build::build.ui.element.Table', 'build::build.widget.grid.Pager' ], function($define, $super) {
+	$define({
 		$extends : 'build.ui.Widget',
 		/**
 		 * @constructor

@@ -2,8 +2,8 @@
  * @class build.widget.tab.TabTitle
  * @extends build.ui.Container
  */
-Build('build.widget.tab.TabTitle', [ 'build::build.ui.Container', 'build::build.binding.TextBinding', 'build::build.widget.tab.TabLink' ], function(define, $super) {
-	define({
+Build('build.widget.tab.TabTitle', [ 'build::build.ui.Container', 'build::build.binding.TextBinding', 'build::build.widget.tab.TabLink' ], function($define, $super) {
+	$define({
 		$extends : 'build.ui.Container',
 		/**
 		 * @constructor

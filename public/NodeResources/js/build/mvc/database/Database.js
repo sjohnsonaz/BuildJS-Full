@@ -8,8 +8,8 @@ module.exports = function(Build) {
 	/**
 	 * @class build.mvc.database.Database
 	 */
-	Build('build.mvc.database.Database', [], function(define, $super) {
-		define({
+	Build('build.mvc.database.Database', [], function($define, $super) {
+		$define({
 			/**
 			 * @constructor
 			 */

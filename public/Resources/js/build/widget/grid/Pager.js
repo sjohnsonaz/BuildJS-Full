@@ -3,8 +3,8 @@
  * @extends build.ui.Widget
  */
 // TODO: Use regular a tag instead of Link object.
-Build('build.widget.grid.Pager', [ 'build::build.ui.Container', 'build::build.ui.element.Link' ], function(define, $super) {
-	define({
+Build('build.widget.grid.Pager', [ 'build::build.ui.Container', 'build::build.ui.element.Link' ], function($define, $super) {
+	$define({
 		$extends : 'build.ui.Widget',
 		/**
 		 * @constructor

@@ -3,8 +3,8 @@
  * @extends build.ui.Container
  */
 Build('demo.example.widget.FormFieldExample', [ 'build::build.ui.Container', 'build::build.ui.element.Header2', 'build::build.ui.element.Paragraph', 'build::build.form.option.Select', 'build::build.form.input.CheckBox',
-		'build::build.form.input.RadioButton' ], function(define, $super) {
-	define({
+		'build::build.form.input.RadioButton' ], function($define, $super) {
+	$define({
 		$extends : 'build.ui.Container',
 		/**
 		 * @constructor

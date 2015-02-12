@@ -2,8 +2,8 @@
  * @class demo.example.widget.TestServiceConnection
  * @extends build.service.ServiceConnection
  */
-Build('demo.example.widget.TestServiceConnection', [ 'build::build.service.ServiceConnection' ], function(define, $super) {
-	define({
+Build('demo.example.widget.TestServiceConnection', [ 'build::build.service.ServiceConnection' ], function($define, $super) {
+	$define({
 		$extends : 'build.service.ServiceConnection',
 		/**
 		 * @constructor

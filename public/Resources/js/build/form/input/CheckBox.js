@@ -2,8 +2,8 @@
  * @class build.form.input.CheckBox
  * @extends build.ui.Container
  */
-Build('build.form.input.CheckBox', [ 'build::build.ui.Container' ], function(define, $super) {
-	define({
+Build('build.form.input.CheckBox', [ 'build::build.ui.Container' ], function($define, $super) {
+	$define({
 		$extends : 'build.ui.Container',
 		/**
 		 * @constructor

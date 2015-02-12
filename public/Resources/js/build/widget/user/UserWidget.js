@@ -3,8 +3,8 @@
  * @extends build.ui.Switcher 
  */
 Build('build.widget.user.UserWidget', [ 'build::build.ui.Switcher', 'build::build.service.UserServiceConnection', 'build::build.widget.user.UserListForm', 'build::build.widget.user.UserViewForm', 'build::build.widget.user.UserCreateForm',
-		'build::build.widget.user.UserEditForm', 'build::build.widget.user.UserDeleteForm', 'build::build.widget.user.UserPermissionForm' ], function(define, $super) {
-	define({
+		'build::build.widget.user.UserEditForm', 'build::build.widget.user.UserDeleteForm', 'build::build.widget.user.UserPermissionForm' ], function($define, $super) {
+	$define({
 		$extends : 'build.ui.Switcher',
 		/**
 		 * @constructor

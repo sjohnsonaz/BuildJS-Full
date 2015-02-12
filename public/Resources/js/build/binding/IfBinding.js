@@ -2,8 +2,8 @@
  * @class build.binding.IfBinding
  * @extends build.binding.OneWayBinding
  */
-Build('build.binding.IfBinding', [ 'build::build.binding.OneWayBinding' ], function(define, $super) {
-	define({
+Build('build.binding.IfBinding', [ 'build::build.binding.OneWayBinding' ], function($define, $super) {
+	$define({
 		$extends : 'build.binding.OneWayBinding',
 		/**
 		 * @constructor

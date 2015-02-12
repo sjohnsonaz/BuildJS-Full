@@ -1,8 +1,8 @@
 /**
  * @class demo.singleton.SingletonTest
  */
-Build('demo.singleton.SingletonTest', [], function(define, $super) {
-	define({
+Build('demo.singleton.SingletonTest', [], function($define, $super) {
+	$define({
 		/**
 		 * @constructor
 		 */
