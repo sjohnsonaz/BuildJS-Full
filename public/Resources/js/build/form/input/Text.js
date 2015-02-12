@@ -71,7 +71,9 @@ Build('build.form.input.Text', [ 'build::build.ui.Container' ], function(define,
 					if (endPosition == startPosition) {
 						startPosition--;
 					}
-					element.value = formatPattern(pattern, clean.slice(0, startPosition) + clean.slice(endPosition));
+					var value = formatPattern(pattern, clean.slice(0, startPosition) + clean.slice(endPosition));
+					element.value = value;
+					lastValue = value;
 				}
 				var startPosition = getPatternPosition(pattern, startPosition);
 				element.selectionStart = startPosition;
@@ -88,7 +90,9 @@ Build('build.form.input.Text', [ 'build::build.ui.Container' ], function(define,
 				if (endPosition == startPosition) {
 					endPosition++;
 				}
-				element.value = formatPattern(pattern, clean.slice(0, startPosition) + clean.slice(endPosition));
+				var value = formatPattern(pattern, clean.slice(0, startPosition) + clean.slice(endPosition));
+				element.value = value;
+				lastValue = value;
 				var startPosition = getPatternPosition(pattern, startPosition);
 				element.selectionStart = startPosition;
 				element.selectionEnd = startPosition;
