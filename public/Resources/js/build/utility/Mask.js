@@ -10,7 +10,7 @@ build.utility.Mask = (function() {
 	function createMask(element, pattern) {
 		var regexPattern = createRegex(pattern);
 		element.value = formatPattern(pattern, element.value.replace(/\W+/g, ""));
-		var firstPosition = getFirstPosition(pattern);
+		var firstPosition = getPosition(pattern, 0);
 		var patternLength = pattern.replace(/\W+/g, "").length;
 		var lastValue = element.value;
 		var lastPosition = firstPosition;
@@ -76,7 +76,7 @@ build.utility.Mask = (function() {
 					position = getPatternPosition(pattern, clean.length);
 				}
 				var output = formatPattern(pattern, clean);
-				var match = matchValue(regexPattern, output);
+				var match = output.match(regexPattern);
 				if (match && match.length) {
 					element.value = output;
 					if (output != lastValue) {
@@ -134,7 +134,7 @@ build.utility.Mask = (function() {
 	}
 
 	function createRegex(pattern) {
-		return new RegExp(pattern.replace(/([^a-zA-Z0-9 ])|(9)|(a)|(\*)/g, function(match, other, numeric, alpha, alphanumeric) {
+		return new RegExp(pattern.replace(/([^a-zA-Z0-9 ])|(9)|(a)|(n)|(0)/g, function(match, other, numeric, alpha, alphanumeric, hexadecimal) {
 			if (other) {
 				return '\\' + other;
 			}
@@ -147,11 +147,10 @@ build.utility.Mask = (function() {
 			if (alphanumeric) {
 				return '[0-9a-zA-Z ]';
 			}
+			if (hexadecimal) {
+				return '[0-9a-fA-F ]';
+			}
 		}), 'g');
-	}
-
-	function matchValue(regex, value) {
-		return value.match(regex);
 	}
 
 	function formatPattern(pattern, value) {
@@ -159,7 +158,7 @@ build.utility.Mask = (function() {
 		var valueIndex = 0;
 		for (var index = 0, length = pattern.length; index < length; index++) {
 			var character = pattern[index];
-			if (character == '9' || character == 'a') {
+			if (character == '9' || character == 'a' || character == 'n' || character == '0') {
 				output += value[valueIndex] || ' ';
 				valueIndex++;
 			} else {
@@ -169,15 +168,14 @@ build.utility.Mask = (function() {
 		return output;
 	}
 
-	function getFirstPosition(pattern) {
-		for (var index = 0, length = pattern.length; index < length; index++) {
+	function getPosition(pattern, position) {
+		for (var index = position, length = pattern.length; index < length; index++) {
 			var character = pattern[index];
-			if (character == '9' || character == 'a') {
+			if (character == '9' || character == 'a' || character == 'n' || character == '0') {
 				break;
 			}
 		}
 		return index;
-
 	}
 
 	function getValuePosition(pattern, position) {
@@ -185,7 +183,7 @@ build.utility.Mask = (function() {
 		var valuePosition = 0;
 		for (var index = 0; index < position; index++) {
 			var character = pattern[index];
-			if (character == '9' || character == 'a') {
+			if (character == '9' || character == 'a' || character == 'n' || character == '0') {
 				valuePosition++;
 			}
 		}
@@ -196,7 +194,7 @@ build.utility.Mask = (function() {
 		var valueIndex = 0;
 		for (var index = 0, length = pattern.length; index < length; index++) {
 			var character = pattern[index];
-			if (character == '9' || character == 'a') {
+			if (character == '9' || character == 'a' || character == 'n' || character == '0') {
 				valueIndex++;
 				if (valueIndex > position) {
 					break;
@@ -206,15 +204,6 @@ build.utility.Mask = (function() {
 		return index;
 	}
 
-	function getPosition(pattern, position) {
-		for (var length = pattern.length; position < length; position++) {
-			var character = pattern[position];
-			if (character == '9' || character == 'a') {
-				break;
-			}
-		}
-		return position;
-	}
 	Mask.createMask = createMask;
 	return Mask;
 })();
