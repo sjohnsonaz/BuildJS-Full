@@ -16,7 +16,7 @@ Build('demo.example.widget.FormExample', [ 'build::build.form.Form', 'build::bui
 
 			var fieldSet = build.form.FieldSet.create('Text Field FieldSet');
 			var text = build.form.input.Text.create();
-			text.createMask('(999) 999-9999');
+			text.mask = '(999) 999-9999';
 			text.placeholder = 'Text';
 			text.subscribe(function(value) {
 				console.log('Entered value: ' + value);

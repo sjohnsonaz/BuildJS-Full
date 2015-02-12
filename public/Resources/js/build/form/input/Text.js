@@ -37,14 +37,21 @@ Build('build.form.input.Text', [ 'build::build.ui.Container' ], function(define,
 			this.watchProperty('textType', 'type', textType || 'text', null, function(value, cancel) {
 				return textTypes[value] || cancel;
 			});
+			var mask = undefined;
+			this.watchValue('mask', undefined, undefined, function(value, cancel) {
+				if (mask) {
+					removeMask(mask);
+				}
+				if (value) {
+					mask = createMask(this.element, value);
+				}
+				return value;
+			}.bind(this));
 		},
 		$prototype : {
 			type : 'input',
 			validateEmail : function() {
 				return !!this.value.match(/[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\.)+[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?/g);
-			},
-			createMask : function(pattern) {
-				createMask(this.element, pattern);
 			}
 		},
 		$static : {
@@ -55,9 +62,10 @@ Build('build.form.input.Text', [ 'build::build.ui.Container' ], function(define,
 		var regexPattern = createRegex(pattern);
 		element.value = formatPattern(pattern, element.value.replace(/\W+/g, ""));
 		var firstPosition = getFirstPosition(pattern);
+		var patternLength = pattern.replace(/\W+/g, "").length;
 		var lastValue = element.value;
 		var lastPosition = firstPosition;
-		element.addEventListener('keydown', function(event) {
+		function keyDownListener(event) {
 			switch (event.keyCode) {
 			case 8:
 				event.preventDefault();
@@ -101,8 +109,8 @@ Build('build.form.input.Text', [ 'build::build.ui.Container' ], function(define,
 				lastPosition = element.selectionStart;
 				break;
 			}
-		});
-		element.addEventListener('input', function(event) {
+		}
+		function inputListener(event) {
 			var selectionStart = element.selectionStart;
 			if (selectionStart <= firstPosition) {
 				selectionStart = firstPosition + 1;
@@ -110,27 +118,45 @@ Build('build.form.input.Text', [ 'build::build.ui.Container' ], function(define,
 			var position = getPosition(pattern, selectionStart);
 			var valuePosition = getValuePosition(pattern, selectionStart);
 			var clean = element.value.replace(/\W+/g, "");
-			if (valuePosition > clean.length) {
-				position = getPatternPosition(pattern, clean.length);
-			}
-			var value = formatPattern(pattern, clean);
-			var match = matchValue(regexPattern, value);
-			if (match && match.length) {
-				element.value = value;
-				if (value != lastValue) {
-					element.selectionStart = position;
-					element.selectionEnd = position;
+			if (clean.length <= patternLength) {
+				if (valuePosition > clean.length) {
+					position = getPatternPosition(pattern, clean.length);
+				}
+				var value = formatPattern(pattern, clean);
+				var match = matchValue(regexPattern, value);
+				if (match && match.length) {
+					element.value = value;
+					if (value != lastValue) {
+						element.selectionStart = position;
+						element.selectionEnd = position;
+					} else {
+						element.selectionStart = lastPosition;
+						element.selectionEnd = lastPosition;
+					}
+					lastValue = value;
 				} else {
+					element.value = lastValue;
 					element.selectionStart = lastPosition;
 					element.selectionEnd = lastPosition;
 				}
-				lastValue = value;
 			} else {
 				element.value = lastValue;
 				element.selectionStart = lastPosition;
 				element.selectionEnd = lastPosition;
 			}
-		});
+		}
+		element.addEventListener('keydown', keyDownListener);
+		element.addEventListener('input', inputListener);
+		return {
+			element : element,
+			keyDownListener : keyDownListener,
+			inputListener : inputListener
+		};
+	}
+
+	function removeMask(mask) {
+		mask.element.removeEventListener('keydown', mask.keyDownListener);
+		mask.element.removeEventListener('input', mask.inputListener);
 	}
 
 	function createRegex(pattern) {
@@ -150,29 +176,8 @@ Build('build.form.input.Text', [ 'build::build.ui.Container' ], function(define,
 		}), 'g');
 	}
 
-	function createRegexClean(pattern) {
-		return new RegExp(pattern.replace(/(\W+)|(9)|(a)|(\*)/g, function(match, other, numeric, alpha, alphanumeric) {
-			if (other) {
-				return '';
-			}
-			if (numeric) {
-				return '[0-9 ]';
-			}
-			if (alpha) {
-				return '[a-zA-Z ]';
-			}
-			if (alphanumeric) {
-				return '[0-9a-zA-Z ]';
-			}
-		}), 'g');
-	}
-
 	function matchValue(regex, value) {
 		return value.match(regex);
-	}
-
-	function matchClean(regex, clean) {
-		return clean.replace(/\W+/g, "").match(regex);
 	}
 
 	function formatPattern(pattern, value) {
