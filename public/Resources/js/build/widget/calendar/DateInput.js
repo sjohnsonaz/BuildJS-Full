@@ -10,22 +10,27 @@ Build('build.widget.calendar.DateInput', [ 'build::build.ui.Widget', 'build::bui
 		 */
 		$constructor : function DateInput() {
 			$super(this)();
+			var inputControl = document.createElement('span');
+			inputControl.className = 'input-date-control';
+			this.popup = document.createElement('span');
+			this.popup.className = 'input-date-popup';
 			this.input = build.form.input.Text.create();
 			this.input.mask = '99/99/9999';
 			this.button = build.form.input.Button.create('{i:[calendar]}');
-			this.popup = build.ui.Widget.create();
 			this.calendar = build.widget.calendar.Calendar.create();
-			this.popup.element.appendChild(this.calendar.element);
-			this.element.appendChild(this.input.element);
-			this.element.appendChild(this.button.element);
-			this.element.appendChild(this.popup.element);
-			this.popup.element.style.display = 'none';
+			this.popup.appendChild(this.calendar.element);
+			inputControl.appendChild(this.input.element);
+			inputControl.appendChild(this.button.element);
+			this.element.appendChild(inputControl);
+			this.element.appendChild(this.popup);
+			this.popup.style.display = 'none';
+			this.watchClass('inline', 'input-date-inline', false);
 
 			this.watchValue('open', false, undefined, function(value, cancel) {
 				if (value) {
-					this.popup.element.style.display = 'block';
+					this.popup.style.display = 'block';
 				} else {
-					this.popup.element.style.display = 'none';
+					this.popup.style.display = 'none';
 				}
 				return !!value;
 			}.bind(this));

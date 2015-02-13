@@ -66,19 +66,36 @@
 }
 
 .input-date {
-	& > input {
-		margin-right: 0;
-		border-right: 0;
-		.border-radius-all (@input-border-radius , 0 , 0 , @input-border-radius);
+	.clearfix ();
+	& > .input-date-control {
+		.clearfix ();
+		& > input {
+			float: left;
+			margin-right: 0;
+			border-right: 0;
+			.border-radius-all (@input-border-radius , 0 , 0 , @input-border-radius);
+		}
+
+		& > button {
+			float: left;
+			margin-left: 0;
+			.border-radius-all (0 , @input-border-radius , @input-border-radius , 0);
+		}
 	}
 
-	& > button {
-		margin-left: 0;
-		.border-radius-all (0 , @input-border-radius , @input-border-radius , 0);
+	& > .input-date-popup {
+		float: left;
+		.calendar , .build-widget-calendar-Calendar {
+			width: 250px;
+		}
 	}
+}
 
-	.calendar {
-		width: 250px;
+.input-date {
+	&.input-date-inline {
+		& > .input-date-control {
+			float: left;
+		}
 	}
 }
 
