@@ -12,7 +12,7 @@ Build('build.widget.calendar.DateInput', [ 'build::build.ui.Widget', 'build::bui
 			$super(this)();
 			this.input = build.form.input.Text.create();
 			this.input.mask = '99/99/9999';
-			this.button = build.form.input.Button.create('...');
+			this.button = build.form.input.Button.create('{i:[calendar]}');
 			this.popup = build.ui.Widget.create();
 			this.calendar = build.widget.calendar.Calendar.create();
 			this.popup.element.appendChild(this.calendar.element);

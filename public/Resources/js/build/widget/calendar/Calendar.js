@@ -12,23 +12,11 @@ Build('build.widget.calendar.Calendar', [ 'build::build.ui.Widget', 'build::buil
 			$super(this)();
 			date = date || new Date();
 
-			this.title = document.createElement('div');
-			this.monthTitle = document.createElement('div');
-			this.yearTitle = document.createElement('div');
-			this.monthDown = document.createElement('button');
 			this.monthName = document.createElement('span');
-			this.monthUp = document.createElement('button');
-			this.yearDown = document.createElement('button');
+			this.monthName.className = 'calendar-month-name';
 			this.yearName = document.createElement('span');
-			this.yearUp = document.createElement('button');
-			this.monthTitle.appendChild(this.monthDown);
-			this.monthTitle.appendChild(this.monthName);
-			this.monthTitle.appendChild(this.monthUp);
-			this.yearTitle.appendChild(this.yearDown);
-			this.yearTitle.appendChild(this.yearName);
-			this.yearTitle.appendChild(this.yearUp);
-			this.title.appendChild(this.monthTitle);
-			this.title.appendChild(this.yearTitle);
+			this.yearName.className = 'calendar-year-name';
+			var title = this.renderTitle(this.yearName, this.monthName);
 
 			this.table = document.createElement('table');
 			this.table.appendChild(this.renderHeader());
@@ -54,20 +42,7 @@ Build('build.widget.calendar.Calendar', [ 'build::build.ui.Widget', 'build::buil
 			});
 			this.watchValue('selectedDay');
 
-			this.monthUp.addEventListener('click', function(event) {
-				this.month = (this.month + 1) % 12;
-			}.bind(this));
-			this.monthDown.addEventListener('click', function(event) {
-				this.month = (this.month + 11) % 12;
-			}.bind(this));
-			this.yearUp.addEventListener('click', function(event) {
-				this.year++;
-			}.bind(this));
-			this.yearDown.addEventListener('click', function(event) {
-				this.year--;
-			}.bind(this));
-
-			this.element.appendChild(this.title);
+			this.element.appendChild(title);
 			this.element.appendChild(this.table);
 		},
 		$prototype : {
@@ -81,7 +56,7 @@ Build('build.widget.calendar.Calendar', [ 'build::build.ui.Widget', 'build::buil
 				days.push(lastDay);
 				return days;
 			},
-			renderHeader : function() {
+			renderHeader : function(month) {
 				var header = document.createElement('thead');
 				var headerRow = document.createElement('tr');
 				var days = [ 'S', 'M', 'T', 'W', 'T', 'F', 'S' ];
@@ -92,6 +67,50 @@ Build('build.widget.calendar.Calendar', [ 'build::build.ui.Widget', 'build::buil
 				}
 				header.appendChild(headerRow);
 				return header;
+			},
+			renderTitle : function(yearName, monthName) {
+				title = document.createElement('div');
+				title.className = 'calendar-title';
+
+				var monthTitle = document.createElement('div');
+				monthTitle.className = 'calendar-month-title';
+				var yearTitle = document.createElement('div');
+				yearTitle.className = 'calendar-year-title';
+				var monthDown = document.createElement('button');
+				monthDown.className = 'calendar-month-down';
+				monthDown.innerHTML = this.formatString('{i:[caret-left]}')
+				var monthUp = document.createElement('button');
+				monthUp.className = 'calendar-month-up';
+				monthUp.innerHTML = this.formatString('{i:[caret-right]}')
+				var yearDown = document.createElement('button');
+				yearDown.className = 'calendar-year-down';
+				yearDown.innerHTML = this.formatString('{i:[caret-left]}')
+				var yearUp = document.createElement('button');
+				yearUp.className = 'calendar-year-up';
+				yearUp.innerHTML = this.formatString('{i:[caret-right]}')
+
+				monthUp.addEventListener('click', function(event) {
+					this.month = (this.month + 1) % 12;
+				}.bind(this));
+				monthDown.addEventListener('click', function(event) {
+					this.month = (this.month + 11) % 12;
+				}.bind(this));
+				yearUp.addEventListener('click', function(event) {
+					this.year++;
+				}.bind(this));
+				yearDown.addEventListener('click', function(event) {
+					this.year--;
+				}.bind(this));
+
+				monthTitle.appendChild(monthDown);
+				monthTitle.appendChild(monthName);
+				monthTitle.appendChild(monthUp);
+				yearTitle.appendChild(yearDown);
+				yearTitle.appendChild(yearName);
+				yearTitle.appendChild(yearUp);
+				title.appendChild(monthTitle);
+				title.appendChild(yearTitle);
+				return title;
 			},
 			renderMonth : function(year, month) {
 				var self = this;
