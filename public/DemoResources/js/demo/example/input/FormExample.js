@@ -1,8 +1,8 @@
 /**
- * @class demo.example.widget.FormExample
+ * @class demo.example.input.FormExample
  * @extends build.form.Form
  */
-Build('demo.example.widget.FormExample', [ 'build::build.form.Form', 'build::build.ui.element.Header2', 'build::build.ui.element.Paragraph', 'build::build.form.FieldSet', 'build::build.form.container.FormControl', 'build::build.form.Label',
+Build('demo.example.input.FormExample', [ 'build::build.form.Form', 'build::build.ui.element.Header2', 'build::build.ui.element.Paragraph', 'build::build.form.FieldSet', 'build::build.form.container.FormControl', 'build::build.form.Label',
 		'build::build.form.input.Text', 'build::build.form.input.TextArea', 'build::build.form.input.Range', 'demo::demo.example.widget.TestServiceConnection' ], function($define, $super) {
 	$define({
 		$extends : 'build.form.Form',

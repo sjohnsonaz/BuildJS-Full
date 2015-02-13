@@ -1,8 +1,8 @@
 /**
- * @class demo.example.widget.FormFieldExample
+ * @class demo.example.input.FormFieldExample
  * @extends build.ui.Container
  */
-Build('demo.example.widget.FormFieldExample', [ 'build::build.ui.Container', 'build::build.ui.element.Header2', 'build::build.ui.element.Paragraph', 'build::build.form.option.Select', 'build::build.form.input.CheckBox',
+Build('demo.example.input.FormFieldExample', [ 'build::build.ui.Container', 'build::build.ui.element.Header2', 'build::build.ui.element.Paragraph', 'build::build.form.option.Select', 'build::build.form.input.CheckBox',
 		'build::build.form.input.RadioButton' ], function($define, $super) {
 	$define({
 		$extends : 'build.ui.Container',

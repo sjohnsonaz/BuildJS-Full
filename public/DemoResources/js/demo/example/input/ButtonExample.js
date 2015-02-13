@@ -1,8 +1,8 @@
 /**
- * @class demo.example.widget.ButtonExample
+ * @class demo.example.input.ButtonExample
  * @extends build.ui.Container
  */
-Build('demo.example.widget.ButtonExample', [ 'build::build.ui.Container', 'build::build.ui.element.Header2', 'build::build.ui.element.Paragraph', 'build::build.form.input.Button', 'build::build.form.container.ButtonGroup' ],
+Build('demo.example.input.ButtonExample', [ 'build::build.ui.Container', 'build::build.ui.element.Header2', 'build::build.ui.element.Paragraph', 'build::build.form.input.Button', 'build::build.form.container.ButtonGroup' ],
 		function($define, $super) {
 			$define({
 				$extends : 'build.ui.Container',
