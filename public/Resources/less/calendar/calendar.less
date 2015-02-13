@@ -66,6 +66,17 @@
 }
 
 .input-date {
+	& > input {
+		margin-right: 0;
+		border-right: 0;
+		.border-radius-all (@input-border-radius , 0 , 0 , @input-border-radius);
+	}
+
+	& > button {
+		margin-left: 0;
+		.border-radius-all (0 , @input-border-radius , @input-border-radius , 0);
+	}
+
 	.calendar {
 		width: 250px;
 	}
