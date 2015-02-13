@@ -2,7 +2,7 @@
  * @class build.widget.calendar.Calendar
  * @extends build.ui.Widget
  */
-Build('build.widget.calendar.Calendar', [ 'build::build.ui.Widget' ], function(define, $super) {
+Build('build.widget.calendar.Calendar', [ 'build::build.ui.Widget', 'build::build.binding.ComputedBinding' ], function(define, $super) {
 	define({
 		$extends : 'build.ui.Widget',
 		/**
@@ -11,28 +11,64 @@ Build('build.widget.calendar.Calendar', [ 'build::build.ui.Widget' ], function(d
 		$constructor : function Calendar(date) {
 			$super(this)();
 			date = date || new Date();
+
+			this.title = document.createElement('div');
+			this.monthTitle = document.createElement('div');
+			this.yearTitle = document.createElement('div');
+			this.monthDown = document.createElement('button');
+			this.monthName = document.createElement('span');
+			this.monthUp = document.createElement('button');
+			this.yearDown = document.createElement('button');
+			this.yearName = document.createElement('span');
+			this.yearUp = document.createElement('button');
+			this.monthTitle.appendChild(this.monthDown);
+			this.monthTitle.appendChild(this.monthName);
+			this.monthTitle.appendChild(this.monthUp);
+			this.yearTitle.appendChild(this.yearDown);
+			this.yearTitle.appendChild(this.yearName);
+			this.yearTitle.appendChild(this.yearUp);
+			this.title.appendChild(this.monthTitle);
+			this.title.appendChild(this.yearTitle);
+
 			this.table = document.createElement('table');
 			this.table.appendChild(this.renderHeader());
 			this.tableBody = document.createElement('tbody');
 			this.table.appendChild(this.tableBody);
-			var firstRender = true;
-			// TODO: Use BindingHandler.
-			this.watchValue('month', date.getMonth(), undefined, function(value, cancel) {
-				if (!firstRender) {
-					this.renderMonth(this.year, this.month);
-				}
-				return value;
-			}.bind(this));
-			this.watchValue('year', date.getFullYear(), undefined, function(value, cancel) {
-				if (!firstRender) {
-					this.renderMonth(this.year, this.month);
-				}
-				return value;
-			}.bind(this));
-			this.renderMonth(this.year, this.month);
-			firstRender = false;
-			this.element.appendChild(this.table);
+
+			this.watchValue('month', date.getMonth());
+			this.watchValue('year', date.getFullYear());
+			this.watchValue('days');
+			build.binding.ComputedBinding.create(this, {
+				sources : [ {
+					source : this,
+					property : 'year'
+				}, {
+					source : this,
+					property : 'month'
+				} ],
+				output : function(year, month) {
+					return this.renderMonth(year, month);
+					// TODO: Select a day
+				}.bind(this),
+				destination : 'days'
+			});
 			this.watchValue('selectedDay');
+
+			this.monthUp.addEventListener('click', function(event) {
+				this.month = (this.month + 1) % 12;
+			}.bind(this));
+			this.monthDown.addEventListener('click', function(event) {
+				this.month = (this.month + 11) % 12;
+			}.bind(this));
+			this.yearUp.addEventListener('click', function(event) {
+				this.year++;
+			}.bind(this));
+			this.yearDown.addEventListener('click', function(event) {
+				this.year--;
+			}.bind(this));
+
+			this.element.appendChild(this.title);
+			this.element.appendChild(this.table);
 		},
 		$prototype : {
 			getMonth : function(year, month) {
@@ -89,6 +125,13 @@ Build('build.widget.calendar.Calendar', [ 'build::build.ui.Widget' ], function(d
 						tr.appendChild(dayCell);
 					})();
 				}
+				this.monthName.innerText = days[0].toLocaleString('en-US', {
+					month : 'long'
+				});
+				this.yearName.innerText = days[0].toLocaleString('en-US', {
+					year : 'numeric'
+				});
+				return days;
 			}
 		}
 	});

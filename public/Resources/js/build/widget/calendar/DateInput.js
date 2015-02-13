@@ -38,8 +38,8 @@ Build('build.widget.calendar.DateInput', [ 'build::build.ui.Widget', 'build::bui
 					this.input.value = getDateFormatted(value);
 				}
 			}.bind(this));
-			
-			this.popup.element.style.width = '200px';
+
+			this.popup.element.style.width = '250px';
 		},
 		$prototype : {
 			type : 'span'
