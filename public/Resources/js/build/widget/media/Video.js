@@ -1,20 +1,15 @@
 /**
  * @class build.widget.media.Video
- * @extends build.ui.Container
+ * @extends build.widget.media.Audio
  */
-Build('build.widget.media.Video', [ 'build::build.ui.Container' ], function(define, $super) {
+Build('build.widget.media.Video', [ 'build::build.widget.media.Audio' ], function(define, $super) {
 	define({
-		$extends : 'build.ui.Container',
+		$extends : 'build.widget.media.Audio',
 		/**
 		 * @constructor
 		 */
 		$constructor : function Video(src) {
-			$super(this)();
-			this.watchProperty('src', 'src', src);
-			this.watchProperty('loaded', 'src');
-			this.addEvent('load', function(element, event) {
-				this.publish('loaded');
-			}, false, this);
+			$super(this)(src);
 		},
 		$prototype : {
 			type : 'video'

@@ -10,7 +10,7 @@ Build('demo.example.widget.MediaExample', [ 'build::build.ui.Container', 'build:
 			var header0 = build.ui.element.Header2.create('Media');
 			this.addChild(header0);
 
-			var audio = build.widget.media.Audio.create();//'/DemoResources/media/testaudio.mp3');
+			var audio = build.widget.media.Audio.create();
 			audio.element.controls = true;
 
 			var video = build.widget.media.Video.create();
