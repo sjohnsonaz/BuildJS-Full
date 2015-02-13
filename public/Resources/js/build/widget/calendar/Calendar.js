@@ -32,6 +32,7 @@ Build('build.widget.calendar.Calendar', [ 'build::build.ui.Widget' ], function(d
 			this.renderMonth(this.year, this.month);
 			firstRender = false;
 			this.element.appendChild(this.table);
+			this.watchValue('selectedDay');
 		},
 		$prototype : {
 			getMonth : function(year, month) {
@@ -57,6 +58,7 @@ Build('build.widget.calendar.Calendar', [ 'build::build.ui.Widget' ], function(d
 				return header;
 			},
 			renderMonth : function(year, month) {
+				var self = this;
 				var days = this.getMonth(year, month);
 				while (this.tableBody.firstChild) {
 					this.tableBody.removeChild(this.tableBody.firstChild);
@@ -77,9 +79,15 @@ Build('build.widget.calendar.Calendar', [ 'build::build.ui.Widget' ], function(d
 						tr = document.createElement('tr');
 						this.tableBody.appendChild(tr);
 					}
-					var dayCell = document.createElement('td');
-					dayCell.innerText = day.getDate();
-					tr.appendChild(dayCell);
+					(function() {
+						var dayCell = document.createElement('td');
+						var dayInstance = day;
+						dayCell.addEventListener('click', function(event) {
+							self.selectedDay = dayInstance;
+						});
+						dayCell.innerText = dayInstance.getDate();
+						tr.appendChild(dayCell);
+					})();
 				}
 			}
 		}
