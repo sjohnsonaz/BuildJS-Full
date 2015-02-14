@@ -8,8 +8,8 @@ Build('build.binding.ValueBinding', [ 'build::build.binding.TwoWayBinding' ], fu
 		/**
 		 * @constructor
 		 */
-		$constructor : function ValueBinding(destination, source, sourceProperty, destinationProperty) {
-			$super(this)(destination, source, sourceProperty, destinationProperty || 'value');
+		$constructor : function ValueBinding(destination, source, sourceProperty, destinationProperty, outputToSource, outputToDestination) {
+			$super(this)(destination, source, sourceProperty, destinationProperty || 'value', outputToSource, outputToDestination);
 		},
 		$prototype : {
 			link : function(destination, source, sourceProperty, destinationProperty) {
