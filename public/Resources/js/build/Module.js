@@ -202,14 +202,58 @@ Build('build.Module', [], function($define, $super) {
 				} else {
 					if (this.subscribers && this.subscribers[property]) {
 						var subscribers = this.subscribers[property];
+						var publishLockers = this.publishLocks ? this.publishLocks[property] : undefined;
+						var publishStop = this.publishStops ? this.publishStops[property] : false;
 						subscribers.forEach(function(subscription, index, array) {
 							subscription.value = this[property];
-							if (typeof subscription.subscriber === 'function') {
-								subscription.subscriber(this[property]);
-							} else {
-								subscription.subscriber.notify(subscription, this[property]);
+							if (!publishStop) {
+								if (typeof subscription.subscriber === 'function') {
+									subscription.subscriber(this[property]);
+								} else {
+									// TODO This is not efficient.
+									if (publishLockers ? publishLockers.indexOf(subscription.subscriber) == -1 : true) {
+										subscription.subscriber.notify(subscription, this[property]);
+									}
+								}
 							}
 						}.bind(this));
+					}
+				}
+			},
+			preventNotifications : function(name, lock, publishLocker) {
+				if (publishLocker) {
+					if (!this.publishLocks) {
+						Object.defineProperty(this, 'publishLocks', {
+							value : {},
+							writable : true,
+							configurable : true,
+							enumerable : false
+						});
+					}
+					this.publishLocks[name] = this.publishLocks[name] || [];
+					if (lock) {
+						if (this.publishLocks[name].indexOf(publishLocker) == -1) {
+							this.publishLocks[name].push(publishLocker);
+						}
+					} else {
+						var index = this.publishLocks[name].indexOf(publishLocker);
+						if (index != -1) {
+							this.publishLocks[name].splice(index, 1);
+						}
+					}
+				} else {
+					if (!this.publishStops) {
+						Object.defineProperty(this, 'publishStops', {
+							value : {},
+							writable : true,
+							configurable : true,
+							enumerable : false
+						});
+					}
+					if (lock) {
+						this.publishStops[name] = true;
+					} else {
+						delete this.publishStops[name];
 					}
 				}
 			},
