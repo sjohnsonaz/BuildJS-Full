@@ -35,18 +35,27 @@ Build('build.form.input.Text', [ 'build::build.ui.Container', 'build::build.util
 			// TODO: Add functionality for more active updates.
 			// Use the 'input' event.
 			// change does not work with masking
-			this.element.addEventListener('blur', function() {
+			this.element.addEventListener('change', function() {
 				this.value = this.element.value;
 			}.bind(this));
 			this.watchProperty('textType', 'type', textType || 'text', null, function(value, cancel) {
 				return textTypes[value] || cancel;
 			});
+			var maskBlurFunction = undefined;
 			this.watchValue('mask', undefined, undefined, function(value, cancel) {
 				if (mask) {
 					mask.destroyMask();
 				}
 				if (value) {
 					mask = build.utility.Mask.createMask(this.element, value);
+					maskBlurFunction = function() {
+						this.value = this.element.value;
+					}.bind(this);
+					this.element.addEventListener('blur', maskBlurFunction);
+				} else {
+					if (maskBlurFunction) {
+						this.element.removeEventListener('input', maskBlurFunction);
+					}
 				}
 				return value;
 			}.bind(this));
