@@ -62,6 +62,17 @@ Build('build.widget.calendar.Calendar', [ 'build::build.ui.Widget', 'build::buil
 				}
 			});
 
+			var oldSelectedDay = undefined;
+			this.subscribe('selectedDay', function(value) {
+				if (oldSelectedDay && oldSelectedDay.dayCell) {
+					oldSelectedDay.dayCell.className = '';
+				}
+				if (value && value.dayCell) {
+					value.dayCell.className = 'calendar-day-selected';
+				}
+				oldSelectedDay = value;
+			});
+
 			this.element.appendChild(title);
 			this.element.appendChild(this.table);
 		},
@@ -148,15 +159,25 @@ Build('build.widget.calendar.Calendar', [ 'build::build.ui.Widget', 'build::buil
 						tr.appendChild(document.createElement('td'));
 					}
 				}
+				var selectedDay = this.selectedDay;
 				for (var index = 0, length = days.length; index < length; index++) {
 					var day = days[index];
+					var selected = false;
+					if (selectedDay && day.getTime() === selectedDay.getTime()) {
+						day = selectedDay;
+						selected = true;
+					}
 					if (day.getDay() == 0) {
 						tr = document.createElement('tr');
 						this.tableBody.appendChild(tr);
 					}
 					(function() {
 						var dayCell = document.createElement('td');
+						if (selected) {
+							dayCell.className = 'calendar-day-selected';
+						}
 						var dayInstance = day;
+						dayInstance.dayCell = dayCell;
 						dayCell.addEventListener('click', function(event) {
 							self.selectedDay = dayInstance;
 						});
