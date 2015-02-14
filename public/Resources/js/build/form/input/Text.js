@@ -34,7 +34,8 @@ Build('build.form.input.Text', [ 'build::build.ui.Container', 'build::build.util
 			this.watchAttribute('name');
 			// TODO: Add functionality for more active updates.
 			// Use the 'input' event.
-			this.element.addEventListener('change', function() {
+			// change does not work with masking
+			this.element.addEventListener('blur', function() {
 				this.value = this.element.value;
 			}.bind(this));
 			this.watchProperty('textType', 'type', textType || 'text', null, function(value, cancel) {

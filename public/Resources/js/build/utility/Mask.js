@@ -8,8 +8,9 @@ build.utility.Mask = (function() {
 
 	}
 	function createMask(element, pattern) {
-		var regexPattern = createRegex(pattern);
+		var regexPattern = createRegexWithWhitespace(pattern);
 		element.value = formatPattern(pattern, element.value.replace(/\W+/g, ""));
+		element.pattern = createRegex(pattern);
 		var firstPosition = getPosition(pattern, 0);
 		var patternLength = pattern.replace(/\W+/g, "").length;
 		var lastValue = element.value;
@@ -133,7 +134,7 @@ build.utility.Mask = (function() {
 		};
 	}
 
-	function createRegex(pattern) {
+	function createRegexWithWhitespace(pattern) {
 		return new RegExp(pattern.replace(/([^a-zA-Z0-9 ])|(9)|(a)|(n)|(0)/g, function(match, other, numeric, alpha, alphanumeric, hexadecimal) {
 			if (other) {
 				return '\\' + other;
@@ -149,6 +150,26 @@ build.utility.Mask = (function() {
 			}
 			if (hexadecimal) {
 				return '[0-9a-fA-F ]';
+			}
+		}), 'g');
+	}
+
+	function createRegex(pattern) {
+		return new RegExp(pattern.replace(/([^a-zA-Z0-9 ])|(9)|(a)|(n)|(0)/g, function(match, other, numeric, alpha, alphanumeric, hexadecimal) {
+			if (other) {
+				return '\\' + other;
+			}
+			if (numeric) {
+				return '[0-9]';
+			}
+			if (alpha) {
+				return '[a-zA-Z]';
+			}
+			if (alphanumeric) {
+				return '[0-9a-zA-Z]';
+			}
+			if (hexadecimal) {
+				return '[0-9a-fA-F]';
 			}
 		}), 'g');
 	}
