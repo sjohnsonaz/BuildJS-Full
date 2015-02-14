@@ -16,6 +16,7 @@ Build('build.widget.calendar.DateInput', [ 'build::build.ui.Widget', 'build::bui
 			this.popup.className = 'input-date-popup';
 			this.input = build.form.input.Text.create();
 			this.input.mask = '99/99/9999';
+			this.input.maskValidRequired = true;
 			this.button = build.form.input.Button.create('{i:[calendar]}');
 			this.calendar = build.widget.calendar.Calendar.create();
 			this.popup.appendChild(this.calendar.element);

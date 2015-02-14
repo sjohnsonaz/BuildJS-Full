@@ -10,7 +10,7 @@ build.utility.Mask = (function() {
 	function createMask(element, pattern) {
 		var regexPattern = createRegexWithWhitespace(pattern);
 		element.value = formatPattern(pattern, element.value.replace(/\W+/g, ""));
-		element.pattern = createRegex(pattern);
+		element.pattern = createRegexText(pattern);
 		var firstPosition = getPosition(pattern, 0);
 		var patternLength = pattern.replace(/\W+/g, "").length;
 		var lastValue = element.value;
@@ -154,8 +154,8 @@ build.utility.Mask = (function() {
 		}), 'g');
 	}
 
-	function createRegex(pattern) {
-		return new RegExp(pattern.replace(/([^a-zA-Z0-9 ])|(9)|(a)|(n)|(0)/g, function(match, other, numeric, alpha, alphanumeric, hexadecimal) {
+	function createRegexText(pattern) {
+		return pattern.replace(/([^a-zA-Z0-9 ])|(9)|(a)|(n)|(0)/g, function(match, other, numeric, alpha, alphanumeric, hexadecimal) {
 			if (other) {
 				return '\\' + other;
 			}
@@ -171,7 +171,7 @@ build.utility.Mask = (function() {
 			if (hexadecimal) {
 				return '[0-9a-fA-F]';
 			}
-		}), 'g');
+		});
 	}
 
 	function formatPattern(pattern, value) {

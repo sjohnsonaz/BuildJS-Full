@@ -42,6 +42,7 @@ Build('build.form.input.Text', [ 'build::build.ui.Container', 'build::build.util
 				return textTypes[value] || cancel;
 			});
 			var maskBlurFunction = undefined;
+			this.watchValue('maskValidRequired', false);
 			this.watchValue('mask', undefined, undefined, function(value, cancel) {
 				if (mask) {
 					mask.destroyMask();
@@ -49,7 +50,9 @@ Build('build.form.input.Text', [ 'build::build.ui.Container', 'build::build.util
 				if (value) {
 					mask = build.utility.Mask.createMask(this.element, value);
 					maskBlurFunction = function() {
-						this.value = this.element.value;
+						if (this.element.validity.valid) {
+							this.value = this.element.value;
+						}
 					}.bind(this);
 					this.element.addEventListener('blur', maskBlurFunction);
 				} else {
