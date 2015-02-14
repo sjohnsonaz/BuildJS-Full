@@ -2,7 +2,7 @@
  * @class build.widget.calendar.Calendar
  * @extends build.ui.Widget
  */
-Build('build.widget.calendar.Calendar', [ 'build::build.ui.Widget', 'build::build.binding.ComputedBinding' ], function(define, $super) {
+Build('build.widget.calendar.Calendar', [ 'build::build.ui.Widget', 'build::build.binding.ComputedBinding', 'build::build.binding.TwoWayBinding' ], function(define, $super) {
 	define({
 		$extends : 'build.ui.Widget',
 		/**
@@ -25,7 +25,16 @@ Build('build.widget.calendar.Calendar', [ 'build::build.ui.Widget', 'build::buil
 
 			this.watchValue('month', date.getMonth());
 			this.watchValue('year', date.getFullYear());
-			this.watchValue('days');
+			this.dayHash = {};
+			this.watchValue('days', undefined, undefined, function(value, cancel) {
+				this.dayHash = {};
+				if (value) {
+					for (var index = 0, length = value.length; index < length; index++) {
+						this.dayHash[getDateFormatted(value[index])] = value[index];
+					}
+				}
+				return value;
+			}.bind(this));
 			build.binding.ComputedBinding.create(this, {
 				sources : [ {
 					source : this,
@@ -36,11 +45,22 @@ Build('build.widget.calendar.Calendar', [ 'build::build.ui.Widget', 'build::buil
 				} ],
 				output : function(year, month) {
 					return this.renderMonth(year, month);
-					// TODO: Select a day
 				}.bind(this),
 				destination : 'days'
 			});
 			this.watchValue('selectedDay');
+			this.watchValue('selectedDayText');
+			build.binding.TwoWayBinding.create(this, this, 'selectedDay', 'selectedDayText', function(value) {
+				if (value) {
+					var tempDate = new Date(value);
+					var formattedValue = getDateFormatted(tempDate);
+					return this.dayHash[formattedValue] || new Date(formattedValue);
+				}
+			}.bind(this), function(value) {
+				if (value) {
+					return getDateFormatted(value);
+				}
+			});
 
 			this.element.appendChild(title);
 			this.element.appendChild(this.table);
@@ -154,4 +174,17 @@ Build('build.widget.calendar.Calendar', [ 'build::build.ui.Widget', 'build::buil
 			}
 		}
 	});
+	function getDateFormatted(date) {
+		var dd = date.getDate();
+		var mm = date.getMonth() + 1; //January is 0!
+
+		var yyyy = date.getFullYear();
+		if (dd < 10) {
+			dd = '0' + dd
+		}
+		if (mm < 10) {
+			mm = '0' + mm
+		}
+		return mm + '/' + dd + '/' + yyyy;
+	}
 });

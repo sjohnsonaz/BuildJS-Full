@@ -2,7 +2,7 @@
  * @class build.widget.calendar.DateInput
  * @extends build.ui.Widget
  */
-Build('build.widget.calendar.DateInput', [ 'build::build.ui.Widget', 'build::build.form.input.Text', 'build::build.form.input.Button', 'build::build.widget.calendar.Calendar' ], function(define, $super) {
+Build('build.widget.calendar.DateInput', [ 'build::build.ui.Widget', 'build::build.form.input.Text', 'build::build.form.input.Button', 'build::build.widget.calendar.Calendar', 'build::build.binding.ValueBinding' ], function(define, $super) {
 	define({
 		$extends : 'build.ui.Widget',
 		/**
@@ -15,7 +15,7 @@ Build('build.widget.calendar.DateInput', [ 'build::build.ui.Widget', 'build::bui
 			this.popup = document.createElement('span');
 			this.popup.className = 'input-date-popup';
 			this.input = build.form.input.Text.create();
-			this.input.mask = '99/99/9999';
+			//this.input.mask = '99/99/9999';
 			this.button = build.form.input.Button.create('{i:[calendar]}');
 			this.calendar = build.widget.calendar.Calendar.create();
 			this.popup.appendChild(this.calendar.element);
@@ -38,11 +38,7 @@ Build('build.widget.calendar.DateInput', [ 'build::build.ui.Widget', 'build::bui
 			this.button.addEvent('click', function() {
 				this.open = !this.open;
 			}.bind(this));
-			this.calendar.subscribe('selectedDay', function(value) {
-				if (value) {
-					this.input.value = getDateFormatted(value);
-				}
-			}.bind(this));
+			build.binding.ValueBinding.create(this.input, this.calendar, 'selectedDayText');
 		},
 		$prototype : {
 			type : 'span'
