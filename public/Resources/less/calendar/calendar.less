@@ -64,8 +64,29 @@
 		}
 	}
 
-	.calendar-day-selected {
-		font-weight: bold;
+	table {
+		td {
+			padding: 0;
+			&.calendar-day-selected {
+				background-color: @input-selected-background-color;
+				font-weight: bold;
+				color: @input-selected-color;
+				&:hover {
+					background-color: @input-selected-background-color;
+				}
+			}
+
+			&:hover {
+				background-color: darken(@input-default-background-color, @darker);
+			}
+
+			a {
+				display: block;
+				padding: 5px;
+				text-align: right;
+				cursor: pointer;
+			}
+		}
 	}
 }
 

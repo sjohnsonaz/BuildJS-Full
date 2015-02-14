@@ -181,10 +181,13 @@ Build('build.widget.calendar.Calendar', [ 'build::build.ui.Widget', 'build::buil
 						}
 						var dayInstance = day;
 						dayInstance.dayCell = dayCell;
-						dayCell.addEventListener('click', function(event) {
+						var dayLink = document.createElement('a');
+						dayLink.addEventListener('click', function(event) {
+							event.preventDefault();
 							self.selectedDay = dayInstance;
 						});
-						dayCell.innerText = dayInstance.getDate();
+						dayLink.innerText = dayInstance.getDate();
+						dayCell.appendChild(dayLink);
 						tr.appendChild(dayCell);
 					})();
 				}
