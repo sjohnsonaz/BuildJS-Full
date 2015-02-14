@@ -35,7 +35,7 @@ Build('build.widget.calendar.Calendar', [ 'build::build.ui.Widget', 'build::buil
 				}
 				return value;
 			}.bind(this));
-			build.binding.ComputedBinding.create(this, {
+			this.daysComputed = build.binding.ComputedBinding.create(this, {
 				sources : [ {
 					source : this,
 					property : 'year'
@@ -64,6 +64,9 @@ Build('build.widget.calendar.Calendar', [ 'build::build.ui.Widget', 'build::buil
 
 			var oldSelectedDay = undefined;
 			this.subscribe('selectedDay', function(value) {
+				if (value && (this.month != value.getMonth() || this.year != value.getFullYear())) {
+					this.refresh();
+				}
 				if (oldSelectedDay && oldSelectedDay.dayCell) {
 					oldSelectedDay.dayCell.className = '';
 				}
@@ -71,7 +74,7 @@ Build('build.widget.calendar.Calendar', [ 'build::build.ui.Widget', 'build::buil
 					value.dayCell.className = 'calendar-day-selected';
 				}
 				oldSelectedDay = value;
-			});
+			}.bind(this));
 
 			this.element.appendChild(title);
 			this.element.appendChild(this.table);
@@ -192,6 +195,14 @@ Build('build.widget.calendar.Calendar', [ 'build::build.ui.Widget', 'build::buil
 					year : 'numeric'
 				});
 				return days;
+			},
+			refresh : function() {
+				if (this.selectedDay) {
+					this.daysComputed.locked = true;
+					this.month = this.selectedDay.getMonth();
+					this.daysComputed.locked = false;
+					this.year = this.selectedDay.getFullYear();
+				}
 			}
 		}
 	});

@@ -15,6 +15,7 @@ Build('build.binding.TwoWayBinding', [ 'build::build.binding.BindingHandler' ], 
 			this.destinationProperty = destinationProperty;
 			this.outputToSource = outputToSource;
 			this.outputToDestination = outputToDestination;
+			this.watchValue('locked', false);
 		},
 		$prototype : {
 			link : function(destination, source, sourceProperty, destinationProperty) {
@@ -22,10 +23,12 @@ Build('build.binding.TwoWayBinding', [ 'build::build.binding.BindingHandler' ], 
 				destination.subscribe(destinationProperty, this);
 			},
 			notify : function(subscription, value) {
-				if (subscription.publisher == this.source && subscription.property == this.sourceProperty) {
-					this.update(subscription, value, false);
-				} else if (subscription.publisher == this.destination && subscription.property == this.destinationProperty) {
-					this.update(subscription, value, true);
+				if (!this.locked) {
+					if (subscription.publisher == this.source && subscription.property == this.sourceProperty) {
+						this.update(subscription, value, false);
+					} else if (subscription.publisher == this.destination && subscription.property == this.destinationProperty) {
+						this.update(subscription, value, true);
+					}
 				}
 			},
 			update : function(subscription, value, reverse) {

@@ -49,15 +49,17 @@ Build('build.form.input.Text', [ 'build::build.ui.Container', 'build::build.util
 				}
 				if (value) {
 					mask = build.utility.Mask.createMask(this.element, value);
-					maskBlurFunction = function() {
-						if (this.element.validity.valid) {
-							this.value = this.element.value;
-						}
-					}.bind(this);
-					this.element.addEventListener('blur', maskBlurFunction);
+					if (!maskBlurFunction) {
+						maskBlurFunction = function() {
+							if (this.element.validity.valid) {
+								this.value = this.element.value;
+							}
+						}.bind(this);
+						this.element.addEventListener('blur', maskBlurFunction);
+					}
 				} else {
 					if (maskBlurFunction) {
-						this.element.removeEventListener('input', maskBlurFunction);
+						this.element.removeEventListener('blur', maskBlurFunction);
 					}
 				}
 				return value;
