@@ -2,7 +2,7 @@
  * @class build.ui.Widget
  * @extends build.Module
  */
-Build('build.ui.Widget', [ 'build::build.Module', 'build::build.utility.ObservableArray' ], function($define, $super) {
+Build('build.ui.Widget', [ 'build::build.Module' ], function($define, $super) {
 	var idCount = {};
 	function preventDefault(event) {
 		event.preventDefault();

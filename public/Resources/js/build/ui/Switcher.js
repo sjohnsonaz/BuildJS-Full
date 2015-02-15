@@ -43,6 +43,9 @@ Build('build.ui.Switcher', [ 'build::build.ui.Container', 'build::build.utility.
 					return index != -1 ? index : cancel;
 				}
 			}.bind(this));
+			this.activeChildrenSubscriber = function() {
+				// Ensure active is correct.
+			}
 		},
 		$prototype : {
 			/**
@@ -89,6 +92,14 @@ Build('build.ui.Switcher', [ 'build::build.ui.Container', 'build::build.utility.
 					}
 				}
 			},
+			subscribeChildren : function(children, childrenHandler) {
+				$super().subscribeChildren(this)(children, childrenHandler);
+				children.subscribe(this.activeChildrenSubscriber);
+			},
+			unsubscribeChildren : function(children, childrenHandler) {
+				$super().unsubscribeChildren(this)(children, childrenHandler);
+				children.unsubscribe(this.activeChildrenSubscriber);
+			},
 			/**
 			 * @method createChildrenHandler
 			 * We attempt to keep the active child active.
@@ -96,144 +107,160 @@ Build('build.ui.Switcher', [ 'build::build.ui.Container', 'build::build.utility.
 			 * If there are no children, active = 0.
 			 */
 			createChildrenHandler : function() {
-				return {
-					push : function(child) {
-						var element = this.innerElement;
-						if (element) {
-							for (var index = 0, length = arguments.length; index < length; index++) {
-								var child = this.createChild(arguments[index]);
-								element.appendChild(child);
-							}
-						}
-						if (this.children.length == 1) {
-							this.toggleChildElement(child, true);
-						} else {
-							this.toggleChildElement(child, false);
-						}
-					}.bind(this),
-					pop : function() {
-						var element = this.innerElement;
-						if (element) {
-							if (element.lastChild) {
-								this.destroyChild(element.lastChild);
-								element.removeChild(element.lastChild);
-							}
-						}
-					}.bind(this),
-					unshift : function(child) {
-						// Add to beginning of array
-						var element = this.innerElement;
-						if (element) {
-							for (var index = arguments.length - 1; index >= 0; index--) {
-								var child = this.createChild(arguments[index]);
-								element.insertBefore(child, element.firstChild);
-							}
-						}
-						if (this.children.length == 1) {
-							this.toggleChildElement(child, true);
-						} else {
-							this.toggleChildElement(child, false);
-						}
-					}.bind(this),
-					shift : function() {
-						// Remove from beginning of array
-						var element = this.innerElement;
-						if (element) {
-							if (element.firstChild) {
-								this.destroyChild(element.firstChild);
-								element.removeChild(element.firstChild);
-							}
-						}
-					}.bind(this),
-					reverse : function() {
-						// Sort in opposite direction
-						// Array is sorted, we can simply remove all elements, and re-append them.
-						var activeChild = this.activeChild;
-						// Remove from beginning of array
-						this.modifyElement(function() {
-							var element = this.innerElement;
-							while (element.firstChild) {
-								element.removeChild(element.firstChild);
-							}
-
-							for (var index = 0, length = this.children.length; index < length; index++) {
-								element.appendChild(this.children[index].element);
-							}
-						}.bind(this));
-						this.activeChild = activeChild;
-					}.bind(this),
-					sort : function() {
-						// Sort based on function
-						// Array is sorted, we can simply remove all elements, and re-append them.
-						// Find the active child.
-						var activeChild = this.activeChild;
-						this.modifyElement(function() {
-							var element = this.innerElement;
-							while (element.firstChild) {
-								element.removeChild(element.firstChild);
-							}
-
-							for (var index = 0, length = this.children.length; index < length; index++) {
-								element.appendChild(this.children[index].element);
-							}
-						}.bind(this));
-						this.activeChild = activeChild;
-					}.bind(this),
-					splice : function(index, howMany) {
-						var element = this.innerElement;
-						if (element) {
-							var nextSibling = element.childNodes[index + howMany];
-							var elementsToAdd = Array.prototype.slice.call(arguments, 2);
-							var elementsToRemove = Array.prototype.slice.call(element.childNodes, index, index + howMany);
-							var elementToRemove;
-							while (elementToRemove = elementsToRemove.pop()) {
-								this.destroyChild(elementToRemove);
-								element.removeChild(elementToRemove);
-							}
-							var elementToAdd;
-							while (elementToAdd = elementsToAdd.pop()) {
-								elementToAdd = this.createChild(elementToAdd);
-								element.insertBefore(elementToAdd, nextSibling);
-							}
-						}
-						this.refreshChildren();
-					}.bind(this),
-					get : function(index) {
-						// TODO: Is this necessary?
-						var element = this.innerElement;
-						return element.childNodes[index];
-					}.bind(this),
-					set : function(index, child) {
-						var element = this.innerElement;
-						if (element) {
-							var oldChild = element.childNodes[index];
-							if (oldChild) {
-								this.destroyChild(oldChild);
-								child = this.createChild(child);
-								element.replaceChild(oldChild, child);
-							}
-						}
-					}.bind(this),
-					removeAll : function() {
-						var element = this.innerElement;
-						if (element) {
-							while (element.firstChild) {
-								this.destroyChild(element.firstChild);
-								element.removeChild(element.firstChild);
-							}
-						}
-					}.bind(this),
-					subscribe : function() {
-						this.refreshChildren();
-					}.bind(this),
-					publish : function() {
-						this.refreshChildren();
-					}.bind(this),
-					all : function() {
-						this.refreshChildren();
-					}
-				};
+				return new ChildrenHandler(this.innerElement, this);
 			}
 		}
 	});
+	var ChildrenHandler = (function() {
+		function ChildrenHandler(element, owner) {
+			this.innerElement = element;
+			this.owner = owner;
+		}
+
+		ChildrenHandler.prototype = {
+			run : function(name, args) {
+				var handler = this[name];
+				if (typeof handler === 'function') {
+					handler.apply(this.owner, args);
+				}
+			},
+			push : function(child) {
+				var element = this.innerElement;
+				if (element) {
+					for (var index = 0, length = arguments.length; index < length; index++) {
+						var child = this.createChild(arguments[index]);
+						element.appendChild(child);
+					}
+				}
+				if (this.children.length == 1) {
+					this.toggleChildElement(child, true);
+				} else {
+					this.toggleChildElement(child, false);
+				}
+			},
+			pop : function() {
+				var element = this.innerElement;
+				if (element) {
+					if (element.lastChild) {
+						this.destroyChild(element.lastChild);
+						element.removeChild(element.lastChild);
+					}
+				}
+			},
+			unshift : function(child) {
+				// Add to beginning of array
+				var element = this.innerElement;
+				if (element) {
+					for (var index = arguments.length - 1; index >= 0; index--) {
+						var child = this.createChild(arguments[index]);
+						element.insertBefore(child, element.firstChild);
+					}
+				}
+				if (this.children.length == 1) {
+					this.toggleChildElement(child, true);
+				} else {
+					this.toggleChildElement(child, false);
+				}
+			},
+			shift : function() {
+				// Remove from beginning of array
+				var element = this.innerElement;
+				if (element) {
+					if (element.firstChild) {
+						this.destroyChild(element.firstChild);
+						element.removeChild(element.firstChild);
+					}
+				}
+			},
+			reverse : function() {
+				// Sort in opposite direction
+				// Array is sorted, we can simply remove all elements, and re-append them.
+				var activeChild = this.activeChild;
+				// Remove from beginning of array
+				this.modifyElement(function() {
+					var element = this.innerElement;
+					while (element.firstChild) {
+						element.removeChild(element.firstChild);
+					}
+
+					for (var index = 0, length = this.children.length; index < length; index++) {
+						element.appendChild(this.children[index].element);
+					}
+				}.bind(this));
+				this.activeChild = activeChild;
+			},
+			sort : function() {
+				// Sort based on function
+				// Array is sorted, we can simply remove all elements, and re-append them.
+				// Find the active child.
+				var activeChild = this.activeChild;
+				this.modifyElement(function() {
+					var element = this.innerElement;
+					while (element.firstChild) {
+						element.removeChild(element.firstChild);
+					}
+
+					for (var index = 0, length = this.children.length; index < length; index++) {
+						element.appendChild(this.children[index].element);
+					}
+				}.bind(this));
+				this.activeChild = activeChild;
+			},
+			splice : function(index, howMany) {
+				var element = this.innerElement;
+				if (element) {
+					var nextSibling = element.childNodes[index + howMany];
+					var elementsToAdd = Array.prototype.slice.call(arguments, 2);
+					var elementsToRemove = Array.prototype.slice.call(element.childNodes, index, index + howMany);
+					var elementToRemove;
+					while (elementToRemove = elementsToRemove.pop()) {
+						this.destroyChild(elementToRemove);
+						element.removeChild(elementToRemove);
+					}
+					var elementToAdd;
+					while (elementToAdd = elementsToAdd.pop()) {
+						elementToAdd = this.createChild(elementToAdd);
+						element.insertBefore(elementToAdd, nextSibling);
+					}
+				}
+				this.refreshChildren();
+			},
+			get : function(index) {
+				// TODO: Is this necessary?
+				var element = this.innerElement;
+				return element.childNodes[index];
+			},
+			set : function(index, child) {
+				var element = this.innerElement;
+				if (element) {
+					var oldChild = element.childNodes[index];
+					if (oldChild) {
+						this.destroyChild(oldChild);
+						child = this.createChild(child);
+						element.replaceChild(oldChild, child);
+					}
+				}
+			},
+			removeAll : function() {
+				var element = this.innerElement;
+				if (element) {
+					while (element.firstChild) {
+						this.destroyChild(element.firstChild);
+						element.removeChild(element.firstChild);
+					}
+				}
+			},
+			subscribe : function() {
+				this.refreshChildren();
+			},
+			publish : function() {
+				this.refreshChildren();
+			},
+			all : function() {
+				this.refreshChildren();
+			}
+		}
+
+		return ChildrenHandler;
+	})();
 });

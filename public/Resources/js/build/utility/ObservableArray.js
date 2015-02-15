@@ -218,10 +218,7 @@ build.utility.ObservableArray = (function() {
 					subscriber.apply(this, args);
 					break;
 				case 'object':
-					var handler = subscriber[name];
-					if (typeof handler === 'function') {
-						handler.apply(this, args);
-					}
+					subscriber.run(name, args);
 					break;
 				}
 			}
