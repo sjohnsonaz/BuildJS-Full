@@ -291,7 +291,7 @@ Build('build.ui.Container', [ 'build::build.ui.Widget', 'build::build.utility.Ob
 						element.insertBefore(child, element.firstChild);
 					}
 				}
-			}.bind(this),
+			},
 			shift : function() {
 				// Remove from beginning of array
 				var element = this.innerElement;
@@ -342,13 +342,11 @@ Build('build.ui.Container', [ 'build::build.ui.Widget', 'build::build.utility.Ob
 						element.removeChild(elementToRemove);
 					}
 					var elementToAdd;
-					var elementSibling = element.childNodes[index + 1];
 					while (elementToAdd = elementsToAdd.pop()) {
 						elementToAdd = this.createChild(elementToAdd);
-						element.insertBefore(elementToAdd, elementSibling);
+						element.insertBefore(elementToAdd, nextSibling);
 					}
 				}
-				//this.refreshChildren();
 			},
 			get : function(index) {
 				// TODO: Is this necessary?

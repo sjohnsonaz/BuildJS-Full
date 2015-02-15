@@ -223,7 +223,6 @@ Build('build.ui.Switcher', [ 'build::build.ui.Container', 'build::build.utility.
 						element.insertBefore(elementToAdd, nextSibling);
 					}
 				}
-				this.refreshChildren();
 			},
 			get : function(index) {
 				// TODO: Is this necessary?
