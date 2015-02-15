@@ -12,7 +12,7 @@ Build('demo.application.DemoApplication', [ 'build::build.application.AdminAppli
 		/**
 		 * @constructor
 		 */
-		$constructor : function Application() {
+		$constructor : function DemoApplication() {
 			$super(this)();
 
 			// Add title
