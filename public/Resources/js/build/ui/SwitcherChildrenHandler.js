@@ -18,7 +18,7 @@ Build('build.ui.SwitcherChildrenHandler', [ 'build::build.ui.ChildrenHandler' ],
 					handler.apply(this.owner, args);
 				}
 			},
-			push : function(child) {
+			push : function() {
 				var element = this.innerElement;
 				if (element) {
 					for (var index = 0, length = arguments.length; index < length; index++) {
@@ -41,7 +41,7 @@ Build('build.ui.SwitcherChildrenHandler', [ 'build::build.ui.ChildrenHandler' ],
 					}
 				}
 			},
-			unshift : function(child) {
+			unshift : function() {
 				// Add to beginning of array
 				var element = this.innerElement;
 				if (element) {
