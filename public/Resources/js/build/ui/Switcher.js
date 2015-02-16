@@ -11,7 +11,6 @@ Build('build.ui.Switcher', [ 'build::build.ui.Container', 'build::build.ui.Switc
 		/**
 		 * @property lockable
 		 * @property active
-		 * @property hiddenSoft
 		 */
 		$constructor : function Switcher(active) {
 			this.activeChildrenSubscriber = function() {
@@ -28,10 +27,6 @@ Build('build.ui.Switcher', [ 'build::build.ui.Container', 'build::build.ui.Switc
 			$super(this)();
 			this.lockable = false;
 			var Navigation = build.utility.Navigation();
-			this.watchValue('hiddenSoft', true, null, function(value, current, cancel) {
-				this.refreshChildren();
-				return value;
-			}.bind(this));
 			this.watchValue('active', -1, undefined, function(value, current, cancel) {
 				value = value || 0;
 				var length = this.children.length;
@@ -75,9 +70,9 @@ Build('build.ui.Switcher', [ 'build::build.ui.Container', 'build::build.ui.Switc
 			 */
 			toggleChildElement : function(element, toggle) {
 				if (toggle) {
-					element.classList.remove(!this.hiddenSoft ? 'hidden' : 'hidden-soft');
+					element.classList.remove('hidden-soft');
 				} else {
-					element.classList.add(!this.hiddenSoft ? 'hidden' : 'hidden-soft');
+					element.classList.add('hidden-soft');
 				}
 			},
 			/**
@@ -85,32 +80,38 @@ Build('build.ui.Switcher', [ 'build::build.ui.Container', 'build::build.ui.Switc
 			 */
 			refreshChildren : function(children) {
 				$super().refreshChildren(this)(children);
-				var hiddenClass = !this.hiddenSoft ? 'hidden' : 'hidden-soft';
 				var element = this.innerElement;
 				if (element) {
 					children = children || this.children;
 					for (var index = 0, length = children.length; index < length; index++) {
 						var child = children[index];
-						child.element.classList.add(hiddenClass);
+						this.toggleChildElement(child.element, false);
 					}
 					var activeChild = children[this.active];
 					if (activeChild && activeChild.element) {
-						activeChild.element.classList.remove(hiddenClass);
+						this.toggleChildElement(activeChild.element, true);
 					}
 				}
 			},
 			createChild : function(child) {
 				child = $super().createChild(this)(child);
-				if (child instanceof HTMLElement) {
-					child.classList.add(!this.hiddenSoft ? 'hidden' : 'hidden-soft');
-				}
-				return child;
+				return this.initializeChild(child);
 			},
 			destroyChild : function(child) {
 				$super().removeChild(this)(child);
+				return this.cleanupChild(child);
+			},
+			initializeChild : function(child) {
 				if (child instanceof HTMLElement) {
-					child.classList.remove(!this.hiddenSoft ? 'hidden' : 'hidden-soft');
+					child.classList.add('hidden-soft');
 				}
+				return child;
+			},
+			cleanupChild : function(child) {
+				if (child instanceof HTMLElement) {
+					child.classList.remove('hidden-soft');
+				}
+				return child;
 			},
 			subscribeChildren : function(children, childrenHandler) {
 				$super().subscribeChildren(this)(children, childrenHandler);
