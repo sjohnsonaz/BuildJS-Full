@@ -60,12 +60,14 @@ Build('build.ui.ChildrenHandler', [], function(define, $super) {
 				// Array is sorted, we can simply remove all elements, and re-append them.
 				this.modifyElement(function() {
 					var element = this.innerElement;
+					var children = Array.prototype.slice.call(element.children);
 					while (element.firstChild) {
 						element.removeChild(element.firstChild);
 					}
 
-					for (var index = 0, length = this.children.length; index < length; index++) {
-						element.appendChild(this.children[index].element);
+					children.reverse();
+					for (var index = 0, length = children.length; index < length; index++) {
+						element.appendChild(children[index]);
 					}
 				}.bind(this));
 			},
@@ -78,6 +80,7 @@ Build('build.ui.ChildrenHandler', [], function(define, $super) {
 						element.removeChild(element.firstChild);
 					}
 
+					// TODO: This will only work for HTMLElements.
 					for (var index = 0, length = this.children.length; index < length; index++) {
 						element.appendChild(this.children[index].element);
 					}
