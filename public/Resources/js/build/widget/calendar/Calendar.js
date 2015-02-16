@@ -26,7 +26,7 @@ Build('build.widget.calendar.Calendar', [ 'build::build.ui.Widget', 'build::buil
 			this.watchValue('month', date.getMonth());
 			this.watchValue('year', date.getFullYear());
 			this.dayHash = {};
-			this.watchValue('days', undefined, undefined, function(value, cancel) {
+			this.watchValue('days', undefined, undefined, function(value, current, cancel) {
 				this.dayHash = {};
 				if (value) {
 					for (var index = 0, length = value.length; index < length; index++) {

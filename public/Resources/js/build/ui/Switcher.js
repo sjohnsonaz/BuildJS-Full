@@ -17,11 +17,11 @@ Build('build.ui.Switcher', [ 'build::build.ui.Container', 'build::build.ui.Switc
 			$super(this)();
 			this.lockable = false;
 			var Navigation = build.utility.Navigation();
-			this.watchValue('hiddenSoft', true, null, function(value, cancel) {
+			this.watchValue('hiddenSoft', true, null, function(value, current, cancel) {
 				this.refreshChildren();
 				return value;
 			}.bind(this));
-			this.watchValue('active', 0, null, function(value, cancel) {
+			this.watchValue('active', 0, null, function(value, current, cancel) {
 				// TODO: Locking may prevent manipulating children.
 				var output = (this.lockable && Navigation.locked) ? (Navigation.run() ? value : cancel) : value;
 				if (output != cancel && value !== this.active) {
@@ -35,7 +35,7 @@ Build('build.ui.Switcher', [ 'build::build.ui.Container', 'build::build.ui.Switc
 			}.bind(this));
 			this.watchValue('activeChild', undefined, function(value) {
 				return this.children[this.active];
-			}.bind(this), function(value, cancel) {
+			}.bind(this), function(value, current, cancel) {
 				if (!value) {
 					return cancel;
 				} else {

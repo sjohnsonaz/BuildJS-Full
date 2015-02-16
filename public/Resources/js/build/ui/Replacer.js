@@ -18,11 +18,11 @@ Build('build.ui.Replacer', [ 'build::build.ui.Container', 'build::build.utility.
 			this.lockable = false;
 			var Navigation = build.utility.Navigation();
 			// TODO: This can also be an array
-			this.watchValue('hideMode', 'VISIBILITY', null, function(value, cancel) {
+			this.watchValue('hideMode', 'VISIBILITY', null, function(value, current, cancel) {
 				this.refreshChildren();
 				return value;
 			}.bind(this));
-			this.watchValue('active', 0, null, function(value, cancel) {
+			this.watchValue('active', 0, null, function(value, current, cancel) {
 				var output = (this.lockable && Navigation.locked) ? (Navigation.run() ? value : cancel) : value;
 				if (output != cancel && value !== this.active) {
 					// Correct for index out of range.

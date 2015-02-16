@@ -27,7 +27,7 @@ Build('build.widget.calendar.DateInput', [ 'build::build.ui.Widget', 'build::bui
 			this.popup.style.display = 'none';
 			this.watchClass('inline', 'input-date-inline', false);
 
-			this.watchValue('open', false, undefined, function(value, cancel) {
+			this.watchValue('open', false, undefined, function(value, current, cancel) {
 				if (value) {
 					this.popup.style.display = 'block';
 				} else {

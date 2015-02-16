@@ -14,7 +14,7 @@ Build('build.form.Label', [ 'build::build.ui.Container' ], function($define, $su
 		$constructor : function Label(text, control) {
 			$super(this)(text);
 			this.watchAttribute('forId', 'for');
-			this.watchValue('control', control, null, function(value, cancel) {
+			this.watchValue('control', control, null, function(value, current, cancel) {
 				if (control) {
 					control = control.element || control;
 					this.forId = control.id;

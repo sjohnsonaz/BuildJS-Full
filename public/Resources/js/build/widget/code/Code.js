@@ -10,7 +10,7 @@ Build('build.widget.code.Code', [ 'build::build.ui.Content' ], function($define,
 		 */
 		$constructor : function Code(text) {
 			$super(this)();
-			this.watchProperty('text', 'innerHTML', text || '', null, function(value, cancel) {
+			this.watchProperty('text', 'innerHTML', text || '', null, function(value, current, cancel) {
 				value = this.formatString(value, this);
 				return this.formatCode(value);
 			}.bind(this));

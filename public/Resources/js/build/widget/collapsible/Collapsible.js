@@ -21,7 +21,7 @@ Build('build.widget.collapsible.Collapsible', [ 'build::build.ui.Container', 'bu
 			this.element.appendChild(this.body);
 			this.body.style.height = '0px';
 			var finished = true;
-			this.watchValue('open', open || false, undefined, function(value, cancel) {
+			this.watchValue('open', open || false, undefined, function(value, current, cancel) {
 				var self = this;
 				// We can animate
 				if (finished) {

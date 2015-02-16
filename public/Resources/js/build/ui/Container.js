@@ -10,12 +10,12 @@ Build('build.ui.Container', [ 'build::build.ui.Widget', 'build::build.utility.Ob
 		 */
 		$constructor : function Container(text) {
 			$super(this)();
-			this.watchProperty('text', 'innerHTML', text || '', null, function(value, cancel) {
+			this.watchProperty('text', 'innerHTML', text || '', null, function(value, current, cancel) {
 				return (this.children && !this.children.length) ? this.formatString(value, this) : cancel;
 			}.bind(this));
 			this.watchProperty('rawText', 'innerHTML');
 			// TODO: This should be protected in a Document Fragment.
-			this.watchValue('innerElement', this.element, null, function(value, cancel) {
+			this.watchValue('innerElement', this.element, null, function(value, current, cancel) {
 				var oldElement = this.innerElement || this.element;
 				if (value != oldElement) {
 					while (oldElement.firstChild) {
@@ -32,7 +32,7 @@ Build('build.ui.Container', [ 'build::build.ui.Widget', 'build::build.utility.Ob
 			});
 			var childrenHandler = this.createChildrenHandler();
 			var baseArray = build.utility.ObservableArray();
-			this.watchValue('children', baseArray, null, function(value, cancel) {
+			this.watchValue('children', baseArray, null, function(value, current, cancel) {
 				if (this.children != value) {
 					if (this.children) {
 						this.unsubscribeChildren(this.children, childrenHandler);
@@ -45,7 +45,7 @@ Build('build.ui.Container', [ 'build::build.ui.Widget', 'build::build.utility.Ob
 				}
 				return value;
 			}.bind(this));
-			this.watchValue('template', this.template, null, function(value, cancel) {
+			this.watchValue('template', this.template, null, function(value, current, cancel) {
 				// We need to clear the children using the old template first.
 				// TODO: Only run if the old template has been used.
 				this.refreshChildren();

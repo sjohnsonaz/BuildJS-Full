@@ -27,7 +27,7 @@ Build('build.form.input.Text', [ 'build::build.ui.Container', 'build::build.util
 		$constructor : function Text(text, value, textType) {
 			$super(this)(text, value);
 			var mask = undefined;
-			this.watchProperty('value', 'value', undefined, undefined, function(value, cancel) {
+			this.watchProperty('value', 'value', undefined, undefined, function(value, current, cancel) {
 				return mask ? mask.runMask(value + '') : value;
 			}.bind(this));
 			this.watchAttribute('placeholder');
@@ -38,12 +38,12 @@ Build('build.form.input.Text', [ 'build::build.ui.Container', 'build::build.util
 			this.element.addEventListener('change', function() {
 				this.value = this.element.value;
 			}.bind(this));
-			this.watchProperty('textType', 'type', textType || 'text', null, function(value, cancel) {
+			this.watchProperty('textType', 'type', textType || 'text', null, function(value, current, cancel) {
 				return textTypes[value] || cancel;
 			});
 			var maskBlurFunction = undefined;
 			this.watchValue('maskValidRequired', false);
-			this.watchValue('mask', undefined, undefined, function(value, cancel) {
+			this.watchValue('mask', undefined, undefined, function(value, current, cancel) {
 				if (mask) {
 					mask.destroyMask();
 				}

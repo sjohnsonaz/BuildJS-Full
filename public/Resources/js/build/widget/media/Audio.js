@@ -20,7 +20,7 @@ Build('build.widget.media.Audio', [ 'build::build.ui.Container' ], function(defi
 			this.watchProperty('playbackRate');
 			this.watchValue('play', false, function(value) {
 				return !this.element.paused;
-			}.bind(this), function(value, cancel) {
+			}.bind(this), function(value, current, cancel) {
 				if (value) {
 					this.element.play();
 				} else {

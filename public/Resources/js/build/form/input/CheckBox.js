@@ -13,7 +13,7 @@ Build('build.form.input.CheckBox', [ 'build::build.ui.Container' ], function($de
 			this.watchProperty('name', 'name', name);
 			this.watchProperty('value', 'checked', value, function(value) {
 				return this.element.indeterminate ? -1 : value;
-			}.bind(this), function(value, cancel) {
+			}.bind(this), function(value, current, cancel) {
 				if (value == -1) {
 					this.element.indeterminate = true;
 					return false;

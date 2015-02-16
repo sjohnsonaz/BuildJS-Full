@@ -16,7 +16,7 @@ Build('build.widget.carousel.Carousel', [ 'build::build.ui.Container' ], functio
 			this.innerElement = this.container;
 			this.element.appendChild(this.container);
 			this.element.style.height = '0px';
-			this.watchValue('active', undefined, undefined, function(value, cancel) {
+			this.watchValue('active', undefined, undefined, function(value, current, cancel) {
 				if (typeof value === 'undefined') {
 					value = 0;
 				}

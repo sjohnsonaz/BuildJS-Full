@@ -12,7 +12,7 @@ Build('build.widget.tab.TabTitle', [ 'build::build.ui.Container', 'build::build.
 			$super(this)();
 			this.link = build.widget.tab.TabLink.create();
 			this.addChild(this.link);
-			this.watchValue('title', '', null, function(value, cancel) {
+			this.watchValue('title', '', null, function(value, current, cancel) {
 				this.link.text = value;
 				return value;
 			}.bind(this));
