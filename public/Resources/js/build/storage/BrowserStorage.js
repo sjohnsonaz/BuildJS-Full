@@ -36,7 +36,7 @@ Build('build.storage.BrowserStorage', [ 'build::build.Module' ], function($defin
 						return JSON.parse(localStorage.getItem(name));
 					},
 					set : typeof set == 'function' ? function(value) {
-						value = set(value, cancel, hidden);
+						value = set(value, hidden, cancel);
 						if (value !== cancel) {
 							hidden = value;
 							localStorage.setItem(name, JSON.stringify(hidden));
@@ -71,7 +71,7 @@ Build('build.storage.BrowserStorage', [ 'build::build.Module' ], function($defin
 						return JSON.parse(sessionStorage.getItem(name));
 					},
 					set : typeof set == 'function' ? function(value) {
-						value = set(value, cancel, hidden);
+						value = set(value, hidden, cancel);
 						if (value !== cancel) {
 							hidden = value;
 							sessionStorage.setItem(name, JSON.stringify(hidden));

@@ -178,7 +178,7 @@ Build('build.ui.Widget', [ 'build::build.Module' ], function($define, $super) {
 					},
 					set : typeof set === 'function' ? function(value) {
 						//if (value !== this.element[name]) {
-						value = set(value, cancel, hidden);
+						value = set(value, hidden, cancel);
 						if (value !== cancel) {
 							hidden = value;
 							this.element[name] = hidden || '';
@@ -214,7 +214,7 @@ Build('build.ui.Widget', [ 'build::build.Module' ], function($define, $super) {
 					},
 					set : typeof set === 'function' ? function(value) {
 						if (value !== this.element.getAttribute(attribute)) {
-							value = set(value, cancel, hidden);
+							value = set(value, hidden, cancel);
 							if (value !== cancel) {
 								hidden = value;
 								this.element.setAttribute(attribute, hidden || '');
@@ -251,7 +251,7 @@ Build('build.ui.Widget', [ 'build::build.Module' ], function($define, $super) {
 							return parseFloat(this.element.style[style] || 0);
 						},
 						set : typeof set === 'function' ? function(value) {
-							value = set(value, cancel, hidden);
+							value = set(value, hidden, cancel);
 							if (value !== cancel) {
 								hidden = value || 0;
 								this.element.style[style] = (hidden) + unit;
@@ -272,7 +272,7 @@ Build('build.ui.Widget', [ 'build::build.Module' ], function($define, $super) {
 							return this.element.style[style];
 						},
 						set : typeof set === 'function' ? function(value) {
-							value = set(value, cancel, hidden);
+							value = set(value, hidden, cancel);
 							if (value !== cancel) {
 								hidden = value;
 								this.element.style[style] = hidden;
@@ -307,7 +307,7 @@ Build('build.ui.Widget', [ 'build::build.Module' ], function($define, $super) {
 					},
 					set : typeof set === 'function' ? function(value) {
 						if (value !== this.element.dataset ? this.element.dataset[data] : this.element.getAttribute('data-' + data)) {
-							value = set(value, cancel, hidden);
+							value = set(value, hidden, cancel);
 							if (value !== cancel) {
 								hidden = value;
 								value = value || '';
@@ -349,7 +349,7 @@ Build('build.ui.Widget', [ 'build::build.Module' ], function($define, $super) {
 					},
 					set : typeof set === 'function' ? function(value) {
 						if (value !== this.element.classList.contains(className)) {
-							value = set(value, cancel, hidden);
+							value = set(value, hidden, cancel);
 							if (value !== cancel) {
 								hidden = value;
 								if (value) {

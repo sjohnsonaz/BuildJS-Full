@@ -49,7 +49,7 @@ Build('build.ui.Text', [ 'build::build.Module' ], function($define, $super) {
 					},
 					set : typeof set === 'function' ? function(value) {
 						//if (value !== this.element[name]) {
-						value = set(value, cancel, hidden);
+						value = set(value, hidden, cancel);
 						if (value !== cancel) {
 							hidden = value;
 							this.element[name] = hidden || '';
