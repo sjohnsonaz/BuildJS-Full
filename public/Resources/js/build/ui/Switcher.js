@@ -2,7 +2,7 @@
  * @class build.ui.Switcher
  * @extends build.ui.Container
  */
-Build('build.ui.Switcher', [ 'build::build.ui.Container', 'build::build.ui.SwitcherChildrenHandler', 'build::build.utility.Navigation' ], function($define, $super) {
+Build('build.ui.Switcher', [ 'build::build.ui.Container', 'build::build.ui.SwitcherChildrenHandler', 'build::build.utility.Navigation', 'build::build.binding.TwoWayBinding' ], function($define, $super) {
 	$define({
 		$extends : 'build.ui.Container',
 		/**
@@ -14,6 +14,13 @@ Build('build.ui.Switcher', [ 'build::build.ui.Container', 'build::build.ui.Switc
 		 * @property hiddenSoft
 		 */
 		$constructor : function Switcher(active) {
+			this.activeChildrenSubscriber = function() {
+				// Ensure active is correct.
+				if (this.active == -1) {
+					console.log('moving active variable');
+					this.active = 0;
+				}
+			}.bind(this);
 			$super(this)();
 			this.lockable = false;
 			var Navigation = build.utility.Navigation();
@@ -21,31 +28,29 @@ Build('build.ui.Switcher', [ 'build::build.ui.Container', 'build::build.ui.Switc
 				this.refreshChildren();
 				return value;
 			}.bind(this));
-			this.watchValue('active', 0, null, function(value, current, cancel) {
+			this.watchValue('active', -1, undefined, function(value, current, cancel) {
+				value = value || 0;
+				var length = this.children.length;
+				return length ? ((value % length) + length) % length : value;
+			}.bind(this));
+			this.watchValue('activeChild', undefined, undefined, function(value, current, cancel) {
 				// TODO: Locking may prevent manipulating children.
 				var output = (this.lockable && Navigation.locked) ? (Navigation.run() ? value : cancel) : value;
-				if (output != cancel && value !== this.active) {
-					// Correct for index out of range.
-					if (this.children.length) {
-						output %= this.children.length;
+				if (output != cancel) {
+					output = this.children.indexOf(value) != -1 ? value : cancel;
+					if (output != cancel) {
+						this.showChild(output, current);
 					}
-					this.showChild(output, this.active || 0);
 				}
 				return output;
 			}.bind(this));
-			this.watchValue('activeChild', undefined, function(value) {
-				return this.children[this.active];
-			}.bind(this), function(value, current, cancel) {
-				if (!value) {
-					return cancel;
-				} else {
-					var index = this.children.indexOf(value);
-					return index != -1 ? index : cancel;
-				}
+			build.binding.TwoWayBinding.create(this, this, 'active', 'activeChild', function(value) {
+				// To active
+				return this.children.indexOf(value);
+			}.bind(this), function(value) {
+				// To activeChild
+				return this.children[value];
 			}.bind(this));
-			this.activeChildrenSubscriber = function() {
-				// Ensure active is correct.
-			}
 		},
 		$prototype : {
 			/**
@@ -53,11 +58,9 @@ Build('build.ui.Switcher', [ 'build::build.ui.Container', 'build::build.ui.Switc
 			 * @param index
 			 * @param oldIndex
 			 */
-			showChild : function(index, oldIndex) {
-				var child = this.children[index];
-				var oldChild = oldIndex !== index ? this.children[oldIndex] : undefined;
-				if (oldChild) {
-					this.toggleChildElement(oldChild.element, false);
+			showChild : function(child, current) {
+				if (current) {
+					this.toggleChildElement(current.element, false);
 				}
 				if (child) {
 					this.toggleChildElement(child.element, true);
