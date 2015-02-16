@@ -139,7 +139,7 @@ var Build = build.Build = (function() {
 					(function(member, method) {
 						$child.$super[member] = function(scope) {
 							return function() {
-								method.apply(scope, arguments);
+								return method.apply(scope, arguments);
 							};
 						};
 					})(member, $parent.prototype[member]);
@@ -150,7 +150,7 @@ var Build = build.Build = (function() {
 					(function(member, proto) {
 						$child.$super[member] = function(scope) {
 							return function() {
-								proto[member].apply(scope, arguments);
+								return proto[member].apply(scope, arguments);
 							};
 						};
 					})(member, $parent.prototype);

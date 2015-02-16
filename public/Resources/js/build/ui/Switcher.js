@@ -15,9 +15,13 @@ Build('build.ui.Switcher', [ 'build::build.ui.Container', 'build::build.ui.Switc
 		 */
 		$constructor : function Switcher(active) {
 			this.activeChildrenSubscriber = function() {
-				// Ensure active is correct.
+				/*
+				 * Ensure active is correct.
+				 * We attempt to keep the active child active.
+				 * If active child is removed, do not change active.
+				 * If there are no children, active = 0.
+				 */
 				if (this.active == -1) {
-					console.log('moving active variable');
 					this.active = 0;
 				}
 			}.bind(this);
@@ -95,6 +99,19 @@ Build('build.ui.Switcher', [ 'build::build.ui.Container', 'build::build.ui.Switc
 					}
 				}
 			},
+			createChild : function(child) {
+				child = $super().createChild(this)(child);
+				if (child instanceof HTMLElement) {
+					child.classList.add(!this.hiddenSoft ? 'hidden' : 'hidden-soft');
+				}
+				return child;
+			},
+			destroyChild : function(child) {
+				$super().removeChild(this)(child);
+				if (child instanceof HTMLElement) {
+					child.classList.remove(!this.hiddenSoft ? 'hidden' : 'hidden-soft');
+				}
+			},
 			subscribeChildren : function(children, childrenHandler) {
 				$super().subscribeChildren(this)(children, childrenHandler);
 				children.subscribe(this.activeChildrenSubscriber);
@@ -102,15 +119,6 @@ Build('build.ui.Switcher', [ 'build::build.ui.Container', 'build::build.ui.Switc
 			unsubscribeChildren : function(children, childrenHandler) {
 				$super().unsubscribeChildren(this)(children, childrenHandler);
 				children.unsubscribe(this.activeChildrenSubscriber);
-			},
-			/**
-			 * @method createChildrenHandler
-			 * We attempt to keep the active child active.
-			 * If active child is removed, do not change active.
-			 * If there are no children, active = 0.
-			 */
-			createChildrenHandler : function() {
-				return new build.ui.SwitcherChildrenHandler(this.innerElement, this);
 			}
 		}
 	});
