@@ -26,6 +26,7 @@ Build('build.storage.BrowserStorage', [ 'build::build.Module' ], function($defin
 				if (typeof firstValue !== 'undefined') {
 					localStorage.setItem(name, JSON.stringify(firstValue));
 				}
+				var hidden;
 				Object.defineProperty(this, name, Build.merge({
 					configurable : true,
 					enumerable : true,
@@ -35,9 +36,10 @@ Build('build.storage.BrowserStorage', [ 'build::build.Module' ], function($defin
 						return JSON.parse(localStorage.getItem(name));
 					},
 					set : typeof set == 'function' ? function(value) {
-						value = set(value, cancel);
+						value = set(value, cancel, hidden);
 						if (value !== cancel) {
-							localStorage.setItem(name, JSON.stringify(value));
+							hidden = value;
+							localStorage.setItem(name, JSON.stringify(hidden));
 							this.publish(name);
 						}
 					} : function(value) {
@@ -59,6 +61,7 @@ Build('build.storage.BrowserStorage', [ 'build::build.Module' ], function($defin
 				if (typeof firstValue !== 'undefined') {
 					sessionStorage.setItem(name, JSON.stringify(firstValue));
 				}
+				var hidden;
 				Object.defineProperty(this, name, Build.merge({
 					configurable : true,
 					enumerable : true,
@@ -68,9 +71,10 @@ Build('build.storage.BrowserStorage', [ 'build::build.Module' ], function($defin
 						return JSON.parse(sessionStorage.getItem(name));
 					},
 					set : typeof set == 'function' ? function(value) {
-						value = set(value, cancel);
+						value = set(value, cancel, hidden);
 						if (value !== cancel) {
-							sessionStorage.setItem(name, JSON.stringify(value));
+							hidden = value;
+							sessionStorage.setItem(name, JSON.stringify(hidden));
 							this.publish(name);
 						}
 					} : function(value) {

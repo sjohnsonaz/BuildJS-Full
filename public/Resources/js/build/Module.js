@@ -91,7 +91,7 @@ Build('build.Module', [], function($define, $super) {
 					},
 					set : typeof set === 'function' ? function(value) {
 						if (value !== hidden) {
-							value = set(value, cancel);
+							value = set(value, cancel, hidden);
 							if (value !== cancel) {
 								hidden = value;
 								this.publish(name);

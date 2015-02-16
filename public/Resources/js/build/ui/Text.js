@@ -38,6 +38,7 @@ Build('build.ui.Text', [ 'build::build.Module' ], function($define, $super) {
 				if (typeof firstValue !== 'undefined') {
 					this.element[name] = firstValue;
 				}
+				var hidden;
 				Object.defineProperty(this, property, Build.merge({
 					configurable : true,
 					enumerable : true,
@@ -48,9 +49,10 @@ Build('build.ui.Text', [ 'build::build.Module' ], function($define, $super) {
 					},
 					set : typeof set === 'function' ? function(value) {
 						//if (value !== this.element[name]) {
-						value = set(value, cancel);
+						value = set(value, cancel, hidden);
 						if (value !== cancel) {
-							this.element[name] = value || '';
+							hidden = value;
+							this.element[name] = hidden || '';
 							this.publish(property);
 						}
 						//}
