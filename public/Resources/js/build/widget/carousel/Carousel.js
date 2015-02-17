@@ -31,6 +31,10 @@ Build('build.widget.carousel.Carousel', [ 'build::build.ui.Switcher' ], function
 						}
 						this.container.style.left = -left + 'px';
 						this.element.style.height = element.scrollHeight + 'px';
+						var self = this;
+						window.setTimeout(function() {
+							self.element.style.height = 'auto';
+						}, 500);
 					}
 				}
 			},

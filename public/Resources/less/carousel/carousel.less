@@ -4,13 +4,15 @@
 @slide-width: 300px;
 
 .carousel {
+   	.clearfix;
     display: block;
     position: relative;
     width: @slide-width;
     overflow: hidden;
     transition: height ease 0.5s;
     .carousel-container {
-        position: absolute;
+    	.clearfix;
+        position: relative;
         top: 0px;
         width: 900px;
         transition: left ease 0.5s;
