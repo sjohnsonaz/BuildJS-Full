@@ -14,6 +14,27 @@ Build('build.widget.carousel.Carousel', [ 'build::build.ui.Switcher' ], function
 			this.container.className = 'carousel-container';
 			this.innerElement = this.container;
 			this.element.appendChild(this.container);
+
+			this.rightButton = document.createElement('a');
+			this.rightButton.className = 'carousel-right-button';
+			this.rightButton.innerText = '>';
+			this.rightButton.addEventListener('click', function(event) {
+				this.active++;
+			}.bind(this));
+			this.element.appendChild(this.rightButton);
+
+			this.leftButton = document.createElement('a');
+			this.leftButton.className = 'carousel-left-button';
+			this.leftButton.innerText = '<';
+			this.leftButton.addEventListener('click', function(event) {
+				this.active--;
+			}.bind(this));
+			this.element.appendChild(this.leftButton);
+
+			this.pager = document.createElement('div');
+			this.pager.className = 'carousel-pager';
+			this.element.appendChild(this.pager);
+
 			this.finished = true;
 		},
 		$prototype : {

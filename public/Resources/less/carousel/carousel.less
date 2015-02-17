@@ -1,25 +1,45 @@
 @import "carousel-settings.less";
 @import "../mixins.less";
-
 @slide-width: 300px;
-
 .carousel {
-   	.clearfix;
-    display: block;
-    position: relative;
-    width: auto;
-    height: auto;
-    overflow: hidden;
-    transition: height ease 0.5s;
-    .carousel-container {
-    	.clearfix;
-        position: relative;
-        width: auto;
-        height: auto;
-        transition: left ease 0.5s;
-        & > * {
-            display: block;
-            width: auto;
-        }
-    }
+	.clearfix;
+	display: block;
+	position: relative;
+	width: auto;
+	height: auto;
+	overflow: hidden;
+	transition: height ease 0.5s;
+	.carousel-container {
+		.clearfix;
+		position: relative;
+		width: auto;
+		height: auto;
+		transition: left ease 0.5s;
+		& > * {
+			display: block;
+			width: auto;
+		}
+	}
+
+	.carousel-right-button {
+		display: block;
+		position: absolute;
+		height: 30px;
+		width: 30px;
+		right: 0;
+		top: 0;
+	}
+
+	.carousel-left-button {
+		display: block;
+		position: absolute;
+		height: 30px;
+		width: 30px;
+		left: 0;
+		top: 0;
+	}
+
+	.carousel-pager {
+	}
 }
+
