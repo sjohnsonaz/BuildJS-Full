@@ -41,7 +41,7 @@ Build('build.widget.carousel.Carousel', [ 'build::build.ui.Switcher' ], function
 						this.element.style.width = this.element.scrollWidth + 'px';
 						this.element.style.height = this.element.scrollHeight + 'px';
 						this.container.style.width = (length * width) + 'px';
-						this.container.style.left = (currentPosition * width) + 'px';
+						this.container.style.left = (-currentPosition * width) + 'px';
 						for (var index = 0; index < length; index++) {
 							var tempChild = children[index];
 							tempChild.classList.remove('hidden-soft');
