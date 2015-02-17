@@ -7,19 +7,20 @@
    	.clearfix;
     display: block;
     position: relative;
-    width: @slide-width;
+    width: auto;
+    height: auto;
     overflow: hidden;
     transition: height ease 0.5s;
     .carousel-container {
     	.clearfix;
         position: relative;
-        top: 0px;
-        width: 900px;
+        width: auto;
+        height: auto;
         transition: left ease 0.5s;
         & > * {
             display: block;
-            width: @slide-width;
-            float: left;
+            width: auto;
+            //float: left;
             background-color: #aaf;
         }
     }
