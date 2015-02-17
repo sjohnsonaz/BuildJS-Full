@@ -62,8 +62,9 @@ Build('build.widget.carousel.Carousel', [ 'build::build.ui.Switcher' ], function
 						 * All children are set to visible, width = element.width.
 						 * Container is set to correct left value for old active child, width = children.length * element.width
 						 */
-						this.element.style.width = this.element.scrollWidth + 'px';
-						this.element.style.height = this.element.scrollHeight + 'px';
+						var clientRect = this.element.getBoundingClientRect();
+						this.element.style.width = clientRect.width + 'px';
+						this.element.style.height = clientRect.height + 'px';
 						this.container.style.width = (length * width) + 'px';
 						this.container.style.left = (-currentPosition * width) + 'px';
 						for (var index = 0; index < length; index++) {
@@ -80,7 +81,8 @@ Build('build.widget.carousel.Carousel', [ 'build::build.ui.Switcher' ], function
 								 * Main element is set to height of new active child.
 								 * Container is set to correct left value for new active child.
 								 */
-								self.element.style.height = child.scrollHeight + 'px';
+								var clientRect = child.getBoundingClientRect();
+								self.element.style.height = clientRect.height + 'px';
 								self.container.style.left = (-position * width) + 'px';
 
 								window.setTimeout(function() {
