@@ -96,7 +96,7 @@ Build('build.widget.calendar.Calendar', [ 'build::build.ui.Widget', 'build::buil
 				var days = [ 'S', 'M', 'T', 'W', 'T', 'F', 'S' ];
 				for (var index = 0, length = days.length; index < length; index++) {
 					var day = document.createElement('th');
-					day.innerText = days[index];
+					day.textContent = days[index];
 					headerRow.appendChild(day);
 				}
 				header.appendChild(headerRow);
@@ -186,15 +186,15 @@ Build('build.widget.calendar.Calendar', [ 'build::build.ui.Widget', 'build::buil
 							event.preventDefault();
 							self.selectedDay = dayInstance;
 						});
-						dayLink.innerText = dayInstance.getDate();
+						dayLink.textContent = dayInstance.getDate();
 						dayCell.appendChild(dayLink);
 						tr.appendChild(dayCell);
 					})();
 				}
-				this.monthName.innerText = days[0].toLocaleString('en-US', {
+				this.monthName.textContent = days[0].toLocaleString('en-US', {
 					month : 'long'
 				});
-				this.yearName.innerText = days[0].toLocaleString('en-US', {
+				this.yearName.textContent = days[0].toLocaleString('en-US', {
 					year : 'numeric'
 				});
 				return days;

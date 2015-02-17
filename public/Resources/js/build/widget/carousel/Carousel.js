@@ -17,7 +17,7 @@ Build('build.widget.carousel.Carousel', [ 'build::build.ui.Switcher' ], function
 
 			this.rightButton = document.createElement('a');
 			this.rightButton.className = 'carousel-right-button';
-			this.rightButton.innerText = '>';
+			this.rightButton.textContent = '>';
 			this.rightButton.addEventListener('click', function(event) {
 				this.active++;
 			}.bind(this));
@@ -25,7 +25,7 @@ Build('build.widget.carousel.Carousel', [ 'build::build.ui.Switcher' ], function
 
 			this.leftButton = document.createElement('a');
 			this.leftButton.className = 'carousel-left-button';
-			this.leftButton.innerText = '<';
+			this.leftButton.textContent = '<';
 			this.leftButton.addEventListener('click', function(event) {
 				this.active--;
 			}.bind(this));
