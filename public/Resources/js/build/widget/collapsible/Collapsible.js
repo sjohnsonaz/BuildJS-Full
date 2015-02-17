@@ -30,7 +30,7 @@ Build('build.widget.collapsible.Collapsible', [ 'build::build.ui.Container', 'bu
 						this.body.style.height = '0px';
 						window.setTimeout(function() {
 							if (!finished) {
-								self.body.style.height = self.innerElement.scrollHeight + 'px';
+								self.body.style.height = self.innerElement.getBoundingClientRect().height + 'px';
 								self.element.classList.add('collapsible-open');
 								window.setTimeout(function() {
 									if (!finished) {
@@ -41,7 +41,7 @@ Build('build.widget.collapsible.Collapsible', [ 'build::build.ui.Container', 'bu
 							}
 						}, 100);
 					} else {
-						self.body.style.height = self.innerElement.scrollHeight + 'px';
+						self.body.style.height = self.innerElement.getBoundingClientRect().height + 'px';
 						window.setTimeout(function() {
 							if (!finished) {
 								self.body.style.height = '0px';
