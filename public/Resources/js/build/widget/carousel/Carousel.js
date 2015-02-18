@@ -10,10 +10,11 @@ Build('build.widget.carousel.Carousel', [ 'build::build.ui.Switcher' ], function
 		 */
 		$constructor : function Carousel() {
 			$super(this)();
+			this.outer = this.element;
 			this.container = document.createElement('div');
 			this.container.className = 'carousel-container';
 			this.innerElement = this.container;
-			this.element.appendChild(this.container);
+			this.outer.appendChild(this.container);
 
 			this.rightButton = document.createElement('a');
 			this.rightButton.className = 'carousel-right-button';
@@ -21,7 +22,7 @@ Build('build.widget.carousel.Carousel', [ 'build::build.ui.Switcher' ], function
 			this.rightButton.addEventListener('click', function(event) {
 				this.active++;
 			}.bind(this));
-			this.element.appendChild(this.rightButton);
+			this.outer.appendChild(this.rightButton);
 
 			this.leftButton = document.createElement('a');
 			this.leftButton.className = 'carousel-left-button';
@@ -29,11 +30,11 @@ Build('build.widget.carousel.Carousel', [ 'build::build.ui.Switcher' ], function
 			this.leftButton.addEventListener('click', function(event) {
 				this.active--;
 			}.bind(this));
-			this.element.appendChild(this.leftButton);
+			this.outer.appendChild(this.leftButton);
 
 			this.pager = document.createElement('div');
 			this.pager.className = 'carousel-pager';
-			this.element.appendChild(this.pager);
+			this.outer.appendChild(this.pager);
 
 			this.finished = true;
 		},
@@ -47,7 +48,7 @@ Build('build.widget.carousel.Carousel', [ 'build::build.ui.Switcher' ], function
 				 */
 				child = typeof child !== 'undefined' ? (child.element || child) : undefined;
 				current = typeof current !== 'undefined' ? (current.element || current) : undefined;
-				var width = this.element.scrollWidth;
+				var width = this.outer.scrollWidth;
 				var children = Array.prototype.slice.call(this.innerElement.children);
 				if (width && child && this.finished) {
 					this.finished = false;
@@ -62,9 +63,9 @@ Build('build.widget.carousel.Carousel', [ 'build::build.ui.Switcher' ], function
 						 * All children are set to visible, width = element.width.
 						 * Container is set to correct left value for old active child, width = children.length * element.width
 						 */
-						var clientRect = this.element.getBoundingClientRect();
-						this.element.style.width = clientRect.width + 'px';
-						this.element.style.height = clientRect.height + 'px';
+						var clientRect = this.outer.getBoundingClientRect();
+						this.outer.style.width = clientRect.width + 'px';
+						this.outer.style.height = clientRect.height + 'px';
 						this.container.style.width = (length * width) + 'px';
 						this.container.style.left = (-currentPosition * width) + 'px';
 						for (var index = 0; index < length; index++) {
@@ -82,7 +83,7 @@ Build('build.widget.carousel.Carousel', [ 'build::build.ui.Switcher' ], function
 								 * Container is set to correct left value for new active child.
 								 */
 								var clientRect = child.getBoundingClientRect();
-								self.element.style.height = clientRect.height + 'px';
+								self.outer.style.height = clientRect.height + 'px';
 								self.container.style.left = (-position * width) + 'px';
 
 								window.setTimeout(function() {
@@ -113,8 +114,8 @@ Build('build.widget.carousel.Carousel', [ 'build::build.ui.Switcher' ], function
 						tempChild.classList.remove('hidden-soft');
 					}
 				}
-				this.element.style.width = 'auto';
-				this.element.style.height = 'auto';
+				this.outer.style.width = 'auto';
+				this.outer.style.height = 'auto';
 				this.container.style.width = 'auto';
 				this.container.style.left = 'auto';
 				this.finished = true;
