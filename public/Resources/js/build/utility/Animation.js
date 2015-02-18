@@ -13,7 +13,7 @@ build.utility.Animation = (function() {
 		return dimension.indexOf(property) != -1
 	}
 
-	function animateSingle(element, property, value, time, callback, computedStyle) {
+	function animateSingle(element, property, value, time, callback, computedStyle, callOnCancel) {
 		element.animation = element.animation || {};
 		element.animation[property] = element.animation[property] || {};
 		var animation = element.animation[property];
@@ -22,6 +22,9 @@ build.utility.Animation = (function() {
 			animation.timeout = undefined;
 			computedStyle = computedStyle || window.getComputedStyle(element);
 			element.style[property] = computedStyle[property];
+			if (callOnCancel && typeof callback === 'function') {
+				callback();
+			}
 		}
 		var currentAuto = isNaN(parseFloat(element.style[property]))
 		var valueAuto = isNaN(parseFloat(value));
@@ -64,6 +67,7 @@ build.utility.Animation = (function() {
 				// value to auto
 				var tempValue = element.style[property];
 				element.style[property] = 'auto';
+				var interimvalue;
 				if (isBoundary(property)) {
 					interimvalue = 0;
 				} else if (isDimension(property)) {
@@ -97,10 +101,10 @@ build.utility.Animation = (function() {
 		}
 	}
 
-	function animate(element, values, time, callback) {
+	function animate(element, values, time, callback, callOnCancel) {
 		element.animation = element.animation || {};
 		time = time || 500;
-		var remaining = values.length;
+		var remaining = Object.keys(values).length;
 		if (!element.animation.transition) {
 			element.animation.transition = element.style.transition;
 		}
@@ -121,7 +125,7 @@ build.utility.Animation = (function() {
 		for ( var index in values) {
 			if (values.hasOwnProperty(index)) {
 				var value = values[index];
-				animateSingle(element, index, value, time, complete, computedStyle);
+				animateSingle(element, index, value, time, complete, computedStyle, callOnCancel);
 			}
 		}
 	}
