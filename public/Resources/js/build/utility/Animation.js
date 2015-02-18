@@ -17,6 +17,10 @@ build.utility.Animation = (function() {
 		element.animation = element.animation || {};
 		element.animation[property] = element.animation[property] || {};
 		var animation = element.animation[property];
+		if (animation.timeout) {
+			window.clearTimeout(animation.timeout);
+			animation.timeout = undefined;
+		}
 		var currentAuto = isNaN(parseFloat(element.style[property]))
 		var valueAuto = isNaN(parseFloat(value));
 		
@@ -25,7 +29,7 @@ build.utility.Animation = (function() {
 				// auto to auto
 				// No conversion
 				element.style[property] = value;
-				window.setTimeout(function() {
+				animation.timeout = window.setTimeout(function() {
 					if (typeof callback === 'function') {
 						callback();
 					}
@@ -40,9 +44,9 @@ build.utility.Animation = (function() {
 					startValue = '';
 				}
 				element.style[property] = startValue;
-				window.setTimeout(function() {
+				animation.timeout = window.setTimeout(function() {
 					element.style[property] = value;
-					window.setTimeout(function() {
+					animation.timeout = window.setTimeout(function() {
 						if (typeof callback === 'function') {
 							callback();
 						}
@@ -62,9 +66,9 @@ build.utility.Animation = (function() {
 					value = '';
 				}
 				element.style[property] = tempValue;
-				window.setTimeout(function() {
+				animation.timeout = window.setTimeout(function() {
 					element.style[property] = value;
-					window.setTimeout(function() {
+					animation.timeout = window.setTimeout(function() {
 						element.style[property] = '';
 							if (typeof callback === 'function') {
 								callback();
@@ -74,7 +78,7 @@ build.utility.Animation = (function() {
 			} else {
 				// value to value
 				element.style[property] = value;
-				window.setTimeout(function() {
+				animation.timeout = window.setTimeout(function() {
 					if (typeof callback === 'function') {
 						callback();
 					}
@@ -91,7 +95,9 @@ build.utility.Animation = (function() {
 			remaining--;
 			if (!remaining) {
 				element.style.transition = '';
-				callback();
+				if (typeof callback === 'function') {
+					callback();
+				}
 			}
 		}
 		for (var index in values) {
