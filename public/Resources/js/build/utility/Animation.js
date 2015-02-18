@@ -13,14 +13,14 @@ build.utility.Animation = (function() {
 		return dimension.indexOf(property) != -1
 	}
 
-	function animateSingle(element, property, value, time, callback) {
+	function animateSingle(element, property, value, time, callback, computedStyle) {
 		element.animation = element.animation || {};
 		element.animation[property] = element.animation[property] || {};
 		var animation = element.animation[property];
 		if (animation.timeout) {
 			window.clearTimeout(animation.timeout);
 			animation.timeout = undefined;
-			var computedStyle = window.getComputedStyle(element);
+			computedStyle = computedStyle || window.getComputedStyle(element);
 			element.style[property] = computedStyle[property];
 		}
 		var currentAuto = isNaN(parseFloat(element.style[property]))
@@ -98,23 +98,30 @@ build.utility.Animation = (function() {
 	}
 
 	function animate(element, values, time, callback) {
+		element.animation = element.animation || {};
 		time = time || 500;
 		var remaining = values.length;
-		var transition = element.style.transition;
+		if (!element.animation.transition) {
+			element.animation.transition = element.style.transition;
+		}
 		element.style.transition = 'all ' + (time / 1000 + 's');
 		function complete() {
 			remaining--;
 			if (!remaining) {
-				element.style.transition = transition;
+				if (element.animation.transition) {
+					element.style.transition = element.animation.transition;
+					element.animation.transition = undefined;
+				}
 				if (typeof callback === 'function') {
 					callback();
 				}
 			}
 		}
+		var computedStyle = computedStyle || window.getComputedStyle(element);
 		for ( var index in values) {
 			if (values.hasOwnProperty(index)) {
 				var value = values[index];
-				animateSingle(element, index, value, time, complete);
+				animateSingle(element, index, value, time, complete, computedStyle);
 			}
 		}
 	}
