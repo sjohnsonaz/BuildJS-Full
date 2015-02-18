@@ -20,6 +20,8 @@ build.utility.Animation = (function() {
 		if (animation.timeout) {
 			window.clearTimeout(animation.timeout);
 			animation.timeout = undefined;
+			var computedStyle = window.getComputedStyle(element);
+			element.style[property] = computedStyle[property];
 		}
 		var currentAuto = isNaN(parseFloat(element.style[property]))
 		var valueAuto = isNaN(parseFloat(value));
@@ -30,6 +32,8 @@ build.utility.Animation = (function() {
 				// No conversion
 				element.style[property] = value;
 				animation.timeout = window.setTimeout(function() {
+					window.clearTimeout(animation.timeout);
+					animation.timeout = undefined;
 					if (typeof callback === 'function') {
 						callback();
 					}
@@ -47,6 +51,8 @@ build.utility.Animation = (function() {
 				animation.timeout = window.setTimeout(function() {
 					element.style[property] = value;
 					animation.timeout = window.setTimeout(function() {
+						window.clearTimeout(animation.timeout);
+						animation.timeout = undefined;
 						if (typeof callback === 'function') {
 							callback();
 						}
@@ -70,6 +76,8 @@ build.utility.Animation = (function() {
 					element.style[property] = value;
 					animation.timeout = window.setTimeout(function() {
 						element.style[property] = '';
+							window.clearTimeout(animation.timeout);
+							animation.timeout = undefined;
 							if (typeof callback === 'function') {
 								callback();
 							}
@@ -79,6 +87,8 @@ build.utility.Animation = (function() {
 				// value to value
 				element.style[property] = value;
 				animation.timeout = window.setTimeout(function() {
+					window.clearTimeout(animation.timeout);
+					animation.timeout = undefined;
 					if (typeof callback === 'function') {
 						callback();
 					}
