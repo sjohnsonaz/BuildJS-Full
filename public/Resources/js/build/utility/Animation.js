@@ -4,8 +4,8 @@ build.utility.Animation = (function() {
 	function Animation() {
 	}
 
-	var boundary = ['top', 'right', 'bottom', 'left'];
-	var dimension = ['height', 'width'];
+	var boundary = [ 'top', 'right', 'bottom', 'left' ];
+	var dimension = [ 'height', 'width' ];
 	function isBoundary(property) {
 		return boundary.indexOf(property) != -1;
 	}
@@ -25,7 +25,7 @@ build.utility.Animation = (function() {
 		}
 		var currentAuto = isNaN(parseFloat(element.style[property]))
 		var valueAuto = isNaN(parseFloat(value));
-		
+
 		if (currentAuto) {
 			if (valueAuto) {
 				// auto to auto
@@ -65,22 +65,22 @@ build.utility.Animation = (function() {
 				var tempValue = element.style[property];
 				element.style[property] = 'auto';
 				if (isBoundary(property)) {
-					value = 0;
+					interimvalue = 0;
 				} else if (isDimension(property)) {
-					value = element.getBoundingClientRect()[property] + 'px';
+					interimvalue = element.getBoundingClientRect()[property] + 'px';
 				} else {
-					value = '';
+					interimvalue = '';
 				}
 				element.style[property] = tempValue;
 				animation.timeout = window.setTimeout(function() {
-					element.style[property] = value;
+					element.style[property] = interimvalue;
 					animation.timeout = window.setTimeout(function() {
-						element.style[property] = '';
-							window.clearTimeout(animation.timeout);
-							animation.timeout = undefined;
-							if (typeof callback === 'function') {
-								callback();
-							}
+						element.style[property] = value;
+						window.clearTimeout(animation.timeout);
+						animation.timeout = undefined;
+						if (typeof callback === 'function') {
+							callback();
+						}
 					}, time);
 				}, 100);
 			} else {
@@ -100,17 +100,18 @@ build.utility.Animation = (function() {
 	function animate(element, values, time, callback) {
 		time = time || 500;
 		var remaining = values.length;
+		var transition = element.style.transition;
 		element.style.transition = 'all ' + (time / 1000 + 's');
 		function complete() {
 			remaining--;
 			if (!remaining) {
-				element.style.transition = '';
+				element.style.transition = transition;
 				if (typeof callback === 'function') {
 					callback();
 				}
 			}
 		}
-		for (var index in values) {
+		for ( var index in values) {
 			if (values.hasOwnProperty(index)) {
 				var value = values[index];
 				animateSingle(element, index, value, time, complete);
@@ -118,9 +119,8 @@ build.utility.Animation = (function() {
 		}
 	}
 
-	Animation.prototype = {
-	};
-	
+	Animation.prototype = {};
+
 	Animation.animate = animate;
 	return Animation;
 })();

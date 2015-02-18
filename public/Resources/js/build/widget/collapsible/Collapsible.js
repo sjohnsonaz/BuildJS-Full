@@ -2,7 +2,7 @@
  * @class build.widget.collapsible.Collapsible
  * @extends build.ui.Container
  */
-Build('build.widget.collapsible.Collapsible', [ 'build::build.ui.Container', 'build::build.ui.Content' ], function($define, $super) {
+Build('build.widget.collapsible.Collapsible', [ 'build::build.ui.Container', 'build::build.ui.Content', 'build::build.utility.Animation' ], function($define, $super) {
 	$define({
 		$extends : 'build.ui.Container',
 		/**
@@ -24,46 +24,18 @@ Build('build.widget.collapsible.Collapsible', [ 'build::build.ui.Container', 'bu
 			this.watchValue('open', open || false, undefined, function(value, current, cancel) {
 				var self = this;
 				// We can animate
-				if (finished) {
-					finished = false;
-					if (value) {
-						this.body.style.height = '0px';
-						window.setTimeout(function() {
-							if (!finished) {
-								self.body.style.height = self.innerElement.getBoundingClientRect().height + 'px';
-								self.element.classList.add('collapsible-open');
-								window.setTimeout(function() {
-									if (!finished) {
-										self.body.style.height = 'auto';
-										finished = true;
-									}
-								}, 500);
-							}
-						}, 100);
-					} else {
-						self.body.style.height = self.innerElement.getBoundingClientRect().height + 'px';
-						window.setTimeout(function() {
-							if (!finished) {
-								self.body.style.height = '0px';
-								window.setTimeout(function() {
-									if (!finished) {
-										self.element.classList.remove('collapsible-open');
-										finished = true;
-									}
-								}, 500);
-							}
-						}, 100);
-					}
-				} else {
-					finished = true;
-					// Do not animate.  All animations will be ignored.
-					if (value) {
-						self.body.style.height = 'auto';
+				if (value) {
+					build.utility.Animation.animate(this.body, {
+						height : 'auto'
+					}, 500, function() {
 						self.element.classList.add('collapsible-open');
-					} else {
-						this.body.style.height = '0px';
+					});
+				} else {
+					build.utility.Animation.animate(this.body, {
+						height : '0px'
+					}, 500, function() {
 						self.element.classList.remove('collapsible-open');
-					}
+					});
 				}
 				return value;
 			}.bind(this));
