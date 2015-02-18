@@ -10,7 +10,7 @@ Build('build.widget.calendar.Calendar', [ 'build::build.ui.Widget', 'build::buil
 		 */
 		$constructor : function Calendar(date) {
 			$super(this)();
-			date = date || new Date();
+			var initialDate = date || new Date();
 
 			this.monthName = document.createElement('span');
 			this.monthName.className = 'calendar-month-name';
@@ -23,8 +23,8 @@ Build('build.widget.calendar.Calendar', [ 'build::build.ui.Widget', 'build::buil
 			this.tableBody = document.createElement('tbody');
 			this.table.appendChild(this.tableBody);
 
-			this.watchValue('month', date.getMonth());
-			this.watchValue('year', date.getFullYear());
+			this.watchValue('month', initialDate.getMonth());
+			this.watchValue('year', initialDate.getFullYear());
 			this.dayHash = {};
 			this.watchValue('days', undefined, undefined, function(value, current, cancel) {
 				this.dayHash = {};
@@ -48,7 +48,7 @@ Build('build.widget.calendar.Calendar', [ 'build::build.ui.Widget', 'build::buil
 				}.bind(this),
 				destination : 'days'
 			});
-			this.watchValue('selectedDay');
+			this.watchValue('selectedDay', date);
 			this.watchValue('selectedDayText');
 			build.binding.TwoWayBinding.create(this, this, 'selectedDay', 'selectedDayText', function(value) {
 				if (value) {
@@ -191,12 +191,10 @@ Build('build.widget.calendar.Calendar', [ 'build::build.ui.Widget', 'build::buil
 						tr.appendChild(dayCell);
 					})();
 				}
-				this.monthName.textContent = days[0].toLocaleString('en-US', {
-					month : 'long'
-				});
-				this.yearName.textContent = days[0].toLocaleString('en-US', {
-					year : 'numeric'
-				});
+				// TODO: Not supported in older browsers.
+				// days[0].toLocaleString('en-US', { month : 'long' });
+				this.monthName.textContent = monthNames[days[0].getMonth()];
+				this.yearName.textContent = days[0].getFullYear();
 				return days;
 			},
 			refresh : function() {
@@ -209,6 +207,7 @@ Build('build.widget.calendar.Calendar', [ 'build::build.ui.Widget', 'build::buil
 			}
 		}
 	});
+	var monthNames = [ 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December' ];
 	function getDateFormatted(date) {
 		var dd = date.getDate();
 		var mm = date.getMonth() + 1; //January is 0!

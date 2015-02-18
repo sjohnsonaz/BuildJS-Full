@@ -16,7 +16,12 @@ Build('build.form.input.Range', [ 'build::build.ui.Widget' ], function($define, 
 			this.element.addEventListener('change', function() {
 				this.value = this.element.value;
 			}.bind(this));
-			this.element.type = 'range';
+			// TODO: Not supported in IE9.
+			try {
+				this.element.type = 'range';
+			} catch (error) {
+
+			}
 		},
 		$prototype : {
 			type : 'input'

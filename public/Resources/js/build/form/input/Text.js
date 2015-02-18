@@ -51,7 +51,14 @@ Build('build.form.input.Text', [ 'build::build.ui.Container', 'build::build.util
 					mask = build.utility.Mask.createMask(this.element, value);
 					if (!maskBlurFunction) {
 						maskBlurFunction = function() {
-							if (this.element.validity.valid) {
+							// TODO: Not supported in IE9.
+							var validity = this.element.validity
+							if ((!validity)) {
+								var pattern = new RegExp(this.element.pattern, 'g');
+								if (this.element.value.match(pattern)) {
+									this.value = this.element.value;
+								}
+							} else if (validity.valid) {
 								this.value = this.element.value;
 							}
 						}.bind(this);

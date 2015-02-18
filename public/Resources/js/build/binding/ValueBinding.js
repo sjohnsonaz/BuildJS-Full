@@ -17,7 +17,14 @@ Build('build.binding.ValueBinding', [ 'build::build.binding.TwoWayBinding' ], fu
 			},
 			update : function(subscription, value, reverse) {
 				if (reverse && this.destination.maskValidRequired) {
-					if (this.destination.element.validity.valid) {
+					// TODO: Not supported in IE9
+					var validity = this.destination.element.validity
+					if (!(validity)) {
+						var pattern = new RegExp(this.destination.element.pattern, 'g');
+						if (this.destination.element.value.match(pattern)) {
+							$super().update(this)(subscription, value, reverse);
+						}
+					} else if (validity.valid) {
 						$super().update(this)(subscription, value, reverse);
 					}
 				} else {
