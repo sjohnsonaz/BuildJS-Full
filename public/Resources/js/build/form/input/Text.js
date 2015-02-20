@@ -27,8 +27,9 @@ Build('build.form.input.Text', [ 'build::build.ui.Container', 'build::build.util
 		$constructor : function Text(text, value, textType) {
 			$super(this)(text, value);
 			var mask = undefined;
+			var internalUpdate = false;
 			this.watchProperty('value', 'value', undefined, undefined, function(value, current, cancel) {
-				return mask ? mask.runMask(value + '') : value;
+				return internalUpdate ? value : (mask ? mask.runMask(value + '') : value);
 			}.bind(this));
 			this.watchAttribute('placeholder');
 			this.watchAttribute('name');
@@ -36,7 +37,9 @@ Build('build.form.input.Text', [ 'build::build.ui.Container', 'build::build.util
 			// Use the 'input' event.
 			// change does not work with masking
 			this.element.addEventListener('change', function() {
+				internalUpdate = true;
 				this.value = this.element.value;
+				internalUpdate = false;
 			}.bind(this));
 			this.watchProperty('textType', 'type', textType || 'text', null, function(value, current, cancel) {
 				return textTypes[value] || cancel;
