@@ -1,6 +1,8 @@
-// Console-polyfill. MIT license.
-// https://github.com/paulmillr/console-polyfill
-// Make it safe to do console.log() always.
+/*
+ * Console-polyfill
+ * https://github.com/paulmillr/console-polyfill
+ * MIT license
+ */
 (function(con) {
 	'use strict';
 	var prop, method;
@@ -15,7 +17,11 @@
 		con[method] = con[method] || dummy;
 })(this.console = this.console || {}); // Using `this` for web workers.
 
-// addEventListener polyfill 1.0 / Eirik Backer / MIT Licence
+/*
+ * addEventListener polyfill 1.0
+ * Eirik Backer
+ * MIT Licence
+ */
 (function(win, doc) {
 	if (win.addEventListener)
 		return; // No need to polyfill
@@ -61,7 +67,10 @@
 	}
 })(window, document);
 
-// BuildJS
+/*
+ * Function.bind()
+ * BuildJS
+ */
 if (!Function.prototype.bind) {
 	(function() {
 		Function.prototype.bind = function(context) {
@@ -84,7 +93,10 @@ if (!Function.prototype.bind) {
 	})();
 }
 
-// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/keys
+/*
+ * Object.keys()
+ * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/keys
+ */
 if (!Object.keys) {
 	Object.keys = (function() {
 		'use strict';
@@ -117,7 +129,10 @@ if (!Object.keys) {
 	}());
 }
 
-// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/create
+/*
+ * Object.create()
+ * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/create
+ */
 if (typeof Object.create != 'function') {
 	(function() {
 		var F = function() {
@@ -140,18 +155,15 @@ if (typeof Object.create != 'function') {
 
 /*
  * classList.js: Cross-browser full element.classList implementation. 2012-11-15
- * 
- * By Eli Grey, http://eligrey.com Public Domain. NO WARRANTY EXPRESSED OR
- * IMPLIED. USE AT YOUR OWN RISK.
- */
-
-/* global self, document, DOMException */
-
-/*
- * ! @source
+ * Eli Grey
+ * http://eligrey.com
  * http://purl.eligrey.com/github/classList.js/blob/master/classList.js
+ * Public Domain.
+ * NO WARRANTY EXPRESSED OR IMPLIED. USE AT YOUR OWN RISK.
  */
-
+/*
+ * global self, document, DOMException
+ */
 if (typeof document !== "undefined" && !("classList" in document.documentElement)) {
 	(function(view) {
 		"use strict";
@@ -278,6 +290,10 @@ if (typeof document !== "undefined" && !("classList" in document.documentElement
 	}(self));
 }
 
+/*
+ * CustomEvent
+ * BuildJS
+ */
 if (typeof CustomEvent != 'function') {
 	(function() {
 		function CustomEvent(event, params) {
