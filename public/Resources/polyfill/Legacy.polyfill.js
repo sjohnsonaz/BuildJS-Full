@@ -292,7 +292,7 @@ if (typeof document !== "undefined" && !("classList" in document.documentElement
 
 /*
  * CustomEvent
- * BuildJS
+ * https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent.CustomEvent
  */
 if (typeof CustomEvent != 'function') {
 	(function() {
