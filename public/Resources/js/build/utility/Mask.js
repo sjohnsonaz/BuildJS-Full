@@ -36,6 +36,7 @@ build.utility.Mask = (function() {
 				var startPosition = getPatternPosition(pattern, startPosition);
 				element.selectionStart = startPosition;
 				element.selectionEnd = startPosition;
+				dispatchChange();
 				break;
 			case 46:
 				event.preventDefault();
@@ -54,14 +55,28 @@ build.utility.Mask = (function() {
 				var startPosition = getPatternPosition(pattern, startPosition);
 				element.selectionStart = startPosition;
 				element.selectionEnd = startPosition;
+				dispatchChange();
 				break;
 			default:
 				lastPosition = element.selectionStart;
 				break;
 			}
 		}
+		function dispatchChange() {
+			// TODO: Not supported in IE9.
+			var validity = element.validity
+			if ((!validity)) {
+				var pattern = new RegExp(element.pattern, 'g');
+				if (element.value.match(pattern)) {
+					element.dispatchEvent(new CustomEvent('change', {}));
+				}
+			} else if (validity.valid) {
+				element.dispatchEvent(new CustomEvent('change', {}));
+			}
+		}
 		function inputListener(event) {
 			runMask(element.value);
+			dispatchChange();
 		}
 		function runMask(value) {
 			var updated = false;
@@ -127,12 +142,10 @@ build.utility.Mask = (function() {
 			element.removeEventListener('keydown', keyDownListener);
 			element.removeEventListener('input', inputListener);
 			element.removeEventListener('focus', focusListener);
-			element.removeEventListener('click', focusListener);
 		}
 		element.addEventListener('keydown', keyDownListener);
 		element.addEventListener('input', inputListener);
 		element.addEventListener('focus', focusListener);
-		element.addEventListener('click', focusListener);
 		return {
 			element : element,
 			runMask : runMask,

@@ -277,3 +277,20 @@ if (typeof document !== "undefined" && !("classList" in document.documentElement
 		}
 	}(self));
 }
+
+if (typeof CustomEvent != 'function') {
+	(function() {
+		function CustomEvent(event, params) {
+			params = params || {
+				bubbles : false,
+				cancelable : false,
+				detail : undefined
+			};
+			var evt = document.createEvent('CustomEvent');
+			evt.initCustomEvent(event, params.bubbles, params.cancelable, params.detail);
+			return evt;
+		}
+		CustomEvent.prototype = window.Event.prototype;
+		window.CustomEvent = CustomEvent;
+	})();
+}

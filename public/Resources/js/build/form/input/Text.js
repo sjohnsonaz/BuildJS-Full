@@ -49,25 +49,6 @@ Build('build.form.input.Text', [ 'build::build.ui.Container', 'build::build.util
 				}
 				if (value) {
 					mask = build.utility.Mask.createMask(this.element, value);
-					if (!maskBlurFunction) {
-						maskBlurFunction = function() {
-							// TODO: Not supported in IE9.
-							var validity = this.element.validity
-							if ((!validity)) {
-								var pattern = new RegExp(this.element.pattern, 'g');
-								if (this.element.value.match(pattern)) {
-									this.value = this.element.value;
-								}
-							} else if (validity.valid) {
-								this.value = this.element.value;
-							}
-						}.bind(this);
-						this.element.addEventListener('blur', maskBlurFunction);
-					}
-				} else {
-					if (maskBlurFunction) {
-						this.element.removeEventListener('blur', maskBlurFunction);
-					}
 				}
 				return value;
 			}.bind(this));
