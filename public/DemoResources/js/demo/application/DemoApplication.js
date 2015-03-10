@@ -41,6 +41,7 @@ Build('demo.application.DemoApplication', [ 'build::build.application.AdminAppli
 	});
 });
 Build.debug = true;
+var application;
 Build(function() {
 	console.log('Application started...');
 	application = demo.application.DemoApplication.create();
