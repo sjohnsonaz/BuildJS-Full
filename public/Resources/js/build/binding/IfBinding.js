@@ -27,7 +27,7 @@ Build('build.binding.IfBinding', [ 'build::build.binding.OneWayBinding' ], funct
 						break;
 					case 'string':
 						var condition = this.formatString(this.format, this.cache);
-						var conditionFunction = new Function('return !!' + condition);
+						var conditionFunction = new Function('return !!' + condition + ';');
 						if (conditionFunction()) {
 							this.evaluate(true);
 						} else {

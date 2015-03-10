@@ -27,8 +27,12 @@ Build('build.binding.ClassNameBinding', [ 'build::build.binding.OneWayBinding' ]
 						break;
 					case 'string':
 						var condition = this.formatString(this.format, this.cache);
-						var wrappedCondition = 'if (' + condition + ') {this.evaluate(true);} else {this.evaluate(false);}';
-						eval(wrappedCondition);
+						var conditionFunction = new Function('return !!' + condition + ';');
+						if (conditionFunction()) {
+							this.evaluate(true);
+						} else {
+							this.evaluate(false);
+						}
 						break;
 					}
 				}
