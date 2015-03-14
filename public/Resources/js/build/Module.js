@@ -401,6 +401,9 @@ Build('build.Module', [], function($define, $super) {
 				} else {
 					return pattern;
 				}
+			},
+			createEval : function(code) {
+				return new Function('values', 'with(values){return (' + code + ');}');
 			}
 		},
 		$static : {
