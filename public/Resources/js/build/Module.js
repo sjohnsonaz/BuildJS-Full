@@ -403,7 +403,21 @@ Build('build.Module', [], function($define, $super) {
 				}
 			},
 			createEval : function(code) {
-				return new Function('values', 'with(values){return (' + code + ');}');
+				return new Function('values', '\
+						with (values) {\
+							return (' + code + ');\
+						}\
+					');
+			},
+			createEvalStrict : function(code) {
+				return new Function('values', '\
+						with (values) {\
+							return (function() {\
+								"use strict";\
+								return eval("' + code + '");\
+							})();\
+						}\
+					');
 			}
 		},
 		$static : {
