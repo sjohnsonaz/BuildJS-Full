@@ -8,7 +8,8 @@ Build('build.widget.upload.Upload', [ 'build::build.ui.Widget' ], function(defin
 		/**
 		 * @constructor
 		 */
-		$constructor : function Upload(element) {
+		$constructor : function Upload() {
+			$super(this)();
 			var self = this;
 			this.input = document.createElement('input');
 			this.input.type = 'file';
