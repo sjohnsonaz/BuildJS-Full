@@ -16,7 +16,6 @@ Build('build.widget.upload.Upload', [ 'build::build.ui.Widget', 'build::build.wi
 			this.input = document.createElement('input');
 			this.input.type = 'file';
 			this.input.multiple = true;
-			this.fileList = [];
 			this.input.addEventListener('change', function(event) {
 				self.handleFiles(this.files);
 			});
@@ -65,16 +64,15 @@ Build('build.widget.upload.Upload', [ 'build::build.ui.Widget', 'build::build.wi
 				for (var index = 0, length = files.length; index < length; index++) {
 					(function() {
 						var file = files[index];
-						self.fileList.push(file);
 						var fileProgress = build.widget.upload.FileProgress.create();
 						fileProgress.file = file
 						self.children.push(fileProgress);
 						fileProgress.removeButton.addEvent('click', function() {
 							self.children.remove(fileProgress);
 						});
+						fileProgress.upload('/');
 					})();
 				}
-				console.log(this.fileList);
 			},
 			getSize : function() {
 				var nBytes = 0, oFiles = this.fileList, nFiles = oFiles.length;
