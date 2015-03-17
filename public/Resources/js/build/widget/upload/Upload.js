@@ -61,12 +61,16 @@ Build('build.widget.upload.Upload', [ 'build::build.ui.Widget', 'build::build.wi
 		},
 		$prototype : {
 			handleFiles : function(files) {
+				var self = this;
 				for (var index = 0, length = files.length; index < length; index++) {
 					if (this.fileList.indexOf(files[index]) == -1) {
 						this.fileList.push(files[index]);
 						var fileProgress = build.widget.upload.FileProgress.create();
 						fileProgress.file = files[index];
-						this.children.push(fileProgress)
+						this.children.push(fileProgress);
+						fileProgress.removeButton.addEvent('click', function() {
+							self.children.remove(fileProgress);
+						});
 					}
 				}
 				console.log(this.fileList);

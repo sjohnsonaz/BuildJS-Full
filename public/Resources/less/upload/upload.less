@@ -7,7 +7,9 @@
 		min-height: 100px;
 		line-height: 100px;
 		border: 1px solid @input-default-border-color;
+		border-radius: @input-border-radius;
 		cursor: pointer;
+		.noselect;
 		&.drag-enter {
 			background-color: @input-default-background-color;
 		}
@@ -27,6 +29,13 @@
 
 			& > .file-progress-bar {
 				display: table-cell;
+			}
+
+			& > input[type=button] , & > button {
+				border: 0;
+				padding: 2px 4px;
+				margin: -2px -4px;
+				border-radius: 10px;
 			}
 		}
 	}
