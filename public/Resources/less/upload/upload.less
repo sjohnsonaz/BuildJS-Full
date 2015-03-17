@@ -14,12 +14,18 @@
 	}
 
 	.upload-files {
-		display: table;
+		display: block;
 		border-collapse: separate;
 		border-spacing: 10px;
+		overflow-y: auto;
 		& > * {
 			display: table-row;
-			& > * {
+			& > .file-progress-name {
+				display: table-cell;
+				text-align: left;
+			}
+
+			& > .file-progress-bar {
 				display: table-cell;
 			}
 		}

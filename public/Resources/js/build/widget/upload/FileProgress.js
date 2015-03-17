@@ -12,9 +12,10 @@ Build('build.widget.upload.FileProgress', [ 'build::build.ui.Widget', 'build::bu
 			$super(this)();
 			var self = this;
 			var fileName = document.createElement('div');
-			fileName.classname = 'file-progress-file-name';
+			fileName.className = 'file-progress-name';
 			this.element.appendChild(fileName);
 			this.progressBar = build.widget.progress.ProgressBar.create();
+			this.progressBar.classList.add('file-progress-bar');
 			this.element.appendChild(this.progressBar.element);
 			this.watchValue('file', undefined, undefined, function(value) {
 				fileName.innerHTML = value ? value.name : '';
