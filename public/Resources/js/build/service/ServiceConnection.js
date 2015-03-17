@@ -42,7 +42,26 @@ build.service.ServiceConnection = (function() {
 	 * @param downError
 	 * @param downAbort
 	 */
-	function call(verb, url, sync, user, password, data, unsent, opened, headersReceived, loading, done, upProgress, upLoad, upError, upAbort, downProgress, downLoad, downError, downAbort) {
+	function call(verb, url, sync, user, password, data, loadstart, upLoadStart, upProgress, upAbort, upError, upLoad, upTimeout, upLoadend, headersReceived, progress, abort, error, load, timeout, loadend) {
+		/*
+		 * TODO: Fix parameters for XMLHttpRequest.
+		 * Remove unsent, it is never called.
+		 * loadstart - all - loadstart or OPENED
+		 * upLoadstart
+		 * upProgress
+		 * upAbort
+		 * upError
+		 * upLoad
+		 * upTimout
+		 * upLoadend
+		 * headersReceived - all - HEADERS_RECEIVED
+		 * progress - all - progress or LOADING
+		 * abort
+		 * error - all - error or DONE
+		 * load - all - load or DONE
+		 * timeout - all - timeout or DONE
+		 * loadend - all - loadend or DONE (after other callbacks)
+		 */
 		var request = new XMLHttpRequest();
 		if (sync) {
 			request.open(verb, url, !sync, user, password);
@@ -55,35 +74,71 @@ build.service.ServiceConnection = (function() {
 			request.send(JSON.stringify(data));
 			done(request);
 		} else {
-			request.onreadystatechange = function() {
-				switch (request.readyState) {
-				case XMLHttpRequest.UNSENT:
-					typeof unsent == 'function' ? unsent(request) : true;
-					break;
-				case XMLHttpRequest.OPENED:
-					typeof opened == 'function' ? opened(request) : true;
-					break;
-				case XMLHttpRequest.HEADERS_RECEIVED:
-					typeof headersReceived == 'function' ? headersReceived(request) : true;
-					break;
-				case XMLHttpRequest.LOADING:
-					typeof loading == 'function' ? loading(request) : true;
-					break;
-				case XMLHttpRequest.DONE:
-					typeof done == 'function' ? done(request) : true;
-					break;
-				}
-			};
 			// If we have access to the modern XMLHttpRequest features
 			if ('onprogress' in request) {
+				request.onreadystatechange = function(event) {
+					switch (request.readyState) {
+					case XMLHttpRequest.UNSENT: // Never called
+						break;
+					case XMLHttpRequest.OPENED: // Synonymous with loadstart
+						break;
+					case XMLHttpRequest.HEADERS_RECEIVED:
+						typeof headersReceived === 'function' ? headersReceived(event) : true;
+						break;
+					case XMLHttpRequest.LOADING: // Synonymous with progress
+						break;
+					case XMLHttpRequest.DONE: // Synonymous with [ abort, error, load, timeout ]
+						break;
+					}
+				};
+				typeof loadstart === 'function' ? request.onloadstart = loadstart : true;
+				typeof upLoadStart === 'function' ? request.upload.onloadstart = upLoadStart : true;
 				typeof upProgress === 'function' ? request.upload.onprogress = upProgress : true;
-				typeof upLoad === 'function' ? request.upload.onload = upLoad : true;
-				typeof upError === 'function' ? request.upload.onerror = upError : true;
 				typeof upAbort === 'function' ? request.upload.onabort = upAbort : true;
-				typeof downProgress === 'function' ? request.onprogress = downProgress : true;
-				typeof downLoad === 'function' ? request.onload = downLoad : true;
-				typeof downError === 'function' ? request.onerror = downError : true;
-				typeof downAbort === 'function' ? request.onabort = downAbort : true;
+				typeof upError === 'function' ? request.upload.onerror = upError : true;
+				typeof upLoad === 'function' ? request.upload.onload = upLoad : true;
+				typeof upTimeout === 'function' ? request.upload.ontimeout = upTimeout : true;
+				typeof upLoadend === 'function' ? request.upload.onloadend = upLoadend : true;
+				typeof progress === 'function' ? request.onprogress = progress : true;
+				typeof abort === 'function' ? request.onabort = abort : true;
+				typeof error === 'function' ? request.onerror = error : true;
+				typeof load === 'function' ? request.onload = load : true;
+				typeof timeout === 'function' ? request.ontimeout = timeout : true;
+				typeof loadend === 'function' ? request.onloadend = loadend : true;
+			} else {
+				request.onreadystatechange = function(event) {
+					switch (request.readyState) {
+					case XMLHttpRequest.UNSENT: // Never called
+						break;
+					case XMLHttpRequest.OPENED:
+						typeof loadstart == 'function' ? loadstart(event) : true;
+						break;
+					case XMLHttpRequest.HEADERS_RECEIVED:
+						typeof headersReceived == 'function' ? headersReceived(event) : true;
+						break;
+					case XMLHttpRequest.LOADING:
+						typeof progress == 'function' ? progress(event) : true;
+						break;
+					case XMLHttpRequest.DONE:
+						switch (Math.floor(request.status / 100)) {
+						case 2:
+							typeof load == 'function' ? load(event) : true;
+							break;
+						case 4:
+							if (request.status == 408) {
+								typeof timeout == 'function' ? timeout(event) : true;
+							} else {
+								typeof error == 'function' ? error(event) : true;
+							}
+							break;
+						default:
+							typeof error == 'function' ? error(event) : true;
+							break;
+						}
+						typeof loadend == 'function' ? loadend(event) : true;
+						break;
+					}
+				};
 			}
 			request.open(verb, url, !sync, user, password);
 			switch (verb) {
@@ -160,18 +215,21 @@ build.service.ServiceConnection = (function() {
 			user : undefined,
 			password : undefined,
 			data : undefined,
-			unsent : undefined,
-			opened : undefined,
-			headersReceived : undefined,
-			loading : undefined,
+			loadstart : undefined,
+			upLoadStart : undefined,
 			upProgress : undefined,
-			upLoad : undefined,
-			upError : undefined,
 			upAbort : undefined,
-			downProgress : undefined,
-			downLoad : undefined,
-			downError : undefined,
-			downAbort : undefined,
+			upError : undefined,
+			upLoad : undefined,
+			upTimeout : undefined,
+			upLoadend : undefined,
+			headersReceived : undefined,
+			progress : undefined,
+			abort : undefined,
+			error : undefined,
+			load : undefined,
+			timeout : undefined,
+			loadend : undefined,
 			dataType : 'detect',
 			done : function(request) {
 				parameters.processRequest(request, parameters.dataType, parameters.success, parameters.error);
@@ -186,8 +244,8 @@ build.service.ServiceConnection = (function() {
 			},
 			processRequest : processRequest
 		}, parameters);
-		return call(parameters.verb.toUpperCase(), parameters.buildUrl(), parameters.sync, parameters.user, parameters.password, parameters.data, parameters.unsent, parameters.opened, parameters.headersReceived, parameters.loading, parameters.done,
-				parameters.upProgress, parameters.upLoad, parameters.upError, parameters.upAbort, parameters.downProgress, parameters.downLoad, parameters.downError, parameters.downAbort);
+		return call(parameters.verb.toUpperCase(), parameters.buildUrl(), parameters.sync, parameters.user, parameters.password, parameters.data, parameters.loadstart, parameters.upLoadStart, parameters.upProgress, parameters.upAbort,
+				parameters.upError, parameters.upLoad, parameters.upTimeout, parameters.upLoadend, parameters.headersReceived, parameters.progress, parameters.abort, parameters.error, parameters.load, parameters.timeout, parameters.loadend);
 	}
 
 	/**
