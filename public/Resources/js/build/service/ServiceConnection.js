@@ -34,7 +34,7 @@ build.service.ServiceConnection = (function() {
 	 * @param loading
 	 * @param done
 	 */
-	function call(verb, url, sync, user, password, data, unsent, opened, headersReceived, loading, done) {
+	function call(verb, url, sync, user, password, data, unsent, opened, headersReceived, loading, done, progress, load, error, abort) {
 		var request = new XMLHttpRequest();
 		if (sync) {
 			request.open(verb, url, !sync, user, password);
@@ -66,6 +66,20 @@ build.service.ServiceConnection = (function() {
 					break;
 				}
 			};
+			if ('onprogress' in request) {
+				if (typeof progress === 'function') {
+					request.addEventListener("progress", progress, false);
+				}
+				if (typeof load === 'function') {
+					request.addEventListener("load", load, false);
+				}
+				if (typeof error === 'function') {
+					request.addEventListener("error", error, false);
+				}
+				if (typeof abort === 'function') {
+					request.addEventListener("abort", abort, false);
+				}
+			}
 			request.open(verb, url, !sync, user, password);
 			switch (verb) {
 			case 'POST':
