@@ -7,8 +7,21 @@
 		min-height: 100px;
 		line-height: 100px;
 		border: 1px solid @input-default-border-color;
+		cursor: pointer;
 		&.drag-enter {
 			background-color: @input-default-background-color;
+		}
+	}
+
+	.upload-files {
+		display: table;
+		border-collapse: separate;
+		border-spacing: 10px;
+		& > * {
+			display: table-row;
+			& > * {
+				display: table-cell;
+			}
 		}
 	}
 }

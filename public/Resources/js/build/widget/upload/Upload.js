@@ -2,15 +2,17 @@
  * @class build.widget.upload.Upload
  * @extends build.ui.Widget
  */
-Build('build.widget.upload.Upload', [ 'build::build.ui.Widget' ], function(define, $super) {
+Build('build.widget.upload.Upload', [ 'build::build.ui.Widget', 'build::build.widget.upload.FileProgress' ], function(define, $super) {
 	define({
-		$extends : 'build.ui.Widget',
+		$extends : 'build.ui.Container',
 		/**
 		 * @constructor
 		 */
 		$constructor : function Upload() {
 			$super(this)();
 			var self = this;
+			this.innerElement = document.createElement('div');
+			this.innerElement.className = 'upload-files';
 			this.input = document.createElement('input');
 			this.input.type = 'file';
 			this.input.multiple = true;
@@ -24,8 +26,13 @@ Build('build.widget.upload.Upload', [ 'build::build.ui.Widget' ], function(defin
 			});
 			if (this.draganddrop) {
 				this.dropZone = dropZone;
+				this.input.style.display = 'none';
+				dropZone.addEventListener('click', function(event) {
+					event.preventDefault();
+					self.input.click();
+				});
 				dropZone.classList.add('drag-and-drop-zone');
-				dropZone.innerHTML = 'Drop stuff here!';
+				dropZone.innerHTML = 'Drop files or click to upload.';
 				dropZone.addEventListener('dragenter', function(event) {
 					event.stopPropagation();
 					event.preventDefault();
@@ -50,12 +57,16 @@ Build('build.widget.upload.Upload', [ 'build::build.ui.Widget' ], function(defin
 				this.element.appendChild(dropZone);
 			}
 			this.element.appendChild(this.input);
+			this.element.appendChild(this.innerElement);
 		},
 		$prototype : {
 			handleFiles : function(files) {
 				for (var index = 0, length = files.length; index < length; index++) {
 					if (this.fileList.indexOf(files[index]) == -1) {
 						this.fileList.push(files[index]);
+						var fileProgress = build.widget.upload.FileProgress.create();
+						fileProgress.file = files[index];
+						this.children.push(fileProgress)
 					}
 				}
 				console.log(this.fileList);
