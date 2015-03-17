@@ -33,8 +33,16 @@ build.service.ServiceConnection = (function() {
 	 * @param headersReceived
 	 * @param loading
 	 * @param done
+	 * @param upProgress
+	 * @param upLoad
+	 * @param upError
+	 * @param upAbort
+	 * @param downProgress
+	 * @param downLoad
+	 * @param downError
+	 * @param downAbort
 	 */
-	function call(verb, url, sync, user, password, data, unsent, opened, headersReceived, loading, done, progress, load, error, abort) {
+	function call(verb, url, sync, user, password, data, unsent, opened, headersReceived, loading, done, upProgress, upLoad, upError, upAbort, downProgress, downLoad, downError, downAbort) {
 		var request = new XMLHttpRequest();
 		if (sync) {
 			request.open(verb, url, !sync, user, password);
@@ -66,19 +74,16 @@ build.service.ServiceConnection = (function() {
 					break;
 				}
 			};
+			// If we have access to the modern XMLHttpRequest features
 			if ('onprogress' in request) {
-				if (typeof progress === 'function') {
-					request.addEventListener("progress", progress, false);
-				}
-				if (typeof load === 'function') {
-					request.addEventListener("load", load, false);
-				}
-				if (typeof error === 'function') {
-					request.addEventListener("error", error, false);
-				}
-				if (typeof abort === 'function') {
-					request.addEventListener("abort", abort, false);
-				}
+				typeof upProgress === 'function' ? request.upload.onprogress = upProgress : true;
+				typeof upLoad === 'function' ? request.upload.onload = upLoad : true;
+				typeof upError === 'function' ? request.upload.onerror = upError : true;
+				typeof upAbort === 'function' ? request.upload.onabort = upAbort : true;
+				typeof downProgress === 'function' ? request.onprogress = downProgress : true;
+				typeof downLoad === 'function' ? request.onload = downLoad : true;
+				typeof downError === 'function' ? request.onerror = downError : true;
+				typeof downAbort === 'function' ? request.onabort = downAbort : true;
 			}
 			request.open(verb, url, !sync, user, password);
 			switch (verb) {
@@ -87,8 +92,15 @@ build.service.ServiceConnection = (function() {
 				request.setRequestHeader('Content-Type', 'application/json');
 				break;
 			}
-			request.send(JSON.stringify(data));
+			if (data instanceof File) {
+				readFile(data, request);
+			} else if (data instanceof FormData) {
+				request.send(data);
+			} else {
+				request.send(JSON.stringify(data));
+			}
 		}
+		return request;
 	}
 
 	function processRequest(request, dataType, success, error) {
@@ -125,11 +137,22 @@ build.service.ServiceConnection = (function() {
 		return a;
 	}
 
+	function readFile(file, request) {
+		var reader = new FileReader();
+		request.overrideMimeType('text/plain; charset=x-user-defined-binary');
+		reader.onload = function(event) {
+			request.send(event.target.result);
+		};
+		reader.readAsBinaryString(file);
+		return reader;
+	}
+
 	/**
 	 * @method run
 	 * @param parameters
 	 */
 	function run(parameters) {
+		// TODO: Add support for upload and download types.
 		parameters = merge({
 			verb : 'GET',
 			url : '',
@@ -141,6 +164,14 @@ build.service.ServiceConnection = (function() {
 			opened : undefined,
 			headersReceived : undefined,
 			loading : undefined,
+			upProgress : undefined,
+			upLoad : undefined,
+			upError : undefined,
+			upAbort : undefined,
+			downProgress : undefined,
+			downLoad : undefined,
+			downError : undefined,
+			downAbort : undefined,
 			dataType : 'detect',
 			done : function(request) {
 				parameters.processRequest(request, parameters.dataType, parameters.success, parameters.error);
@@ -155,7 +186,8 @@ build.service.ServiceConnection = (function() {
 			},
 			processRequest : processRequest
 		}, parameters);
-		call(parameters.verb.toUpperCase(), parameters.buildUrl(), parameters.sync, parameters.user, parameters.password, parameters.data, parameters.unsent, parameters.opened, parameters.headersReceived, parameters.loading, parameters.done);
+		return call(parameters.verb.toUpperCase(), parameters.buildUrl(), parameters.sync, parameters.user, parameters.password, parameters.data, parameters.unsent, parameters.opened, parameters.headersReceived, parameters.loading, parameters.done,
+				parameters.upProgress, parameters.upLoad, parameters.upError, parameters.upAbort, parameters.downProgress, parameters.downLoad, parameters.downError, parameters.downAbort);
 	}
 
 	/**
@@ -165,7 +197,7 @@ build.service.ServiceConnection = (function() {
 	function Get(parameters) {
 		parameters = parameters || {};
 		parameters.verb = parameters.verb || 'GET';
-		run(parameters);
+		return run(parameters);
 	}
 
 	/**
@@ -175,7 +207,7 @@ build.service.ServiceConnection = (function() {
 	function Post(parameters) {
 		parameters = parameters || {};
 		parameters.verb = parameters.verb || 'POST';
-		run(parameters);
+		return run(parameters);
 	}
 
 	/**
@@ -185,7 +217,7 @@ build.service.ServiceConnection = (function() {
 	function Put(parameters) {
 		parameters = parameters || {};
 		parameters.verb = parameters.verb || 'PUT';
-		run(parameters);
+		return run(parameters);
 	}
 
 	/**
@@ -195,7 +227,7 @@ build.service.ServiceConnection = (function() {
 	function Delete(parameters) {
 		parameters = parameters || {};
 		parameters.verb = parameters.verb || 'DELETE';
-		run(parameters);
+		return run(parameters);
 	}
 
 	/**
@@ -306,7 +338,7 @@ build.service.ServiceConnection = (function() {
 				override.success = typeof override.success === 'function' ? override.success.bind(this) : override.success;
 				override.error = override.error || values['error'];
 				override.error = typeof override.error === 'function' ? override.error.bind(this) : override.error;
-				this.run(override);
+				return this.run(override);
 			}.bind(this);
 			if (parameters.name) {
 				this[parameters.name] = runner;
