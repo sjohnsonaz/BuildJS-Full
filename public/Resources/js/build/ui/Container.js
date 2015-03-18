@@ -141,7 +141,7 @@ Build('build.ui.Container', [ 'build::build.ui.Widget', 'build::build.utility.Ob
 				// If we have a managedTemplate, generate the template from there.
 				var template = (typeof this.template === 'function') ? this.template() : this.template;
 				if (template && template.create) {
-					element = template.create(child);
+					element = template.create(child, this);
 					element.tempTemplate = template;
 					//element.controller = child;
 				} else if (child instanceof build.ui.Widget) {

@@ -2,7 +2,7 @@
  * @class build.widget.carousel.Carousel
  * @extends build.ui.Switcher
  */
-Build('build.widget.carousel.Carousel', [ 'build::build.ui.Switcher' ], function(define, $super) {
+Build('build.widget.carousel.Carousel', [ 'build::build.ui.Switcher', 'build::build.widget.carousel.CarouselPager', 'build::build.binding.ForEachBinding' ], function(define, $super) {
 	define({
 		$extends : 'build.ui.Switcher',
 		/**
@@ -32,9 +32,10 @@ Build('build.widget.carousel.Carousel', [ 'build::build.ui.Switcher' ], function
 			}.bind(this));
 			this.outer.appendChild(this.leftButton);
 
-			this.pager = document.createElement('div');
+			this.pager = build.widget.carousel.CarouselPager.create(this);
 			this.pager.className = 'carousel-pager';
-			this.outer.appendChild(this.pager);
+			build.binding.ForEachBinding.create(this.pager, this, 'children');
+			this.outer.appendChild(this.pager.element);
 
 			this.finished = true;
 		},
