@@ -31,11 +31,17 @@
 		background-color: rgba(0, 200, 255, 0.7);
 		font-size: 50px;
 		color: #fff;
-		box-shadow: 0px 0px 15px -1px rgb(0, 0, 0);
+		box-shadow: 0px 0px 10px -1px rgb(0, 0, 0);
 		border-radius: 29px;
 		cursor: pointer;
 		opacity: 0;
 		transition: opacity 0.3s;
+		&:hover {
+			background-color: rgba(0, 200, 255, 0.9);
+		}
+		&:active {
+			background-color: rgba(0, 200, 255, 1.0);
+		}
 	}
 
 	.carousel-right-button {
@@ -48,6 +54,7 @@
 	
 	.carousel-pager {
 		.clearfix;
+		.noselect;
 		position: absolute;
 		width: 100%;
 		top: 0;
@@ -61,8 +68,13 @@
 			height: 15px;
 			width: 15px;
 			background-color: rgba(0, 200, 255, 0.7);
-			box-shadow: 0px 0px 15px -1px rgb(0, 0, 0);
+			box-shadow: 0px 0px 10px -1px rgb(0, 0, 0);
 			border-radius: 7px;
+			transition: background-color 0.5s;
+			cursor: pointer;
+			&.carousel-pager-active {
+				background-color: #fff;
+			}
 		}
 	}
 
