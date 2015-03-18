@@ -10,10 +10,13 @@ Build('build.binding.FunctionBinding', [ 'build::build.binding.OneWayBinding' ],
 		 */
 		$constructor : function FunctionBinding(destination, definition) {
 			$super(this)(destination, definition);
+			if (definition) {
+				this.output = definition.output;
+			}
 		},
 		$prototype : {
 			update : function(subscription, value, reverse) {
-				result = this.destination.apply(this, this.cache);
+				result = this.output.apply(this, this.cache);
 			}
 		}
 	});
