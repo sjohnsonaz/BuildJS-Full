@@ -25,20 +25,41 @@
 		.noselect;
 		display: block;
 		position: absolute;
-		padding: 30px;
-		right: 0;
-		top: 0;
+		padding: 0 20px;
+		right: 30px;
+		top: 30px;
+		background-color: rgba(0, 200, 255, 0.7);
+		font-size: 50px;
+		color: #fff;
+		box-shadow: 0px 0px 15px -1px rgb(0, 0, 0);
+		border-radius: 29px;
 		cursor: pointer;
+		opacity: 0;
+		transition: opacity 0.3s;
 	}
 
 	.carousel-left-button {
 		.noselect;
 		display: block;
 		position: absolute;
-		padding: 30px;
-		left: 0;
-		top: 0;
+		padding: 0 20px;
+		left: 30px;
+		top: 30px;
+		background-color: rgba(0, 200, 255, 0.7);
+		font-size: 50px;
+		color: #fff;
+		box-shadow: 0px 0px 15px -1px rgb(0, 0, 0);
+		border-radius: 29px;
 		cursor: pointer;
+		opacity: 0;
+		transition: opacity 0.3s;
+	}
+	
+	&:hover {
+		.carousel-left-button,
+		.carousel-right-button {
+			opacity: 1;
+		}
 	}
 
 	.carousel-pager {
