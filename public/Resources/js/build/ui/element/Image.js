@@ -9,7 +9,7 @@ Build('build.ui.element.Image', [ 'build::build.ui.Widget' ], function($define, 
 			$super(this)();
 			this.watchProperty('src', 'src', src);
 			this.watchProperty('loaded', 'src');
-			this.addEvent('load', function(element, event) {
+			this.addEventListener('load', function(element, event) {
 				this.publish('loaded');
 			}, false, this);
 		},

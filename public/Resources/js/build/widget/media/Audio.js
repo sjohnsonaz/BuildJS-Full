@@ -12,7 +12,7 @@ Build('build.widget.media.Audio', [ 'build::build.ui.Container' ], function(defi
 			$super(this)();
 			this.watchProperty('src', 'src', src);
 			this.watchProperty('canplay', 'src');
-			this.addEvent('canplay', function(element, event) {
+			this.addEventListener('canplay', function(element, event) {
 				this.publish('canplay');
 			}, false, this);
 			this.watchProperty('muted');

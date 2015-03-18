@@ -39,7 +39,7 @@ Build('build.widget.collapsible.Collapsible', [ 'build::build.ui.Container', 'bu
 				}
 				return value;
 			}.bind(this));
-			this.header.addEvent('click', function(event) {
+			this.header.addEventListener('click', function(event) {
 				this.open = !this.open;
 			}.bind(this));
 		}

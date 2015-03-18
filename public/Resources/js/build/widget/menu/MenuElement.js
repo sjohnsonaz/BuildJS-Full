@@ -50,7 +50,7 @@ Build('build.widget.menu.MenuElement', [ 'build::build.ui.Container', 'build::bu
 			});
 			this.watchValue('action');
 			this.watchClass('hidden');
-			this.link.addEvent('click', function(event) {
+			this.link.addEventListener('click', function(event) {
 				Build.safe(this.action)(this, event);
 			}.bind(this));
 			this.children.push(this.link);

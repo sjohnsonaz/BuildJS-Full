@@ -17,7 +17,7 @@ Build('build.widget.carousel.CarouselPager', [ 'build::build.ui.Container', 'bui
 				create : function(child, parent) {
 					var link = build.ui.Content.createType('a');
 					link.text = '';
-					link.addEvent('click', function(event) {
+					link.addEventListener('click', function(event) {
 						event.preventDefault();
 						parent.carousel.activeChild = child;
 					}.bind(this));

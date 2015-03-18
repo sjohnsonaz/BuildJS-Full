@@ -26,7 +26,7 @@ Build('build.widget.authentication.LogoutForm', [ 'build::build.form.Form', 'bui
 			this.addChild(this.username);
 			this.addChild(build.form.container.FormControl.create(null, this.submit));
 
-			this.addEvent('submit', function(form, event) {
+			this.addEventListener('submit', function(form, event) {
 				event.preventDefault();
 				this.logout();
 				return false;

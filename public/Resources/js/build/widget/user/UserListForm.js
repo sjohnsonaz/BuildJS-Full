@@ -24,7 +24,7 @@ Build('build.widget.user.UserListForm', [ 'build::build.form.Form', 'build::buil
 			this.addChild(this.userTable);
 			this.userServiceConnection = userServiceConnection;
 
-			this.createButton.addEvent('click', function(button, event) {
+			this.createButton.addEventListener('click', function(button, event) {
 				event.preventDefault();
 				this.createUser();
 				return false;
@@ -44,22 +44,22 @@ Build('build.widget.user.UserListForm', [ 'build::build.form.Form', 'build::buil
 					var permissionButton = build.form.input.Button.create('Permission');
 					var buttonGroup = build.form.container.ButtonGroup.create();
 					(function(user) {
-						viewUserButton.addEvent('click', function(button, event) {
+						viewUserButton.addEventListener('click', function(button, event) {
 							event.preventDefault();
 							this.viewUser(user);
 							return false;
 						}, false, this);
-						editUserButton.addEvent('click', function(button, event) {
+						editUserButton.addEventListener('click', function(button, event) {
 							event.preventDefault();
 							this.editUser(user);
 							return false;
 						}, false, this);
-						deleteUserButton.addEvent('click', function(button, event) {
+						deleteUserButton.addEventListener('click', function(button, event) {
 							event.preventDefault();
 							this.deleteUser(user);
 							return false;
 						}, false, this);
-						permissionButton.addEvent('click', function(button, event) {
+						permissionButton.addEventListener('click', function(button, event) {
 							event.preventDefault();
 							this.permission(user);
 							return false;

@@ -67,7 +67,7 @@ Build('build.widget.upload.Upload', [ 'build::build.ui.Widget', 'build::build.wi
 						var fileProgress = build.widget.upload.FileProgress.create();
 						fileProgress.file = file
 						self.children.push(fileProgress);
-						fileProgress.removeButton.addEvent('click', function() {
+						fileProgress.removeButton.addEventListener('click', function() {
 							self.children.remove(fileProgress);
 						});
 						fileProgress.upload('/');

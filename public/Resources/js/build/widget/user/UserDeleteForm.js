@@ -25,12 +25,12 @@ Build('build.widget.user.UserDeleteForm', [ 'build::build.form.Form', 'build::bu
 			this.addChild(buttonGroup);
 
 			this.preventSubmit();
-			this.submit.addEvent('click', function(submit, event) {
+			this.submit.addEventListener('click', function(submit, event) {
 				event.preventDefault();
 				this.deleteUser();
 				return false;
 			}, false, this);
-			this.cancel.addEvent('click', function(cancel, event) {
+			this.cancel.addEventListener('click', function(cancel, event) {
 				event.preventDefault();
 				this.cancelUser();
 				return false;

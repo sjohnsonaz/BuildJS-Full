@@ -17,7 +17,7 @@ Build('build.widget.menu.ExpandableMenuWidget', [ 'build::build.widget.menu.Menu
 			this.title = build.widget.menu.MenuTitle.create();
 			this.expandButton = build.form.input.Button.create('{i:[bars]}');
 			this.expandButton.addClass('expand-button');
-			this.expandButton.addEvent('click', function(button, event) {
+			this.expandButton.addEventListener('click', function(button, event) {
 				this.expand = !this.expand;
 			}.bind(this));
 			this.watchClass('expand', 'expandable-menu-widget-expand', false);

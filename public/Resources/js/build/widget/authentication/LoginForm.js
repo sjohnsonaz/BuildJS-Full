@@ -44,7 +44,7 @@ Build('build.widget.authentication.LoginForm', [ 'build::build.form.Form', 'buil
 			this.addChild(build.form.container.FormControl.create(build.form.Label.create('Password', this.password), this.password));
 			this.addChild(build.form.container.FormControl.create(null, this.submit));
 
-			this.addEvent('submit', function(form, event) {
+			this.addEventListener('submit', function(form, event) {
 				event.preventDefault();
 				// Force update for saved passwords.
 				// this.username.text = this.username.element.value;

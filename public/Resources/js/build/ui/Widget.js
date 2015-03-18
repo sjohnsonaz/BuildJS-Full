@@ -130,7 +130,7 @@ Build('build.ui.Widget', [ 'build::build.Module' ], function($define, $super) {
 			/**
 			 * @method addEvent
 			 */
-			addEvent : function(type, listener, useCapture, bind) {
+			addEventListener : function(type, listener, useCapture, bind) {
 				if (bind) {
 					this.element.addEventListener(type, listener.bind(bind, this.element), useCapture);
 				} else {
@@ -140,7 +140,7 @@ Build('build.ui.Widget', [ 'build::build.Module' ], function($define, $super) {
 			/**
 			 * @method removeEvent
 			 */
-			removeEvent : function(type, listener) {
+			removeEventListener : function(type, listener) {
 				this.element.removeEventListener(type, listener);
 			},
 			/**

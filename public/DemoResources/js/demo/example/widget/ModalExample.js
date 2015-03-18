@@ -23,8 +23,8 @@ Build('demo.example.widget.ModalExample', [ 'build::build.ui.Container', 'build:
 				modal.open = !modal.open;
 			}
 
-			button0.addEvent('click', toggleModal);
-			button1.addEvent('click', toggleModal);
+			button0.addEventListener('click', toggleModal);
+			button1.addEventListener('click', toggleModal);
 
 			this.addChild(button0);
 			modal.addChild(button1);

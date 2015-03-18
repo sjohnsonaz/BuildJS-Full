@@ -36,7 +36,7 @@ Build('build.widget.calendar.DateInput', [ 'build::build.ui.Widget', 'build::bui
 				return !!value;
 			}.bind(this));
 
-			this.button.addEvent('click', function() {
+			this.button.addEventListener('click', function() {
 				this.open = !this.open;
 			}.bind(this));
 			build.binding.ValueBinding.create(this.input, this.calendar, 'selectedDayText');
