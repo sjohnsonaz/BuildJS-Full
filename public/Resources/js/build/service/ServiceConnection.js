@@ -28,25 +28,18 @@ build.service.ServiceConnection = (function() {
 	 * @param user
 	 * @param password
 	 * @param data
-	 * @param unsent
-	 * @param opened
 	 * @param headersReceived
 	 * @param success
-	 * @param erro
+	 * @param error
 	 * @param progress
+	 * @param dataType
 	 */
 	function call(verb, url, sync, user, password, data, headersReceived, success, error, progress, dataType) {
 		var request = new XMLHttpRequest();
 		if (sync) {
 			request.open(verb, url, !sync, user, password);
-			switch (verb) {
-			case 'POST':
-			case 'PUT':
-				request.setRequestHeader('Content-Type', 'application/json');
-				break;
-			}
-			request.send(JSON.stringify(data));
-			done(request);
+			processSend(request, verb, data);
+			processDone(request, undefined, success, error, dataType);
 		} else {
 			// If we have access to the modern XMLHttpRequest features
 			if ('onprogress' in request) {
@@ -132,21 +125,31 @@ build.service.ServiceConnection = (function() {
 				};
 			}
 			request.open(verb, url, !sync, user, password);
-			switch (verb) {
-			case 'POST':
-			case 'PUT':
-				request.setRequestHeader('Content-Type', 'application/json');
-				break;
-			}
-			if (data instanceof File) {
-				readFile(data, request);
-			} else if (data instanceof FormData) {
-				request.send(data);
-			} else {
-				request.send(JSON.stringify(data));
-			}
+			processSend(request, verb, data);
 		}
 		return request;
+	}
+
+	function processSend(request, verb, data) {
+		var postOrPut = (verb === 'POST' || verb === 'PUT');
+		if (typeof data === 'object') {
+			if (data instanceof ArrayBuffer) {
+				request.send(data);
+			} else if (data instanceof Blob) {
+				request.send(data);
+			} else if (data instanceof Document) {
+				request.send(data);
+			} else if (data instanceof FormData) {
+				request.send(data);
+			} else if (data instanceof File) {
+				readFile(data, request);
+			} else {
+				request.setRequestHeader('Content-Type', 'application/json');
+				request.send(JSON.stringify(data));
+			}
+		} else {
+			request.send(data);
+		}
 	}
 
 	function processDone(request, event, success, error, dataType) {
@@ -231,7 +234,8 @@ build.service.ServiceConnection = (function() {
 				return formatUrl(parameters.url, parameters.params, parameters.query, parameters.regex);
 			},
 		}, parameters);
-		return call(parameters.verb.toUpperCase(), parameters.buildUrl(), parameters.sync, parameters.user, parameters.password, parameters.data, parameters.headersReceived, parameters.success, parameters.error, parameters.progress);
+		return call(parameters.verb.toUpperCase(), parameters.buildUrl(), parameters.sync, parameters.user, parameters.password, parameters.data, parameters.headersReceived, parameters.success, parameters.error, parameters.progress,
+				parameters.dataType);
 	}
 
 	/**
