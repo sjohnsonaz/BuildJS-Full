@@ -28,14 +28,16 @@ build.service.ServiceConnection = (function() {
 	 * @param user
 	 * @param password
 	 * @param data
+	 * @param requestCreated
 	 * @param headersReceived
 	 * @param success
 	 * @param error
 	 * @param progress
 	 * @param dataType
 	 */
-	function call(verb, url, sync, user, password, data, headersReceived, success, error, progress, dataType) {
+	function call(verb, url, sync, user, password, data, requestCreated, headersReceived, success, error, progress, dataType) {
 		var request = new XMLHttpRequest();
+		typeof requestCreated === 'function' ? requestCreated(request) : true;
 		if (sync) {
 			request.open(verb, url, !sync, user, password);
 			processSend(request, verb, data);
@@ -222,6 +224,7 @@ build.service.ServiceConnection = (function() {
 			user : undefined,
 			password : undefined,
 			data : undefined,
+			requestCreated : undefined,
 			headersReceived : undefined,
 			success : undefined,
 			error : undefined,
@@ -234,8 +237,8 @@ build.service.ServiceConnection = (function() {
 				return formatUrl(parameters.url, parameters.params, parameters.query, parameters.regex);
 			},
 		}, parameters);
-		return call(parameters.verb.toUpperCase(), parameters.buildUrl(), parameters.sync, parameters.user, parameters.password, parameters.data, parameters.headersReceived, parameters.success, parameters.error, parameters.progress,
-				parameters.dataType);
+		return call(parameters.verb.toUpperCase(), parameters.buildUrl(), parameters.sync, parameters.user, parameters.password, parameters.data, parameters.requestCreated, parameters.headersReceived, parameters.success, parameters.error,
+				parameters.progress, parameters.dataType);
 	}
 
 	/**
