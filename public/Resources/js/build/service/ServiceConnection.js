@@ -386,6 +386,8 @@ build.service.ServiceConnection = (function() {
 				override.success = typeof override.success === 'function' ? override.success.bind(this) : override.success;
 				override.error = override.error || values['error'];
 				override.error = typeof override.error === 'function' ? override.error.bind(this) : override.error;
+				override.progress = override.progress || values['progress'];
+				override.progress = typeof override.progress === 'function' ? override.progress.bind(this) : override.progress;
 				return this.run(override);
 			}.bind(this);
 			if (parameters.name) {

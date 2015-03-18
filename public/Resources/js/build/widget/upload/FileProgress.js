@@ -2,7 +2,7 @@
  * @class build.widget.upload.FileProgress
  * @extends build.ui.Widget
  */
-Build('build.widget.upload.FileProgress', [ 'build::build.ui.Widget', 'build::build.widget.progress.ProgressBar', 'build::build.form.input.Button' ], function(define, $super) {
+Build('build.widget.upload.FileProgress', [ 'build::build.ui.Widget', 'build::build.widget.progress.ProgressBar', 'build::build.form.input.Button', 'build::build.service.ServiceConnection' ], function(define, $super) {
 	define({
 		$extends : 'build.ui.Widget',
 		/**
@@ -30,23 +30,25 @@ Build('build.widget.upload.FileProgress', [ 'build::build.ui.Widget', 'build::bu
 		$prototype : {
 			upload : function FileUpload(path) {
 				var self = this;
-				var reader = new FileReader();
-				var request = new XMLHttpRequest();
-				request.upload.addEventListener("progress", function(event) {
+				var service = new build.service.ServiceConnection(path);
+				service.addRoute({
+					name : 'postFile',
+					url : '',
+					verb : 'POST',
+					action : function(file, success, error, progress) {
+						return {
+							data : file
+						};
+					}
+				});
+				service.postFile(this.file, function(data, request, event) {
+					self.progressBar.progress = 100;
+				}, undefined, function(request, event, upload) {
 					if (event.lengthComputable) {
 						var percentage = Math.round((event.loaded * 100) / event.total);
 						self.progressBar.progress = percentage;
 					}
-				}, false);
-				request.upload.addEventListener("load", function(event) {
-					self.progressBar.progress = 100;
-				}, false);
-				request.open('post', path);
-				request.overrideMimeType('text/plain; charset=x-user-defined-binary');
-				reader.onload = function(event) {
-					request.send(event.target.result);
-				};
-				reader.readAsBinaryString(this.file);
+				});
 			},
 		}
 	});
