@@ -1,6 +1,7 @@
 /**
  * @class build.form.input.Range
  * @extends build.ui.Widget
+ * Browser Support: IE10+
  */
 Build('build.form.input.Range', [ 'build::build.ui.Widget' ], function($define, $super) {
 	$define({

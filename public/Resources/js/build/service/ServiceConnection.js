@@ -1,5 +1,6 @@
 /**
  * @class build.service.ServiceConnection
+ * Browser Support: IE6+ - Basic Functionality, IE10+ - Progress and Upload support
  */
 var build = build || {};
 build.service = build.service || {};

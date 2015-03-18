@@ -1,6 +1,10 @@
 var build = build || {};
 build.utility = build.utility || {};
 build.utility.Animation = (function() {
+	/**
+	 * @class build.utility.Animation
+	 * Browser Support: IE6+ - Basic Functionality, IE10+ - Animations
+	 */
 	function Animation() {
 	}
 

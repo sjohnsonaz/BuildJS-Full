@@ -1,6 +1,7 @@
 /**
  * @class build.Module
  * Base class for self contained modules such as UI components.
+ * Browser Support: IE9+
  */
 Build('build.Module', [], function($define, $super) {
 	var cancel = {

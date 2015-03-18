@@ -1,6 +1,7 @@
 /**
  * @class build.Build
  * @alternateClassName Build
+ * Browser Support: IE6+
  */
 var build = build || {};
 var Build = build.Build = (function() {
