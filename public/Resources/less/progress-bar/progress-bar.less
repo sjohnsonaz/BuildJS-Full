@@ -20,4 +20,10 @@
         border-radius: @input-border-radius - 1;
         transition: width 0.5s ease;
     }
+    &.progress-complete > div {
+        background-color: lighten(@progress-bar-background-color, 20%);
+    }
+    &.progress-error > div {
+    	background-color: @input-danger-background-color;
+    }
 }

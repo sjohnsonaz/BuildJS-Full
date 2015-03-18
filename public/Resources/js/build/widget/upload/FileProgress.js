@@ -45,8 +45,7 @@ Build('build.widget.upload.FileProgress', [ 'build::build.ui.Widget', 'build::bu
 					self.progressBar.progress = 100;
 					self.progressBar.complete = true;
 				}, function(request, event, status) {
-					self.progressBar.progress = 0;
-					self.progressBar.complete = false;
+					self.progressBar.error = true;
 				}, function(request, event, upload) {
 					if (event.lengthComputable) {
 						var percentage = Math.round((event.loaded * 100) / event.total);
