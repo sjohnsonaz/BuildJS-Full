@@ -31,37 +31,11 @@ build.service.ServiceConnection = (function() {
 	 * @param unsent
 	 * @param opened
 	 * @param headersReceived
-	 * @param loading
-	 * @param done
-	 * @param upProgress
-	 * @param upLoad
-	 * @param upError
-	 * @param upAbort
-	 * @param downProgress
-	 * @param downLoad
-	 * @param downError
-	 * @param downAbort
+	 * @param success
+	 * @param erro
+	 * @param progress
 	 */
-	function call(verb, url, sync, user, password, data, loadstart, upLoadStart, upProgress, upAbort, upError, upLoad, upTimeout, upLoadend, headersReceived, progress, abort, error, load, timeout, loadend) {
-		/*
-		 * TODO: Fix parameters for XMLHttpRequest.
-		 * Remove unsent, it is never called.
-		 * loadstart - all - loadstart or OPENED
-		 * upLoadstart
-		 * upProgress
-		 * upAbort
-		 * upError
-		 * upLoad
-		 * upTimout
-		 * upLoadend
-		 * headersReceived - all - HEADERS_RECEIVED
-		 * progress - all - progress or LOADING
-		 * abort
-		 * error - all - error or DONE
-		 * load - all - load or DONE
-		 * timeout - all - timeout or DONE
-		 * loadend - all - loadend or DONE (after other callbacks)
-		 */
+	function call(verb, url, sync, user, password, data, headersReceived, success, error, progress, dataType) {
 		var request = new XMLHttpRequest();
 		if (sync) {
 			request.open(verb, url, !sync, user, password);
@@ -83,7 +57,7 @@ build.service.ServiceConnection = (function() {
 					case XMLHttpRequest.OPENED: // Synonymous with loadstart
 						break;
 					case XMLHttpRequest.HEADERS_RECEIVED:
-						typeof headersReceived === 'function' ? headersReceived(event) : true;
+						typeof headersReceived === 'function' ? headersReceived(request, event) : true;
 						break;
 					case XMLHttpRequest.LOADING: // Synonymous with progress
 						break;
@@ -91,51 +65,68 @@ build.service.ServiceConnection = (function() {
 						break;
 					}
 				};
-				typeof loadstart === 'function' ? request.onloadstart = loadstart : true;
-				typeof upLoadStart === 'function' ? request.upload.onloadstart = upLoadStart : true;
-				typeof upProgress === 'function' ? request.upload.onprogress = upProgress : true;
-				typeof upAbort === 'function' ? request.upload.onabort = upAbort : true;
-				typeof upError === 'function' ? request.upload.onerror = upError : true;
-				typeof upLoad === 'function' ? request.upload.onload = upLoad : true;
-				typeof upTimeout === 'function' ? request.upload.ontimeout = upTimeout : true;
-				typeof upLoadend === 'function' ? request.upload.onloadend = upLoadend : true;
-				typeof progress === 'function' ? request.onprogress = progress : true;
-				typeof abort === 'function' ? request.onabort = abort : true;
-				typeof error === 'function' ? request.onerror = error : true;
-				typeof load === 'function' ? request.onload = load : true;
-				typeof timeout === 'function' ? request.ontimeout = timeout : true;
-				typeof loadend === 'function' ? request.onloadend = loadend : true;
+				var uploadStatus = null;
+				var downloadStatus = null;
+				// Unnecessary
+				// request.addEventListener('loadstart', function(event) { });
+				// Unnecessary
+				// request.upload.addEventListener('loadstart', function(event) { });
+				request.upload.addEventListener('progress', function(event) {
+					typeof progress === 'function' ? progress(request, event, true) : true;
+				});
+				request.upload.addEventListener('abort', function(event) {
+					downloadStatus = 'abort';
+				});
+				request.upload.addEventListener('error', function(event) {
+					downloadStatus = 'error';
+				});
+				// TODO: Unnecessary?
+				// request.upload.addEventListener('load', function(event) {
+				//uploadStatus = 'load';
+				//});
+				request.upload.addEventListener('timeout', function(event) {
+					downloadStatus = 'timeout';
+				});
+				// TODO: Unnecessary?
+				//request.upload.addEventListener('loadend', function(event) { });
+				request.addEventListener('progress', function(event) {
+					typeof progress === 'function' ? progress(request, event, false) : true;
+				});
+				request.addEventListener('abort', function(event) {
+					downloadStatus = 'abort';
+				});
+				request.addEventListener('error', function(event) {
+					downloadStatus = 'error';
+				});
+				request.addEventListener('load', function(event) {
+					downloadStatus = 'load';
+				});
+				request.addEventListener('timeout', function(event) {
+					downloadStatus = 'timeout';
+				});
+				request.addEventListener('loadend', function(event) {
+					if (downloadStatus === 'load') {
+						processDone(request, event, success, error, dataType);
+					} else {
+						typeof error === 'function' ? error(request, event, downloadStatus) : true;
+					}
+				});
 			} else {
 				request.onreadystatechange = function(event) {
 					switch (request.readyState) {
 					case XMLHttpRequest.UNSENT: // Never called
 						break;
-					case XMLHttpRequest.OPENED:
-						typeof loadstart == 'function' ? loadstart(event) : true;
+					case XMLHttpRequest.OPENED: // Unnecessary
 						break;
 					case XMLHttpRequest.HEADERS_RECEIVED:
-						typeof headersReceived == 'function' ? headersReceived(event) : true;
+						typeof headersReceived == 'function' ? headersReceived(request, event) : true;
 						break;
 					case XMLHttpRequest.LOADING:
-						typeof progress == 'function' ? progress(event) : true;
+						// TODO: Unnecessary?
+						typeof progress == 'function' ? progress(request, event, false) : true;
 						break;
 					case XMLHttpRequest.DONE:
-						switch (Math.floor(request.status / 100)) {
-						case 2:
-							typeof load == 'function' ? load(event) : true;
-							break;
-						case 4:
-							if (request.status == 408) {
-								typeof timeout == 'function' ? timeout(event) : true;
-							} else {
-								typeof error == 'function' ? error(event) : true;
-							}
-							break;
-						default:
-							typeof error == 'function' ? error(event) : true;
-							break;
-						}
-						typeof loadend == 'function' ? loadend(event) : true;
+						processDone(request, event, success, error, dataType);
 						break;
 					}
 				};
@@ -158,27 +149,39 @@ build.service.ServiceConnection = (function() {
 		return request;
 	}
 
-	function processRequest(request, dataType, success, error) {
+	function processDone(request, event, success, error, dataType) {
 		switch (Math.floor(request.status / 100)) {
 		case 2:
-			var data = request.responseText;
-			if (dataType == 'detect') {
-				dataType = request.responseType || 'json';
+			processSuccess(request, event, success, dataType);
+			break;
+		case 4:
+			if (request.status == 408) {
+				typeof error === 'function' ? error(request, event, 'timeout') : true;
+			} else {
+				typeof error === 'function' ? error(request, event, 'error') : true;
 			}
-			switch (dataType) {
-			case 'json':
-				data = data ? JSON.parse(data) : data;
-				break;
-			case 'text':
-			default:
-				break;
-			}
-			typeof success == 'function' ? success(data, request) : true;
 			break;
 		default:
-			typeof error == 'function' ? error(request) : true;
+			typeof error === 'function' ? error(request, event, 'error') : true;
 			break;
 		}
+	}
+
+	function processSuccess(request, event, success, dataType) {
+		var data = request.responseText;
+		switch (request.responseType || dataType) {
+		case 'json':
+			data = data ? JSON.parse(data) : data;
+			break;
+		case 'arraybuffer':
+		case 'blob':
+		case 'document':
+		case 'text':
+		case '':
+		default:
+			break;
+		}
+		typeof success == 'function' ? success(data, request, event) : true;
 	}
 
 	function merge(a, b) {
@@ -208,6 +211,7 @@ build.service.ServiceConnection = (function() {
 	 */
 	function run(parameters) {
 		// TODO: Add support for upload and download types.
+		// TODO: Merge callbacks to support success and error.
 		parameters = merge({
 			verb : 'GET',
 			url : '',
@@ -215,37 +219,19 @@ build.service.ServiceConnection = (function() {
 			user : undefined,
 			password : undefined,
 			data : undefined,
-			loadstart : undefined,
-			upLoadStart : undefined,
-			upProgress : undefined,
-			upAbort : undefined,
-			upError : undefined,
-			upLoad : undefined,
-			upTimeout : undefined,
-			upLoadend : undefined,
 			headersReceived : undefined,
-			progress : undefined,
-			abort : undefined,
-			error : undefined,
-			load : undefined,
-			timeout : undefined,
-			loadend : undefined,
-			dataType : 'detect',
-			done : function(request) {
-				parameters.processRequest(request, parameters.dataType, parameters.success, parameters.error);
-			},
 			success : undefined,
 			error : undefined,
+			progress : undefined,
+			dataType : 'detect',
 			query : undefined,
 			params : undefined,
 			regex : undefined,
 			buildUrl : function() {
 				return formatUrl(parameters.url, parameters.params, parameters.query, parameters.regex);
 			},
-			processRequest : processRequest
 		}, parameters);
-		return call(parameters.verb.toUpperCase(), parameters.buildUrl(), parameters.sync, parameters.user, parameters.password, parameters.data, parameters.loadstart, parameters.upLoadStart, parameters.upProgress, parameters.upAbort,
-				parameters.upError, parameters.upLoad, parameters.upTimeout, parameters.upLoadend, parameters.headersReceived, parameters.progress, parameters.abort, parameters.error, parameters.load, parameters.timeout, parameters.loadend);
+		return call(parameters.verb.toUpperCase(), parameters.buildUrl(), parameters.sync, parameters.user, parameters.password, parameters.data, parameters.headersReceived, parameters.success, parameters.error, parameters.progress);
 	}
 
 	/**
