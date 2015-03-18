@@ -229,7 +229,7 @@ build.service.ServiceConnection = (function() {
 			success : undefined,
 			error : undefined,
 			progress : undefined,
-			dataType : 'detect',
+			dataType : 'json',
 			query : undefined,
 			params : undefined,
 			regex : undefined,

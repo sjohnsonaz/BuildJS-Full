@@ -18,7 +18,7 @@ Build('build.widget.authentication.LoginViewModel', [ 'build::build.mvvm.ViewMod
 		},
 		$prototype : {
 			login : function(success, error) {
-				this.serviceConnection.login(this.username, this.password, function(data, request) {
+				this.serviceConnection.login(this.username, this.password, function(data, request, event) {
 					console.log(data);
 					if (data.success) {
 						this.runCallbacks('loginSuccess', data, request);
