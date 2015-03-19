@@ -20,8 +20,9 @@ Build('build.ui.ChildrenHandler', [], function(define, $super) {
 			push : function() {
 				var element = this.innerElement;
 				if (element) {
+					var baseIndex = element.children.length;
 					for (var index = 0, length = arguments.length; index < length; index++) {
-						var child = this.createChild(arguments[index]);
+						var child = this.createChild(arguments[index], baseIndex + index);
 						element.appendChild(child);
 					}
 				}
@@ -40,9 +41,10 @@ Build('build.ui.ChildrenHandler', [], function(define, $super) {
 				var element = this.innerElement;
 				if (element) {
 					for (var index = arguments.length - 1; index >= 0; index--) {
-						var child = this.createChild(arguments[index]);
+						var child = this.createChild(arguments[index], index);
 						element.insertBefore(child, element.firstChild);
 					}
+					this.refreshIndices();
 				}
 			},
 			shift : function() {
@@ -53,6 +55,7 @@ Build('build.ui.ChildrenHandler', [], function(define, $super) {
 						this.destroyChild(element.firstChild);
 						element.removeChild(element.firstChild);
 					}
+					this.refreshIndices();
 				}
 			},
 			reverse : function() {
@@ -69,6 +72,7 @@ Build('build.ui.ChildrenHandler', [], function(define, $super) {
 					for (var index = 0, length = children.length; index < length; index++) {
 						element.appendChild(children[index]);
 					}
+					this.refreshIndices();
 				}.bind(this));
 			},
 			sort : function() {
@@ -84,6 +88,7 @@ Build('build.ui.ChildrenHandler', [], function(define, $super) {
 					for (var index = 0, length = this.children.length; index < length; index++) {
 						element.appendChild(this.children[index].element);
 					}
+					this.refreshIndices();
 				}.bind(this));
 			},
 			splice : function(index, howMany) {
@@ -98,10 +103,13 @@ Build('build.ui.ChildrenHandler', [], function(define, $super) {
 						element.removeChild(elementToRemove);
 					}
 					var elementToAdd;
+					var baseIndex = index;
 					while (elementToAdd = elementsToAdd.pop()) {
-						elementToAdd = this.createChild(elementToAdd);
+						elementToAdd = this.createChild(elementToAdd, baseIndex);
 						element.insertBefore(elementToAdd, nextSibling);
+						baseIndex++;
 					}
+					this.refreshIndices();
 				}
 			},
 			get : function(index) {
@@ -115,7 +123,7 @@ Build('build.ui.ChildrenHandler', [], function(define, $super) {
 					var oldChild = element.childNodes[index];
 					if (oldChild) {
 						this.destroyChild(oldChild);
-						child = this.createChild(child);
+						child = this.createChild(child, index);
 						element.replaceChild(oldChild, child);
 					}
 				}

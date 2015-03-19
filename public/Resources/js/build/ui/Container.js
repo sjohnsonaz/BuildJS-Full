@@ -79,6 +79,15 @@ Build('build.ui.Container', [ 'build::build.ui.Widget', 'build::build.utility.Ob
 					}
 				}
 			},
+			refreshIndices : function(children) {
+				children = children || this.children;
+				for (var index = 0, length = children.length; index < length; index++) {
+					var child = children[index];
+					if (typeof child.$index !== 'undefined') {
+						child.$index = index;
+					}
+				}
+			},
 			/**
 			 * @method childIterator
 			 */
@@ -134,15 +143,22 @@ Build('build.ui.Container', [ 'build::build.ui.Widget', 'build::build.utility.Ob
 			 *     };
 			 * })();
 			 */
-			createChild : function(child) {
+			createChild : function(child, $index) {
 				var element = null;
+				$index = $index || 0;
 
 				// If we have a template, run the child through there first.
 				// If we have a managedTemplate, generate the template from there.
 				var template = (typeof this.template === 'function') ? this.template() : this.template;
 				if (template && template.create) {
+					if (child instanceof build.ui.Widget) {
+						if (typeof child.$index === 'undefined') {
+							child.watchValue('$index');
+						}
+						child.$index = $index;
+					}
 					element = template.create(child, this);
-					element.tempTemplate = template;
+					element.$template = template;
 					//element.controller = child;
 				} else if (child instanceof build.ui.Widget) {
 					// If we have a Widget, return the element
@@ -155,6 +171,10 @@ Build('build.ui.Container', [ 'build::build.ui.Widget', 'build::build.utility.Ob
 					} else {
 						child.parent = this;
 					}
+					if (typeof child.$index === 'undefined') {
+						child.watchValue('$index');
+					}
+					child.$index = $index;
 					element = child.element;
 				} else if (child instanceof build.ui.Text) {
 					element = child.element;
@@ -200,8 +220,8 @@ Build('build.ui.Container', [ 'build::build.ui.Widget', 'build::build.utility.Ob
 			destroyChild : function(element) {
 				if (element) {
 					// If we have a template, run child through there
-					if (element.tempTemplate) {
-						element.tempTemplate.destroy(element.controller, element);
+					if (element.$template) {
+						element.$template.destroy(element.controller, element);
 					}
 					// TODO: Do we need to do this here?
 					if (element && element.controller) {

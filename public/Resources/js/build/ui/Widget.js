@@ -181,13 +181,13 @@ Build('build.ui.Widget', [ 'build::build.Module' ], function($define, $super) {
 						value = set(value, hidden, cancel);
 						if (value !== cancel) {
 							hidden = value;
-							this.element[name] = hidden || '';
+							this.element[name] = typeof hidden === 'undefined' ? '' : hidden;
 							this.publish(property);
 						}
 						//}
 					} : function(value) {
 						//if (value !== this.element[name]) {
-						this.element[name] = value || '';
+						this.element[name] = typeof value === 'undefined' ? '' : value;
 						this.publish(property);
 						//}
 					}
@@ -217,13 +217,13 @@ Build('build.ui.Widget', [ 'build::build.Module' ], function($define, $super) {
 							value = set(value, hidden, cancel);
 							if (value !== cancel) {
 								hidden = value;
-								this.element.setAttribute(attribute, hidden || '');
+								this.element.setAttribute(attribute, typeof hidden === 'undefined' ? '' : hidden);
 								this.publish(property);
 							}
 						}
 					} : function(value) {
 						if (value !== this.element.getAttribute(attribute)) {
-							this.element.setAttribute(attribute, value || '');
+							this.element.setAttribute(attribute, typeof value === 'undefined' ? '' : value);
 							this.publish(property);
 						}
 					}
@@ -310,14 +310,14 @@ Build('build.ui.Widget', [ 'build::build.Module' ], function($define, $super) {
 							value = set(value, hidden, cancel);
 							if (value !== cancel) {
 								hidden = value;
-								value = value || '';
+								value = typeof value === 'undefined' ? '' : value;
 								this.element.dataset ? this.element.dataset[data] = value : this.element.setAttribute('data-' + data, value);
 								this.publish(property);
 							}
 						}
 					} : function(value) {
 						if (value !== this.element.dataset ? this.element.dataset[data] : this.element.getAttribute('data-' + data)) {
-							value = value || '';
+							value = typeof value === 'undefined' ? '' : value;
 							this.element.dataset ? this.element.dataset[data] = value : this.element.setAttribute('data-' + data, value);
 							this.publish(property);
 						}
