@@ -1,7 +1,7 @@
 @import "carousel-settings.less";
 @import "../mixins.less";
 @slide-width: 300px;
-.carousel {
+.carousel-slider {
 	.clearfix;
 	display: block;
 	position: relative;
@@ -9,7 +9,7 @@
 	height: auto;
 	overflow: hidden;
 	transition: height ease 0.5s;
-	.carousel-container {
+	.carousel-slider-container {
 		.clearfix;
 		position: relative;
 		width: auto;
@@ -20,38 +20,46 @@
 			width: auto;
 		}
 	}
+}
 
+.carousel {
+	display: table-row;
+	.carousel-sizer {
+		display: table-cell;
+		width: 100%;
+		padding: 0;
+	}
+	position: relative;
 	.carousel-right-button,
 	.carousel-left-button {
 		.noselect;
-		display: block;
-		position: absolute;
-		padding: 0 20px;
-		top: 30px;
-		background-color: rgba(0, 200, 255, 0.7);
+		display: table-cell;
+		width: 0px;
+		padding: 20px;
+		vertical-align: middle;
+		background-color: rgba(200, 200, 200, 0.5);
 		font-size: 50px;
 		color: #fff;
-		box-shadow: 0px 0px 10px -1px rgb(0, 0, 0);
-		border-radius: 29px;
+		//box-shadow: 0px 0px 10px -1px rgb(0, 0, 0);
+		//border-radius: 29px;
 		cursor: pointer;
 		opacity: 0;
 		transition: opacity 0.3s;
 		&:hover {
-			background-color: rgba(0, 200, 255, 0.9);
+			background-color: rgba(200, 200, 200, 0.7);
 		}
+
 		&:active {
-			background-color: rgba(0, 200, 255, 1.0);
+			background-color: rgba(200, 200, 200, 0.9);
 		}
 	}
 
 	.carousel-right-button {
-		right: 30px;
 	}
 
 	.carousel-left-button {
-		left: 30px;
 	}
-	
+
 	.carousel-pager {
 		.clearfix;
 		.noselect;

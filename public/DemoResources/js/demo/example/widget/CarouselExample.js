@@ -10,28 +10,26 @@ Build('demo.example.widget.CarouselExample', [ 'build::build.ui.Container', 'bui
 			var header0 = build.ui.element.Header2.create('Carousel');
 			this.addChild(header0);
 
-			carousel = build.widget.carousel.Carousel.create();
+			var carousel = build.widget.carousel.Carousel.create();
 			var slide0 = build.ui.Content
 					.create('\
 					<h1>BuildJS is Awesome!</h1>\
 					<p>Combining class definition and inheritance, module loading, and front-end widgets,\
 					BuildJS lets you develop your Single Page Application in style!</p>\
 					');
-			carousel.addChild(slide0);
+			carousel.carouselSlider.addChild(slide0);
 			var slide1 = build.ui.Content.create('\
 					<h1>Class Definitions</h1>\
 					<p></p>\
 					');
-			carousel.addChild(slide1);
+			carousel.carouselSlider.addChild(slide1);
 			var slide2 = build.ui.Content.create('\
 					<h1>Widgeting Framework</h1>\
 					<p></p>\
 					');
-			carousel.addChild(slide2);
+			carousel.carouselSlider.addChild(slide2);
 
 			this.addChild(carousel);
 		}
 	});
 });
-
-var carousel;

@@ -8,9 +8,9 @@ Build('build.widget.carousel.CarouselPager', [ 'build::build.ui.Container', 'bui
 		/**
 		 * @constructor
 		 */
-		$constructor : function CarouselPager(carousel) {
+		$constructor : function CarouselPager(carouselSlider) {
 			$super(this)();
-			this.carousel = carousel;
+			this.carouselSlider = carouselSlider;
 		},
 		$prototype : {
 			template : {
@@ -18,7 +18,7 @@ Build('build.widget.carousel.CarouselPager', [ 'build::build.ui.Container', 'bui
 					var link = build.ui.Content.createType('a');
 					link.addEventListener('click', function(event) {
 						event.preventDefault();
-						parent.carousel.activeChild = child;
+						parent.carouselSlider.activeChild = child;
 					}.bind(this));
 					build.binding.PropertyBinding.create(link, {
 						sources : [ {
