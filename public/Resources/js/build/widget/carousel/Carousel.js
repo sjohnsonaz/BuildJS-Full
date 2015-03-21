@@ -10,6 +10,16 @@ Build('build.widget.carousel.Carousel', [ 'build::build.ui.Widget', 'build::buil
 		 */
 		$constructor : function Carousel() {
 			$super(this)();
+			var self = this;
+			var interval = undefined;
+			this.watchValue('interval', 0, undefined, function(value) {
+				window.clearInterval(interval);
+				if (value && value > 0) {
+					interval = window.setInterval(function() {
+						self.carouselSlider.active++;
+					}, value);
+				}
+			});
 
 			this.leftButton = document.createElement('a');
 			this.leftButton.className = 'carousel-left-button';
