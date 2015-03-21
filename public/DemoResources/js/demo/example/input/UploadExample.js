@@ -10,7 +10,7 @@ Build('demo.example.input.UploadExample', [ 'build::build.ui.Container', 'build:
 			var header0 = build.ui.element.Header2.create('Upload');
 			this.addChild(header0);
 
-			upload = build.widget.upload.Upload.create();
+			var upload = build.widget.upload.Upload.create();
 
 			this.addChild(upload);
 		}

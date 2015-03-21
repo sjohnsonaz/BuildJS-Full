@@ -16,7 +16,7 @@ Build('build.binding.FunctionBinding', [ 'build::build.binding.OneWayBinding' ],
 		},
 		$prototype : {
 			update : function(subscription, value, reverse) {
-				result = this.output.apply(this, this.cache);
+				this.output.apply(this, this.cache);
 			}
 		}
 	});

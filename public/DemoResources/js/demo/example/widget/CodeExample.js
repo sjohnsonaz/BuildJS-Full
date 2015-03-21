@@ -10,7 +10,7 @@ Build('demo.example.widget.CodeExample', [ 'build::build.ui.Container', 'build::
 			var header0 = build.ui.element.Header2.create('Code');
 			this.addChild(header0);
 
-			codeText = "window.onload = function() {\n\tconsole.log('test');\n};";
+			var codeText = "window.onload = function() {\n\tconsole.log('test');\n};";
 			var code = build.widget.code.Code.create(codeText);
 
 			this.addChild(code);

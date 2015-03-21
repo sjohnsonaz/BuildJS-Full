@@ -36,7 +36,7 @@ Build('build.widget.video.YouTubeVideo', [ 'build::build.ui.Widget', 'http://aja
 						build.widget.video.YouTubeVideo.onYouTubePlayerReady[this.id] = function() {
 							console.log('Video is ready');
 						};
-						player = swfobject.embedSWF('http://www.youtube.com/v/' + this.videoId + '?enablejsapi=1&playerapiid=ytplayer&version=3', preloadId, "425", "356", "8", null, null, {
+						var player = swfobject.embedSWF('http://www.youtube.com/v/' + this.videoId + '?enablejsapi=1&playerapiid=ytplayer&version=3', preloadId, "425", "356", "8", null, null, {
 							allowScriptAccess : "always"
 						}, {
 							id : preloadId

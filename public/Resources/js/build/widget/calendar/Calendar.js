@@ -103,7 +103,7 @@ Build('build.widget.calendar.Calendar', [ 'build::build.ui.Widget', 'build::buil
 				return header;
 			},
 			renderTitle : function(yearName, monthName) {
-				title = document.createElement('div');
+				var title = document.createElement('div');
 				title.className = 'calendar-title';
 
 				var monthTitle = document.createElement('div');

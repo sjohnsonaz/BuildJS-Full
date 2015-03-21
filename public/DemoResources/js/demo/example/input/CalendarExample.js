@@ -10,7 +10,7 @@ Build('demo.example.input.CalendarExample', [ 'build::build.ui.Container', 'buil
 			var header0 = build.ui.element.Header2.create('Calendar');
 			this.addChild(header0);
 
-			dateInput = build.widget.calendar.DateInput.create();
+			var dateInput = build.widget.calendar.DateInput.create();
 
 			this.addChild(dateInput);
 		}
