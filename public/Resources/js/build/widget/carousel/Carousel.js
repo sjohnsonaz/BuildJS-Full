@@ -12,13 +12,20 @@ Build('build.widget.carousel.Carousel', [ 'build::build.ui.Widget', 'build::buil
 			$super(this)();
 			var self = this;
 			var interval = undefined;
-			this.watchValue('interval', 0, undefined, function(value) {
+			function setInterval(value) {
 				window.clearInterval(interval);
 				if (value && value > 0) {
 					interval = window.setInterval(function() {
 						self.carouselSlider.active++;
 					}, value);
 				}
+			}
+			this.resetInterval = function() {
+				setInterval(self.interval);
+			};
+			this.watchValue('interval', 0, undefined, function(value) {
+				setInterval(value);
+				return value;
 			});
 
 			this.leftButton = document.createElement('a');
@@ -26,6 +33,7 @@ Build('build.widget.carousel.Carousel', [ 'build::build.ui.Widget', 'build::buil
 			this.leftButton.innerHTML = this.formatString('{i:[angle-left]}');
 			this.leftButton.addEventListener('click', function(event) {
 				this.carouselSlider.active--;
+				this.resetInterval();
 			}.bind(this));
 
 			this.carouselSlider = build.widget.carousel.CarouselSlider.create();
@@ -38,9 +46,10 @@ Build('build.widget.carousel.Carousel', [ 'build::build.ui.Widget', 'build::buil
 			this.rightButton.innerHTML = this.formatString('{i:[angle-right]}');
 			this.rightButton.addEventListener('click', function(event) {
 				this.carouselSlider.active++;
+				this.resetInterval();
 			}.bind(this));
 
-			this.pager = build.widget.carousel.CarouselPager.create(this.carousel);
+			this.pager = build.widget.carousel.CarouselPager.create(this, this.carouselSlider);
 			this.pager.className = 'carousel-pager';
 			build.binding.ForEachBinding.create(this.pager, this.carouselSlider, 'children');
 
