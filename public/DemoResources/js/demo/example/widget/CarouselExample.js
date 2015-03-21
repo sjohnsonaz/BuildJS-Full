@@ -28,7 +28,7 @@ Build('demo.example.widget.CarouselExample', [ 'build::build.ui.Container', 'bui
 					<p></p>\
 					');
 			carousel.carouselSlider.addChild(slide2);
-			carousel.interval = 5000;
+			carousel.interval = 0;
 
 			this.addChild(carousel);
 		}
