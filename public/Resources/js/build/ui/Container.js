@@ -75,7 +75,17 @@ Build('build.ui.Container', [ 'build::build.ui.Widget', 'build::build.utility.Ob
 					this.clearChildren(element);
 					children = children || this.children;
 					if (children) {
-						children.forEach(this.childIterator.bind(this));
+						var self = this;
+						children.forEach(function(child, index, array) {
+							if (child) {
+								var element = self.createChild(child);
+								if (element instanceof HTMLElement) {
+									self.innerElement.appendChild(element);
+								} else {
+									console.log('no element');
+								}
+							}
+						});
 					}
 				}
 			},
@@ -85,19 +95,6 @@ Build('build.ui.Container', [ 'build::build.ui.Widget', 'build::build.utility.Ob
 					var child = children[index];
 					if (typeof child.$index !== 'undefined') {
 						child.$index = index;
-					}
-				}
-			},
-			/**
-			 * @method childIterator
-			 */
-			childIterator : function(child, index, array) {
-				if (child) {
-					var element = this.createChild(child);
-					if (element instanceof HTMLElement) {
-						this.innerElement.appendChild(element);
-					} else {
-						console.log('no element');
 					}
 				}
 			},

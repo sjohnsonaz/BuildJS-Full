@@ -53,17 +53,6 @@ Build('build.ui.element.Table', [ 'build::build.ui.Container', 'build::build.uti
 		$prototype : {
 			type : 'table',
 			/**
-			 * @method childIterator
-			 * @param child
-			 * @param index
-			 * @param array
-			 */
-			childIterator : function(child, index, array) {
-				if (child) {
-					this.innerElement.appendChild(this.createChild(child));
-				}
-			},
-			/**
 			 * @method createChild
 			 * @param child
 			 */
@@ -83,20 +72,6 @@ Build('build.ui.element.Table', [ 'build::build.ui.Container', 'build::build.uti
 					}
 				}
 				return tr;
-			},
-			/**
-			 * @method refreshChildren
-			 */
-			refreshChildren : function() {
-				var element = this.innerElement;
-				if (element) {
-					while (element.firstChild) {
-						element.removeChild(element.firstChild);
-					}
-					if (this.children) {
-						this.children.forEach(this.childIterator.bind(this));
-					}
-				}
 			},
 			/**
 			 * @method addRow
