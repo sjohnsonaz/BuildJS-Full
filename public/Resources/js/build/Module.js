@@ -217,6 +217,7 @@ Build('build.Module', [], function($define, $super) {
 						var subscribers = this.subscribers[property];
 						var publishLockers = this.publishLocks ? this.publishLocks[property] : undefined;
 						var publishStop = this.publishStops ? this.publishStops[property] : false;
+						// TODO: Attempt to change to for loop.  This is to protect against deleted subscribers.
 						subscribers.forEach(function(subscription, index, array) {
 							subscription.value = this[property];
 							if (!publishStop) {
