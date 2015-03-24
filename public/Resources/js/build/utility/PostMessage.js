@@ -10,32 +10,33 @@ build.utility.PostMessage = (function() {
 		this.targetOrigin = targetOrigin || '*';
 		this.listeners = [];
 		this.callbacks = {};
+		var self = this;
 		var listenerHandler = function(event) {
 			var message = JSON.parse(event.data);
-			if (message.channel == this.channel) {
+			if (message.channel == self.channel) {
 				if (message.key) {
-					var callback = this.callbacks[message.key];
+					var callback = self.callbacks[message.key];
 					if (callback) {
 						window.clearTimeout(callback.timeout);
 						callback.success(message.data, event);
-						delete this.callbacks[message.key];
+						delete self.callbacks[message.key];
 					} else {
 						function reply(replyMessage, callback) {
 
 						}
-						for (var index = 0, length = this.listeners.length; index < length; index++) {
-							var listener = this.listeners[index];
-							listener(message.data, event, this.send);
+						for (var index = 0, length = self.listeners.length; index < length; index++) {
+							var listener = self.listeners[index];
+							listener(message.data, event, self.send);
 						}
 					}
 				} else {
-					for (var index = 0, length = this.listeners.length; index < length; index++) {
-						var listener = this.listeners[index];
+					for (var index = 0, length = self.listeners.length; index < length; index++) {
+						var listener = self.listeners[index];
 						listener(message.data, event);
 					}
 				}
 			}
-		}.bind(this);
+		};
 		this.listen = function() {
 			if (this.channel) {
 				window.addEventListener('message', listenerHandler, false);
@@ -69,7 +70,7 @@ build.utility.PostMessage = (function() {
 				callbackObject.timeout = window.setTimeout(function() {
 					callbacksObject.error();
 					delete this.callbacks[key];
-				}.bind(this), timeout);
+				}, timeout, this);
 			}
 		}
 		this.otherWindow.postMessage(JSON.stringify(message), this.targetOrigin);

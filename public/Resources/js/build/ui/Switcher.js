@@ -13,6 +13,7 @@ Build('build.ui.Switcher', [ 'build::build.ui.Container', 'build::build.ui.Switc
 		 * @property active
 		 */
 		$constructor : function Switcher(active) {
+			var self = this;
 			this.activeChildrenSubscriber = function() {
 				/*
 				 * Ensure active is correct.
@@ -20,36 +21,36 @@ Build('build.ui.Switcher', [ 'build::build.ui.Container', 'build::build.ui.Switc
 				 * If active child is removed, do not change active.
 				 * If there are no children, active = 0.
 				 */
-				if (this.active == -1) {
-					this.active = 0;
+				if (self.active == -1) {
+					self.active = 0;
 				}
-			}.bind(this);
+			};
 			$super(this)();
 			this.lockable = false;
 			var Navigation = build.utility.Navigation();
 			this.watchValue('active', -1, undefined, function(value, current, cancel) {
 				value = value || 0;
-				var length = this.children.length;
+				var length = self.children.length;
 				return length ? ((value % length) + length) % length : value;
-			}.bind(this));
+			});
 			this.watchValue('activeChild', undefined, undefined, function(value, current, cancel) {
 				// TODO: Locking may prevent manipulating children.
-				var output = (this.lockable && Navigation.locked) ? (Navigation.run() ? value : cancel) : value;
+				var output = (self.lockable && Navigation.locked) ? (Navigation.run() ? value : cancel) : value;
 				if (output != cancel) {
-					output = this.children.indexOf(value) != -1 ? value : cancel;
+					output = self.children.indexOf(value) != -1 ? value : cancel;
 					if (output != cancel) {
-						this.showChild(output, current);
+						self.showChild(output, current);
 					}
 				}
 				return output;
-			}.bind(this));
+			});
 			build.binding.TwoWayBinding.create(this, this, 'active', 'activeChild', function(value) {
 				// To active
-				return this.children.indexOf(value);
-			}.bind(this), function(value) {
+				return self.children.indexOf(value);
+			}, function(value) {
 				// To activeChild
-				return this.children[value];
-			}.bind(this));
+				return self.children[value];
+			});
 		},
 		$prototype : {
 			/**

@@ -17,6 +17,7 @@ Build('build.utility.TemplateParser', [], function($define, $super) {
 			parse : function(text, context) {
 				switch (typeof text) {
 				case 'string':
+					var self = this;
 					text = text.replace(this.regex, function(match, value, all) {
 						var escape = false;
 						if (value[0] == '{' && value[value.length] == '}') {
@@ -25,7 +26,7 @@ Build('build.utility.TemplateParser', [], function($define, $super) {
 						}
 						var data = value.split(':');
 						if (data.length > 1) {
-							var templateHelper = this.helpers[data[0]];
+							var templateHelper = self.helpers[data[0]];
 							value = Build.safe(templateHelper)(data[1], text, context);
 						} else {
 							value = context ? context[value] : value;
@@ -34,7 +35,7 @@ Build('build.utility.TemplateParser', [], function($define, $super) {
 
 						}
 						return value;
-					}.bind(this));
+					});
 					break;
 				case 'object':
 				case 'function':

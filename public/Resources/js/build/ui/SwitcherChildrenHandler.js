@@ -69,35 +69,37 @@ Build('build.ui.SwitcherChildrenHandler', [ 'build::build.ui.ChildrenHandler' ],
 			reverse : function() {
 				// Sort in opposite direction
 				// Array is sorted, we can simply remove all elements, and re-append them.
+				var self = this;
 				var activeChild = this.activeChild;
 				// Remove from beginning of array
 				this.modifyElement(function() {
-					var element = this.innerElement;
+					var element = self.innerElement;
 					while (element.firstChild) {
 						element.removeChild(element.firstChild);
 					}
 
-					for (var index = 0, length = this.children.length; index < length; index++) {
-						element.appendChild(this.children[index].element);
+					for (var index = 0, length = self.children.length; index < length; index++) {
+						element.appendChild(self.children[index].element);
 					}
-				}.bind(this));
+				});
 				this.activeChild = activeChild;
 			},
 			sort : function() {
 				// Sort based on function
 				// Array is sorted, we can simply remove all elements, and re-append them.
 				// Find the active child.
+				var self = this;
 				var activeChild = this.activeChild;
 				this.modifyElement(function() {
-					var element = this.innerElement;
+					var element = self.innerElement;
 					while (element.firstChild) {
 						element.removeChild(element.firstChild);
 					}
 
-					for (var index = 0, length = this.children.length; index < length; index++) {
-						element.appendChild(this.children[index].element);
+					for (var index = 0, length = self.children.length; index < length; index++) {
+						element.appendChild(self.children[index].element);
 					}
-				}.bind(this));
+				});
 				this.activeChild = activeChild;
 			},
 			splice : function(index, howMany) {

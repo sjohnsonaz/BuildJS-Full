@@ -61,8 +61,9 @@ Build('build.ui.ChildrenHandler', [], function(define, $super) {
 			reverse : function() {
 				// Sort in opposite direction
 				// Array is sorted, we can simply remove all elements, and re-append them.
+				var self = this;
 				this.modifyElement(function() {
-					var element = this.innerElement;
+					var element = self.innerElement;
 					var children = Array.prototype.slice.call(element.children);
 					while (element.firstChild) {
 						element.removeChild(element.firstChild);
@@ -72,24 +73,25 @@ Build('build.ui.ChildrenHandler', [], function(define, $super) {
 					for (var index = 0, length = children.length; index < length; index++) {
 						element.appendChild(children[index]);
 					}
-					this.refreshIndices();
-				}.bind(this));
+					self.refreshIndices();
+				});
 			},
 			sort : function() {
 				// Sort based on function
 				// Array is sorted, we can simply remove all elements, and re-append them.
+				var self = this;
 				this.modifyElement(function() {
-					var element = this.innerElement;
+					var element = self.innerElement;
 					while (element.firstChild) {
 						element.removeChild(element.firstChild);
 					}
 
 					// TODO: This will only work for HTMLElements.
-					for (var index = 0, length = this.children.length; index < length; index++) {
-						element.appendChild(this.children[index].element);
+					for (var index = 0, length = self.children.length; index < length; index++) {
+						element.appendChild(self.children[index].element);
 					}
-					this.refreshIndices();
-				}.bind(this));
+					self.refreshIndices();
+				});
 			},
 			splice : function(index, howMany) {
 				var element = this.innerElement;

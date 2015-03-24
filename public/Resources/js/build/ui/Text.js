@@ -10,6 +10,7 @@ Build('build.ui.Text', [ 'build::build.Module' ], function($define, $super) {
 		 */
 		$constructor : function Text(text) {
 			$super(this)();
+			var self = this;
 			Object.defineProperty(this, 'element', {
 				value : document.createTextNode(text ? this.formatString(text, this) : ''),
 				configurable : true,
@@ -17,8 +18,8 @@ Build('build.ui.Text', [ 'build::build.Module' ], function($define, $super) {
 				enumerable : false
 			});
 			this.watchProperty('text', 'data', undefined, null, function(value) {
-				return this.formatString(value, this);
-			}.bind(this));
+				return self.formatString(value, this);
+			});
 			this.watchProperty('rawText', 'data');
 		},
 		$prototype : {
