@@ -3,6 +3,7 @@ Build('build.form.option.Select', [ 'build::build.ui.Container', 'build::build.f
 		$extends : 'build.ui.Container',
 		$constructor : function Select() {
 			$super(this)();
+			var self = this;
 			Object.defineProperty(this, 'value', {
 				get : function() {
 					if (this.element) {
@@ -43,8 +44,8 @@ Build('build.form.option.Select', [ 'build::build.ui.Container', 'build::build.f
 			this.watchProperty('size');
 			this.watchProperty('multiple');
 			this.element.addEventListener('change', function() {
-				this.publish('value');
-			}.bind(this));
+				self.publish('value');
+			});
 		},
 		$prototype : {
 			type : 'select',

@@ -11,6 +11,7 @@ Build('build.application.AuthenticatedApplication', [ 'build::build.application.
 		 */
 		$constructor : function AuthenticatedApplication() {
 			$super(this)();
+			var self = this;
 
 			this.user = null;
 			this.menu = build.widget.menu.ExpandableMenuWidget.create();
@@ -26,13 +27,13 @@ Build('build.application.AuthenticatedApplication', [ 'build::build.application.
 			this.authenticationWidget.addClass('pull-right');
 			this.menu.addChild(this.authenticationWidget);
 			this.authenticationWidget.addCallback('loginSuccess', function(data, request) {
-				this.user = data.user;
+				self.user = data.user;
 				// this.addChild(this.userWidget);
-			}.bind(this));
+			});
 			this.authenticationWidget.addCallback('logoutSuccess', function(data, request) {
-				this.user = undefined;
+				self.user = undefined;
 				// this.removeChild(this.userWidget);
-			}.bind(this));
+			});
 
 			Object.defineProperty(this, 'title', {
 				get : function() {

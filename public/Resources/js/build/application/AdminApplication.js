@@ -11,14 +11,15 @@ Build('build.application.AdminApplication', [ 'build::build.application.Authenti
 		 */
 		$constructor : function AdminApplication() {
 			$super(this)();
+			var self = this;
 			this.homePanel = build.ui.Container.create();
 			this.sections.addChild(this.homePanel);
 			this.homeMenuElement = build.widget.menu.MenuElement.create();
 			this.homeMenuElement.text = 'Home';
 			this.homeMenuElement.url = 'home';
 			this.homeMenuElement.action = function(MenuElement, event) {
-				this.section(MenuElement.pathname.replace('/', ''));
-			}.bind(this);
+				self.section(MenuElement.pathname.replace('/', ''));
+			};
 
 			this.userSeriveConnection = new build.service.UserServiceConnection();
 			this.adminPanel = build.widget.tab.TabContainer.create();
@@ -31,20 +32,20 @@ Build('build.application.AdminApplication', [ 'build::build.application.Authenti
 			this.authenticationWidget.addCallback('loginSuccess', function(data, request) {
 				// this.user = data.user;
 				// this.addChild(this.adminPanel);
-				this.userWidget.list();
-			}.bind(this));
+				self.userWidget.list();
+			});
 			this.authenticationWidget.addCallback('logoutSuccess', function(data, request) {
 				// this.user = undefined;
 				// this.removeChild(this.adminPanel);
-			}.bind(this));
+			});
 			this.sections.addChild(this.adminPanel);
 
 			this.adminMenuElement = build.widget.menu.MenuElement.create();
 			this.adminMenuElement.text = 'Admin';
 			this.adminMenuElement.url = 'admin';
 			this.adminMenuElement.action = function(MenuElement, event) {
-				this.section(MenuElement.pathname.replace('/', ''));
-			}.bind(this);
+				self.section(MenuElement.pathname.replace('/', ''));
+			};
 			this.menu.children.unshift(this.adminMenuElement);
 			this.menu.children.unshift(this.homeMenuElement);
 		}

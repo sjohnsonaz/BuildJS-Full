@@ -16,11 +16,12 @@ Build('demo.example.remote.RemoteExample', [ 'build::build.ui.Container', 'build
 		$prototype : {
 			init : function() {
 				$super().init(this)();
+				var self = this;
 				this.iframe.subscribe('content', function(value) {
 					if (value) {
 						//this.iframe.postMessage.send('Here is some data');
 					}
-				}.bind(this));
+				});
 				this.iframe.src = 'inner.html';
 			}
 		}

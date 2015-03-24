@@ -7,6 +7,7 @@ Build('build.ui.element.Iframe', [ 'build::build.ui.Widget', 'build::build.utili
 		$extends : 'build.ui.Widget',
 		$constructor : function Iframe() {
 			$super(this)();
+			var self = this;
 			this.watchProperty('src');
 			this.watchProperty('content', 'contentWindow', undefined, null, function(value, current, cancel) {
 				if (!value) {
@@ -17,14 +18,14 @@ Build('build.ui.element.Iframe', [ 'build::build.ui.Widget', 'build::build.utili
 			this.postMessages = {};
 			this.element.onload = function() {
 				// Build all PostMessages here.
-				this.postMessages = {};
-				for (var index = 0, length = this.channels.length; index < length; index++) {
-					var name = this.channels[index];
-					this.postMessages[name] = new build.utility.PostMessage(this.element.contentWindow, name);
-					this.postMessages[name].listen();
+				self.postMessages = {};
+				for (var index = 0, length = self.channels.length; index < length; index++) {
+					var name = self.channels[index];
+					self.postMessages[name] = new build.utility.PostMessage(self.element.contentWindow, name);
+					self.postMessages[name].listen();
 				}
-				this.publish('content');
-			}.bind(this);
+				self.publish('content');
+			};
 		},
 		$prototype : {
 			type : 'iframe',

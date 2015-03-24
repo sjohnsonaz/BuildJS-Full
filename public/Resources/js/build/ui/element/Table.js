@@ -14,6 +14,7 @@ Build('build.ui.element.Table', [ 'build::build.ui.Container', 'build::build.uti
 		 */
 		$constructor : function Table() {
 			$super(this)();
+			var self = this;
 			this.headers = build.utility.ObservableArray();
 			this.head = document.createElement('thead');
 			this.body = document.createElement('tbody');
@@ -21,15 +22,15 @@ Build('build.ui.element.Table', [ 'build::build.ui.Container', 'build::build.uti
 			this.element.appendChild(this.body);
 			this.innerElement = this.body;
 			this.headers.subscribe(function() {
-				if (this.head) {
-					while (this.head.firstChild) {
-						this.head.removeChild(this.head.firstChild);
+				if (self.head) {
+					while (self.head.firstChild) {
+						self.head.removeChild(self.head.firstChild);
 					}
-					if (this.headers) {
+					if (self.headers) {
 						var tr = document.createElement('tr');
-						for (var index = 0, length = this.headers.length; index < length; index++) {
+						for (var index = 0, length = self.headers.length; index < length; index++) {
 							var td = document.createElement('th');
-							var data = this.headers[index];
+							var data = self.headers[index];
 							data = data.element || data;
 							if (typeof data == 'object') {
 								td.appendChild(data);
@@ -38,7 +39,7 @@ Build('build.ui.element.Table', [ 'build::build.ui.Container', 'build::build.uti
 							}
 							tr.appendChild(td);
 						}
-						this.head.appendChild(tr);
+						self.head.appendChild(tr);
 					}
 				}
 				// var trHead = document.createElement('tr');
@@ -48,7 +49,7 @@ Build('build.ui.element.Table', [ 'build::build.ui.Container', 'build::build.uti
 				// var th = document.createElement('th');
 				// th.dataset.bind = 'text: $data';
 				// trHead.appendChild(th);
-			}.bind(this));
+			});
 		},
 		$prototype : {
 			type : 'table',

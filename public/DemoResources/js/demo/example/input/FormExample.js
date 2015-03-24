@@ -40,10 +40,11 @@ Build('demo.example.input.FormExample', [ 'build::build.form.Form', 'build::buil
 		$prototype : {
 			init : function() {
 				$super().init(this)();
+				var self = this;
 				var testServiceConnection = new demo.example.widget.TestServiceConnection();
 				testServiceConnection.getRest(function(data, request) {
-					this.model = data;
-				}.bind(this));
+					self.model = data;
+				});
 			}
 		}
 	});

@@ -26,11 +26,12 @@ Build('build.form.input.Text', [ 'build::build.ui.Container', 'build::build.util
 		 */
 		$constructor : function Text(text, value, textType) {
 			$super(this)(text, value);
+			var self = this;
 			var mask = undefined;
 			var internalUpdate = false;
 			this.watchProperty('value', 'value', undefined, undefined, function(value, current, cancel) {
 				return internalUpdate ? value : (mask ? mask.runMask(value + '') : value);
-			}.bind(this));
+			});
 			this.watchAttribute('placeholder');
 			this.watchAttribute('name');
 			// TODO: Add functionality for more active updates.
@@ -38,9 +39,9 @@ Build('build.form.input.Text', [ 'build::build.ui.Container', 'build::build.util
 			// change does not work with masking
 			this.element.addEventListener('change', function() {
 				internalUpdate = true;
-				this.value = this.element.value;
+				self.value = self.element.value;
 				internalUpdate = false;
-			}.bind(this));
+			});
 			this.watchProperty('textType', 'type', textType || 'text', null, function(value, current, cancel) {
 				return textTypes[value] || cancel;
 			});
@@ -51,10 +52,10 @@ Build('build.form.input.Text', [ 'build::build.ui.Container', 'build::build.util
 					mask.destroyMask();
 				}
 				if (value) {
-					mask = build.utility.Mask.createMask(this.element, value);
+					mask = build.utility.Mask.createMask(self.element, value);
 				}
 				return value;
-			}.bind(this));
+			});
 		},
 		$prototype : {
 			type : 'input',

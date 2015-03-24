@@ -11,12 +11,13 @@ Build('build.form.input.Range', [ 'build::build.ui.Widget' ], function($define, 
 		 */
 		$constructor : function Range() {
 			$super(this)();
+			var self = this;
 			this.watchProperty('value');
 			this.watchAttribute('placeholder');
 			this.watchAttribute('name');
 			this.element.addEventListener('change', function() {
-				this.value = this.element.value;
-			}.bind(this));
+				self.value = self.element.value;
+			});
 			// TODO: Not supported in IE9.
 			try {
 				this.element.type = 'range';

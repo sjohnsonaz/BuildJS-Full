@@ -18,12 +18,13 @@ Build('build.form.input.TextArea', [ 'build::build.ui.Container' ], function($de
 		 */
 		$constructor : function TextArea(text, value) {
 			$super(this)(text, value);
+			var self = this;
 			this.watchProperty('value', 'innerHTML');
 			this.watchAttribute('placeholder');
 			this.watchAttribute('name');
 			this.element.addEventListener('change', function() {
-				this.value = this.element.value;
-			}.bind(this));
+				self.value = self.element.value;
+			});
 		},
 		$prototype : {
 			type : 'textarea'

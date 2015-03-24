@@ -32,12 +32,12 @@ Build('build.history.HashRouter', [], function($define, $super) {
 					}
 				}
 				if (!routesCalled) {
-					for (var index = 0, length = this.defaultRoutes.length; index < length; index++) {
-						var defaultRouteDef = this.defaultRoutes[index];
+					for (var index = 0, length = self.defaultRoutes.length; index < length; index++) {
+						var defaultRouteDef = self.defaultRoutes[index];
 						defaultRouteDef.enter.apply(defaultRouteDef.enter);
 					}
 				}
-			}.bind(this);
+			};
 		},
 		$prototype : {
 			/**
