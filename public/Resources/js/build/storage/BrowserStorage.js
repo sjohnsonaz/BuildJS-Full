@@ -21,8 +21,8 @@ Build('build.storage.BrowserStorage', [ 'build::build.Module' ], function($defin
 			 * @param set
 			 */
 			// TODO: Apply value change detection on setter methods.
-			watchLocalStorage : function(name, value, get, set, definition) {
-				var firstValue = this.runSet(value, set);
+			watchLocalStorage : function(name, value, get, set, thisArg, definition) {
+				var firstValue = this.runSet(value, set, thisArg);
 				if (typeof firstValue !== 'undefined') {
 					localStorage.setItem(name, JSON.stringify(firstValue));
 				}
@@ -31,12 +31,12 @@ Build('build.storage.BrowserStorage', [ 'build::build.Module' ], function($defin
 					configurable : true,
 					enumerable : true,
 					get : typeof get === 'function' ? function() {
-						return get(JSON.parse(localStorage.getItem(name)), this);
+						return thisArg ? get.call(thisArg, JSON.parse(localStorage.getItem(name)), this) : get(JSON.parse(localStorage.getItem(name)), this);
 					} : function() {
 						return JSON.parse(localStorage.getItem(name));
 					},
 					set : typeof set == 'function' ? function(value) {
-						value = set(value, hidden, cancel);
+						value = thisArg ? set.call(thisArg, value, hidden, cancel) : set(value, hidden, cancel);
 						if (value !== cancel) {
 							hidden = value;
 							localStorage.setItem(name, JSON.stringify(hidden));
@@ -56,8 +56,8 @@ Build('build.storage.BrowserStorage', [ 'build::build.Module' ], function($defin
 			 * @param set
 			 */
 			// TODO: Apply value change detection on setter methods.
-			watchSessionStorage : function(name, value, get, set, definition) {
-				var firstValue = this.runSet(value, set);
+			watchSessionStorage : function(name, value, get, set, thisArg, definition) {
+				var firstValue = this.runSet(value, set, thisArg);
 				if (typeof firstValue !== 'undefined') {
 					sessionStorage.setItem(name, JSON.stringify(firstValue));
 				}
@@ -66,12 +66,12 @@ Build('build.storage.BrowserStorage', [ 'build::build.Module' ], function($defin
 					configurable : true,
 					enumerable : true,
 					get : typeof get === 'function' ? function() {
-						return get(JSON.parse(sessionStorage.getItem(name)), this);
+						return thisArg ? get.call(thisArg, JSON.parse(sessionStorage.getItem(name)), this) : get(JSON.parse(sessionStorage.getItem(name)), this);
 					} : function() {
 						return JSON.parse(sessionStorage.getItem(name));
 					},
 					set : typeof set == 'function' ? function(value) {
-						value = set(value, hidden, cancel);
+						value = thisArg ? set.call(thisArg, value, hidden, cancel) : set(value, hidden, cancel);
 						if (value !== cancel) {
 							hidden = value;
 							sessionStorage.setItem(name, JSON.stringify(hidden));

@@ -69,9 +69,21 @@ Build('build.Module', [], function($define, $super) {
 			 * @param value
 			 * @param set
 			 */
-			runSet : function(value, set, defaultValue) {
-				var output = typeof set === 'function' ? set(value, cancel) : value;
-				return output !== cancel ? output : defaultValue;
+			runSet : function(value, set, thisArg) {
+				var output;
+				if (typeof set === 'function') {
+					if (thisArg) {
+						output = set.call(thisArg, value, undefined, cancel)
+					} else {
+						output = set(value, undefined, cancel);
+					}
+					if (output === cancel) {
+						output = undefined;
+					}
+				} else {
+					output = value;
+				}
+				return output;
 			},
 			/**
 			 * @method watchValue
@@ -80,19 +92,19 @@ Build('build.Module', [], function($define, $super) {
 			 * @param get
 			 * @param set
 			 */
-			watchValue : function(name, value, get, set, definition) {
-				var hidden = this.runSet(value, set);
+			watchValue : function(name, value, get, set, thisArg, definition) {
+				var hidden = this.runSet(value, set, thisArg);
 				Object.defineProperty(this, name, Build.merge({
 					configurable : true,
 					enumerable : true,
 					get : typeof get === 'function' ? function() {
-						return get(hidden, this);
+						return thisArg ? get.call(thisArg, hidden, this) : get(hidden, this);
 					} : function() {
 						return hidden;
 					},
 					set : typeof set === 'function' ? function(value) {
 						if (value !== hidden) {
-							value = set(value, hidden, cancel);
+							value = thisArg ? set.call(thisArg, value, hidden, cancel) : set(value, hidden, cancel);
 							if (value !== cancel) {
 								hidden = value;
 								this.publish(name);
@@ -217,7 +229,7 @@ Build('build.Module', [], function($define, $super) {
 									}
 								}
 							}
-						}.bind(this));
+						}, this);
 					}
 				}
 			},

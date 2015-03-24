@@ -31,10 +31,10 @@ Build('build.ui.Text', [ 'build::build.Module' ], function($define, $super) {
 			 * @method watchProperty
 			 */
 			// TODO: Fix value change detection on setter methods.
-			watchProperty : function(property, name, value, get, set, definition) {
+			watchProperty : function(property, name, value, get, set, thisArg, definition) {
 				name = name || property;
 				// TODO: Decide action on undefined
-				var firstValue = this.runSet(value, set, '');
+				var firstValue = this.runSet(value, set, thisArg);
 				if (typeof firstValue !== 'undefined') {
 					this.element[name] = firstValue;
 				}
@@ -43,13 +43,13 @@ Build('build.ui.Text', [ 'build::build.Module' ], function($define, $super) {
 					configurable : true,
 					enumerable : true,
 					get : typeof get === 'function' ? function() {
-						return get(this.element[name], this);
+						return thisArg ? get.call(thisArg, this.element[name], this) : get(this.element[name], this);
 					} : function() {
 						return this.element[name];
 					},
 					set : typeof set === 'function' ? function(value) {
 						//if (value !== this.element[name]) {
-						value = set(value, hidden, cancel);
+						value = thisArg ? set.call(thisArg, value, hidden, cancel) : set(value, hidden, cancel);
 						if (value !== cancel) {
 							hidden = value;
 							this.element[name] = hidden || '';

@@ -160,10 +160,10 @@ Build('build.ui.Widget', [ 'build::build.Module' ], function($define, $super) {
 			 * @method watchProperty
 			 */
 			// TODO: Fix value change detection on setter methods.
-			watchProperty : function(property, name, value, get, set, definition) {
+			watchProperty : function(property, name, value, get, set, thisArg, definition) {
 				name = name || property;
 				// TODO: Decide action on undefined
-				var firstValue = this.runSet(value, set, '');
+				var firstValue = this.runSet(value, set, thisArg);
 				if (typeof firstValue !== 'undefined') {
 					this.element[name] = firstValue;
 				}
@@ -172,13 +172,13 @@ Build('build.ui.Widget', [ 'build::build.Module' ], function($define, $super) {
 					configurable : true,
 					enumerable : true,
 					get : typeof get === 'function' ? function() {
-						return get(this.element[name], this);
+						return thisArg ? get.call(thisArg, this.element[name], this) : get(this.element[name], this);
 					} : function() {
 						return this.element[name];
 					},
 					set : typeof set === 'function' ? function(value) {
 						//if (value !== this.element[name]) {
-						value = set(value, hidden, cancel);
+						value = thisArg ? set.call(thisArg, value, hidden, cancel) : set(value, hidden, cancel);
 						if (value !== cancel) {
 							hidden = value;
 							this.element[name] = typeof hidden === 'undefined' ? '' : hidden;
@@ -196,10 +196,10 @@ Build('build.ui.Widget', [ 'build::build.Module' ], function($define, $super) {
 			/**
 			 * @method watchAttribute
 			 */
-			watchAttribute : function(property, attribute, value, get, set, definition) {
+			watchAttribute : function(property, attribute, value, get, set, thisArg, definition) {
 				attribute = attribute || property;
 				// TODO: Decide action on undefined
-				var firstValue = this.runSet(value, set, '');
+				var firstValue = this.runSet(value, set, thisArg);
 				if (typeof firstValue !== 'undefined') {
 					this.element.setAttribute(attribute, firstValue);
 				}
@@ -208,13 +208,13 @@ Build('build.ui.Widget', [ 'build::build.Module' ], function($define, $super) {
 					configurable : true,
 					enumerable : true,
 					get : typeof get === 'function' ? function() {
-						return get(this.element.getAttribute(attribute), this);
+						return thisArg ? get.call(thisArg, this.element.getAttribute(attribute), this) : get(this.element.getAttribute(attribute), this);
 					} : function() {
 						return this.element.getAttribute(attribute);
 					},
 					set : typeof set === 'function' ? function(value) {
 						if (value !== this.element.getAttribute(attribute)) {
-							value = set(value, hidden, cancel);
+							value = thisArg ? set.call(thisArg, value, hidden, cancel) : set(value, hidden, cancel);
 							if (value !== cancel) {
 								hidden = value;
 								this.element.setAttribute(attribute, typeof hidden === 'undefined' ? '' : hidden);
@@ -233,10 +233,10 @@ Build('build.ui.Widget', [ 'build::build.Module' ], function($define, $super) {
 			 * @method watchStyle
 			 */
 			// TODO: Apply value change detection on setter methods.
-			watchStyle : function(property, style, unit, value, get, set, definition) {
+			watchStyle : function(property, style, unit, value, get, set, thisArg, definition) {
 				style = style || property;
 				// TODO: Decide action on undefined
-				var firstValue = unit ? (this.runSet(value, set) || 0) + unit : this.runSet(value, set);
+				var firstValue = unit ? (this.runSet(value, set, thisArg) || 0) + unit : this.runSet(value, set, thisArg);
 				if (typeof firstValue !== 'undefined') {
 					this.element.style[style] = firstValue;
 				}
@@ -246,12 +246,12 @@ Build('build.ui.Widget', [ 'build::build.Module' ], function($define, $super) {
 						configurable : true,
 						enumerable : true,
 						get : typeof get === 'function' ? function() {
-							return get(parseFloat(this.element.style[style] || 0), this);
+							return thisArg ? get.call(thisArg, parseFloat(this.element.style[style] || 0), this) : get(parseFloat(this.element.style[style] || 0), this);
 						} : function() {
 							return parseFloat(this.element.style[style] || 0);
 						},
 						set : typeof set === 'function' ? function(value) {
-							value = set(value, hidden, cancel);
+							value = thisArg ? set.call(thisArg, value, hidden, cancel) : set(value, hidden, cancel);
 							if (value !== cancel) {
 								hidden = value || 0;
 								this.element.style[style] = (hidden) + unit;
@@ -267,12 +267,12 @@ Build('build.ui.Widget', [ 'build::build.Module' ], function($define, $super) {
 						configurable : true,
 						enumerable : true,
 						get : typeof get === 'function' ? function() {
-							return get(this.element.style[style], this);
+							return thisArg ? get.call(thisArg, this.element.style[style], this) : get(this.element.style[style], this);
 						} : function() {
 							return this.element.style[style];
 						},
 						set : typeof set === 'function' ? function(value) {
-							value = set(value, hidden, cancel);
+							value = thisArg ? set.call(thisArg, value, hidden, cancel) : set(value, hidden, cancel);
 							if (value !== cancel) {
 								hidden = value;
 								this.element.style[style] = hidden;
@@ -289,10 +289,10 @@ Build('build.ui.Widget', [ 'build::build.Module' ], function($define, $super) {
 			/**
 			 * @method watchData
 			 */
-			watchData : function(property, data, value, get, set, definition) {
+			watchData : function(property, data, value, get, set, thisArg, definition) {
 				data = data || property;
 				// TODO: Decide action on undefined
-				var firstValue = this.runSet(value, set);
+				var firstValue = this.runSet(value, set, thisArg);
 				if (typeof firstValue !== 'undefined') {
 					this.element.dataset ? this.element.dataset[data] = firstValue : this.element.setAttribute('data-' + data, firstValue);
 				}
@@ -301,13 +301,14 @@ Build('build.ui.Widget', [ 'build::build.Module' ], function($define, $super) {
 					configurable : true,
 					enumerable : true,
 					get : typeof get === 'function' ? function() {
-						return get(this.element.dataset ? this.element.dataset[data] : this.element.getAttribute('data-' + data), this);
+						var dataValue = this.element.dataset ? this.element.dataset[data] : this.element.getAttribute('data-' + data);
+						return thisArg ? get.call(thisArg, dataValue, this) : get(dataValue, this);
 					} : function() {
 						return this.element.dataset ? this.element.dataset[data] : this.element.getAttribute('data-' + data);
 					},
 					set : typeof set === 'function' ? function(value) {
 						if (value !== this.element.dataset ? this.element.dataset[data] : this.element.getAttribute('data-' + data)) {
-							value = set(value, hidden, cancel);
+							value = thisArg ? set.call(thisArg, value, hidden, cancel) : set(value, hidden, cancel);
 							if (value !== cancel) {
 								hidden = value;
 								value = typeof value === 'undefined' ? '' : value;
@@ -327,10 +328,10 @@ Build('build.ui.Widget', [ 'build::build.Module' ], function($define, $super) {
 			/**
 			 * @method watchClass
 			 */
-			watchClass : function(property, className, value, get, set, definition) {
+			watchClass : function(property, className, value, get, set, thisArg, definition) {
 				className = className || property;
 				// TODO: Decide action on undefined
-				var firstValue = this.runSet(value, set);
+				var firstValue = this.runSet(value, set, thisArg);
 				if (typeof firstValue !== 'undefined') {
 					if (firstValue) {
 						this.element.classList.add(className);
@@ -343,13 +344,13 @@ Build('build.ui.Widget', [ 'build::build.Module' ], function($define, $super) {
 					configurable : true,
 					enumerable : true,
 					get : typeof get === 'function' ? function() {
-						return get(this.element.classList.contains(className), this);
+						return thisArg ? get.call(thisArg, this.element.classList.contains(className), this) : get(this.element.classList.contains(className), this);
 					} : function() {
 						return this.element.classList.contains(className);
 					},
 					set : typeof set === 'function' ? function(value) {
 						if (value !== this.element.classList.contains(className)) {
-							value = set(value, hidden, cancel);
+							value = thisArg ? set.call(thisArg, value, hidden, cancel) : set(value, hidden, cancel);
 							if (value !== cancel) {
 								hidden = value;
 								if (value) {

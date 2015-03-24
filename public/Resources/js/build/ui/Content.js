@@ -16,7 +16,7 @@ Build('build.ui.Content', [ 'build::build.ui.Widget' ], function($define, $super
 			$super(this)();
 			this.watchProperty('text', 'innerHTML', text || '', null, function(value, current, cancel) {
 				return this.formatString(value, this);
-			}.bind(this));
+			}, this);
 			this.watchProperty('rawText', 'innerHTML');
 		}
 	});

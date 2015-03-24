@@ -10,12 +10,12 @@ Build('build.ui.Container', [ 'build::build.ui.Widget', 'build::build.utility.Ob
 		 */
 		$constructor : function Container(text) {
 			$super(this)();
-			this.watchProperty('text', 'innerHTML', text || '', null, function(value, current, cancel) {
+			this.watchProperty('text', 'innerHTML', text || '', undefined, function(value, current, cancel) {
 				return (this.children && !this.children.length) ? this.formatString(value, this) : cancel;
-			}.bind(this));
+			}, this);
 			this.watchProperty('rawText', 'innerHTML');
 			// TODO: This should be protected in a Document Fragment.
-			this.watchValue('innerElement', this.element, null, function(value, current, cancel) {
+			this.watchValue('innerElement', this.element, undefined, function(value, current, cancel) {
 				var oldElement = this.innerElement || this.element;
 				if (value != oldElement) {
 					while (oldElement.firstChild) {
@@ -23,7 +23,7 @@ Build('build.ui.Container', [ 'build::build.ui.Widget', 'build::build.utility.Ob
 					}
 				}
 				return value;
-			}.bind(this));
+			}, this);
 			Object.defineProperty(this, 'innerElement', {
 				value : this.element,
 				configurable : true,
@@ -32,7 +32,7 @@ Build('build.ui.Container', [ 'build::build.ui.Widget', 'build::build.utility.Ob
 			});
 			var childrenHandler = this.createChildrenHandler();
 			var baseArray = build.utility.ObservableArray();
-			this.watchValue('children', baseArray, null, function(value, current, cancel) {
+			this.watchValue('children', baseArray, undefined, function(value, current, cancel) {
 				if (this.children != value) {
 					if (this.children) {
 						this.unsubscribeChildren(this.children, childrenHandler);
@@ -44,13 +44,13 @@ Build('build.ui.Container', [ 'build::build.ui.Widget', 'build::build.utility.Ob
 					this.refreshChildren(value);
 				}
 				return value;
-			}.bind(this));
-			this.watchValue('template', this.template, null, function(value, current, cancel) {
+			}, this);
+			this.watchValue('template', this.template, undefined, function(value, current, cancel) {
 				// We need to clear the children using the old template first.
 				// TODO: Only run if the old template has been used.
 				this.refreshChildren();
 				return value;
-			}.bind(this));
+			}, this);
 		},
 		$prototype : {
 			/**
