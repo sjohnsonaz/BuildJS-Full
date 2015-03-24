@@ -10,12 +10,13 @@ Build('build.widget.tab.TabTitle', [ 'build::build.ui.Container', 'build::build.
 		 */
 		$constructor : function TabTitle() {
 			$super(this)();
+			var self = this;
 			this.link = build.widget.tab.TabLink.create();
 			this.addChild(this.link);
 			this.watchValue('title', '', null, function(value, current, cancel) {
-				this.link.text = value;
+				self.link.text = value;
 				return value;
-			}.bind(this));
+			});
 		},
 		$prototype : {
 			type : 'li',

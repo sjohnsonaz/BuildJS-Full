@@ -19,9 +19,10 @@ Build('build.widget.video.YouTubeVideo', [ 'build::build.ui.Widget', 'http://aja
 			 */
 			init : function(videoId) {
 				$super().init(this)();
+				var self = this;
 				this.subscribe('videoId', function(value) {
-					this.element.src = 'http://www.youtube.com/embed/' + value;
-				}.bind(this));
+					self.element.src = 'http://www.youtube.com/embed/' + value;
+				});
 				this.videoId = videoId;
 			}
 		},

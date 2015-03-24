@@ -17,8 +17,8 @@ Build('build.widget.canvas.Canvas', [ 'build::build.ui.Widget' ], function(defin
 				configurable : true,
 				enumerable : true,
 				get : function() {
-					return this.element.getContext(this.contextType);
-				}.bind(this)
+					return self.element.getContext(self.contextType);
+				}
 			});
 		},
 		$prototype : {

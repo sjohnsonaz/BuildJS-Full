@@ -14,12 +14,13 @@ Build('build.widget.menu.ExpandableMenuWidget', [ 'build::build.widget.menu.Menu
 		 */
 		$constructor : function ExpandableMenuWidget() {
 			$super(this)();
+			var self = this;
 			this.title = build.widget.menu.MenuTitle.create();
 			this.expandButton = build.form.input.Button.create('{i:[bars]}');
 			this.expandButton.addClass('expand-button');
 			this.expandButton.addEventListener('click', function(button, event) {
-				this.expand = !this.expand;
-			}.bind(this));
+				self.expand = !self.expand;
+			});
 			this.watchClass('expand', 'expandable-menu-widget-expand', false);
 			this.innerElement = document.createElement('div');
 			this.innerElement.className = 'menu-body';

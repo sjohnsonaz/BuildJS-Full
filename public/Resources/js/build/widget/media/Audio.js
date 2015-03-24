@@ -10,6 +10,7 @@ Build('build.widget.media.Audio', [ 'build::build.ui.Container' ], function(defi
 		 */
 		$constructor : function Audio(src) {
 			$super(this)();
+			var self = this;
 			this.watchProperty('src', 'src', src);
 			this.watchProperty('canplay', 'src');
 			this.addEventListener('canplay', function(element, event) {
@@ -19,15 +20,15 @@ Build('build.widget.media.Audio', [ 'build::build.ui.Container' ], function(defi
 			this.watchProperty('volume');
 			this.watchProperty('playbackRate');
 			this.watchValue('play', false, function(value) {
-				return !this.element.paused;
-			}.bind(this), function(value, current, cancel) {
+				return !self.element.paused;
+			}, function(value, current, cancel) {
 				if (value) {
-					this.element.play();
+					self.element.play();
 				} else {
-					this.element.pause();
+					self.element.pause();
 				}
 				return !!value;
-			}.bind(this));
+			});
 			this.sources = {};
 			this.tracks = {};
 		},

@@ -98,19 +98,20 @@ Build('build.widget.user.UserEditForm', [ 'build::build.form.Form', 'build::buil
 			 * 
 			 */
 			saveUser : function(success, error) {
+				var self = this;
 				// Change to PUT if editing, POST if creating.
 				this.userServiceConnection.put(this.model._id, this.model, function(data, request) {
 					console.log(data);
 					if (data.error) {
-						this.message.text(data.message);
+						self.message.text(data.message);
 						console.log(data.message);
 					} else {
 						Build.safe(success)(data, request);
-						this.runCallbacks('saveUser', data);
+						self.runCallbacks('saveUser', data);
 					}
-				}.bind(this), function(request) {
+				}, function(request) {
 					Build.safe(error)(request);
-				}.bind(this));
+				});
 			},
 			/**
 			 * 

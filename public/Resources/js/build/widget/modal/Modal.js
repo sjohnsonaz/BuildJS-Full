@@ -14,6 +14,7 @@ Build('build.widget.modal.Modal', [ 'build::build.ui.Container' ], function($def
 		 */
 		$constructor : function Modal() {
 			$super(this)();
+			var self = this;
 			this.watchClass('open', 'modal-open', false);
 			this.watchValue('clickToClose', true);
 			this.mask = document.createElement('div');
@@ -33,10 +34,10 @@ Build('build.widget.modal.Modal', [ 'build::build.ui.Container' ], function($def
 			});
 
 			this.scroller.addEventListener('click', function(event) {
-				if (this.clickToClose) {
-					this.open = false;
+				if (self.clickToClose) {
+					self.open = false;
 				}
-			}.bind(this));
+			});
 		},
 		$prototype : {}
 	});

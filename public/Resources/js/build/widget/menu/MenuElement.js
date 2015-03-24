@@ -20,6 +20,7 @@ Build('build.widget.menu.MenuElement', [ 'build::build.ui.Container', 'build::bu
 		 */
 		$constructor : function MenuElement() {
 			$super(this)();
+			var self = this;
 			this.link = build.ui.element.Link.create();
 			Object.defineProperty(this, 'url', {
 				get : function() {
@@ -51,8 +52,8 @@ Build('build.widget.menu.MenuElement', [ 'build::build.ui.Container', 'build::bu
 			this.watchValue('action');
 			this.watchClass('hidden');
 			this.link.addEventListener('click', function(event) {
-				Build.safe(this.action)(this, event);
-			}.bind(this));
+				Build.safe(self.action)(self, event);
+			});
 			this.children.push(this.link);
 		},
 		$prototype : {
@@ -62,13 +63,14 @@ Build('build.widget.menu.MenuElement', [ 'build::build.ui.Container', 'build::bu
 			 */
 			init : function() {
 				$super().init(this)();
+				var self = this;
 				this.subscribe('action', function(action) {
 					if (action) {
-						this.link.preventDefault();
+						self.link.preventDefault();
 					} else {
-						this.link.allowDefault();
+						self.link.allowDefault();
 					}
-				}.bind(this));
+				});
 			},
 			/**
 			 * 

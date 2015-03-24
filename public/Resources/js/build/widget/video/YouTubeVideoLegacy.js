@@ -18,9 +18,10 @@ Build('build.widget.video.YouTubeVideo', [ 'build::build.ui.Widget', 'http://aja
 			 */
 			init : function(videoId) {
 				$super().init(this)();
+				var self = this;
 				this.subscribe('videoId', function(value) {
-					this.load();
-				}.bind(this));
+					self.load();
+				});
 				this.videoId = videoId;
 			},
 			/**
@@ -33,6 +34,7 @@ Build('build.widget.video.YouTubeVideo', [ 'build::build.ui.Widget', 'http://aja
 					preloadElement.id = preloadId;
 					this.getPreloadContainer().appendChild(preloadElement);
 					window.setTimeout(function() {
+						var self = this;
 						build.widget.video.YouTubeVideo.onYouTubePlayerReady[this.id] = function() {
 							console.log('Video is ready');
 						};
@@ -41,10 +43,10 @@ Build('build.widget.video.YouTubeVideo', [ 'build::build.ui.Widget', 'http://aja
 						}, {
 							id : preloadId
 						}, function(playerHandle) {
-							this.clearChildren();
-							this.element.appendChild(document.getElementById(preloadId));
-						}.bind(this));
-					}.bind(this), 100);
+							self.clearChildren();
+							self.element.appendChild(document.getElementById(preloadId));
+						});
+					}, 100, this);
 				}
 			}
 		},

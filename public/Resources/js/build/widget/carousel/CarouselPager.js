@@ -16,12 +16,13 @@ Build('build.widget.carousel.CarouselPager', [ 'build::build.ui.Container', 'bui
 		$prototype : {
 			template : {
 				create : function(child, parent) {
+					var self = this;
 					var link = build.ui.Content.createType('a');
 					link.addEventListener('click', function(event) {
 						event.preventDefault();
 						parent.carouselSlider.activeChild = child;
 						parent.carousel.resetInterval();
-					}.bind(this));
+					});
 					build.binding.PropertyBinding.create(link, {
 						sources : [ {
 							source : child,

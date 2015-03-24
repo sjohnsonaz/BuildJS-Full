@@ -10,6 +10,7 @@ Build('build.widget.calendar.Calendar', [ 'build::build.ui.Widget', 'build::buil
 		 */
 		$constructor : function Calendar(date) {
 			$super(this)();
+			var self = this;
 			var initialDate = date || new Date();
 
 			this.monthName = document.createElement('span');
@@ -27,14 +28,14 @@ Build('build.widget.calendar.Calendar', [ 'build::build.ui.Widget', 'build::buil
 			this.watchValue('year', initialDate.getFullYear());
 			this.dayHash = {};
 			this.watchValue('days', undefined, undefined, function(value, current, cancel) {
-				this.dayHash = {};
+				self.dayHash = {};
 				if (value) {
 					for (var index = 0, length = value.length; index < length; index++) {
-						this.dayHash[getDateFormatted(value[index])] = value[index];
+						self.dayHash[getDateFormatted(value[index])] = value[index];
 					}
 				}
 				return value;
-			}.bind(this));
+			});
 			this.daysComputed = build.binding.ComputedBinding.create(this, {
 				sources : [ {
 					source : this,
@@ -44,8 +45,8 @@ Build('build.widget.calendar.Calendar', [ 'build::build.ui.Widget', 'build::buil
 					property : 'month'
 				} ],
 				output : function(year, month) {
-					return this.renderMonth(year, month);
-				}.bind(this),
+					return self.renderMonth(year, month);
+				},
 				destination : 'days'
 			});
 			this.watchValue('selectedDay', date);
@@ -54,9 +55,9 @@ Build('build.widget.calendar.Calendar', [ 'build::build.ui.Widget', 'build::buil
 				if (value) {
 					var tempDate = new Date(value);
 					var formattedValue = getDateFormatted(tempDate);
-					return this.dayHash[formattedValue] || new Date(formattedValue);
+					return self.dayHash[formattedValue] || new Date(formattedValue);
 				}
-			}.bind(this), function(value) {
+			}, function(value) {
 				if (value) {
 					return getDateFormatted(value);
 				}
@@ -64,8 +65,8 @@ Build('build.widget.calendar.Calendar', [ 'build::build.ui.Widget', 'build::buil
 
 			var oldSelectedDay = undefined;
 			this.subscribe('selectedDay', function(value) {
-				if (value && (this.month != value.getMonth() || this.year != value.getFullYear())) {
-					this.refresh();
+				if (value && (self.month != value.getMonth() || self.year != value.getFullYear())) {
+					self.refresh();
 				}
 				if (oldSelectedDay && oldSelectedDay.dayCell) {
 					oldSelectedDay.dayCell.className = '';
@@ -74,7 +75,7 @@ Build('build.widget.calendar.Calendar', [ 'build::build.ui.Widget', 'build::buil
 					value.dayCell.className = 'calendar-day-selected';
 				}
 				oldSelectedDay = value;
-			}.bind(this));
+			});
 
 			this.element.appendChild(title);
 			this.element.appendChild(this.table);
@@ -103,6 +104,7 @@ Build('build.widget.calendar.Calendar', [ 'build::build.ui.Widget', 'build::buil
 				return header;
 			},
 			renderTitle : function(yearName, monthName) {
+				var self = this;
 				var title = document.createElement('div');
 				title.className = 'calendar-title';
 
@@ -124,17 +126,17 @@ Build('build.widget.calendar.Calendar', [ 'build::build.ui.Widget', 'build::buil
 				yearUp.innerHTML = this.formatString('{i:[caret-right]}')
 
 				monthUp.addEventListener('click', function(event) {
-					this.month = (this.month + 1) % 12;
-				}.bind(this));
+					self.month = (self.month + 1) % 12;
+				});
 				monthDown.addEventListener('click', function(event) {
-					this.month = (this.month + 11) % 12;
-				}.bind(this));
+					self.month = (self.month + 11) % 12;
+				});
 				yearUp.addEventListener('click', function(event) {
-					this.year++;
-				}.bind(this));
+					self.year++;
+				});
 				yearDown.addEventListener('click', function(event) {
-					this.year--;
-				}.bind(this));
+					self.year--;
+				});
 
 				monthTitle.appendChild(monthDown);
 				monthTitle.appendChild(monthName);

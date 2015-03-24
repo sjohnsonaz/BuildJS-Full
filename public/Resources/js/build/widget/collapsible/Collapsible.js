@@ -10,6 +10,7 @@ Build('build.widget.collapsible.Collapsible', [ 'build::build.ui.Container', 'bu
 		 */
 		$constructor : function Collapsible(header, open) {
 			$super(this)();
+			var self = this;
 			this.header = build.ui.Content.createType('a', header || '');
 			this.header.className = 'collapsible-header';
 			this.body = document.createElement('div');
@@ -22,26 +23,25 @@ Build('build.widget.collapsible.Collapsible', [ 'build::build.ui.Container', 'bu
 			this.body.style.height = '0px';
 			var finished = true;
 			this.watchValue('open', open || false, undefined, function(value, current, cancel) {
-				var self = this;
 				// We can animate
 				if (value) {
-					build.utility.Animation.animate(this.body, {
+					build.utility.Animation.animate(self.body, {
 						height : 'auto'
 					}, 500, function() {
 						self.element.classList.add('collapsible-open');
 					});
 				} else {
-					build.utility.Animation.animate(this.body, {
+					build.utility.Animation.animate(self.body, {
 						height : '0px'
 					}, 500, function() {
 						self.element.classList.remove('collapsible-open');
 					});
 				}
 				return value;
-			}.bind(this));
+			});
 			this.header.addEventListener('click', function(event) {
-				this.open = !this.open;
-			}.bind(this));
+				self.open = !self.open;
+			});
 		}
 	});
 });

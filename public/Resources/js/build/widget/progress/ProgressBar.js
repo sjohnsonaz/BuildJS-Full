@@ -10,6 +10,7 @@ Build('build.widget.progress.ProgressBar', [ 'build::build.ui.Widget', 'build::b
 		 */
 		$constructor : function ProgressBar(progress) {
 			$super(this)();
+			var self = this;
 			this.progressElement = document.createElement('div');
 			this.watchValue('progress', progress || 0, undefined, function(value) {
 				value = parseFloat(value);
@@ -34,16 +35,16 @@ Build('build.widget.progress.ProgressBar', [ 'build::build.ui.Widget', 'build::b
 				} ],
 				output : function(progress, showPercentage, complete, error) {
 					if (error) {
-						this.progressElement.innerHTML = 'Error';
-						this.progressElement.style.width = progress + '%';
+						self.progressElement.innerHTML = 'Error';
+						self.progressElement.style.width = progress + '%';
 					} else if (complete) {
-						this.progressElement.innerHTML = 'Complete';
-						this.progressElement.style.width = '100%';
+						self.progressElement.innerHTML = 'Complete';
+						self.progressElement.style.width = '100%';
 					} else {
-						this.progressElement.innerHTML = progress + (this.showPercentage ? '%' : '');
-						this.progressElement.style.width = progress + '%';
+						self.progressElement.innerHTML = progress + (self.showPercentage ? '%' : '');
+						self.progressElement.style.width = progress + '%';
 					}
-				}.bind(this)
+				}
 			});
 			this.element.appendChild(this.progressElement);
 		}

@@ -10,6 +10,7 @@ Build('build.widget.calendar.DateInput', [ 'build::build.ui.Widget', 'build::bui
 		 */
 		$constructor : function DateInput() {
 			$super(this)();
+			var self = this;
 			var inputControl = document.createElement('span');
 			inputControl.className = 'input-date-control';
 			this.popup = document.createElement('span');
@@ -29,16 +30,16 @@ Build('build.widget.calendar.DateInput', [ 'build::build.ui.Widget', 'build::bui
 
 			this.watchValue('open', false, undefined, function(value, current, cancel) {
 				if (value) {
-					this.popup.style.display = 'block';
+					self.popup.style.display = 'block';
 				} else {
-					this.popup.style.display = 'none';
+					self.popup.style.display = 'none';
 				}
 				return !!value;
-			}.bind(this));
+			});
 
 			this.button.addEventListener('click', function() {
-				this.open = !this.open;
-			}.bind(this));
+				self.open = !self.open;
+			});
 			build.binding.ValueBinding.create(this.input, this.calendar, 'selectedDayText');
 		},
 		$prototype : {

@@ -55,13 +55,14 @@ Build('build.widget.authentication.LogoutForm', [ 'build::build.form.Form', 'bui
 			 * 
 			 */
 			logout : function(success, error) {
+				var self = this;
 				this.authenticationServiceConnection.logout(function(data, request) {
 					console.log(data);
-					this.runCallbacks('logoutSuccess', data, request);
+					self.runCallbacks('logoutSuccess', data, request);
 					Build.safe(success)(data, request);
-				}.bind(this), function(request) {
+				}, function(request) {
 					Build.safe(error)(request);
-				}.bind(this));
+				});
 			}
 		}
 	});

@@ -35,6 +35,7 @@ Build('build.widget.user.UserListForm', [ 'build::build.form.Form', 'build::buil
 			 * 
 			 */
 			wrap : function(model) {
+				var self = this;
 				this.userTable.removeAll();
 				for (var index = 0, length = model.length; index < length; index++) {
 					var user = model[index];
@@ -48,23 +49,23 @@ Build('build.widget.user.UserListForm', [ 'build::build.form.Form', 'build::buil
 							event.preventDefault();
 							this.viewUser(user);
 							return false;
-						}, false, this);
+						}, false, self);
 						editUserButton.addEventListener('click', function(button, event) {
 							event.preventDefault();
 							this.editUser(user);
 							return false;
-						}, false, this);
+						}, false, self);
 						deleteUserButton.addEventListener('click', function(button, event) {
 							event.preventDefault();
 							this.deleteUser(user);
 							return false;
-						}, false, this);
+						}, false, self);
 						permissionButton.addEventListener('click', function(button, event) {
 							event.preventDefault();
 							this.permission(user);
 							return false;
-						}, false, this);
-					}.bind(this))(user);
+						}, false, self);
+					})(user);
 					buttonGroup.addChild(viewUserButton);
 					buttonGroup.addChild(editUserButton);
 					buttonGroup.addChild(deleteUserButton);

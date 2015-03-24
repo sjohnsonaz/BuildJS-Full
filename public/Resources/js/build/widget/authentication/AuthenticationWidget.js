@@ -16,6 +16,7 @@ Build('build.widget.authentication.AuthenticationWidget', [ 'build::build.ui.Swi
 		 */
 		$constructor : function AuthenticationWidget(authenticationServiceConnection) {
 			$super(this)();
+			var self = this;
 			this.loginViewModel = new build.widget.authentication.LoginViewModel(undefined, authenticationServiceConnection);
 			this.loginForm = build.widget.authentication.LoginForm.create(this.loginViewModel);
 			this.logoutForm = build.widget.authentication.LogoutForm.create(authenticationServiceConnection);
@@ -28,14 +29,14 @@ Build('build.widget.authentication.AuthenticationWidget', [ 'build::build.ui.Swi
 			 * @param error
 			 */
 			this.getUser = function(success, error) {
-				this.authenticationServiceConnection.user(function(data, request) {
+				self.authenticationServiceConnection.user(function(data, request) {
 					if (data.user) {
-						this.logoutForm.model = data.user;
-						this.loginForm.model = null;
-						this.active = 1;
-						this.runCallbacks('loginSuccess', data, request);
+						self.logoutForm.model = data.user;
+						self.loginForm.model = null;
+						self.active = 1;
+						self.runCallbacks('loginSuccess', data, request);
 					}
-				}.bind(this), error);
+				}, error);
 			};
 			/**
 			 * @method run
@@ -47,20 +48,20 @@ Build('build.widget.authentication.AuthenticationWidget', [ 'build::build.ui.Swi
 			 * @event loginSuccess
 			 */
 			this.loginViewModel.addCallback('loginSuccess', function(data, request) {
-				this.logoutForm.model = data.user;
-				this.loginForm.model = null;
-				this.active = 1;
-				this.runCallbacks('loginSuccess', data, request);
-			}.bind(this));
+				self.logoutForm.model = data.user;
+				self.loginForm.model = null;
+				self.active = 1;
+				self.runCallbacks('loginSuccess', data, request);
+			});
 			/**
 			 * @event logoutSuccess
 			 */
 			this.logoutForm.addCallback('logoutSuccess', function(data, request) {
-				this.loginForm.model = null;
-				this.active = 0;
-				this.logoutForm.model = null;
-				this.runCallbacks('logoutSuccess', data, request);
-			}.bind(this));
+				self.loginForm.model = null;
+				self.active = 0;
+				self.logoutForm.model = null;
+				self.runCallbacks('logoutSuccess', data, request);
+			});
 		}
 	});
 });

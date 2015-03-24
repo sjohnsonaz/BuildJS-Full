@@ -45,19 +45,20 @@ Build('build.widget.user.UserDeleteForm', [ 'build::build.form.Form', 'build::bu
 			clear : function() {
 			},
 			deleteUser : function(success, error) {
+				var self = this;
 				// Change to PUT if editing, POST if creating.
 				this.userServiceConnection.del(this.model._id, function(data, request) {
 					console.log(data);
 					if (data.error) {
-						this.message.text(data.message);
+						self.message.text(data.message);
 						console.log(data.message);
 					} else {
 						Build.safe(success)(data, request);
-						this.runCallbacks('deleteUser', data);
+						self.runCallbacks('deleteUser', data);
 					}
-				}.bind(this), function(request) {
+				}, function(request) {
 					Build.safe(error)(request);
-				}.bind(this));
+				});
 			},
 			cancelUser : function() {
 				this.runCallbacks('cancelUser');

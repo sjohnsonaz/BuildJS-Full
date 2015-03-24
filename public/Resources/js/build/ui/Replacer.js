@@ -15,24 +15,25 @@ Build('build.ui.Replacer', [ 'build::build.ui.Container', 'build::build.utility.
 		 */
 		$constructor : function Replacer(active) {
 			$super(this)();
+			var self = this;
 			this.lockable = false;
 			var Navigation = build.utility.Navigation();
 			// TODO: This can also be an array
 			this.watchValue('hideMode', 'VISIBILITY', null, function(value, current, cancel) {
-				this.refreshChildren();
+				self.refreshChildren();
 				return value;
-			}.bind(this));
+			});
 			this.watchValue('active', 0, null, function(value, current, cancel) {
-				var output = (this.lockable && Navigation.locked) ? (Navigation.run() ? value : cancel) : value;
+				var output = (self.lockable && Navigation.locked) ? (Navigation.run() ? value : cancel) : value;
 				if (output != cancel && value !== this.active) {
 					// Correct for index out of range.
-					if (this.children.length) {
-						output %= this.children.length;
+					if (self.children.length) {
+						output %= self.children.length;
 					}
-					this.showChild(output, this.active || 0);
+					self.showChild(output, self.active || 0);
 				}
 				return output;
-			}.bind(this));
+			});
 		},
 		$prototype : {
 			/**

@@ -10,10 +10,11 @@ Build('build.widget.code.Code', [ 'build::build.ui.Content' ], function($define,
 		 */
 		$constructor : function Code(text) {
 			$super(this)();
+			var self = this;
 			this.watchProperty('text', 'innerHTML', text || '', null, function(value, current, cancel) {
-				value = this.formatString(value, this);
-				return this.formatCode(value);
-			}.bind(this));
+				value = self.formatString(value, self);
+				return self.formatCode(value);
+			});
 			this.watchProperty('rawText', 'innerHTML');
 		},
 		$prototype : {

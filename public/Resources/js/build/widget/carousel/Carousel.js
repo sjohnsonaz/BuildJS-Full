@@ -35,9 +35,9 @@ Build('build.widget.carousel.Carousel', [ 'build::build.ui.Widget', 'build::buil
 			this.leftButton.className = 'carousel-left-button';
 			this.leftButton.innerHTML = this.formatString('{i:[angle-left]}');
 			this.leftButton.addEventListener('click', function(event) {
-				this.carouselSlider.active--;
-				this.resetInterval();
-			}.bind(this));
+				self.carouselSlider.active--;
+				self.resetInterval();
+			});
 
 			this.carouselSlider = build.widget.carousel.CarouselSlider.create();
 			this.carouselSizer = document.createElement('div');
@@ -48,9 +48,9 @@ Build('build.widget.carousel.Carousel', [ 'build::build.ui.Widget', 'build::buil
 			this.rightButton.className = 'carousel-right-button';
 			this.rightButton.innerHTML = this.formatString('{i:[angle-right]}');
 			this.rightButton.addEventListener('click', function(event) {
-				this.carouselSlider.active++;
-				this.resetInterval();
-			}.bind(this));
+				self.carouselSlider.active++;
+				self.resetInterval();
+			});
 
 			this.pager = build.widget.carousel.CarouselPager.create(this, this.carouselSlider);
 			this.pager.className = 'carousel-pager';

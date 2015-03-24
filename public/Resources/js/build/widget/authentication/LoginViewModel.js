@@ -18,18 +18,19 @@ Build('build.widget.authentication.LoginViewModel', [ 'build::build.mvvm.ViewMod
 		},
 		$prototype : {
 			login : function(success, error) {
+				var self = this;
 				this.serviceConnection.login(this.username, this.password, function(data, request, event) {
 					console.log(data);
 					if (data.success) {
-						this.runCallbacks('loginSuccess', data, request);
+						self.runCallbacks('loginSuccess', data, request);
 						Build.safe(success)(data, request);
 					} else {
-						this.message = data.message;
+						self.message = data.message;
 						console.log('not logged in');
 					}
-				}.bind(this), function(request) {
+				}, function(request) {
 					Build.safe(error)(data, request);
-				}.bind(this));
+				});
 			}
 		}
 	});
