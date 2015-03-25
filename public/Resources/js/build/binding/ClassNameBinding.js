@@ -11,8 +11,8 @@ Build('build.binding.ClassNameBinding', [ 'build::build.binding.OneWayBinding' ]
 		/**
 		 * @constructor
 		 */
-		$constructor : function ClassNameBinding(destination, definition) {
-			$super(this)(destination, definition);
+		$constructor : function ClassNameBinding(definition) {
+			$super(this)(definition);
 			if (definition) {
 				this.format = definition.format || '{0}';
 				this.className = definition.className;

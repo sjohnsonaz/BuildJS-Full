@@ -8,19 +8,25 @@ Build('build.binding.TwoWayBinding', [ 'build::build.binding.BindingHandler' ], 
 		/**
 		 * @constructor
 		 */
-		$constructor : function TwoWayBinding(destination, source, sourceProperty, destinationProperty, outputToSource, outputToDestination) {
-			$super(this)(destination);
-			this.source = source;
-			this.sourceProperty = sourceProperty;
-			this.destinationProperty = destinationProperty;
-			this.outputToSource = outputToSource;
-			this.outputToDestination = outputToDestination;
+		$constructor : function TwoWayBinding(definition) {
+			$super(this)(definition);
+			if (definition) {
+				// TODO: Should we store this?
+				this.source = definition.source;
+				if (this.source && (this.source instanceof build.Module)) {
+					this.source.addHandler(this);
+				}
+				this.sourceProperty = definition.sourceProperty;
+				this.destinationProperty = definition.destinationProperty;
+				this.outputToSource = definition.outputToSource;
+				this.outputToDestination = definition.outputToDestination;
+			}
 			this.watchValue('locked', false);
 		},
 		$prototype : {
-			link : function(destination, source, sourceProperty, destinationProperty) {
-				source.subscribe(sourceProperty, this);
-				destination.subscribe(destinationProperty, this);
+			link : function(definition) {
+				this.source.subscribe(this.sourceProperty, this);
+				this.destination.subscribe(this.destinationProperty, this);
 			},
 			notify : function(subscription, value) {
 				if (!this.locked) {

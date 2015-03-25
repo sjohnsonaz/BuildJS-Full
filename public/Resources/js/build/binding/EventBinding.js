@@ -8,15 +8,17 @@ Build('build.binding.EventBinding', [ 'build::build.binding.BindingHandler' ], f
 		/**
 		 * @constructor
 		 */
-		$constructor : function EventBinding(destination, source, sourceProperty, destinationProperty) {
-			$super(this)(destination);
-			this.source = source;
-			this.sourceProperty = sourceProperty;
-			this.destinationProperty = destinationProperty;
+		$constructor : function EventBinding(definition) {
+			$super(this)(definition);
+			if (definition) {
+				this.source = definition.source;
+				this.sourceProperty = definition.sourceProperty;
+				this.type = definition.type;
+			}
 		},
 		$prototype : {
-			link : function(destination, source, sourceProperty, destinationProperty) {
-				destination.addEventListener(destinationProperty, source[sourceProperty], undefined, source);
+			link : function(definition) {
+				this.destination.addEventListener(this.destinationProperty, this.source[sourceProperty], undefined, this.source);
 			}
 		}
 	});

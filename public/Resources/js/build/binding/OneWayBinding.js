@@ -8,8 +8,8 @@ Build('build.binding.OneWayBinding', [ 'build::build.binding.BindingHandler' ], 
 		/**
 		 * @constructor
 		 */
-		$constructor : function OneWayBinding(destination, definition) {
-			$super(this)(destination);
+		$constructor : function OneWayBinding(definition) {
+			$super(this)(definition);
 			this.cache = [];
 			this.sources = [];
 			this.properties = [];
@@ -23,10 +23,12 @@ Build('build.binding.OneWayBinding', [ 'build::build.binding.BindingHandler' ], 
 						this.properties.push(sourceDefinition.property);
 					}
 				}
+				this.output = definition.output;
+				this.property = definition.property;
 			}
 		},
 		$prototype : {
-			link : function(destination, definition) {
+			link : function(definition) {
 				for (var index = 0, length = this.sources.length; index < length; index++) {
 					this.sources[index].subscribe(this.properties[index], this);
 				}
@@ -46,6 +48,24 @@ Build('build.binding.OneWayBinding', [ 'build::build.binding.BindingHandler' ], 
 					if (!this.locked) {
 						this.update(subscription, value, false);
 					}
+				}
+			},
+			update : function(subscription, value, reverse) {
+				var result;
+				if (this.output) {
+					switch (typeof this.output) {
+					case 'function':
+						result = this.output.apply(this, this.cache);
+						break;
+					case 'string':
+						result = this.formatString(this.output, this.cache);
+						break;
+					}
+				} else {
+					result = this.cache[0];
+				}
+				if (this.destination && this.property) {
+					this.destination[this.property] = result;
 				}
 			}
 		}

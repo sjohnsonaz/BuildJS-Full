@@ -326,16 +326,6 @@ Build('build.Module', [], function($define, $super) {
 					}
 				}
 			},
-			///**
-			//* @method bind
-			//*/
-			//bind : function(source, property, handler) {
-			////this.bound = source;
-			//if (source && property && handler) {
-			//this.handlers[property] = handler;
-			//handler.bind(source, this);
-			//}
-			//},
 			/**
 			 * @method destroy
 			 */
@@ -371,6 +361,26 @@ Build('build.Module', [], function($define, $super) {
 					for ( var property in this.handlers) {
 						this.handlers[property].destroy();
 						delete this.handlers[property];
+					}
+				}
+			},
+			/**
+			* @method bind
+			*/
+			bind : function(definition) {
+				for ( var propertyName in definition) {
+					if (definition.hasOwnProperty(propertyName)) {
+						var property = definition[propertyName];
+						for ( var handlerName in property) {
+							if (property.hasOwnProperty(handlerName)) {
+								var handlerDefinition = property[handlerName];
+								if (handlerName === 'bind') {
+									property.bind(handlerDefinition);
+								} else {
+									build.Module.handlers[handlerName].create(handlerDefinition);
+								}
+							}
+						}
 					}
 				}
 			},
@@ -439,7 +449,8 @@ Build('build.Module', [], function($define, $super) {
 				'i' : function(value) {
 					return '<i class="fa fa-' + value + '"></i>';
 				}
-			}
+			},
+			handlers : {}
 		}
 	});
 

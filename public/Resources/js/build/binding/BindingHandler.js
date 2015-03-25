@@ -8,10 +8,14 @@ Build('build.binding.BindingHandler', [ 'build::build.Module' ], function($defin
 		/**
 		 * @constructor
 		 */
-		$constructor : function BindingHandler(destination) {
+		$constructor : function BindingHandler(definition) {
 			$super(this)();
-			this.destination = destination;
-			destination.addHandler(this);
+			if (definition) {
+				this.destination = definition.destination;
+				if (this.destination instanceof build.Module) {
+					this.destination.addHandler(this);
+				}
+			}
 		},
 		$prototype : {
 			link : function() {
@@ -23,8 +27,11 @@ Build('build.binding.BindingHandler', [ 'build::build.Module' ], function($defin
 			update : function(subscription, value, reverse) {
 			}
 		},
+		$post : function() {
+
+		},
 		$static : {
-			create : function(destination, source) {
+			create : function(definition) {
 				var result = Object.create(this.prototype, Build.debug ? {
 					constructor : {
 						value : this

@@ -44,12 +44,19 @@ Build('build.ui.Switcher', [ 'build::build.ui.Container', 'build::build.ui.Switc
 				}
 				return output;
 			});
-			build.binding.TwoWayBinding.create(this, this, 'active', 'activeChild', function(value) {
-				// To active
-				return self.children.indexOf(value);
-			}, function(value) {
-				// To activeChild
-				return self.children[value];
+			build.binding.TwoWayBinding.create({
+				destination : this,
+				source : this,
+				sourceProperty : 'active',
+				destinationProperty : 'activeChild',
+				outputToSource : function(value) {
+					// To active
+					return self.children.indexOf(value);
+				},
+				outputToDestination : function(value) {
+					// To activeChild
+					return self.children[value];
+				}
 			});
 		},
 		$prototype : {

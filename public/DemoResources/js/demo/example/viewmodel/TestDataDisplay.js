@@ -15,7 +15,8 @@ Build('demo.example.viewmodel.TestDataDisplay', [ 'build::build.ui.Container', '
 			this.viewModelContainer0 = build.ui.Container.create();
 			this.viewModelContainer1 = build.ui.Container.create();
 
-			build.binding.TextBinding.create(this.viewModelParagraph0, {
+			build.binding.TextBinding.create({
+				destination : this.viewModelParagraph0,
 				sources : [ {
 					source : viewModel,
 					property : 'testValue'
@@ -24,7 +25,8 @@ Build('demo.example.viewmodel.TestDataDisplay', [ 'build::build.ui.Container', '
 			});
 			var viewModelParagraph1 = build.ui.element.Paragraph.create('Evaluated to true!');
 			var viewModelParagraph2 = build.ui.element.Paragraph.create('Evaluated to false!');
-			build.binding.IfBinding.create(this.viewModelContainer0, {
+			build.binding.IfBinding.create({
+				destination : this.viewModelContainer0,
 				sources : [ {
 					source : viewModel,
 					property : 'testTrue'
@@ -36,7 +38,8 @@ Build('demo.example.viewmodel.TestDataDisplay', [ 'build::build.ui.Container', '
 				onTrue : viewModelParagraph1,
 				onFalse : viewModelParagraph2
 			});
-			build.binding.IfBinding.create(this.viewModelContainer1, {
+			build.binding.IfBinding.create({
+				destination : this.viewModelContainer1,
 				sources : [ {
 					source : viewModel,
 					property : 'testTrue'
@@ -47,7 +50,8 @@ Build('demo.example.viewmodel.TestDataDisplay', [ 'build::build.ui.Container', '
 				format : '{0} && !{1}',
 				onTrue : function() {
 					var innerParagraph = build.ui.element.Paragraph.create();
-					build.binding.TextBinding.create(innerParagraph, {
+					build.binding.TextBinding.create({
+						destination : innerParagraph,
 						sources : [ {
 							source : viewModel,
 							property : 'testTrue'

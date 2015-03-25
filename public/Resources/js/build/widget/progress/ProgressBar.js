@@ -19,7 +19,8 @@ Build('build.widget.progress.ProgressBar', [ 'build::build.ui.Widget', 'build::b
 			this.watchValue('showPercentage', true);
 			this.watchClass('complete', 'progress-complete', false);
 			this.watchClass('error', 'progress-error', false);
-			build.binding.FunctionBinding.create(this, {
+			build.binding.FunctionBinding.create({
+				destination : this,
 				sources : [ {
 					source : this,
 					property : 'progress'

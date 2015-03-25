@@ -8,17 +8,19 @@ Build('build.binding.ForEachBinding', [ 'build::build.binding.BindingHandler' ],
 		/**
 		 * @constructor
 		 */
-		$constructor : function ForEachBinding(destination, source, property, template) {
-			$super(this)(destination);
-			if (template) {
-				destination.template = template;
+		$constructor : function ForEachBinding(definition) {
+			$super(this)(definition);
+			if (definition) {
+				if (definition.template) {
+					this.destination.template = definition.template;
+				}
+				this.source = definition.source;
+				this.property = definition.property || 'children';
 			}
-			this.source = source;
-			this.property = property;
 		},
 		$prototype : {
-			link : function(destination, source, property) {
-				destination.children = source[property];
+			link : function(definition) {
+				this.destination.children = this.source[this.property];
 			}
 		}
 	});

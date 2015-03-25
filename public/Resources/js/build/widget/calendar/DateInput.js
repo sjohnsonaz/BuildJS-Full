@@ -40,7 +40,11 @@ Build('build.widget.calendar.DateInput', [ 'build::build.ui.Widget', 'build::bui
 			this.button.addEventListener('click', function() {
 				self.open = !self.open;
 			});
-			build.binding.ValueBinding.create(this.input, this.calendar, 'selectedDayText');
+			build.binding.ValueBinding.create({
+				destination : this.input,
+				source : this.calendar,
+				sourceProperty : 'selectedDayText'
+			});
 		},
 		$prototype : {
 			type : 'span'

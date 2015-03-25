@@ -35,10 +35,18 @@ Build('build.mvvm.View', [ 'build::build.ui.Container', 'build::build.binding.Va
 						if (viewModelDefinition) {
 							if (viewModelDefinition.type === 'array') {
 								if (this[name]) {
-									build.binding.ForEachBinding.create(this[name], viewModel, mapDefinition.name || name);
+									build.binding.ForEachBinding.create({
+										destination : this[name],
+										source : viewModel,
+										property : mapDefinition.name || name
+									});
 								}
 							} else {
-								build.binding.ValueBinding.create(this[name], viewModel, mapDefinition.name || name);
+								build.binding.ValueBinding.create({
+									destination : this[name],
+									source : viewModel,
+									sourceProperty : mapDefinition.name || name
+								});
 							}
 						}
 					}

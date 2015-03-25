@@ -23,14 +23,16 @@ Build('build.widget.carousel.CarouselPager', [ 'build::build.ui.Container', 'bui
 						parent.carouselSlider.activeChild = child;
 						parent.carousel.resetInterval();
 					});
-					build.binding.PropertyBinding.create(link, {
+					build.binding.PropertyBinding.create({
+						destination : link,
 						sources : [ {
 							source : child,
 							property : '$index'
 						}, ],
 						property : 'text'
 					});
-					build.binding.ClassNameBinding.create(link, {
+					build.binding.ClassNameBinding.create({
+						destination : link,
 						format : function() {
 							return child.parent.children[child.parent.active] == child;
 						},

@@ -8,12 +8,14 @@ Build('build.binding.ValueBinding', [ 'build::build.binding.TwoWayBinding' ], fu
 		/**
 		 * @constructor
 		 */
-		$constructor : function ValueBinding(destination, source, sourceProperty, destinationProperty, outputToSource, outputToDestination) {
-			$super(this)(destination, source, sourceProperty, destinationProperty || 'value', outputToSource, outputToDestination);
+		$constructor : function ValueBinding(definition) {
+			definition = definition || {};
+			definition.destinationProperty = definition.destinationProperty || 'value';
+			$super(this)(definition);
 		},
 		$prototype : {
-			link : function(destination, source, sourceProperty, destinationProperty) {
-				$super().link(this)(destination, source, sourceProperty, destinationProperty || 'value');
+			link : function(definition) {
+				$super().link(this)();
 			},
 			update : function(subscription, value, reverse) {
 				if (reverse && this.destination.maskValidRequired) {

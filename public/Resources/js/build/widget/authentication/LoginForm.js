@@ -32,7 +32,8 @@ Build('build.widget.authentication.LoginForm', [ 'build::build.form.Form', 'buil
 			this.password.placeholder = 'Password';
 			this.submit = build.form.input.Submit.create('{i:[sign-in]} Login');
 
-			build.binding.TextBinding.create(this.message, {
+			build.binding.TextBinding.create({
+				destination : this.message,
 				sources : [ {
 					source : viewModel,
 					property : 'message'

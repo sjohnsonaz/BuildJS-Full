@@ -36,7 +36,8 @@ Build('build.widget.calendar.Calendar', [ 'build::build.ui.Widget', 'build::buil
 				}
 				return value;
 			});
-			this.daysComputed = build.binding.ComputedBinding.create(this, {
+			this.daysComputed = build.binding.ComputedBinding.create({
+				destination : this,
 				sources : [ {
 					source : this,
 					property : 'year'
@@ -51,15 +52,22 @@ Build('build.widget.calendar.Calendar', [ 'build::build.ui.Widget', 'build::buil
 			});
 			this.watchValue('selectedDay', date);
 			this.watchValue('selectedDayText');
-			build.binding.TwoWayBinding.create(this, this, 'selectedDay', 'selectedDayText', function(value) {
-				if (value) {
-					var tempDate = new Date(value);
-					var formattedValue = getDateFormatted(tempDate);
-					return self.dayHash[formattedValue] || new Date(formattedValue);
-				}
-			}, function(value) {
-				if (value) {
-					return getDateFormatted(value);
+			build.binding.TwoWayBinding.create({
+				destination : this,
+				source : this,
+				sourceProperty : 'selectedDay',
+				destinationProperty : 'selectedDayText',
+				outputToSource : function(value) {
+					if (value) {
+						var tempDate = new Date(value);
+						var formattedValue = getDateFormatted(tempDate);
+						return self.dayHash[formattedValue] || new Date(formattedValue);
+					}
+				},
+				outputToDestination : function(value) {
+					if (value) {
+						return getDateFormatted(value);
+					}
 				}
 			});
 

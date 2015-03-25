@@ -32,7 +32,11 @@ Build('build.widget.tab.TabContainer', [ 'build::build.ui.Switcher', 'build::bui
 				self.active = index;
 			};
 			this.tabHeader = build.widget.tab.TabHeader.create();
-			build.binding.ForEachBinding.create(this.tabHeader, this, 'children');
+			build.binding.ForEachBinding.create({
+				destination : this.tabHeader,
+				source : this,
+				property : 'children'
+			});
 			this.element.appendChild(this.tabHeader.element);
 			this.innerElement = document.createElement('div');
 			this.innerElement.className = 'tab-body';

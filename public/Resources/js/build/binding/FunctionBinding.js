@@ -8,16 +8,8 @@ Build('build.binding.FunctionBinding', [ 'build::build.binding.OneWayBinding' ],
 		/**
 		 * @constructor
 		 */
-		$constructor : function FunctionBinding(destination, definition) {
-			$super(this)(destination, definition);
-			if (definition) {
-				this.output = definition.output;
-			}
-		},
-		$prototype : {
-			update : function(subscription, value, reverse) {
-				this.output.apply(this, this.cache);
-			}
+		$constructor : function FunctionBinding(definition) {
+			$super(this)(definition);
 		}
 	});
 });

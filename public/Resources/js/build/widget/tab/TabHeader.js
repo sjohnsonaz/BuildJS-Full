@@ -16,15 +16,22 @@ Build('build.widget.tab.TabHeader', [ 'build::build.ui.Container', 'build::build
 			template : {
 				create : function(child) {
 					var title = build.widget.tab.TabTitle.create();
-					build.binding.PropertyBinding.create(title, {
+					build.binding.PropertyBinding.create({
+						destination : title,
 						sources : [ {
 							source : child,
 							property : 'title'
 						}, ],
 						property : 'title'
 					});
-					build.binding.EventBinding.create(title, child, 'openTab', 'click');
-					build.binding.ClassNameBinding.create(title, {
+					build.binding.EventBinding.create({
+						destination : title,
+						source : child,
+						sourceProperty : 'openTab',
+						type : 'click'
+					});
+					build.binding.ClassNameBinding.create({
+						destination : title,
 						format : function() {
 							return child.parent.children[child.parent.active] == child;
 						},
