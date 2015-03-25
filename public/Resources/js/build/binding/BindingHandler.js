@@ -27,9 +27,6 @@ Build('build.binding.BindingHandler', [ 'build::build.Module' ], function($defin
 			update : function(subscription, value, reverse) {
 			}
 		},
-		$post : function() {
-
-		},
 		$static : {
 			create : function(definition) {
 				var result = Object.create(this.prototype, Build.debug ? {
