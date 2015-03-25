@@ -1,3 +1,8 @@
+var timeStart = 0;
+var timeBody = 0;
+if (performance && performance.now) {
+	timeStart = performance.now();
+}
 Build.paths.main = '/Resources/js/';
 Build.paths.build = '/Resources/js/';
 Build.paths.demo = '/DemoResources/js/';
@@ -46,4 +51,8 @@ Build(function() {
 	console.log('Application started...');
 	application = demo.application.DemoApplication.create();
 	application.run(document.body);
+	if (performance && performance.now) {
+		timeBody = performance.now();
+		console.log('Time to body draw: ' + (timeBody - timeStart));
+	}
 });
