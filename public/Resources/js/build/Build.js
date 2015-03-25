@@ -111,17 +111,23 @@ var Build = build.Build = (function() {
 		return destination;
 	}
 	function makeProtoLocked(member, method, superContainer) {
+		var childScope = undefined;
+		function child() {
+			return method.apply(childScope, arguments);
+		}
 		superContainer[member] = function(scope) {
-			return function() {
-				return method.apply(scope, arguments);
-			};
+			childScope = scope;
+			return child;
 		};
 	}
 	function makeProto(member, proto, superContainer) {
+		var childScope = undefined;
+		function child() {
+			return proto[member].apply(childScope, arguments);
+		}
 		superContainer[member] = function(scope) {
-			return function() {
-				return proto[member].apply(scope, arguments);
-			};
+			childScope = scope;
+			return child;
 		};
 	}
 	/**
@@ -305,6 +311,9 @@ var Build = build.Build = (function() {
 		return typeof callback === 'function' ? callback : function() {
 		};
 	}
+	function makeSuper(scope) {
+
+	}
 	/**
 	 * @method compileClass
 	 */
@@ -313,6 +322,8 @@ var Build = build.Build = (function() {
 		delete defHandles[$name];
 		if (defHandle) {
 			var $constructor;
+			var superScope = undefined;
+			var superConstructor;
 			defHandle(function($definition) {
 				var $parent;
 				if ($definition.$extends) {
@@ -329,13 +340,15 @@ var Build = build.Build = (function() {
 					$definition.$base = $definition.$base || $parent.$base;
 				}
 				$constructor = assemble($name, $definition.$constructor, $definition.$prototype, $definition.$static, $parent, $definition.$singleton, $definition.$base, $definition.$lockParent, $definition.$post);
+				superConstructor = function() {
+					if ($constructor.$parent) {
+						$constructor.$parent.apply(superScope, Array.prototype.slice.call(arguments));
+					}
+				}
 			}, function(scope) {
 				if (scope) {
-					return function() {
-						if ($constructor.$parent) {
-							$constructor.$parent.apply(scope, Array.prototype.slice.call(arguments));
-						}
-					};
+					superScope = scope;
+					return superConstructor;
 				} else {
 					return $constructor.$super;
 				}
