@@ -18,7 +18,7 @@ Build('build.binding.EventBinding', [ 'build::build.binding.BindingHandler' ], f
 		},
 		$prototype : {
 			link : function(definition) {
-				this.destination.addEventListener(this.destinationProperty, this.source[sourceProperty], undefined, this.source);
+				this.destination.addEventListener(this.type, this.source[this.sourceProperty], undefined, this.source);
 			}
 		}
 	});

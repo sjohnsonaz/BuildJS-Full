@@ -21,7 +21,7 @@ Build('demo.example.viewmodel.TestDataDisplay', [ 'build::build.ui.Container', '
 					source : viewModel,
 					property : 'testValue'
 				}, ],
-				format : 'This is some text: {0}!'
+				output : 'This is some text: {0}!'
 			});
 			var viewModelParagraph1 = build.ui.element.Paragraph.create('Evaluated to true!');
 			var viewModelParagraph2 = build.ui.element.Paragraph.create('Evaluated to false!');

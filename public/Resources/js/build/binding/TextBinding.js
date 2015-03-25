@@ -8,10 +8,10 @@ Build('build.binding.TextBinding', [ 'build::build.binding.OneWayBinding' ], fun
 		/**
 		 * @constructor
 		 */
-		$constructor : function TextBinding(destination, definition) {
+		$constructor : function TextBinding(definition) {
 			definition = definition || {};
 			definition.property = definition.property || 'rawText';
-			$super(this)(destination, definition);
+			$super(this)(definition);
 		}
 	});
 });
