@@ -311,9 +311,6 @@ var Build = build.Build = (function() {
 		return typeof callback === 'function' ? callback : function() {
 		};
 	}
-	function makeSuper(scope) {
-
-	}
 	/**
 	 * @method compileClass
 	 */
@@ -342,7 +339,7 @@ var Build = build.Build = (function() {
 				$constructor = assemble($name, $definition.$constructor, $definition.$prototype, $definition.$static, $parent, $definition.$singleton, $definition.$base, $definition.$lockParent, $definition.$post);
 				superConstructor = function() {
 					if ($constructor.$parent) {
-						$constructor.$parent.apply(superScope, Array.prototype.slice.call(arguments));
+						$constructor.$parent.apply(superScope, arguments);
 					}
 				}
 			}, function(scope) {
