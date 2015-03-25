@@ -110,6 +110,20 @@ var Build = build.Build = (function() {
 		}
 		return destination;
 	}
+	function makeProtoLocked(member, method, superContainer) {
+		superContainer[member] = function(scope) {
+			return function() {
+				return method.apply(scope, arguments);
+			};
+		};
+	}
+	function makeProto(member, proto, superContainer) {
+		superContainer[member] = function(scope) {
+			return function() {
+				return proto[member].apply(scope, arguments);
+			};
+		};
+	}
 	/**
 	 * @method inherit
 	 * @param {Object} $child
@@ -137,24 +151,12 @@ var Build = build.Build = (function() {
 			if ($lockParent) {
 				for ( var member in $parent.prototype) {
 					// We do not want to check hasOwnProperty
-					(function(member, method) {
-						$child.$super[member] = function(scope) {
-							return function() {
-								return method.apply(scope, arguments);
-							};
-						};
-					})(member, $parent.prototype[member]);
+					makeProtoLocked(member, $parent.prototype[member], $child.$super);
 				}
 			} else {
 				for ( var member in $parent.prototype) {
 					// We do not want to check hasOwnProperty
-					(function(member, proto) {
-						$child.$super[member] = function(scope) {
-							return function() {
-								return proto[member].apply(scope, arguments);
-							};
-						};
-					})(member, $parent.prototype);
+					makeProto(member, $parent.prototype, $child.$super);
 				}
 			}
 
