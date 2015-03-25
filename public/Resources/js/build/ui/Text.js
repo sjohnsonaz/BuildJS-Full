@@ -20,7 +20,9 @@ Build('build.ui.Text', [ 'build::build.Module' ], function($define, $super) {
 			this.watchProperty('text', 'data', undefined, null, function(value) {
 				return self.formatString(value, this);
 			});
-			this.watchProperty('rawText', 'data');
+			this.watchProperty('rawText', 'data', undefined, function(value, current, cancel) {
+				return typeof value !== 'undefined' ? value : '';
+			});
 		},
 		$prototype : {
 			/**
