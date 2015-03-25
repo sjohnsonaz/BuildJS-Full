@@ -325,6 +325,20 @@ Build('build.ui.Widget', [ 'build::build.Module' ], function($define, $super) {
 					}
 				}, definition));
 			},
+			getClassName : function(className, value) {
+				var newClassName;
+				switch (typeof className) {
+				case 'string':
+					newClassName = value ? className : undefined;
+					break;
+				case 'object':
+					newClassName = className[value];
+					break;
+				case 'function':
+					newClassName = className(value);
+					break;
+				}
+			},
 			/**
 			 * @method watchClass
 			 */
