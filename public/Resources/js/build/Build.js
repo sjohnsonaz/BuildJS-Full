@@ -218,7 +218,7 @@ var Build = build.Build = (function() {
 
 		$constructor = $singleton ? singleton($constructor) : $constructor;
 
-		$constructor = typeof $post === 'function' ? ($post.call($constructor, arguments) || $constructor) : $constructor
+		$constructor = typeof $post === 'function' ? ($post.apply($constructor, arguments) || $constructor) : $constructor
 
 		definitions[$name] = $constructor;
 		namespace($name, $constructor);
