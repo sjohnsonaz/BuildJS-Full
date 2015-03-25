@@ -325,7 +325,7 @@ Build('build.ui.Widget', [ 'build::build.Module' ], function($define, $super) {
 					}
 				}, definition));
 			},
-			getClassName : function(className, value) {
+			runClassName : function(className, value) {
 				var newClassName;
 				switch (typeof className) {
 				case 'string':
@@ -338,6 +338,40 @@ Build('build.ui.Widget', [ 'build::build.Module' ], function($define, $super) {
 					newClassName = className(value);
 					break;
 				}
+				return newClassName;
+			},
+			getClassName : function(className, lastClassName, hidden) {
+				var value;
+				switch (typeof className) {
+				case 'string':
+					value = this.element.classList.contains(className);
+					break;
+				case 'object':
+					for ( var name in className) {
+						if (className.hasOwnProperty(name)) {
+							if (this.element.classList.contains(name)) {
+								value = name;
+								break;
+							}
+						}
+					}
+					break;
+				case 'function':
+					value = hidden;
+					break;
+				}
+				return value;
+			},
+			setClassName : function(className, lastClassName, value) {
+				var newClassName = this.runClassName(className, value);
+				if (newClassName !== lastClassName) {
+					if (lastClassName) {
+						this.element.classList.remove(lastClassName);
+					}
+					if (newClassName) {
+						this.element.classList.add(newClassName);
+					}
+				}
 			},
 			/**
 			 * @method watchClass
@@ -345,13 +379,10 @@ Build('build.ui.Widget', [ 'build::build.Module' ], function($define, $super) {
 			watchClass : function(property, className, value, get, set, thisArg, definition) {
 				className = className || property;
 				// TODO: Decide action on undefined
+				var lastClassName = undefined;
 				var firstValue = this.runSet(value, set, thisArg);
 				if (typeof firstValue !== 'undefined') {
-					if (firstValue) {
-						this.element.classList.add(className);
-					} else {
-						this.element.classList.remove(className);
-					}
+					this.setClassName(className, lastClassName, firstValue);
 				}
 				var hidden;
 				Object.defineProperty(this, property, Build.merge({
