@@ -44,8 +44,8 @@ Build('build.ui.Switcher', [ 'build::build.ui.Container', 'build::build.ui.Switc
 				}
 				return output;
 			});
-			build.binding.TwoWayBinding.create({
-				destination : this,
+			this.bind([ {
+				handler : 'twoWay',
 				source : this,
 				sourceProperty : 'active',
 				destinationProperty : 'activeChild',
@@ -57,7 +57,7 @@ Build('build.ui.Switcher', [ 'build::build.ui.Container', 'build::build.ui.Switc
 					// To activeChild
 					return self.children[value];
 				}
-			});
+			} ]);
 		},
 		$prototype : {
 			/**

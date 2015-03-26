@@ -49,6 +49,9 @@ Build('build.binding.TwoWayBinding', [ 'build::build.binding.BindingHandler' ], 
 					this.source.preventNotifications(this.sourceProperty, false, this);
 				}
 			}
+		},
+		$post : function() {
+			build.Module.handlers.twoWay = this;
 		}
 	});
 });
