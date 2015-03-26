@@ -68,6 +68,9 @@ Build('build.binding.OneWayBinding', [ 'build::build.binding.BindingHandler' ], 
 					this.destination[this.property] = result;
 				}
 			}
+		},
+		$post : function() {
+			build.Module.handlers.oneWay = this;
 		}
 	});
 });

@@ -15,14 +15,15 @@ Build('demo.example.viewmodel.TestDataDisplay', [ 'build::build.ui.Container', '
 			this.viewModelContainer0 = build.ui.Container.create();
 			this.viewModelContainer1 = build.ui.Container.create();
 
-			build.binding.TextBinding.create({
-				destination : this.viewModelParagraph0,
+			this.viewModelParagraph0.bind([ {
+				handler : 'oneWay',
+				property : 'rawText',
 				sources : [ {
 					source : viewModel,
 					property : 'testValue'
 				}, ],
 				output : 'This is some text: {0}!'
-			});
+			} ]);
 			var viewModelParagraph1 = build.ui.element.Paragraph.create('Evaluated to true!');
 			var viewModelParagraph2 = build.ui.element.Paragraph.create('Evaluated to false!');
 			build.binding.IfBinding.create({
