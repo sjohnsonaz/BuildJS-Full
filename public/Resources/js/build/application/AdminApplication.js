@@ -28,16 +28,21 @@ Build('build.application.AdminApplication', [ 'build::build.application.Authenti
 			this.userWidget = build.widget.user.UserWidget.create(this.userServiceConnection);
 			this.adminUserTab.addChild(this.userWidget);
 			this.adminPanel.addChild(this.adminUserTab);
+			this.bind([ {
+				handler : 'oneWay',
+				sources : [ {
+					source : this.authenticationWidget.authenticationViewModel,
+					property : 'loggedIn'
+				} ],
+				output : function(loggedIn) {
+					if (loggedIn) {
+						self.userWidget.list();
+					} else {
 
-			this.authenticationWidget.addCallback('loginSuccess', function(data, request) {
-				// this.user = data.user;
-				// this.addChild(this.adminPanel);
-				self.userWidget.list();
-			});
-			this.authenticationWidget.addCallback('logoutSuccess', function(data, request) {
-				// this.user = undefined;
-				// this.removeChild(this.adminPanel);
-			});
+					}
+				}
+			} ]);
+
 			this.sections.addChild(this.adminPanel);
 
 			this.adminMenuElement = build.widget.menu.MenuElement.create();
