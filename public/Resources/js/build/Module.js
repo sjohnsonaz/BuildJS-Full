@@ -368,13 +368,21 @@ Build('build.Module', [], function($define, $super) {
 			* @method bind
 			*/
 			bind : function(definition) {
-				for (var index = 0, length = definition.length; index < length; index++) {
-					var handlerDefinition = definition[index];
-					if (handlerDefinition.handler === 'bind') {
-						property.bind(handlerDefinition);
-					} else {
-						handlerDefinition.destination = handlerDefinition.destination || this;
-						build.Module.handlers[handlerDefinition.handler].create(handlerDefinition);
+				if (definition instanceof Array) {
+					for (var index = 0, length = definition.length; index < length; index++) {
+						var handlerDefinition = definition[index];
+						if (handlerDefinition.handler === 'bind') {
+							property.bind(handlerDefinition);
+						} else {
+							handlerDefinition.destination = handlerDefinition.destination || this;
+							build.Module.handlers[handlerDefinition.handler].create(handlerDefinition);
+						}
+					}
+				} else {
+					for ( var property in definition) {
+						if (definition.hasOwnProperty(property)) {
+							this[property].bind(definition[property]);
+						}
 					}
 				}
 			},
