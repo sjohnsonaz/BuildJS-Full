@@ -2,7 +2,7 @@
  * @class build.widget.progress.ProgressBar
  * @extends build.ui.Widget
  */
-Build('build.widget.progress.ProgressBar', [ 'build::build.ui.Widget', 'build::build.binding.FunctionBinding' ], function($define, $super) {
+Build('build.widget.progress.ProgressBar', [ 'build::build.ui.Widget', 'build::build.binding.OneWayBinding' ], function($define, $super) {
 	$define({
 		$extends : 'build.ui.Widget',
 		/**
@@ -19,8 +19,8 @@ Build('build.widget.progress.ProgressBar', [ 'build::build.ui.Widget', 'build::b
 			this.watchValue('showPercentage', true);
 			this.watchClass('complete', 'progress-complete', false);
 			this.watchClass('error', 'progress-error', false);
-			build.binding.FunctionBinding.create({
-				destination : this,
+			this.bind([ {
+				handler : 'oneWay',
 				sources : [ {
 					source : this,
 					property : 'progress'
@@ -46,7 +46,7 @@ Build('build.widget.progress.ProgressBar', [ 'build::build.ui.Widget', 'build::b
 						self.progressElement.style.width = progress + '%';
 					}
 				}
-			});
+			} ]);
 			this.element.appendChild(this.progressElement);
 		}
 	});

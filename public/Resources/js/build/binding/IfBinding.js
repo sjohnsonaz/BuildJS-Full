@@ -80,6 +80,9 @@ Build('build.binding.IfBinding', [ 'build::build.binding.OneWayBinding' ], funct
 					}
 				}
 			}
+		},
+		$post : function() {
+			build.Module.handlers['if'] = this;
 		}
 	});
 });
