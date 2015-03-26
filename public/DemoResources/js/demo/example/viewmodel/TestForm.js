@@ -9,11 +9,7 @@ Build('demo.example.viewmodel.TestForm', [ 'build::build.form.Form', 'build::bui
 		 * @constructor
 		 */
 		$constructor : function TestForm(viewModel) {
-			$super(this)({
-				testValue : {},
-				testTrue : {},
-				testArray : {}
-			}, viewModel);
+			$super(this)();
 			this.testValue = build.form.input.Text.create();
 			this.testTrue = build.form.input.CheckBox.create('test0', 'test0', 'test0');
 			this.testArray = build.ui.Container.create();
@@ -26,6 +22,23 @@ Build('demo.example.viewmodel.TestForm', [ 'build::build.form.Form', 'build::bui
 					}
 				};
 			})();
+			this.bind({
+				testValue : [ {
+					handler : 'value',
+					source : viewModel,
+					sourceProperty : 'testValue'
+				} ],
+				testTrue : [ {
+					handler : 'value',
+					source : viewModel,
+					sourceProperty : 'testTrue'
+				} ],
+				testArray : [ {
+					handler : 'forEach',
+					source : viewModel,
+					sourceProperty : 'testArray'
+				} ]
+			});
 			this.addChild(this.testValue);
 			this.addChild(this.testTrue);
 			this.addChild(this.testArray);

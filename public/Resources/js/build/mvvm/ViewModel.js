@@ -53,7 +53,7 @@ Build('build.mvvm.ViewModel', [ 'build::build.Module', 'build::build.utility.Obs
 					if (propertyDefinition.type == 'array') {
 						this[name].removeAll();
 					} else {
-						this[name] = '';
+						this[name] = undefined;
 					}
 				}
 			},

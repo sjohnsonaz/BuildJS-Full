@@ -2,10 +2,10 @@
  * @class build.form.Form
  * @extends build.ui.Container
  */
-Build('build.form.Form', [ 'build::build.mvvm.View' ], function($define, $super) {
+Build('build.form.Form', [ 'build::build.ui.Container' ], function($define, $super) {
 	// TODO: Create navigation prevention on form change.
 	$define({
-		$extends : 'build.mvvm.View',
+		$extends : 'build.ui.Container',
 		/**
 		 * @constructor
 		 */
@@ -15,8 +15,8 @@ Build('build.form.Form', [ 'build::build.mvvm.View' ], function($define, $super)
 		 * @property action
 		 * @property model
 		 */
-		$constructor : function Form(valueMap, viewModel) {
-			$super(this)(valueMap, viewModel);
+		$constructor : function Form() {
+			$super(this)();
 			this.watchProperty('method', 'method', 'GET');
 			this.watchProperty('action', 'action', '');
 		},

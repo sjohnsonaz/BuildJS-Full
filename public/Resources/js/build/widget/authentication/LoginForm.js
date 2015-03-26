@@ -18,12 +18,10 @@ Build('build.widget.authentication.LoginForm', [ 'build::build.form.Form', 'buil
 		 * @property authenticationServiceConnection
 		 */
 		$constructor : function LoginForm(viewModel) {
-			$super(this)({
-				username : {},
-				password : {}
-			}, viewModel);
+			$super(this)();
 			this.method = 'POST';
 			this.action = '#';
+			this.viewModel = viewModel;
 
 			this.message = build.ui.Content.create();
 			this.username = build.form.input.Text.create();
@@ -33,6 +31,16 @@ Build('build.widget.authentication.LoginForm', [ 'build::build.form.Form', 'buil
 			this.submit = build.form.input.Submit.create('{i:[sign-in]} Login');
 
 			this.bind({
+				username : [ {
+					handler : 'value',
+					source : viewModel,
+					sourceProperty : 'username'
+				} ],
+				password : [ {
+					handler : 'value',
+					source : viewModel,
+					sourceProperty : 'password',
+				} ],
 				message : [ {
 					handler : 'oneWay',
 					property : 'rawText',
