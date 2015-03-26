@@ -375,7 +375,14 @@ Build('build.Module', [], function($define, $super) {
 							property.bind(handlerDefinition);
 						} else {
 							handlerDefinition.destination = handlerDefinition.destination || this;
-							build.Module.handlers[handlerDefinition.handler].create(handlerDefinition);
+							switch (typeof handlerDefinition.handler) {
+							case 'string':
+								build.Module.handlers[handlerDefinition.handler].create(handlerDefinition);
+								break;
+							case 'function':
+								handlerDefinition.handler.create(handlerDefinition);
+								break;
+							}
 						}
 					}
 				} else {
