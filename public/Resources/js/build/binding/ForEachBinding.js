@@ -20,7 +20,11 @@ Build('build.binding.ForEachBinding', [ 'build::build.binding.BindingHandler' ],
 		},
 		$prototype : {
 			link : function(definition) {
-				this.destination.children = this.source[this.property];
+				if (this.source instanceof Array) {
+					this.destination.children = this.source;
+				} else {
+					this.destination.children = this.source[this.property];
+				}
 			}
 		},
 		$post : function() {

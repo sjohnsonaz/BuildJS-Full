@@ -264,10 +264,14 @@ Build('build.ui.Container', [ 'build::build.ui.Widget', 'build::build.utility.Ob
 				return new build.ui.ChildrenHandler(this.innerElement, this);
 			},
 			subscribeChildren : function(children, childrenHandler) {
-				children.subscribe(childrenHandler);
+				if (children.subscribe) {
+					children.subscribe(childrenHandler);
+				}
 			},
 			unsubscribeChildren : function(children, childrenHandler) {
-				children.unsubscribe(childrenHandler);
+				if (children.unsubscribe) {
+					children.unsubscribe(childrenHandler);
+				}
 			}
 		}
 	});
