@@ -33,6 +33,9 @@ Build('build.binding.ValueBinding', [ 'build::build.binding.TwoWayBinding' ], fu
 					$super().update(this)(subscription, value, reverse);
 				}
 			}
+		},
+		$post : function() {
+			build.Module.handlers['value'] = this;
 		}
 	});
 });

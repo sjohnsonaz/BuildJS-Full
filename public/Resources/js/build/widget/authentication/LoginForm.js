@@ -3,7 +3,7 @@
  * @extends build.form.Form
  */
 Build('build.widget.authentication.LoginForm', [ 'build::build.form.Form', 'build::build.ui.Content', 'build::build.form.input.Text', 'build::build.form.input.Password', 'build::build.form.input.Submit', 'build::build.form.container.FormControl',
-		'build::build.form.Label', 'build::build.binding.TextBinding' ], function($define, $super) {
+		'build::build.form.Label', 'build::build.binding.OneWayBinding' ], function($define, $super) {
 	$define({
 		$extends : 'build.form.Form',
 		/**
@@ -32,11 +32,14 @@ Build('build.widget.authentication.LoginForm', [ 'build::build.form.Form', 'buil
 			this.password.placeholder = 'Password';
 			this.submit = build.form.input.Submit.create('{i:[sign-in]} Login');
 
-			build.binding.TextBinding.create({
-				destination : this.message,
-				sources : [ {
-					source : viewModel,
-					property : 'message'
+			this.bind({
+				message : [ {
+					handler : 'oneWay',
+					property : 'rawText',
+					sources : [ {
+						source : viewModel,
+						property : 'message'
+					} ]
 				} ]
 			});
 

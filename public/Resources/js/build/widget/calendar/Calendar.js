@@ -2,7 +2,7 @@
  * @class build.widget.calendar.Calendar
  * @extends build.ui.Widget
  */
-Build('build.widget.calendar.Calendar', [ 'build::build.ui.Widget', 'build::build.binding.ComputedBinding', 'build::build.binding.TwoWayBinding' ], function(define, $super) {
+Build('build.widget.calendar.Calendar', [ 'build::build.ui.Widget', 'build::build.binding.OneWayBinding', 'build::build.binding.TwoWayBinding' ], function(define, $super) {
 	define({
 		$extends : 'build.ui.Widget',
 		/**
@@ -36,8 +36,9 @@ Build('build.widget.calendar.Calendar', [ 'build::build.ui.Widget', 'build::buil
 				}
 				return value;
 			});
-			this.daysComputed = build.binding.ComputedBinding.create({
+			this.daysComputed = build.binding.OneWayBinding.create({
 				destination : this,
+				property : 'days',
 				sources : [ {
 					source : this,
 					property : 'year'
@@ -48,12 +49,11 @@ Build('build.widget.calendar.Calendar', [ 'build::build.ui.Widget', 'build::buil
 				output : function(year, month) {
 					return self.renderMonth(year, month);
 				},
-				destination : 'days'
 			});
 			this.watchValue('selectedDay', date);
 			this.watchValue('selectedDayText');
-			build.binding.TwoWayBinding.create({
-				destination : this,
+			this.bind([ {
+				handler : 'twoWay',
 				source : this,
 				sourceProperty : 'selectedDay',
 				destinationProperty : 'selectedDayText',
@@ -69,7 +69,7 @@ Build('build.widget.calendar.Calendar', [ 'build::build.ui.Widget', 'build::buil
 						return getDateFormatted(value);
 					}
 				}
-			});
+			} ]);
 
 			var oldSelectedDay = undefined;
 			this.subscribe('selectedDay', function(value) {

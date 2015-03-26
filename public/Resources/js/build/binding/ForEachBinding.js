@@ -22,6 +22,9 @@ Build('build.binding.ForEachBinding', [ 'build::build.binding.BindingHandler' ],
 			link : function(definition) {
 				this.destination.children = this.source[this.property];
 			}
+		},
+		$post : function() {
+			build.Module.handlers['forEach'] = this;
 		}
 	});
 });

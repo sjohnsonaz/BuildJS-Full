@@ -46,6 +46,9 @@ Build('build.binding.ClassNameBinding', [ 'build::build.binding.OneWayBinding' ]
 					}
 				}
 			}
+		},
+		$post : function() {
+			build.Module.handlers['className'] = this;
 		}
 	});
 });

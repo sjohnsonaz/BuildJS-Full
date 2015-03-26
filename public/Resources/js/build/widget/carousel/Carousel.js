@@ -54,10 +54,12 @@ Build('build.widget.carousel.Carousel', [ 'build::build.ui.Widget', 'build::buil
 
 			this.pager = build.widget.carousel.CarouselPager.create(this, this.carouselSlider);
 			this.pager.className = 'carousel-pager';
-			build.binding.ForEachBinding.create({
-				destination : this.pager,
-				source : this.carouselSlider,
-				property : 'children'
+			this.bind({
+				pager : [ {
+					handler : 'forEach',
+					source : this.carouselSlider,
+					property : 'children'
+				} ]
 			});
 
 			this.carouselBody.appendChild(this.leftButton);

@@ -70,7 +70,7 @@ Build('build.binding.OneWayBinding', [ 'build::build.binding.BindingHandler' ], 
 			}
 		},
 		$post : function() {
-			build.Module.handlers.oneWay = this;
+			build.Module.handlers['oneWay'] = this;
 		}
 	});
 });

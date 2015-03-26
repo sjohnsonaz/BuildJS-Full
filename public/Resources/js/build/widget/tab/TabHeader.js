@@ -2,7 +2,7 @@
  * @class build.widget.tab.TabHeader
  * @extends build.ui.Container
  */
-Build('build.widget.tab.TabHeader', [ 'build::build.ui.Container', 'build::build.binding.PropertyBinding', 'build::build.binding.EventBinding', 'build::build.binding.ClassNameBinding', 'build::build.widget.tab.TabTitle' ], function($define, $super) {
+Build('build.widget.tab.TabHeader', [ 'build::build.ui.Container', 'build::build.binding.OneWayBinding', 'build::build.binding.EventBinding', 'build::build.binding.ClassNameBinding', 'build::build.widget.tab.TabTitle' ], function($define, $super) {
 	$define({
 		$extends : 'build.ui.Container',
 		/**
@@ -16,22 +16,20 @@ Build('build.widget.tab.TabHeader', [ 'build::build.ui.Container', 'build::build
 			template : {
 				create : function(child) {
 					var title = build.widget.tab.TabTitle.create();
-					build.binding.PropertyBinding.create({
-						destination : title,
+					title.bind([ {
+						handler : 'oneWay',
+						property : 'title',
 						sources : [ {
 							source : child,
 							property : 'title'
-						}, ],
-						property : 'title'
-					});
-					build.binding.EventBinding.create({
-						destination : title,
+						}, ]
+					}, {
+						handler : 'event',
 						source : child,
 						sourceProperty : 'openTab',
 						type : 'click'
-					});
-					build.binding.ClassNameBinding.create({
-						destination : title,
+					}, {
+						handler : 'className',
 						format : function() {
 							return child.parent.children[child.parent.active] == child;
 						},
@@ -40,7 +38,7 @@ Build('build.widget.tab.TabHeader', [ 'build::build.ui.Container', 'build::build
 							property : 'active'
 						} ],
 						className : 'tab-active'
-					});
+					} ]);
 					return title.element;
 				},
 				destroy : function(child, element) {

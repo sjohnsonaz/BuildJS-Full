@@ -2,7 +2,7 @@
  * @class build.widget.carousel.CarouselPager
  * @extends build.ui.Container
  */
-Build('build.widget.carousel.CarouselPager', [ 'build::build.ui.Container', 'build::build.ui.Content', 'build::build.binding.PropertyBinding', 'build::build.binding.ClassNameBinding' ], function(define, $super) {
+Build('build.widget.carousel.CarouselPager', [ 'build::build.ui.Container', 'build::build.ui.Content', 'build::build.binding.OneWayBinding', 'build::build.binding.ClassNameBinding' ], function(define, $super) {
 	define({
 		$extends : 'build.ui.Container',
 		/**
@@ -23,16 +23,15 @@ Build('build.widget.carousel.CarouselPager', [ 'build::build.ui.Container', 'bui
 						parent.carouselSlider.activeChild = child;
 						parent.carousel.resetInterval();
 					});
-					build.binding.PropertyBinding.create({
-						destination : link,
+					link.bind([ {
+						handler : 'oneWay',
+						property : 'text',
 						sources : [ {
 							source : child,
 							property : '$index'
-						}, ],
-						property : 'text'
-					});
-					build.binding.ClassNameBinding.create({
-						destination : link,
+						}, ]
+					}, {
+						handler : 'className',
 						format : function() {
 							return child.parent.children[child.parent.active] == child;
 						},
@@ -41,7 +40,7 @@ Build('build.widget.carousel.CarouselPager', [ 'build::build.ui.Container', 'bui
 							property : 'active'
 						} ],
 						className : 'carousel-pager-active'
-					});
+					} ]);
 
 					return link.element;
 				},

@@ -20,6 +20,9 @@ Build('build.binding.EventBinding', [ 'build::build.binding.BindingHandler' ], f
 			link : function(definition) {
 				this.destination.addEventListener(this.type, this.source[this.sourceProperty], undefined, this.source);
 			}
+		},
+		$post : function() {
+			build.Module.handlers['event'] = this;
 		}
 	});
 });
