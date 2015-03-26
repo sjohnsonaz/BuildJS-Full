@@ -14,55 +14,42 @@ Build('build.widget.authentication.LogoutForm', [ 'build::build.form.Form', 'bui
 		 * @property submit
 		 * @property authenticationServiceConnection
 		 */
-		$constructor : function LogoutForm(authenticationServiceConnection) {
-			$super(this)(authenticationServiceConnection);
+		$constructor : function LogoutForm(viewModel) {
+			$super(this)();
 			this.method = 'POST';
 			this.action = '#';
 
+			this.viewModel = viewModel;
+
 			this.username = build.ui.element.Div.create('');
 			this.submit = build.form.input.Submit.create('{i:[sign-out]} Logout');
-			this.authenticationServiceConnection = authenticationServiceConnection;
 
-			this.addChild(this.username);
-			this.addChild(build.form.container.FormControl.create(null, this.submit));
+			this.bind({
+				username : [ {
+					handler : 'oneWay',
+					property : 'rawText',
+					sources : [ {
+						source : viewModel,
+						property : 'username'
+					} ]
+				} ]
+			});
 
 			this.addEventListener('submit', function(form, event) {
 				event.preventDefault();
 				this.logout();
 				return false;
 			}, false, this);
+
+			this.addChild(this.username);
+			this.addChild(build.form.container.FormControl.create(null, this.submit));
 		},
 		$prototype : {
-			/**
-			 * 
-			 */
-			wrap : function(model) {
-				this.username.text = 'Logged in as ' + model.username;
+			logout : function() {
+				this.viewModel.logout();
 			},
-			/**
-			 * 
-			 */
-			unwrap : function(model) {
-
-			},
-			/**
-			 * 
-			 */
 			clear : function() {
-				this.username.text = '';
-			},
-			/**
-			 * 
-			 */
-			logout : function(success, error) {
-				var self = this;
-				this.authenticationServiceConnection.logout(function(data, request) {
-					console.log(data);
-					self.runCallbacks('logoutSuccess', data, request);
-					Build.safe(success)(data, request);
-				}, function(request) {
-					Build.safe(error)(request);
-				});
+				this.viewModel.userName = undefined;
 			}
 		}
 	});
