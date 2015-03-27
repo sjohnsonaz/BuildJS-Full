@@ -2,7 +2,7 @@
  * @class build.widget.user.UserListForm
  * @extends build.form.Form 
  */
-Build('build.widget.user.UserListForm', [ 'build::build.form.Form', 'build::build.widget.grid.Grid', 'build::build.form.input.Button', 'build::build.form.container.ButtonGroup' ], function($define, $super) {
+Build('build.widget.user.UserListForm', [ 'build::build.form.Form', 'build::build.container.table.SimpleTable', 'build::build.form.input.Button', 'build::build.form.container.ButtonGroup' ], function($define, $super) {
 	$define({
 		$extends : 'build.form.Form',
 		/**
@@ -19,8 +19,13 @@ Build('build.widget.user.UserListForm', [ 'build::build.form.Form', 'build::buil
 			this.createButton = build.form.input.Button.create('New User');
 			this.createButton.addClass('pull-right');
 			this.addChild(this.createButton);
-			this.userTable = build.widget.grid.Grid.create();
-			this.userTable.addHeader('Username', 'First Name', 'Last Name', '');
+			this.userTable = build.container.table.SimpleTable.create();
+			this.userTable.map = {
+				username : 0,
+				firstName : 1,
+				lastName : 2
+			};
+			this.userTable.header.children = [ 'Username', 'First Name', 'Last Name', '' ];
 			this.addChild(this.userTable);
 			this.userServiceConnection = userServiceConnection;
 
@@ -29,16 +34,12 @@ Build('build.widget.user.UserListForm', [ 'build::build.form.Form', 'build::buil
 				this.createUser();
 				return false;
 			}, false, this);
-		},
-		$prototype : {
-			/**
-			 * 
-			 */
-			wrap : function(model) {
-				var self = this;
-				this.userTable.removeAll();
-				for (var index = 0, length = model.length; index < length; index++) {
-					var user = model[index];
+			//this.userTable = build.widget.grid.Grid.create();
+			/*
+			this.userTable.template = {
+				create : function(child, parent) {
+					var self = this;
+					var user = child;
 					var viewUserButton = build.form.input.Button.create('View');
 					var editUserButton = build.form.input.Button.create('Edit');
 					var deleteUserButton = build.form.input.Button.create('Delete');
@@ -70,14 +71,28 @@ Build('build.widget.user.UserListForm', [ 'build::build.form.Form', 'build::buil
 					buttonGroup.addChild(editUserButton);
 					buttonGroup.addChild(deleteUserButton);
 					buttonGroup.addChild(permissionButton);
-					this.userTable.addRow([ user.username, user.firstName, user.lastName, buttonGroup ]);
+					var row = document.createElement('tr');
+					var cell0 = document.createElement('td');
+					cell0.appendChild(document.createTextNode(user.username));
+					var cell1 = document.createElement('td');
+					cell1.appendChild(document.createTextNode(user.firstName));
+					var cell2 = document.createElement('td');
+					cell2.appendChild(document.createTextNode(user.lastName));
+					var cell3 = document.createElement('td');
+					cell3.appendChild(buttonGroup.element);
+					row.appendChild(cell0);
+					row.appendChild(cell1);
+					row.appendChild(cell2);
+					row.appendChild(cell3);
+					return row;
+				},
+				destroy : function(child, element) {
+
 				}
-			},
-			/**
-			 * 
-			 */
-			unwrap : function(model) {
-			},
+			};
+			*/
+		},
+		$prototype : {
 			/**
 			 * 
 			 */

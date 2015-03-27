@@ -4,7 +4,7 @@
  */
 Build('build.widget.grid.Grid', [ 'build::build.ui.element.Table', 'build::build.widget.grid.Pager' ], function($define, $super) {
 	$define({
-		$extends : 'build.ui.Widget',
+		$extends : 'build.ui.Container',
 		/**
 		 * @constructor
 		 */

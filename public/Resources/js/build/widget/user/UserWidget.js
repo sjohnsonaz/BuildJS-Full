@@ -112,7 +112,7 @@ Build('build.widget.user.UserWidget', [ 'build::build.ui.Switcher', 'build::buil
 			list : function() {
 				var self = this;
 				this.userServiceConnection.get(undefined, function(data, request) {
-					self.userListForm.model = data;
+					self.userListForm.userTable.children = data;
 				}, function(request) {
 				});
 			}

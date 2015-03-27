@@ -10,6 +10,7 @@ Build('build.container.table.SimpleTable', [ 'build::build.ui.Container', 'build
 		 */
 		$constructor : function SimpleTable() {
 			$super(this)();
+			var self = this;
 			this.header = build.ui.Container.createType('thead');
 			this.header.iteratorType = 'th';
 
@@ -18,6 +19,9 @@ Build('build.container.table.SimpleTable', [ 'build::build.ui.Container', 'build
 			this.template = {
 				create : function(child, parent) {
 					var row = build.ui.Container.createType('tr');
+					if (!(child instanceof Array)) {
+						child = self.itemToRow(child);
+					}
 					row.iteratorType = 'td';
 					row.bind([ {
 						handler : 'forEach',
@@ -37,7 +41,25 @@ Build('build.container.table.SimpleTable', [ 'build::build.ui.Container', 'build
 			this.element.appendChild(this.footer.element);
 		},
 		$prototype : {
-			type : 'table'
+			type : 'table',
+			itemToRow : function(item) {
+				var map = this.map;
+				var row = [];
+				if (map) {
+					for ( var name in map) {
+						if (map.hasOwnProperty(name)) {
+							row[map[name]] = item[name];
+						}
+					}
+				} else {
+					for ( var name in item) {
+						if (item.hasOwnProperty(name)) {
+							row.push(item[name]);
+						}
+					}
+				}
+				return row;
+			}
 		}
 	});
 });
