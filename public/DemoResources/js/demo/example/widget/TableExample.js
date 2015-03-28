@@ -2,7 +2,7 @@
  * @class demo.example.widget.TableExample
  * @extends build.ui.Container
  */
-Build('demo.example.widget.TableExample', [ 'build::build.ui.Container', 'build::build.ui.element.Header2', 'build::build.container.table.SimpleTable', 'build::build.widget.progress.ProgressBar' ], function($define, $super) {
+Build('demo.example.widget.TableExample', [ 'build::build.ui.Container', 'build::build.ui.element.Header2', 'build::build.container.table.SimpleTable' ], function($define, $super) {
 	$define({
 		$extends : 'build.ui.Container',
 		/**
