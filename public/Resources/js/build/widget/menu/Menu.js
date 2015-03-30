@@ -1,19 +1,19 @@
 /**
- * @class build.container.list.SimpleTree
+ * @class build.widget.menu.Menu
  * @extends build.ui.Container
  */
-Build('build.container.list.SimpleTree', [ 'build::build.ui.Container' ], function(define, $super) {
+Build('build.widget.menu.Menu', [ 'build::build.ui.Container' ], function(define, $super) {
 	define({
 		$extends : 'build.ui.Container',
 		/**
 		 * @constructor
 		 */
-		$constructor : function SimpleTree() {
+		$constructor : function Menu() {
 			$super(this)();
 			this.template = {
 				create : function(child, parent) {
 					if (child instanceof Array) {
-						var list = build.container.list.SimpleTree.create();
+						var list = build.widget.menu.Menu.create();
 						list.bind([ {
 							handler : 'forEach',
 							source : child,
