@@ -13,15 +13,15 @@ Build('build.container.list.SimpleTree', [ 'build::build.ui.Container' ], functi
 			this.template = {
 				create : function(child, parent) {
 					if (child instanceof Array) {
-						var row = build.container.list.SimpleTree.create();
+						var list = build.container.list.SimpleTree.create();
 						if (!(child instanceof Array)) {
 							child = self.itemToRow(child);
 						}
-						row.bind([ {
+						list.bind([ {
 							handler : 'forEach',
 							source : child,
 						} ]);
-						return row.element;
+						return list.element;
 					} else {
 						return child;
 					}
