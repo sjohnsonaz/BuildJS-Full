@@ -8,23 +8,23 @@ Build('build.widget.menu.MenuItem', [ 'build::build.ui.Widget' ], function(defin
 		/**
 		 * @constructor
 		 */
-		$constructor : function MenuItem() {
+		$constructor : function MenuItem(text, link, action) {
 			$super(this)();
 			var self = this;
 			var link = document.createElement('a');
-			this.watchValue('link', '#', function(value) {
-				return self.link.href;
+			this.watchValue('link', link || '#', function(value) {
+				return link.href;
 			}, function(value, cancel, hidden) {
-				self.link.href = value;
+				link.href = value;
 				return value;
 			});
-			this.watchValue('text', '', function(value) {
-				return self.link.innerHTML;
+			this.watchValue('text', text || '', function(value) {
+				return link.innerHTML;
 			}, function(value, cancel, hidden) {
-				self.link.innerHTML = value;
-				return self.link.innerHTML;
+				link.innerHTML = value;
+				return link.innerHTML;
 			});
-			this.watchValue('action');
+			this.watchValue('action', action);
 			this.element.appendChild(link);
 		},
 		$prototype : {

@@ -13,8 +13,13 @@ Build('demo.example.widget.MenuExample', [ 'build::build.ui.Container', 'build::
 			var header0 = build.ui.element.Header2.create('Menus');
 			this.addChild(header0);
 
-			var menu = build.widget.menu.Menu.create();
-			menu.children = [ 1, 2, [ 3 ], 4 ];
+			var menu = build.widget.menu.Menu.create('Menu');
+			menu.children = [ 1, {
+				text : 2
+			}, {
+				text : 3,
+				children : [ 4, '|', 5 ]
+			}, 6, '|', 7 ];
 			this.addChild(menu);
 		}
 	});
