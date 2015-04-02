@@ -33,21 +33,19 @@ Build('build.widget.menu.Menu', [ 'build::build.ui.Container', 'build::build.wid
 					switch (typeof child) {
 					case 'object':
 						if (child.children) {
-							var li = document.createElement('li');
-							var menu = build.widget.menu.Menu.create(child.text, child.link, child.action, child.open);
+							var menu = build.widget.menu.Menu.createType('li', child.text, child.link, child.action, child.open);
 							menu.bind([ {
 								handler : 'forEach',
 								source : child,
 							} ]);
-							li.appendChild(menu.element);
-							return li;
+							return menu.element;
 						} else {
 							return build.widget.menu.MenuItem.create(child.text, child.link, child.action).element;
 						}
 						break;
 					case 'string':
 						if (child === '|') {
-							return document.createElement('hr');
+							return document.createElement('div');
 						} else {
 							return child;
 						}
