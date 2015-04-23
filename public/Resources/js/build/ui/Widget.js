@@ -84,8 +84,8 @@ Build('build.ui.Widget', [ 'build::build.Module' ], function($define, $super) {
 			/**
 			 * @method uniqueId
 			 */
-			uniqueId : function() {
-				var $name = this.constructor.$name;
+			uniqueId : function(name) {
+				var $name = name || this.constructor.$name;
 				idCount[$name] = idCount[$name] !== undefined ? idCount[$name] + 1 : 0;
 				return Build.nameToCss($name + '-' + idCount[$name]);
 			},
