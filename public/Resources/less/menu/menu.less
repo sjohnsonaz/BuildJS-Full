@@ -162,6 +162,7 @@
 	.clearfix;
 	display: inline-block;
 	background-color: @input-menu-background-color;
+	width: 100%;
 	padding: 0;
 	& > a {
 		display: block;
@@ -187,6 +188,16 @@
 				float: left;
 				padding: 0;
 				margin: 0;
+			}
+		}
+		& > li.build-widget-menu-Menu {
+			& > ul {
+				display: none;
+			}
+			&.menu-open {
+				& > ul {
+					display: table;
+				}
 			}
 		}
 		& > div {
