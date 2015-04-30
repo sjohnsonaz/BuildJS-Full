@@ -11,6 +11,7 @@ Build('demo.example.input.CalendarExample', [ 'build::build.ui.Container', 'buil
 			this.addChild(header0);
 
 			var dateInput = build.widget.calendar.DateInput.create();
+			dateInput.inline = true;
 
 			this.addChild(dateInput);
 		}
