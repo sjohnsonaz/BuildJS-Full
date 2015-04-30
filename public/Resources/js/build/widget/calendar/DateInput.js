@@ -16,29 +16,33 @@ Build('build.widget.calendar.DateInput', [ 'build::build.ui.Widget', 'build::bui
 					inputControl.className = 'input-date-control';
 					this.popup = document.createElement('span');
 					this.popup.className = 'input-date-popup';
+					this.expander = document.createElement('div');
+					this.expander.className = 'input-date-expander';
 					this.input = build.form.input.Text.create();
 					this.input.mask = '99/99/9999';
 					this.input.maskValidRequired = true;
 					this.button = build.form.input.Button.create('{i:[calendar]}');
 					this.calendar = build.widget.calendar.Calendar.create();
-					this.popup.appendChild(this.calendar.element);
+					this.expander.appendChild(this.calendar.element);
+					this.popup.appendChild(this.expander);
 					inputControl.appendChild(this.input.element);
 					inputControl.appendChild(this.button.element);
 					this.element.appendChild(inputControl);
 					this.element.appendChild(this.popup);
 					this.popup.style.display = 'none';
 					this.watchClass('inline', 'input-date-inline', false);
-
 					this.watchValue('open', false, undefined, function(value, current, cancel) {
 						if (value) {
 							self.popup.style.display = 'block';
-							build.utility.Animation.animate(self.popup, {
-								opacity : 'auto'
+							build.utility.Animation.animate(self.expander, {
+								height : 'auto',
+								width : 'auto'
 							}, 300, function() {
 							});
 						} else {
-							build.utility.Animation.animate(self.popup, {
-								opacity : 0
+							build.utility.Animation.animate(self.expander, {
+								height : 0,
+								width : 0
 							}, 300, function() {
 								self.popup.style.display = 'none';
 							});

@@ -1,12 +1,6 @@
 @import "calendar-settings.less";
 @import "../mixins.less";
 .calendar {
-	position: absolute;
-	padding: 5px;
-	margin: 5px;
-	.border-radius-all (@input-border-radius , @input-border-radius , @input-border-radius , @input-border-radius);
-	background: #fff;
-	box-shadow: @box-shadow-height-0;
 	& > .calendar-title {
 		width: 100%;
 		& > .calendar-month-title {
@@ -110,8 +104,17 @@
 
 	& > .input-date-popup {
 		float: left;
-		.calendar , .build-widget-calendar-Calendar {
-			width: 250px;
+		.input-date-expander {
+			position: absolute;
+			padding: 5px;
+			margin: 5px;
+			overflow: hidden;
+			.border-radius-all (@input-border-radius , @input-border-radius , @input-border-radius , @input-border-radius);
+			background: #fff;
+			box-shadow: @box-shadow-height-0;
+			.calendar , .build-widget-calendar-Calendar {
+				width: 250px;
+			}
 		}
 	}
 }
