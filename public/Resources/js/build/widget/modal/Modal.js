@@ -2,7 +2,7 @@
  * @class build.widget.modal.Modal
  * @extends build.ui.Container
  */
-Build('build.widget.modal.Modal', [ 'build::build.ui.Container' ], function($define, $super) {
+Build('build.widget.modal.Modal', [ 'build::build.ui.Container', 'build::build.utility.Animation' ], function($define, $super) {
 	$define({
 		$extends : 'build.ui.Container',
 		/**
@@ -15,7 +15,6 @@ Build('build.widget.modal.Modal', [ 'build::build.ui.Container' ], function($def
 		$constructor : function Modal() {
 			$super(this)();
 			var self = this;
-			this.watchClass('open', 'modal-open', false);
 			this.watchValue('clickToClose', true);
 			this.mask = document.createElement('div');
 			this.mask.className = 'modal-mask';
@@ -23,6 +22,31 @@ Build('build.widget.modal.Modal', [ 'build::build.ui.Container' ], function($def
 			this.scroller.className = 'modal-scroll';
 			this.body = document.createElement('div');
 			this.body.className = 'modal-content';
+			this.element.style.display = 'none';
+			this.watchClass('open', 'modal-open', false, undefined, function(value, cancel) {
+				if (value) {
+					self.element.style.display = 'block';
+					build.utility.Animation.animate(self.element, {
+						opacity : 'auto'
+					}, 300, function() {
+					});
+					build.utility.Animation.animate(self.body, {
+						top : 'auto'
+					}, 300, function() {
+					});
+				} else {
+					build.utility.Animation.animate(self.element, {
+						opacity : 0
+					}, 300, function() {
+						self.element.style.display = 'none';
+					});
+					build.utility.Animation.animate(self.body, {
+						top : '-100%'
+					}, 300, function() {
+					});
+				}
+				return value;
+			});
 
 			this.innerElement = this.body;
 			this.scroller.appendChild(this.body);
