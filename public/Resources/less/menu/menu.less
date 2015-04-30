@@ -161,52 +161,64 @@
 .build-widget-menu-Menu {
 	.clearfix;
 	display: inline-block;
-	background-color: @input-menu-background-color;
+	background-color: @input-default-background-color;
 	width: 100%;
 	padding: 0;
+	border-radius: @input-border-radius;
+	box-shadow: @box-shadow-height-0;
 	& > a {
 		display: block;
 		float: left;
-		padding: 0;
+		padding: @input-padding;
 		margin: 0;
 	}
 	& > ul {
 		.clearfix;
-		display: table;
+		display: block;
 		position: relative;
 		float: left;
-		padding: 10px;
+		padding: 0;
 		margin: 0;
 		list-style-type: none;
 		& > li {
-			display: table-cell;
+			display: block;
 			float: left;
 			padding: 0;
 			margin: 0;
 			& > a {
 				display: block;
 				float: left;
-				padding: 0;
+				padding: @input-padding;
 				margin: 0;
+			}
+			&.container-child {
+				padding: @input-padding;
 			}
 		}
 		& > li.build-widget-menu-Menu {
+			background-color: none;
+			width: auto;
+			padding: 0;
+			border-radius: 0;
+			box-shadow: none;
 			& > ul {
 				display: none;
+				background-color: @input-default-background-color;
+				width: 100%;
+				padding: 0;
+				border-radius: @input-border-radius;
+				box-shadow: @box-shadow-height-0;
 			}
 			&.menu-open {
 				& > ul {
-					display: table;
+					display: block;
 				}
 			}
 		}
 		& > div {
-			display: table-cell;
-			position: absolute;
+			display: block;
 			float: left;
-			top: 0;
-			bottom: 0;
-			padding: 0;
+			padding: 10px 0;
 			margin: 0;
 			border-top: 0;
 			border-right: 1px solid #000;
