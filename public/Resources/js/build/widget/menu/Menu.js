@@ -28,7 +28,7 @@ Build('build.widget.menu.Menu', [ 'build::build.ui.Container', 'build::build.wid
 			this.watchClass('open', 'menu-open', !!open);
 			link.addEventListener('click', function(event) {
 				event.preventDefault();
-				self.open = !self.open;
+				//self.open = !self.open;
 			});
 			this.element.appendChild(link);
 			this.innerElement = document.createElement('ul');
