@@ -25,7 +25,7 @@ Build('demo.example.widget.MenuExample', [ 'build::build.ui.Container', 'build::
 			}, 7, '|', 8, {
 				text : 9,
 				widget : true,
-				children : []
+				children : [ 'Menu Container' ]
 			} ];
 			this.addChild(menu);
 		}

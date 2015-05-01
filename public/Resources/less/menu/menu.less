@@ -225,7 +225,8 @@
 				float: right;
 			}
 		}
-		& > li.build-widget-menu-Menu {
+		& > li.build-widget-menu-Menu,
+		& > li.build-widget-menu-MenuContainer {
 			position: relative;
 			background-color: none;
 			width: auto;
@@ -259,7 +260,15 @@
 				}
 			}
 			& > div {
+				.clearfix();
 				display: none;
+				position: absolute;
+				background-color: @input-default-background-color;
+				width: 100%;
+				padding: 0;
+				top: 100%;
+				border-radius: @input-border-radius;
+				box-shadow: @box-shadow-height-0;
 			}
 			&.menu-open,
 			&:hover {
