@@ -1,8 +1,8 @@
 /**
- * @class build.widget.menu.MenuWidget
+ * @class build.widget.menu.MenuTop
  * @extends build.ui.Container
  */
-Build('build.widget.menu.MenuWidget', [ 'build::build.ui.Container' ], function($define, $super) {
+Build('build.widget.menu.MenuTop', [ 'build::build.ui.Container' ], function($define, $super) {
 	$define({
 		$extends : 'build.ui.Container',
 		/**
@@ -11,7 +11,7 @@ Build('build.widget.menu.MenuWidget', [ 'build::build.ui.Container' ], function(
 		/**
 		 * @property type
 		 */
-		$constructor : function MenuWidget() {
+		$constructor : function MenuTop() {
 			$super(this)();
 		},
 		$prototype : {

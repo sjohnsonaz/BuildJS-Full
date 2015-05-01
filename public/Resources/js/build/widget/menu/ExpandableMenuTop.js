@@ -1,10 +1,10 @@
 /**
- * @class build.widget.menu.ExpandableMenuWidget
- * @extends build.widget.menu.MenuWidget
+ * @class build.widget.menu.ExpandableMenuTop
+ * @extends build.widget.menu.MenuTop
  */
-Build('build.widget.menu.ExpandableMenuWidget', [ 'build::build.widget.menu.MenuWidget', 'build::build.form.input.Button', 'build::build.widget.menu.MenuTitle' ], function($define, $super) {
+Build('build.widget.menu.ExpandableMenuTop', [ 'build::build.widget.menu.MenuTop', 'build::build.form.input.Button', 'build::build.widget.menu.MenuTitle' ], function($define, $super) {
 	$define({
-		$extends : 'build.widget.menu.MenuWidget',
+		$extends : 'build.widget.menu.MenuTop',
 		/**
 		 * @constructor
 		 */
@@ -12,7 +12,7 @@ Build('build.widget.menu.ExpandableMenuWidget', [ 'build::build.widget.menu.Menu
 		 * @property title
 		 * @property expandButton
 		 */
-		$constructor : function ExpandableMenuWidget() {
+		$constructor : function ExpandableMenuTop() {
 			$super(this)();
 			var self = this;
 			this.title = build.widget.menu.MenuTitle.create();
