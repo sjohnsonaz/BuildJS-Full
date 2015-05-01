@@ -2,7 +2,7 @@
  * @class build.widget.menu.Menu
  * @extends build.ui.Container
  */
-Build('build.widget.menu.Menu', [ 'build::build.ui.Container', 'build::build.widget.menu.MenuItem' ], function(define, $super) {
+Build('build.widget.menu.Menu', [ 'build::build.ui.Container', 'build::build.widget.menu.MenuItem', 'build::build.widget.menu.MenuContainer' ], function(define, $super) {
 	define({
 		$extends : 'build.ui.Container',
 		/**
@@ -38,12 +38,21 @@ Build('build.widget.menu.Menu', [ 'build::build.ui.Container', 'build::build.wid
 					switch (typeof child) {
 					case 'object':
 						if (child.children) {
-							var menu = build.widget.menu.Menu.createType('li', child.text, child.link, child.action, child.open);
-							menu.bind([ {
-								handler : 'forEach',
-								source : child,
-							} ]);
-							return menu.element;
+							if (child.widget) {
+								var menuContainer = build.widget.menu.MenuContainer.create(child.text, child.link, child.action, child.open);
+								menuContainer.bind([ {
+									handler : 'forEach',
+									source : child,
+								} ]);
+								return menuContainer.element;
+							} else {
+								var menu = build.widget.menu.Menu.createType('li', child.text, child.link, child.action, child.open);
+								menu.bind([ {
+									handler : 'forEach',
+									source : child,
+								} ]);
+								return menu.element;
+							}
 						} else {
 							return build.widget.menu.MenuItem.create(child.text, child.link, child.action).element;
 						}

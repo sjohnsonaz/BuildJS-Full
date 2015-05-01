@@ -22,7 +22,11 @@ Build('demo.example.widget.MenuExample', [ 'build::build.ui.Container', 'build::
 					text : 5,
 					children : [ 6 ]
 				} ]
-			}, 7, '|', 8 ];
+			}, 7, '|', 8, {
+				text : 9,
+				widget : true,
+				children : []
+			} ];
 			this.addChild(menu);
 		}
 	});
