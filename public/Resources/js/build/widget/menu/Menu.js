@@ -10,6 +10,7 @@ Build('build.widget.menu.Menu', [ 'build::build.ui.Container', 'build::build.wid
 		 */
 		$constructor : function Menu(text, link, action, open) {
 			$super(this)();
+			var self = this;
 			var link = document.createElement('a');
 			this.watchValue('link', link || '#', function(value) {
 				return link.href;
@@ -25,6 +26,10 @@ Build('build.widget.menu.Menu', [ 'build::build.ui.Container', 'build::build.wid
 			});
 			this.watchValue('action', action);
 			this.watchClass('open', 'menu-open', !!open);
+			link.addEventListener('click', function(event) {
+				event.preventDefault();
+				self.open = !self.open;
+			});
 			this.element.appendChild(link);
 			this.innerElement = document.createElement('ul');
 			this.element.appendChild(this.innerElement);
