@@ -14,16 +14,19 @@ Build('demo.example.widget.MenuExample', [ 'build::build.ui.Container', 'build::
 			this.addChild(header0);
 
 			var menu = build.widget.menu.Menu.create('Menu');
-			menu.children = [ 1, {
-				text : 2
+			menu.children = [ {
+				text : 'Home'
 			}, {
-				text : 3,
-				children : [ 4, '|', {
-					text : 5,
-					children : [ 6 ]
-				} ]
-			}, 7, '|', 8, {
-				text : 9,
+				text : 'Admin',
+				children : [ {
+					text : 'Groups',
+					children : [ 'Edit' ]
+				}, {
+					text : 'Users',
+					children : [ 'Edit' ]
+				}, '|', 'Text' ]
+			}, '|', 'Text', {
+				text : 'Login',
 				widget : true,
 				children : [ 'Menu Container' ]
 			} ];
