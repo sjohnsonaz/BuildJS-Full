@@ -18,8 +18,11 @@ Build('demo.example.widget.MenuExample', [ 'build::build.ui.Container', 'build::
 				text : 2
 			}, {
 				text : 3,
-				children : [ 4, '|', 5 ]
-			}, 6, '|', 7 ];
+				children : [ 4, '|', {
+					text : 5,
+					children : [ 6 ]
+				} ]
+			}, 7, '|', 8 ];
 			this.addChild(menu);
 		}
 	});
