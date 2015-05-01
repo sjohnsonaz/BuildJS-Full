@@ -182,7 +182,6 @@
 		.clearfix;
 		display: block;
 		position: relative;
-		float: left;
 		padding: 0;
 		margin: 0;
 		list-style-type: none;
@@ -206,6 +205,9 @@
 			&.container-child {
 				padding: @input-padding;
 			}
+			&.menu-right {
+				float: right;
+			}
 		}
 		& > div {
 			display: block;
@@ -219,6 +221,9 @@
 			border-left: 0;
 			width: 0;
 			height: 19px;
+			&.menu-right {
+				float: right;
+			}
 		}
 		& > li.build-widget-menu-Menu {
 			position: relative;
