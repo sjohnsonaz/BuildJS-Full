@@ -25,8 +25,9 @@ Build('build.widget.modal.Modal', [ 'build::build.ui.Container', 'build::build.u
 			this.element.style.display = 'none';
 			this.watchClass('open', 'modal-open', false, undefined, function(value, cancel) {
 				if (value) {
+					self.scroller.scrollTop = 0;
 					self.element.style.display = 'block';
-					build.utility.Animation.animate(self.element, {
+					build.utility.Animation.animate(self.mask, {
 						opacity : 'auto'
 					}, 300, function() {
 					});
@@ -35,7 +36,7 @@ Build('build.widget.modal.Modal', [ 'build::build.ui.Container', 'build::build.u
 					}, 300, function() {
 					});
 				} else {
-					build.utility.Animation.animate(self.element, {
+					build.utility.Animation.animate(self.mask, {
 						opacity : 0
 					}, 300, function() {
 						self.element.style.display = 'none';

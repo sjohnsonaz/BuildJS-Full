@@ -28,7 +28,12 @@ Build('demo.example.widget.ModalExample', [ 'build::build.ui.Container', 'build:
 
 			this.addChild(button0);
 			modal.addChild(button1);
-			modal.addChild(build.ui.Text.create('Modal text'));
+			modal.addChild(build.ui.element.Paragraph.create('\
+				<h1>Modal Content</h1>\
+				This is a Modal.  It allows us to create content on top of the main page.  It scrolls independently of the other content.\
+				<br /><br /><br /><br /><br /><br />\
+				We can make the content extra long!\
+			'));
 			this.addChild(modal);
 		}
 	});
