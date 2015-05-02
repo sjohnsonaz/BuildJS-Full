@@ -190,6 +190,7 @@
 			float: left;
 			padding: 0;
 			margin: 0;
+			cursor: default;
 			& > a {
 				display: block;
 				float: left;
@@ -240,7 +241,7 @@
 				padding: 0;
 				top: 100%;
 				border-radius: @input-border-radius;
-				box-shadow: @box-shadow-height-0;
+				box-shadow: @box-shadow-height-2;
 				& > div {
 					padding: 0;
 					margin: 0;
@@ -258,6 +259,16 @@
 							width: 100%;
 						}
 						& > ul {
+							top: 0;
+							left: 100%;
+						}
+					}
+					&.build-widget-menu-MenuContainer {
+						width: 100%;
+						& > a {
+							width: 100%;
+						}
+						& > div {
 							top: 0;
 							left: 100%;
 						}
@@ -287,7 +298,7 @@
 				padding: @input-border-radius;
 				top: 100%;
 				border-radius: @input-border-radius;
-				box-shadow: @box-shadow-height-0;
+				box-shadow: @box-shadow-height-2;
 			}
 			&.menu-open,
 			&:hover {
