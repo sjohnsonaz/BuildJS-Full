@@ -174,9 +174,6 @@
 		text-decoration: none;
 		font-weight: bold;
 		.border-radius-all(@input-border-radius, 0, 0, @input-border-radius);
-		&:hover {
-			background-color: darken(@input-default-background-color, @darker);
-		}
 		@media only screen and (max-width: (@size0 - 1)) {
 			float: none;
 			.border-radius-all(@input-border-radius, @input-border-radius, 0, 0);
@@ -341,6 +338,13 @@
 				& > div {
 					display: block;
 				}
+			}
+		}
+	}
+	&.menu-open {
+		& > a {
+			&:hover {
+				background-color: darken(@input-default-background-color, @darker);
 			}
 		}
 	}
