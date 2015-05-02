@@ -173,18 +173,28 @@
 		margin: 0;
 		text-decoration: none;
 		font-weight: bold;
-		border-radius: @input-border-radius;
+		.border-radius-all(@input-border-radius, 0, 0, @input-border-radius);
 		&:hover {
 			background-color: darken(@input-default-background-color, @darker);
+		}
+		@media only screen and (max-width: (@size0 - 1)) {
+			float: none;
+			.border-radius-all(@input-border-radius, @input-border-radius, 0, 0);
 		}
 	}
 	& > ul {
 		.clearfix;
 		display: block;
 		position: relative;
+		float: left;
 		padding: 0;
 		margin: 0;
 		list-style-type: none;
+		z-index: 1;
+		@media only screen and (max-width: (@size0 - 1)) {
+			float: none;
+			clear: both;
+		}
 		& > li {
 			display: block;
 			float: left;
@@ -193,7 +203,6 @@
 			cursor: default;
 			& > a {
 				display: block;
-				float: left;
 				padding: @input-padding;
 				margin: 0;
 				text-decoration: none;
@@ -208,6 +217,9 @@
 			}
 			&.menu-right {
 				float: right;
+			}
+			@media only screen and (max-width: (@size0 - 1)) {
+				float: none;
 			}
 		}
 		& > div {
@@ -224,6 +236,17 @@
 			height: 19px;
 			&.menu-right {
 				float: right;
+			}
+			@media only screen and (max-width: (@size0 - 1)) {
+				float: none;
+				padding: 0;
+				margin: 0;
+				border-top: 0;
+				border-right: 0;
+				border-bottom: 1px solid #000;
+				border-left: 0;
+				width: 100%;
+				height: 0;
 			}
 		}
 		& > li.build-widget-menu-Menu,
@@ -242,6 +265,10 @@
 				top: 100%;
 				border-radius: @input-border-radius;
 				box-shadow: @box-shadow-height-2;
+				@media only screen and (max-width: (@size0 - 1)) {
+					top: 0;
+					left: 100px;
+				}
 				& > div {
 					padding: 0;
 					margin: 0;
@@ -261,6 +288,9 @@
 						& > ul {
 							top: 0;
 							left: 100%;
+							@media only screen and (max-width: (@size0 - 1)) {
+								left: 100px;
+							}
 						}
 					}
 					&.build-widget-menu-MenuContainer {
@@ -271,6 +301,9 @@
 						& > div {
 							top: 0;
 							left: 100%;
+							@media only screen and (max-width: (@size0 - 1)) {
+								left: 100px;
+							}
 						}
 					}
 					&:last-child {
