@@ -2,7 +2,7 @@
  * @class build.widget.menu.Menu
  * @extends build.ui.Container
  */
-Build('build.widget.menu.Menu', [ 'build::build.ui.Container', 'build::build.widget.menu.MenuItem', 'build::build.widget.menu.MenuContainer' ], function(define, $super) {
+Build('build.widget.menu.Menu', [ 'build::build.ui.Container', 'build::build.widget.menu.MenuItem', 'build::build.widget.menu.MenuContainer', 'build::build.utility.Animation' ], function(define, $super) {
 	define({
 		$extends : 'build.ui.Container',
 		/**
@@ -32,10 +32,6 @@ Build('build.widget.menu.Menu', [ 'build::build.ui.Container', 'build::build.wid
 			});
 			this.watchValue('action', action);
 			this.watchClass('open', 'menu-open', !!open);
-			link.addEventListener('click', function(event) {
-				event.preventDefault();
-				//self.open = !self.open;
-			});
 			this.element.appendChild(link);
 			this.innerElement = document.createElement('ul');
 			this.element.appendChild(this.innerElement);
@@ -78,6 +74,32 @@ Build('build.widget.menu.Menu', [ 'build::build.ui.Container', 'build::build.wid
 
 				}
 			};
+			link.addEventListener('click', function(event) {
+				event.preventDefault();
+				//self.open = !self.open;
+			});
+			self.element.addEventListener('mouseenter', function(event) {
+				self.open = true;
+			});
+			self.element.addEventListener('mouseleave', function(event) {
+				self.open = false;
+			});
+			this.subscribe('open', function(value) {
+				if (value) {
+					self.innerElement.style.overflow = 'hidden';
+					build.utility.Animation.animate(self.innerElement, {
+						height : 'auto'
+					}, 300, function() {
+						self.innerElement.style.overflow = 'visible';
+					});
+				} else {
+					self.innerElement.style.overflow = 'hidden';
+					build.utility.Animation.animate(self.innerElement, {
+						height : 0
+					}, 300, function() {
+					});
+				}
+			});
 		},
 		$prototype : {
 			type : 'div',
