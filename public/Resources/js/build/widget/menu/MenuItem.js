@@ -18,10 +18,16 @@ Build('build.widget.menu.MenuItem', [ 'build::build.ui.Widget' ], function(defin
 				link.href = value;
 				return value;
 			});
+			this.watchValue('rawText', text || '', function(value) {
+				return link.innerHTML;
+			}, function(value, cancel, hidden) {
+				link.innerHTML = typeof value !== 'undefined' ? value : '';
+				return link.innerHTML;
+			});
 			this.watchValue('text', text || '', function(value) {
 				return link.innerHTML;
 			}, function(value, cancel, hidden) {
-				link.innerHTML = value;
+				link.innerHTML = self.formatString(value, this);
 				return link.innerHTML;
 			});
 			this.watchValue('action', action);

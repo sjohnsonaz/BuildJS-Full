@@ -20,13 +20,18 @@ Build('demo.example.widget.MenuExample', [ 'build::build.ui.Container', 'build::
 				text : 'Admin',
 				children : [ {
 					text : 'Groups',
-					children : [ 'Edit' ]
+					children : [ {
+						text : 'Edit'
+					} ]
 				}, {
 					text : 'Users',
 					children : [ 'Edit' ]
-				}, '|', 'Text' ]
+				}, '|', 'Text', {
+					text : 'Permissions',
+					children : [ 'Edit' ]
+				} ]
 			}, '|', 'Text', {
-				text : 'Login',
+				text : '{i:[user]}',
 				widget : true,
 				children : [ 'Menu Container' ]
 			} ];
