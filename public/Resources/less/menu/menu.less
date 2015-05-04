@@ -330,10 +330,16 @@
 				border-radius: @input-border-radius;
 				box-shadow: @box-shadow-height-2;
 			}
-			&.menu-open,
-			&:hover {
+			&.menu-open {
+			//&:hover {
 				& > ul {
 					display: block;
+					//-webkit-animation-name: slideDown;
+    				//-webkit-animation-duration: 0.5s;
+    				//-webkit-animation-delay: 0s;
+					//animation-name: slideDown;
+    				//animation-duration: 0.5s;
+    				//animation-delay: 0s;
 				}
 				& > div {
 					display: block;
@@ -347,6 +353,28 @@
 				background-color: darken(@input-default-background-color, @darker);
 			}
 		}
+	}
+}
+
+@-webkit-keyframes slideDown {
+	from {
+		transform: translateY(-100%);
+		opacity: 0;
+	}
+	to {
+		transform: translateY(0);
+		opacity: 1;
+	}
+}
+
+@keyframes slideDown {
+	from {
+		transform: translateY(-100%);
+		opacity: 0;
+	}
+	to {
+		transform: translateY(0);
+		opacity: 1;
 	}
 }
 

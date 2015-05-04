@@ -46,6 +46,7 @@ Build('build.widget.menu.Menu', [ 'build::build.ui.Container', 'build::build.wid
 									handler : 'forEach',
 									source : child,
 								} ]);
+								menuContainer.parent = parent;
 								return menuContainer.element;
 							} else {
 								var menu = build.widget.menu.Menu.createType('li', child.text, child.link, child.action, child.open);
@@ -53,10 +54,13 @@ Build('build.widget.menu.Menu', [ 'build::build.ui.Container', 'build::build.wid
 									handler : 'forEach',
 									source : child,
 								} ]);
+								menu.parent = parent;
 								return menu.element;
 							}
 						} else {
-							return build.widget.menu.MenuItem.create(child.text, child.link, child.action).element;
+							var menuItem = build.widget.menu.MenuItem.create(child.text, child.link, child.action);
+							menuItem.parent = parent;
+							return menuItem.element;
 						}
 						break;
 					case 'string':
@@ -85,19 +89,21 @@ Build('build.widget.menu.Menu', [ 'build::build.ui.Container', 'build::build.wid
 				self.open = false;
 			});
 			this.subscribe('open', function(value) {
-				if (value) {
-					self.innerElement.style.overflow = 'hidden';
-					build.utility.Animation.animate(self.innerElement, {
-						height : 'auto'
-					}, 300, function() {
-						self.innerElement.style.overflow = 'visible';
-					});
-				} else {
-					self.innerElement.style.overflow = 'hidden';
-					build.utility.Animation.animate(self.innerElement, {
-						height : 0
-					}, 300, function() {
-					});
+				if (self.parent instanceof build.widget.menu.Menu) {
+					if (value) {
+						self.innerElement.style.overflow = 'hidden';
+						build.utility.Animation.animate(self.innerElement, {
+							height : 'auto'
+						}, 300, function() {
+							self.innerElement.style.overflow = 'visible';
+						});
+					} else {
+						self.innerElement.style.overflow = 'hidden';
+						build.utility.Animation.animate(self.innerElement, {
+							height : 0
+						}, 300, function() {
+						});
+					}
 				}
 			});
 		},
