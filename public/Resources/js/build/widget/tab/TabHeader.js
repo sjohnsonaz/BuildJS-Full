@@ -39,7 +39,7 @@ Build('build.widget.tab.TabHeader', [ 'build::build.ui.Container', 'build::build
 						} ],
 						className : 'tab-active'
 					} ]);
-					return title.element;
+					return title;
 				},
 				destroy : function(child, element) {
 

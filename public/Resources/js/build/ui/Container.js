@@ -34,20 +34,21 @@ Build('build.ui.Container', [ 'build::build.ui.Widget', 'build::build.utility.Ob
 				enumerable : false
 			});
 			var childrenHandler = this.createChildrenHandler();
-			var baseArray = build.utility.ObservableArray();
-			this.watchValue('children', baseArray, undefined, function(value, current, cancel) {
+			this.baseArray = build.utility.ObservableArray();
+			this.watchValue('children', this.baseArray, undefined, function(value, current, cancel) {
 				if (self.children != value) {
 					if (self.children) {
 						self.unsubscribeChildren(self.children, childrenHandler);
 					}
 					if (!value) {
-						value = baseArray;
+						value = self.baseArray;
 					}
 					self.subscribeChildren(value, childrenHandler);
 					self.refreshChildren(value);
 				}
 				return value;
 			});
+
 			this.watchValue('template', this.template, undefined, function(value, current, cancel) {
 				// We need to clear the children using the old template first.
 				// TODO: Only run if the old template has been used.
@@ -81,7 +82,7 @@ Build('build.ui.Container', [ 'build::build.ui.Widget', 'build::build.utility.Ob
 						var self = this;
 						children.forEach(function(child, index, array) {
 							if (child) {
-								var element = self.createChild(child);
+								var element = self.createChild(child, index);
 								if (element instanceof HTMLElement) {
 									self.innerElement.appendChild(element);
 								} else {
@@ -157,20 +158,16 @@ Build('build.ui.Container', [ 'build::build.ui.Widget', 'build::build.utility.Ob
 						}
 						child.$index = $index;
 					}
-					element = template.create(child, this);
+					var templateResult = template.create(child, this);
+					this.updateParent(child);
+					// TODO: Should this be the template parent or the child parent?
+					this.updateParent(templateResult, true);
+					element = templateResult.element || templateResult;
 					element.$template = template;
 					//element.controller = child;
 				} else if (child instanceof build.ui.Widget) {
 					// If we have a Widget, return the element
-					// We are including the widget directly, fix Widget parent
-					if (child.parent) {
-						if (child.parent != this) {
-							//child.parent.children.remove(child);
-							//child.parent = this;
-						}
-					} else {
-						child.parent = this;
-					}
+					this.updateParent(child);
 					if (typeof child.$index === 'undefined') {
 						child.watchValue('$index');
 					}
@@ -194,6 +191,17 @@ Build('build.ui.Container', [ 'build::build.ui.Widget', 'build::build.utility.Ob
 				}
 
 				return element;
+			},
+			updateParent : function(child, isTemplate) {
+				// We are the actual parent
+				if (this.baseArray == this.children || isTemplate) {
+					// We can set parent
+					if (child instanceof build.ui.Widget) {
+						// Set the value
+						// If the value is already set, the watchValue will prevent publish.
+						child.parent = this;
+					}
+				}
 			},
 			/**
 			 * @method linkChild

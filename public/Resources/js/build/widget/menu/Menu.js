@@ -46,21 +46,18 @@ Build('build.widget.menu.Menu', [ 'build::build.ui.Container', 'build::build.wid
 									handler : 'forEach',
 									source : child,
 								} ]);
-								menuContainer.parent = parent;
-								return menuContainer.element;
+								return menuContainer;
 							} else {
 								var menu = build.widget.menu.Menu.createType('li', child.text, child.link, child.action, child.open);
 								menu.bind([ {
 									handler : 'forEach',
 									source : child,
 								} ]);
-								menu.parent = parent;
-								return menu.element;
+								return menu;
 							}
 						} else {
 							var menuItem = build.widget.menu.MenuItem.create(child.text, child.link, child.action);
-							menuItem.parent = parent;
-							return menuItem.element;
+							return menuItem;
 						}
 						break;
 					case 'string':
