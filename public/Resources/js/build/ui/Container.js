@@ -225,15 +225,18 @@ Build('build.ui.Container', [ 'build::build.ui.Widget', 'build::build.utility.Ob
 			 * @method destroyChild
 			 * @param child
 			 */
-			destroyChild : function(element) {
+			destroyChild : function(element, destroyController) {
 				if (element) {
 					// If we have a template, run child through there
 					if (element.$template) {
 						element.$template.destroy(element.controller, element);
 					}
 					// TODO: Do we need to do this here?
-					if (element && element.controller) {
-						//element.controller.parent = null;
+					if (destroyController) {
+						if (element && element.controller) {
+							element.controller.destroy();
+							//element.controller.parent = null;
+						}
 					}
 				}
 			},
@@ -245,7 +248,8 @@ Build('build.ui.Container', [ 'build::build.ui.Widget', 'build::build.utility.Ob
 						element.removeChild(element.firstChild);
 					}
 				}
-				if (this.children) {
+				// TODO: Only delete children if we are the base?
+				if (this.children === this.baseArray) {
 					var child;
 					while (child = this.children.pop()) {
 						if (child) {
