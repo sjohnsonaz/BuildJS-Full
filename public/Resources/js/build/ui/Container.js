@@ -250,7 +250,7 @@ Build('build.ui.Container', [ 'build::build.ui.Widget', 'build::build.utility.Ob
 					while (child = this.children.pop()) {
 						if (child) {
 							if (child.destroy) {
-								child.destroy();
+								child.destroy(true);
 							}
 							delete child;
 						} else {

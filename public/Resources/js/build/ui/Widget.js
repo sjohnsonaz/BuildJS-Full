@@ -484,9 +484,11 @@ Build('build.ui.Widget', [ 'build::build.Module' ], function($define, $super) {
 			 */
 			destroy : function(isDestroying) {
 				$super().destroy(this)();
-				if (!isDestroying && this.parent) {
-					// Assume parent is a Container
-					this.parent.removeChild(this);
+				// Assume parent is a Container
+				if (this.parent) {
+					if (!isDestroying) {
+						this.parent.removeChild(this);
+					}
 					this.parent = undefined;
 				}
 			}
