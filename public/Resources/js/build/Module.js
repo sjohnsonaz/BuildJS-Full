@@ -311,7 +311,7 @@ Build('build.Module', [], function($define, $super) {
 				if (!this.handlers) {
 					this.handlers = [ handler ];
 				} else if (this.handlers.indexOf(handler) == -1) {
-					this.handlers.push(this);
+					this.handlers.push(handler);
 				}
 			},
 			/**
