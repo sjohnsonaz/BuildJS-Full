@@ -18,7 +18,7 @@ Build('build.widget.tab.TabHeader', [ 'build::build.ui.Container', 'build::build
 					var title = build.widget.tab.TabTitle.create();
 					title.bind([ {
 						handler : 'oneWay',
-						property : 'title',
+						property : 'text',
 						sources : [ {
 							source : child,
 							property : 'title'

@@ -18,7 +18,7 @@ Build('build.widget.menu.MenuItem', [ 'build::build.ui.Widget' ], function(defin
 				link.href = value;
 				return value;
 			});
-			this.watchValue('rawText', text || '', function(value) {
+			this.watchValue('rawText', undefined, function(value) {
 				return link.innerHTML;
 			}, function(value, cancel, hidden) {
 				link.innerHTML = typeof value !== 'undefined' ? value : '';

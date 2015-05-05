@@ -1,22 +1,30 @@
 /**
  * @class build.widget.tab.TabTitle
- * @extends build.ui.Container
+ * @extends build.ui.Widget
  */
-Build('build.widget.tab.TabTitle', [ 'build::build.ui.Container', 'build::build.binding.TextBinding', 'build::build.widget.tab.TabLink' ], function($define, $super) {
+Build('build.widget.tab.TabTitle', [ 'build::build.ui.Widget', 'build::build.binding.TextBinding', 'build::build.widget.tab.TabLink' ], function($define, $super) {
 	$define({
-		$extends : 'build.ui.Container',
+		$extends : 'build.ui.Widget',
 		/**
 		 * @constructor
 		 */
-		$constructor : function TabTitle() {
+		$constructor : function TabTitle(text) {
 			$super(this)();
 			var self = this;
-			this.link = build.widget.tab.TabLink.create();
-			this.addChild(this.link);
-			this.watchValue('title', '', null, function(value, current, cancel) {
-				self.link.text = value;
-				return value;
+			var link = document.createElement('a');
+			this.watchValue('rawText', undefined, function(value) {
+				return link.innerHTML;
+			}, function(value, cancel, hidden) {
+				link.innerHTML = typeof value !== 'undefined' ? value : '';
+				return link.innerHTML;
 			});
+			this.watchValue('text', text || '', function(value) {
+				return link.innerHTML;
+			}, function(value, cancel, hidden) {
+				link.innerHTML = self.formatString(value, this);
+				return link.innerHTML;
+			});
+			this.element.appendChild(link);
 		},
 		$prototype : {
 			type : 'li',
