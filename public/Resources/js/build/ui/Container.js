@@ -151,7 +151,7 @@ Build('build.ui.Container', [ 'build::build.ui.Widget', 'build::build.utility.Ob
 				// If we have a template, run the child through there first.
 				// If we have a managedTemplate, generate the template from there.
 				var template = (typeof this.template === 'function') ? this.template() : this.template;
-				if (template && template.create) {
+				if (template && typeof template.create === 'function') {
 					if (child instanceof build.ui.Widget) {
 						if (typeof child.$index === 'undefined') {
 							child.watchValue('$index');
@@ -228,7 +228,9 @@ Build('build.ui.Container', [ 'build::build.ui.Widget', 'build::build.utility.Ob
 			destroyChild : function(element) {
 				// If we have a template, run child through there
 				if (element.$template) {
-					element.$template.destroy(element.$controller, element);
+					if (typeof element.$template.destroy === 'function') {
+						element.$template.destroy(element.$controller, element);
+					}
 					if (element.$controller) {
 						element.$controller.destroy();
 					}
