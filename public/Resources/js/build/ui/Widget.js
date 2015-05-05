@@ -79,7 +79,7 @@ Build('build.ui.Widget', [ 'build::build.Module' ], function($define, $super) {
 					enumerable : false
 				});
 				// this.element.classList.add(this.uniqueClass());
-				this.element.controller = this;
+				this.element.$controller = this;
 			},
 			/**
 			 * @method uniqueId
@@ -529,7 +529,7 @@ Build('build.ui.Widget', [ 'build::build.Module' ], function($define, $super) {
 			getController : function(element) {
 				element = typeof element === 'string' ? document.getElementById(element) : element;
 				if (element) {
-					return element.controller;
+					return element.$controller;
 				}
 			},
 			/**

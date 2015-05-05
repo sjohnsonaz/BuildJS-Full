@@ -164,7 +164,7 @@ Build('build.ui.Container', [ 'build::build.ui.Widget', 'build::build.utility.Ob
 					this.updateParent(templateResult, true);
 					element = templateResult.element || templateResult;
 					element.$template = template;
-					//element.controller = child;
+					//element.$controller = child;
 				} else if (child instanceof build.ui.Widget) {
 					// If we have a Widget, return the element
 					this.updateParent(child);
@@ -176,8 +176,8 @@ Build('build.ui.Container', [ 'build::build.ui.Widget', 'build::build.utility.Ob
 				} else if (child instanceof build.ui.Text) {
 					element = child.element;
 				} else if (child instanceof HTMLElement) {
-					//if (child.controller) {
-					//child.controller.parent = this;
+					//if (child.$controller) {
+					//child.$controller.parent = this;
 					//}
 					element = child;
 				}
@@ -228,13 +228,13 @@ Build('build.ui.Container', [ 'build::build.ui.Widget', 'build::build.utility.Ob
 			destroyChild : function(element) {
 				// If we have a template, run child through there
 				if (element.$template) {
-					element.$template.destroy(element.controller, element);
-					if (element.controller) {
-						element.controller.destroy();
+					element.$template.destroy(element.$controller, element);
+					if (element.$controller) {
+						element.$controller.destroy();
 					}
 				}
 				// TODO: Do we need to do this here?
-				//element.controller.parent = null;
+				//element.$controller.parent = null;
 			},
 			destroy : function(isDestroying) {
 				$super().destroy(this)();
