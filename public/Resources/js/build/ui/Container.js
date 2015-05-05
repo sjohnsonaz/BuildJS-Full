@@ -230,6 +230,9 @@ Build('build.ui.Container', [ 'build::build.ui.Widget', 'build::build.utility.Ob
 					// If we have a template, run child through there
 					if (element.$template) {
 						element.$template.destroy(element.controller, element);
+						if (element.controller) {
+							element.controller.destroy();
+						}
 					}
 					// TODO: Do we need to do this here?
 					if (destroyController) {
