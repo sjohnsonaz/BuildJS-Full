@@ -225,23 +225,16 @@ Build('build.ui.Container', [ 'build::build.ui.Widget', 'build::build.utility.Ob
 			 * @method destroyChild
 			 * @param child
 			 */
-			destroyChild : function(element, destroyController) {
-				if (element) {
-					// If we have a template, run child through there
-					if (element.$template) {
-						element.$template.destroy(element.controller, element);
-						if (element.controller) {
-							element.controller.destroy();
-						}
-					}
-					// TODO: Do we need to do this here?
-					if (destroyController) {
-						if (element && element.controller) {
-							element.controller.destroy();
-							//element.controller.parent = null;
-						}
+			destroyChild : function(element) {
+				// If we have a template, run child through there
+				if (element.$template) {
+					element.$template.destroy(element.controller, element);
+					if (element.controller) {
+						element.controller.destroy();
 					}
 				}
+				// TODO: Do we need to do this here?
+				//element.controller.parent = null;
 			},
 			destroy : function(isDestroying) {
 				$super().destroy(this)();
