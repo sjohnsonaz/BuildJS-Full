@@ -31,7 +31,7 @@ Build('build.widget.upload.Upload', [ 'build::build.ui.Widget', 'build::build.wi
 					self.input.click();
 				});
 				dropZone.classList.add('drag-and-drop-zone');
-				dropZone.innerHTML = 'Drop files or click to upload.';
+				dropZone.innerHTML = this.modern ? 'Drop files or click to upload.' : 'Click to upload.';
 				dropZone.addEventListener('dragenter', function(event) {
 					event.stopPropagation();
 					event.preventDefault();
@@ -87,7 +87,8 @@ Build('build.widget.upload.Upload', [ 'build::build.ui.Widget', 'build::build.wi
 				// end of optional code
 				document.getElementById("fileNum").innerHTML = nFiles;
 				document.getElementById("fileSize").innerHTML = sOutput;
-			}
+			},
+			modern : window.FormData !== undefined
 		}
 	});
 });
