@@ -27,10 +27,7 @@ Build('build.container.table.SimpleTable', [ 'build::build.ui.Container', 'build
 						handler : 'forEach',
 						source : child,
 					} ]);
-					return row.element;
-				},
-				destroy : function(child, element) {
-
+					return row;
 				}
 			};
 			this.footer = build.ui.Container.createType('tfoot');

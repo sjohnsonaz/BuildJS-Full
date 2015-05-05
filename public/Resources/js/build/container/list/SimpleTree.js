@@ -18,13 +18,10 @@ Build('build.container.list.SimpleTree', [ 'build::build.ui.Container' ], functi
 							handler : 'forEach',
 							source : child,
 						} ]);
-						return list.element;
+						return list;
 					} else {
 						return child;
 					}
-				},
-				destroy : function(child, element) {
-
 				}
 			};
 		},
