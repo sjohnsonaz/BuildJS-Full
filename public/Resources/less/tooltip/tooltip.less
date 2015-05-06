@@ -59,38 +59,46 @@
 			.tooltip-top& {
 				bottom: 100%;
 				margin: 5px 0;
+				right: 50%;
+				transform: translateX(50%);
 			}
 			.tooltip-bottom& {
 				margin: 5px 0;
+				right: 50%;
+				transform: translateX(50%);
 			}
 			.tooltip-right& {
 				left: 100%;
 				margin: 0 5px;
-				top: 0;
+				top: 50%;
+				transform: translateY(-50%);
 			}
 			.tooltip-left& {
 				right: 100%;
 				margin: 0 5px;
-				top: 0;
+				top: 50%;
+				transform: translateY(-50%);
 			}
-			.tooltip-top.tooltip-align-center&,
-			.tooltip-bottom.tooltip-align-center& {
-				right: 50%;
-				transform: translateX(50%);
+			.tooltip-top.tooltip-align-left&,
+			.tooltip-bottom.tooltip-align-left& {
+				left: 0;
+				transform: none;
 			}
 			.tooltip-top.tooltip-align-right&,
 			.tooltip-bottom.tooltip-align-right& {
 				right: 0;
+				transform: none;
 			}
-			.tooltip-right.tooltip-align-center&,
-			.tooltip-left.tooltip-align-center& {
-				top: 50%;
-				transform: translateY(-50%);
-			}
+			.tooltip-right.tooltip-align-top&,
+			.tooltip-left.tooltip-align-top& {
+				top: 0;
+				transform: none;
+			}			
 			.tooltip-right.tooltip-align-bottom&,
 			.tooltip-left.tooltip-align-bottom& {
 				top: auto;
 				bottom: 0;
+				transform: none;
 			}
 		}
 	}
