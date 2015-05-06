@@ -12,10 +12,8 @@ Build('demo.example.input.UploadExample', [ 'build::build.ui.Container', 'build:
 			this.addChild(header0);
 
 			var upload = build.widget.upload.Upload.create();
-			var iframeUpload = build.widget.upload.IframeUpload.create();
 
 			this.addChild(upload);
-			this.addChild(iframeUpload);
 		}
 	});
 });
