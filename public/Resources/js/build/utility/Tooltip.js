@@ -10,14 +10,14 @@ Build('build.utility.Tooltip', [ 'build::build.ui.Widget' ], function($define, $
 			$super(this)();
 		},
 		$static : {
-			enable : function(widget, text, open) {
+			create : function(widget, text, open, position, alignment) {
 				if (widget instanceof build.ui.Widget) {
 					widget.classList.add('tooltip');
 					widget.watchClass('tooltipOpen', 'tooltip-open', !!open);
 					widget.watchAttribute('tooltipText', 'aria-label', text || '', undefined, function(value, hidden, cancel) {
 						return value;
 					});
-					widget.watchValue('tooltipPosition', 'top', undefined, function(value, hidden, cancel) {
+					widget.watchValue('tooltipPosition', position || 'top', undefined, function(value, hidden, cancel) {
 						var positionClass;
 						if (hidden) {
 							positionClass = build.utility.Tooltip.position[hidden];
@@ -32,7 +32,7 @@ Build('build.utility.Tooltip', [ 'build::build.ui.Widget' ], function($define, $
 						widget.classList.add(positionClass);
 						return value;
 					});
-					widget.watchValue('tooltipAlign', 'center', undefined, function(value, hidden, cancel) {
+					widget.watchValue('tooltipAlign', alignment || 'center', undefined, function(value, hidden, cancel) {
 						var alignmentClass;
 						if (hidden) {
 							alignmentClass = build.utility.Tooltip.alignment[hidden];
