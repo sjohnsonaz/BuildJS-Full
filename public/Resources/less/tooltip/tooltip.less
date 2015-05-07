@@ -8,7 +8,7 @@
 		content: '';
 		display: block;
 		position: absolute;
-		border: 5px solid transparent;
+		border: @tooltip-spacing solid transparent;
 		width: 0;
 		z-index: 1;
 
@@ -18,27 +18,27 @@
 		transition: visibility 0s, opacity 0.3s;
 		-webkit-backface-visibility: hidden;
 		.tooltip-top& {
-			top: -5px;
+			top: -@tooltip-spacing;
 			right: 50%;
-			margin: 0 -5px;
+			margin: 0 -@tooltip-spacing;
 			border-top-color: @tooltip-background-color;
 		}
 		.tooltip-bottom& {
-			bottom: -5px;
+			bottom: -@tooltip-spacing;
 			right: 50%;
-			margin: 0 -5px;
+			margin: 0 -@tooltip-spacing;
 			border-bottom-color: @tooltip-background-color;
 		}
 		.tooltip-right& {
-			right: -5px;
+			right: -@tooltip-spacing;
 			bottom: 50%;
-			margin: -5px 0;
+			margin: -@tooltip-spacing 0;
 			border-right-color: @tooltip-background-color;
 		}
 		.tooltip-left& {
-			left: -5px;
+			left: -@tooltip-spacing;
 			bottom: 50%;
-			margin: -5px 0;
+			margin: -@tooltip-spacing 0;
 			border-left-color: @tooltip-background-color;
 		}
 	}
@@ -67,25 +67,25 @@
 		-webkit-filter: blur(0);
 		.tooltip-top& {
 			bottom: 100%;
-			margin: 5px 0;
+			margin: @tooltip-spacing 0;
 			right: 50%;
 			transform: translateX(50%);
 		}
 		.tooltip-bottom& {
 			top: 100%;
-			margin: 5px 0;
+			margin: @tooltip-spacing 0;
 			right: 50%;
 			transform: translateX(50%);
 		}
 		.tooltip-right& {
 			left: 100%;
-			margin: 0 5px;
+			margin: 0 @tooltip-spacing;
 			top: 50%;
 			transform: translateY(-50%);
 		}
 		.tooltip-left& {
 			right: 100%;
-			margin: 0 5px;
+			margin: 0 @tooltip-spacing;
 			top: 50%;
 			transform: translateY(-50%);
 		}
