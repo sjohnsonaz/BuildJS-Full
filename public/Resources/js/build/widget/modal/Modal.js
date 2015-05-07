@@ -23,7 +23,7 @@ Build('build.widget.modal.Modal', [ 'build::build.ui.Container', 'build::build.u
 			this.body = document.createElement('div');
 			this.body.className = 'modal-content';
 			this.element.style.display = 'none';
-			this.watchClass('open', 'modal-open', false, undefined, function(value, cancel) {
+			this.watchClass('open', 'modal-open', false, undefined, function(value, hidden, cancel) {
 				if (value) {
 					self.scroller.scrollTop = 0;
 					self.element.style.display = 'block';

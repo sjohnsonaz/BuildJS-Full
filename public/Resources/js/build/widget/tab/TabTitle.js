@@ -14,13 +14,13 @@ Build('build.widget.tab.TabTitle', [ 'build::build.ui.Widget' ], function($defin
 			var link = document.createElement('a');
 			this.watchValue('rawText', undefined, function(value) {
 				return link.innerHTML;
-			}, function(value, cancel, hidden) {
+			}, function(value, hidden, cancel) {
 				link.innerHTML = typeof value !== 'undefined' ? value : '';
 				return link.innerHTML;
 			});
 			this.watchValue('text', text || '', function(value) {
 				return link.innerHTML;
-			}, function(value, cancel, hidden) {
+			}, function(value, hidden, cancel) {
 				link.innerHTML = self.formatString(value, this);
 				return link.innerHTML;
 			});

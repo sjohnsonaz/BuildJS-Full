@@ -14,19 +14,19 @@ Build('build.widget.menu.MenuWidget', [ 'build::build.ui.Widget' ], function(def
 			var link = document.createElement('a');
 			this.watchValue('link', link || '#', function(value) {
 				return link.href;
-			}, function(value, cancel, hidden) {
+			}, function(value, hidden, cancel) {
 				link.href = value;
 				return value;
 			});
 			this.watchValue('rawText', undefined, function(value) {
 				return link.innerHTML;
-			}, function(value, cancel, hidden) {
+			}, function(value, hidden, cancel) {
 				link.innerHTML = typeof value !== 'undefined' ? value : '';
 				return link.innerHTML;
 			});
 			this.watchValue('text', text || '', function(value) {
 				return link.innerHTML;
-			}, function(value, cancel, hidden) {
+			}, function(value, hidden, cancel) {
 				link.innerHTML = self.formatString(value, this);
 				return link.innerHTML;
 			});
