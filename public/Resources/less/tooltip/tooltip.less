@@ -61,7 +61,10 @@
 		visibility: hidden;
 		opacity: 0;
 		transition: visibility 0s, opacity 0.3s;
+
+		/* Fixed blurry text in Chrome */
 		-webkit-backface-visibility: hidden;
+		-webkit-filter: blur(0);
 		.tooltip-top& {
 			bottom: 100%;
 			margin: 5px 0;
