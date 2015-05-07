@@ -48,6 +48,7 @@ Build('build.utility.Tooltip', [ 'build::build.ui.Widget' ], function($define, $
 						return value;
 					});
 				}
+				return widget;
 			},
 			position : {
 				top : 'tooltip-top',
