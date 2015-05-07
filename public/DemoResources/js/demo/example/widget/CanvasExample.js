@@ -5,7 +5,7 @@
 Build('demo.example.widget.CanvasExample', [ 'build::build.ui.Container', 'build::build.ui.element.Header2', 'build::build.ui.element.Paragraph', 'build::build.widget.canvas.Canvas' ], function($define, $super) {
 	$define({
 		$extends : 'build.ui.Container',
-		$constructor : function MediaExample() {
+		$constructor : function CanvasExample() {
 			$super(this)();
 			var header0 = build.ui.element.Header2.create('Canvas');
 			this.addChild(header0);

@@ -5,7 +5,7 @@
 Build('demo.example.widget.CarouselExample', [ 'build::build.ui.Container', 'build::build.ui.element.Header2', 'build::build.ui.element.Paragraph', 'build::build.widget.carousel.Carousel', 'build::build.ui.Content' ], function($define, $super) {
 	$define({
 		$extends : 'build.ui.Container',
-		$constructor : function MediaExample() {
+		$constructor : function CarouselExample() {
 			$super(this)();
 			var header0 = build.ui.element.Header2.create('Carousel');
 			this.addChild(header0);
