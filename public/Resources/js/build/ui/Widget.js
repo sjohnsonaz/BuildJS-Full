@@ -269,7 +269,12 @@ Build('build.ui.Widget', [ 'build::build.Module' ], function($define, $super) {
 				this.watchValueFunction(property, className, value, get, set, thisArg, definition, function(className) {
 					return self.element.classList.contains(className);
 				}, function(className, value) {
-					self.element.classList.toggle(className, !!value);
+					// TODO: Internet Explorer does not support ClassList.toggle.
+					if (value) {
+						self.element.classList.add(className);
+					} else {
+						self.element.classList.remove(className);
+					}
 				});
 			},
 			/**
