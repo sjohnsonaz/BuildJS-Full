@@ -101,6 +101,10 @@ Build('build.ui.Switcher', [ 'build::build.ui.Container', 'build::build.utility.
 					}
 				}
 			},
+			refreshIndices : function(children) {
+				$super().refreshIndices(this)(children);
+				this.cacheValue('active', undefined);
+			},
 			createChild : function(child, $index) {
 				child = $super().createChild(this)(child, $index);
 				return this.initializeChild(child);
