@@ -26,7 +26,7 @@ Build('build.storage.BrowserStorage', [ 'build::build.Module' ], function($defin
 				if (typeof firstValue !== 'undefined') {
 					localStorage.setItem(name, JSON.stringify(firstValue));
 				}
-				var hidden;
+				var hidden = firstValue;
 				Object.defineProperty(this, name, Build.merge({
 					configurable : true,
 					enumerable : true,
@@ -61,7 +61,7 @@ Build('build.storage.BrowserStorage', [ 'build::build.Module' ], function($defin
 				if (typeof firstValue !== 'undefined') {
 					sessionStorage.setItem(name, JSON.stringify(firstValue));
 				}
-				var hidden;
+				var hidden = firstValue;
 				Object.defineProperty(this, name, Build.merge({
 					configurable : true,
 					enumerable : true,

@@ -94,9 +94,12 @@ Build('build.Module', [], function($define, $super) {
 			 */
 			watchValue : function(name, value, get, set, thisArg, definition) {
 				var hidden = this.runSet(value, set, thisArg);
+				if (hidden !== undefined) {
+					var cache = value;
+				}
 				this.propertyCache = this.propertyCache || {};
 				this.propertyCache[name] = function(value) {
-					hidden = value;
+					cache = value;
 				};
 				Object.defineProperty(this, name, Build.merge({
 					configurable : true,
@@ -107,15 +110,17 @@ Build('build.Module', [], function($define, $super) {
 						return hidden;
 					},
 					set : typeof set === 'function' ? function(value) {
-						if (value !== hidden) {
-							value = thisArg ? set.call(thisArg, value, hidden, cancel) : set(value, hidden, cancel);
-							if (value !== cancel) {
+						if (value !== cache) {
+							var newValue = thisArg ? set.call(thisArg, value, hidden, cancel) : set(value, hidden, cancel);
+							if (newValue !== cancel) {
+								cache = value;
 								hidden = value;
 								this.publish(name);
 							}
 						}
 					} : function(value) {
-						if (value !== hidden) {
+						if (value !== cache) {
+							cache = value;
 							hidden = value;
 							this.publish(name);
 						}

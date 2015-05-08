@@ -167,7 +167,7 @@ Build('build.ui.Widget', [ 'build::build.Module' ], function($define, $super) {
 				if (typeof firstValue !== 'undefined') {
 					this.element[name] = firstValue;
 				}
-				var hidden;
+				var hidden = firstValue;
 				Object.defineProperty(this, property, Build.merge({
 					configurable : true,
 					enumerable : true,
@@ -203,7 +203,7 @@ Build('build.ui.Widget', [ 'build::build.Module' ], function($define, $super) {
 				if (typeof firstValue !== 'undefined') {
 					this.element.setAttribute(attribute, firstValue);
 				}
-				var hidden;
+				var hidden = firstvalue;
 				Object.defineProperty(this, property, Build.merge({
 					configurable : true,
 					enumerable : true,
@@ -240,7 +240,7 @@ Build('build.ui.Widget', [ 'build::build.Module' ], function($define, $super) {
 				if (typeof firstValue !== 'undefined') {
 					this.element.style[style] = firstValue;
 				}
-				var hidden;
+				var hidden = firstValue;
 				if (unit) {
 					Object.defineProperty(this, property, Build.merge({
 						configurable : true,
@@ -296,7 +296,7 @@ Build('build.ui.Widget', [ 'build::build.Module' ], function($define, $super) {
 				if (typeof firstValue !== 'undefined') {
 					this.element.dataset ? this.element.dataset[data] = firstValue : this.element.setAttribute('data-' + data, firstValue);
 				}
-				var hidden;
+				var hidden = firstValue;
 				Object.defineProperty(this, property, Build.merge({
 					configurable : true,
 					enumerable : true,
@@ -384,7 +384,7 @@ Build('build.ui.Widget', [ 'build::build.Module' ], function($define, $super) {
 				if (typeof firstValue !== 'undefined') {
 					this.setClassName(className, lastClassName, firstValue);
 				}
-				var hidden;
+				var hidden = firstValue;
 				Object.defineProperty(this, property, Build.merge({
 					configurable : true,
 					enumerable : true,

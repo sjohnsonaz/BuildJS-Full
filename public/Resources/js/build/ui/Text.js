@@ -41,7 +41,7 @@ Build('build.ui.Text', [ 'build::build.Module' ], function($define, $super) {
 				if (typeof firstValue !== 'undefined') {
 					this.element[name] = firstValue;
 				}
-				var hidden;
+				var hidden = firstValue;
 				Object.defineProperty(this, property, Build.merge({
 					configurable : true,
 					enumerable : true,
