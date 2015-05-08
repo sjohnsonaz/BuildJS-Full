@@ -164,6 +164,7 @@ Build('build.ui.Container', [ 'build::build.ui.Widget', 'build::build.utility.Ob
 					this.updateParent(templateResult, true);
 					element = templateResult.element || templateResult;
 					element.$template = template;
+					element.$child = child;
 					//element.$controller = child;
 				} else if (child instanceof build.ui.Widget) {
 					// If we have a Widget, return the element

@@ -2,7 +2,7 @@
  * @class build.ui.Switcher
  * @extends build.ui.Container
  */
-Build('build.ui.Switcher', [ 'build::build.ui.Container', 'build::build.ui.SwitcherChildrenHandler', 'build::build.utility.Navigation', 'build::build.binding.TwoWayBinding' ], function($define, $super) {
+Build('build.ui.Switcher', [ 'build::build.ui.Container', 'build::build.utility.Navigation', 'build::build.binding.TwoWayBinding' ], function($define, $super) {
 	$define({
 		$extends : 'build.ui.Container',
 		/**
@@ -101,13 +101,16 @@ Build('build.ui.Switcher', [ 'build::build.ui.Container', 'build::build.ui.Switc
 					}
 				}
 			},
-			createChild : function(child) {
-				child = $super().createChild(this)(child);
+			createChild : function(child, $index) {
+				child = $super().createChild(this)(child, $index);
 				return this.initializeChild(child);
 			},
-			destroyChild : function(child) {
-				$super().removeChild(this)(child);
-				return this.cleanupChild(child);
+			destroyChild : function(element) {
+				if (this.activeChild === element.$controller || this.activeChild === element.$child) {
+					this.activeChild = undefined;
+				}
+				$super().destroyChild(this)(element);
+				return this.cleanupChild(element);
 			},
 			initializeChild : function(child) {
 				if (child instanceof HTMLElement) {
