@@ -2,44 +2,67 @@
 
 .tooltip {
 	position: relative;
+	/* These may affect the applied element */
 	display: inline-block;
 	overflow: visible;
 	&:before {
 		content: '';
 		display: block;
 		position: absolute;
-		border: @tooltip-spacing solid transparent;
+		border: @tooltip-spacing solid @tooltip-background-color;
 		width: 0;
-		z-index: 1;
+		z-index: @tooltip-zindex;
 
 		text-decoration: underline;
 		visibility: hidden;
 		opacity: 0;
 		transition: visibility 0s, opacity 0.3s;
 		-webkit-backface-visibility: hidden;
+
+		.tooltip-info& {
+			border-color: @tooltip-info-background-color;
+		}
+		.tooltip-success& {
+			border-color: @tooltip-success-background-color;
+		}
+		.tooltip-warning& {
+			border-color: @tooltip-warning-background-color;
+		}
+		.tooltip-error& {
+			border-color: @tooltip-error-background-color;
+		}
+
 		.tooltip-top& {
 			top: -@tooltip-spacing;
 			right: 50%;
 			margin: 0 -@tooltip-spacing;
-			border-top-color: @tooltip-background-color;
+			border-right-color: transparent;
+			border-bottom-color: transparent;
+			border-left-color: transparent;
 		}
 		.tooltip-bottom& {
 			bottom: -@tooltip-spacing;
 			right: 50%;
 			margin: 0 -@tooltip-spacing;
-			border-bottom-color: @tooltip-background-color;
+			border-top-color: transparent;
+			border-right-color: transparent;
+			border-left-color: transparent;
 		}
 		.tooltip-right& {
 			right: -@tooltip-spacing;
 			bottom: 50%;
 			margin: -@tooltip-spacing 0;
-			border-right-color: @tooltip-background-color;
+			border-top-color: transparent;
+			border-bottom-color: transparent;
+			border-left-color: transparent;
 		}
 		.tooltip-left& {
 			left: -@tooltip-spacing;
 			bottom: 50%;
 			margin: -@tooltip-spacing 0;
-			border-left-color: @tooltip-background-color;
+			border-top-color: transparent;
+			border-right-color: transparent;
+			border-bottom-color: transparent;
 		}
 	}
 	&:after {
@@ -48,19 +71,41 @@
 		position: absolute;
 		background-color: @tooltip-background-color;
 		color: @tooltip-color;
-		padding: 5px 10px;
-		border: 1px solid #000000;
-		border-radius: 3px;
+		padding: @tooltip-padding;
+		border: 1px solid @tooltip-background-color;
+		border-radius: @tooltip-border-radius;
 		white-space: pre;
-		line-height: normal;
-		font-size: medium;
-		font-weight: normal;
-		z-index: 1;
+		line-height: @tooltip-line-height;
+		font-size: @tooltip-font-size;
+		font-weight: @tooltip-font-weight;
+		z-index: @tooltip-zindex;
+		box-shadow: @tooltip-box-shadow;
 
 		text-decoration: underline;
 		visibility: hidden;
 		opacity: 0;
 		transition: visibility 0s, opacity 0.3s;
+
+		.tooltip-info& {
+			border-color: @tooltip-info-background-color;
+			background-color: @tooltip-info-background-color;
+			color: @tooltip-info-color;
+		}
+		.tooltip-success& {
+			border-color: @tooltip-success-background-color;
+			background-color: @tooltip-success-background-color;
+			color: @tooltip-success-color;
+		}
+		.tooltip-warning& {
+			border-color: @tooltip-warning-background-color;
+			background-color: @tooltip-warning-background-color;
+			color: @tooltip-warning-color;
+		}
+		.tooltip-error& {
+			border-color: @tooltip-error-background-color;
+			background-color: @tooltip-error-background-color;
+			color: @tooltip-error-color;
+		}
 
 		/* Fixed blurry text in Chrome */
 		-webkit-backface-visibility: hidden;

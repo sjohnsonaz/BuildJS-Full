@@ -10,7 +10,7 @@ Build('build.utility.Tooltip', [ 'build::build.ui.Widget' ], function($define, $
 			$super(this)();
 		},
 		$static : {
-			create : function(widget, text, open, position, alignment) {
+			create : function(widget, text, open, position, alignment, status) {
 				if (widget instanceof build.ui.Widget) {
 					widget.classList.add('tooltip');
 					widget.watchClass('tooltipOpen', 'tooltip-open', !!open);
@@ -47,6 +47,21 @@ Build('build.utility.Tooltip', [ 'build::build.ui.Widget' ], function($define, $
 						widget.classList.add(alignmentClass);
 						return value;
 					});
+					widget.watchValue('tooltipStatus', status || 'normal', undefined, function(value, hidden, cancel) {
+						var statusClass;
+						if (hidden) {
+							statusClass = build.utility.Tooltip.status[hidden];
+							if (statusClass) {
+								widget.classList.remove(statusClass)
+							}
+						}
+						if (!build.utility.Tooltip.status[value]) {
+							value = 'normal';
+						}
+						statusClass = build.utility.Tooltip.status[value];
+						widget.classList.add(statusClass);
+						return value;
+					});
 				}
 				return widget;
 			},
@@ -62,6 +77,13 @@ Build('build.utility.Tooltip', [ 'build::build.ui.Widget' ], function($define, $
 				right : 'tooltip-align-right',
 				top : 'tooltip-align-top',
 				bottom : 'tooltip-align-bottom',
+			},
+			status : {
+				normal : 'tooltip-normal',
+				info : 'tooltip-info',
+				success : 'tooltip-success',
+				warning : 'tooltip-warning',
+				error : 'tooltip-error'
 			}
 		}
 	});

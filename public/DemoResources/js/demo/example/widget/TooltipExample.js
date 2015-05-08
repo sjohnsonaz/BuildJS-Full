@@ -11,7 +11,7 @@ Build('demo.example.widget.TooltipExample', [ 'build::build.ui.Container', 'buil
 			this.addChild(header0);
 
 			var button = build.form.input.Button.create('Tooltip Button');
-			build.utility.Tooltip.create(button, 'Tooltip text', false, 'right');
+			build.utility.Tooltip.create(button, 'Tooltip text', false, 'right', 'center', 'normal');
 
 			this.addChild(button);
 		}
