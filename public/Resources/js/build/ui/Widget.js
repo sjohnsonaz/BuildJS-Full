@@ -259,51 +259,18 @@ Build('build.ui.Widget', [ 'build::build.Module' ], function($define, $super) {
 						this.element.classList.add(newClassName);
 					}
 				}
+				return newClassName;
 			},
 			/**
 			 * @method watchClass
 			 */
 			watchClass : function(property, className, value, get, set, thisArg, definition) {
-				className = className || property;
-				// TODO: Decide action on undefined
-				var lastClassName = undefined;
-				var firstValue = this.runSet(value, set, thisArg);
-				if (typeof firstValue !== 'undefined') {
-					this.setClassName(className, lastClassName, firstValue);
-				}
-				var hidden = firstValue;
-				Object.defineProperty(this, property, Build.merge({
-					configurable : true,
-					enumerable : true,
-					get : typeof get === 'function' ? function() {
-						return thisArg ? get.call(thisArg, this.element.classList.contains(className), this) : get(this.element.classList.contains(className), this);
-					} : function() {
-						return this.element.classList.contains(className);
-					},
-					set : typeof set === 'function' ? function(value) {
-						if (value !== this.element.classList.contains(className)) {
-							value = thisArg ? set.call(thisArg, value, hidden, cancel) : set(value, hidden, cancel);
-							if (value !== cancel) {
-								hidden = value;
-								if (value) {
-									this.element.classList.add(className);
-								} else {
-									this.element.classList.remove(className);
-								}
-								this.publish(property);
-							}
-						}
-					} : function(value) {
-						if (value !== this.element.classList.contains(className)) {
-							if (value) {
-								this.element.classList.add(className);
-							} else {
-								this.element.classList.remove(className);
-							}
-							this.publish(property);
-						}
-					}
-				}, definition));
+				var self = this;
+				this.watchValueFunction(property, className, value, get, set, thisArg, definition, function(className) {
+					return self.element.classList.contains(className);
+				}, function(className, value) {
+					self.element.classList.toggle(className, !!value);
+				});
 			},
 			/**
 			 * @method modifyElement
