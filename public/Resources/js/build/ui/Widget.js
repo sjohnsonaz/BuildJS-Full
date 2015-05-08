@@ -203,7 +203,7 @@ Build('build.ui.Widget', [ 'build::build.Module' ], function($define, $super) {
 				if (typeof firstValue !== 'undefined') {
 					this.element.setAttribute(attribute, firstValue);
 				}
-				var hidden = firstvalue;
+				var hidden = firstValue;
 				Object.defineProperty(this, property, Build.merge({
 					configurable : true,
 					enumerable : true,
