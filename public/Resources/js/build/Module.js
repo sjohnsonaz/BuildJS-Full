@@ -114,12 +114,53 @@ Build('build.Module', [], function($define, $super) {
 							var newValue = thisArg ? set.call(thisArg, value, hidden, cancel) : set(value, hidden, cancel);
 							if (newValue !== cancel) {
 								cache = value;
-								hidden = value;
+								hidden = newValue;
 								this.publish(name);
 							}
 						}
 					} : function(value) {
 						if (value !== cache) {
+							cache = value;
+							hidden = value;
+							this.publish(name);
+						}
+					}
+				}, definition));
+			},
+			/**
+			 * @method watchValueFunction
+			 */
+			watchValueFunction : function(name, innerName, value, get, set, thisArg, definition, getter, setter) {
+				var hidden = this.runSet(value, set, thisArg);
+				if (hidden !== undefined) {
+					var cache = value;
+					setter(innerName, hidden);
+				}
+				this.propertyCache = this.propertyCache || {};
+				this.propertyCache[name] = function(value) {
+					cache = value;
+				};
+				Object.defineProperty(this, name, Build.merge({
+					configurable : true,
+					enumerable : true,
+					get : typeof get === 'function' ? function() {
+						return thisArg ? get.call(thisArg, getter(innerName), this) : get(getter(innerName), this);
+					} : function() {
+						return getter(innerName);
+					},
+					set : typeof set === 'function' ? function(value) {
+						if (value !== cache) {
+							var newValue = thisArg ? set.call(thisArg, value, hidden, cancel) : set(value, hidden, cancel);
+							if (newValue !== cancel) {
+								setter(innerName, newValue);
+								cache = value;
+								hidden = newValue;
+								this.publish(name);
+							}
+						}
+					} : function(value) {
+						if (value !== cache) {
+							setter(innerName, value);
 							cache = value;
 							hidden = value;
 							this.publish(name);
