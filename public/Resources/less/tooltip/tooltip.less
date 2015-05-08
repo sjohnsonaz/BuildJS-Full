@@ -1,5 +1,7 @@
 @import "tooltip-settings.less";
 
+@tooltip-spacing-adjusted: @tooltip-spacing / sqrt(2);
+
 .tooltip {
 	position: relative;
 	/* These may affect the applied element */
@@ -9,9 +11,9 @@
 		content: '';
 		display: block;
 		position: absolute;
-		border: @tooltip-spacing solid @tooltip-background-color;
+		border: @tooltip-spacing-adjusted solid @tooltip-background-color;
 		width: 0;
-		z-index: @tooltip-zindex + 1;
+		z-index: @tooltip-zindex;
 
 		text-decoration: underline;
 		visibility: hidden;
@@ -33,36 +35,40 @@
 		}
 
 		.tooltip-top& {
-			top: -@tooltip-spacing;
+			top: -@tooltip-spacing-adjusted;
 			right: 50%;
 			margin: 0 -@tooltip-spacing;
+			border-top-color: transparent;
 			border-right-color: transparent;
-			border-bottom-color: transparent;
-			border-left-color: transparent;
+			transform: translateY(-@tooltip-spacing) rotate(-45deg);
+			box-shadow: @tooltip-box-shadow;
 		}
 		.tooltip-bottom& {
-			bottom: -@tooltip-spacing;
+			bottom: -@tooltip-spacing-adjusted;
 			right: 50%;
 			margin: 0 -@tooltip-spacing;
 			border-top-color: transparent;
 			border-right-color: transparent;
-			border-left-color: transparent;
+			transform: translateY(@tooltip-spacing) rotate(135deg);
+			box-shadow: @tooltip-box-shadow;
 		}
 		.tooltip-right& {
-			right: -@tooltip-spacing;
-			bottom: 50%;
-			margin: -@tooltip-spacing 0;
-			border-top-color: transparent;
-			border-bottom-color: transparent;
-			border-left-color: transparent;
-		}
-		.tooltip-left& {
-			left: -@tooltip-spacing;
+			right: -@tooltip-spacing-adjusted;
 			bottom: 50%;
 			margin: -@tooltip-spacing 0;
 			border-top-color: transparent;
 			border-right-color: transparent;
-			border-bottom-color: transparent;
+			transform: translateX(@tooltip-spacing) rotate(45deg);
+			box-shadow: @tooltip-box-shadow;
+		}
+		.tooltip-left& {
+			left: -@tooltip-spacing-adjusted;
+			bottom: 50%;
+			margin: -@tooltip-spacing 0;
+			border-top-color: transparent;
+			border-right-color: transparent;
+			transform: translateX(-@tooltip-spacing) rotate(225deg);
+			box-shadow: @tooltip-box-shadow;
 		}
 	}
 	&:after {
