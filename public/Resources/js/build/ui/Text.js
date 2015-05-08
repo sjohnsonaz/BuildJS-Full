@@ -35,37 +35,12 @@ Build('build.ui.Text', [ 'build::build.Module' ], function($define, $super) {
 			 */
 			// TODO: Fix value change detection on setter methods.
 			watchProperty : function(property, name, value, get, set, thisArg, definition) {
-				name = name || property;
-				// TODO: Decide action on undefined
-				var firstValue = this.runSet(value, set, thisArg);
-				if (typeof firstValue !== 'undefined') {
-					this.element[name] = firstValue;
-				}
-				var hidden = firstValue;
-				Object.defineProperty(this, property, Build.merge({
-					configurable : true,
-					enumerable : true,
-					get : typeof get === 'function' ? function() {
-						return thisArg ? get.call(thisArg, this.element[name], this) : get(this.element[name], this);
-					} : function() {
-						return this.element[name];
-					},
-					set : typeof set === 'function' ? function(value) {
-						//if (value !== this.element[name]) {
-						value = thisArg ? set.call(thisArg, value, hidden, cancel) : set(value, hidden, cancel);
-						if (value !== cancel) {
-							hidden = value;
-							this.element[name] = hidden || '';
-							this.publish(property);
-						}
-						//}
-					} : function(value) {
-						//if (value !== this.element[name]) {
-						this.element[name] = value || '';
-						this.publish(property);
-						//}
-					}
-				}, definition));
+				var self = this;
+				this.watchValueFunction(property, name, value, get, set, thisArg, definition, function(name) {
+					return self.element[name];
+				}, function(name, value) {
+					self.element[name] = value || '';
+				});
 			}
 		},
 		$static : {

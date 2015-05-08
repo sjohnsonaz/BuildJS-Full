@@ -131,6 +131,7 @@ Build('build.Module', [], function($define, $super) {
 			 * @method watchValueFunction
 			 */
 			watchValueFunction : function(name, innerName, value, get, set, thisArg, definition, getter, setter) {
+				innerName = innerName || name;
 				var hidden = this.runSet(value, set, thisArg);
 				if (hidden !== undefined) {
 					var cache = value;

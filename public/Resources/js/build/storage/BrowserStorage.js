@@ -22,31 +22,11 @@ Build('build.storage.BrowserStorage', [ 'build::build.Module' ], function($defin
 			 */
 			// TODO: Apply value change detection on setter methods.
 			watchLocalStorage : function(name, value, get, set, thisArg, definition) {
-				var firstValue = this.runSet(value, set, thisArg);
-				if (typeof firstValue !== 'undefined') {
-					localStorage.setItem(name, JSON.stringify(firstValue));
-				}
-				var hidden = firstValue;
-				Object.defineProperty(this, name, Build.merge({
-					configurable : true,
-					enumerable : true,
-					get : typeof get === 'function' ? function() {
-						return thisArg ? get.call(thisArg, JSON.parse(localStorage.getItem(name)), this) : get(JSON.parse(localStorage.getItem(name)), this);
-					} : function() {
-						return JSON.parse(localStorage.getItem(name));
-					},
-					set : typeof set == 'function' ? function(value) {
-						value = thisArg ? set.call(thisArg, value, hidden, cancel) : set(value, hidden, cancel);
-						if (value !== cancel) {
-							hidden = value;
-							localStorage.setItem(name, JSON.stringify(hidden));
-							this.publish(name);
-						}
-					} : function(value) {
-						localStorage.setItem(name, JSON.stringify(value));
-						this.publish(name);
-					}
-				}, definition));
+				this.watchValueFunction(name, name, value, get, set, thisArg, definition, function(name) {
+					return JSON.parse(localStorage.getItem(name));
+				}, function(name, value) {
+					localStorage.setItem(name, JSON.stringify(value));
+				});
 			},
 			/**
 			 * @method watchSessionStorage
@@ -57,31 +37,11 @@ Build('build.storage.BrowserStorage', [ 'build::build.Module' ], function($defin
 			 */
 			// TODO: Apply value change detection on setter methods.
 			watchSessionStorage : function(name, value, get, set, thisArg, definition) {
-				var firstValue = this.runSet(value, set, thisArg);
-				if (typeof firstValue !== 'undefined') {
-					sessionStorage.setItem(name, JSON.stringify(firstValue));
-				}
-				var hidden = firstValue;
-				Object.defineProperty(this, name, Build.merge({
-					configurable : true,
-					enumerable : true,
-					get : typeof get === 'function' ? function() {
-						return thisArg ? get.call(thisArg, JSON.parse(sessionStorage.getItem(name)), this) : get(JSON.parse(sessionStorage.getItem(name)), this);
-					} : function() {
-						return JSON.parse(sessionStorage.getItem(name));
-					},
-					set : typeof set == 'function' ? function(value) {
-						value = thisArg ? set.call(thisArg, value, hidden, cancel) : set(value, hidden, cancel);
-						if (value !== cancel) {
-							hidden = value;
-							sessionStorage.setItem(name, JSON.stringify(hidden));
-							this.publish(name);
-						}
-					} : function(value) {
-						sessionStorage.setItem(name, JSON.stringify(value));
-						this.publish(name);
-					}
-				}, definition));
+				this.watchValueFunction(name, name, value, get, set, thisArg, definition, function(name) {
+					return JSON.parse(sessionStorage.getItem(name));
+				}, function(name, value) {
+					sessionStorage.setItem(name, JSON.stringify(value));
+				});
 			}
 		}
 	});

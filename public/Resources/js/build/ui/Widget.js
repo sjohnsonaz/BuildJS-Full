@@ -161,169 +161,56 @@ Build('build.ui.Widget', [ 'build::build.Module' ], function($define, $super) {
 			 */
 			// TODO: Fix value change detection on setter methods.
 			watchProperty : function(property, name, value, get, set, thisArg, definition) {
-				name = name || property;
-				// TODO: Decide action on undefined
-				var firstValue = this.runSet(value, set, thisArg);
-				if (typeof firstValue !== 'undefined') {
-					this.element[name] = firstValue;
-				}
-				var hidden = firstValue;
-				Object.defineProperty(this, property, Build.merge({
-					configurable : true,
-					enumerable : true,
-					get : typeof get === 'function' ? function() {
-						return thisArg ? get.call(thisArg, this.element[name], this) : get(this.element[name], this);
-					} : function() {
-						return this.element[name];
-					},
-					set : typeof set === 'function' ? function(value) {
-						//if (value !== this.element[name]) {
-						value = thisArg ? set.call(thisArg, value, hidden, cancel) : set(value, hidden, cancel);
-						if (value !== cancel) {
-							hidden = value;
-							this.element[name] = typeof hidden === 'undefined' ? '' : hidden;
-							this.publish(property);
-						}
-						//}
-					} : function(value) {
-						//if (value !== this.element[name]) {
-						this.element[name] = typeof value === 'undefined' ? '' : value;
-						this.publish(property);
-						//}
-					}
-				}, definition));
+				var self = this;
+				this.watchValueFunction(property, name, value, get, set, thisArg, definition, function(name) {
+					return self.element[name];
+				}, function(name, value) {
+					self.element[name] = typeof value === 'undefined' ? '' : value
+				});
 			},
 			/**
 			 * @method watchAttribute
 			 */
 			watchAttribute : function(property, attribute, value, get, set, thisArg, definition) {
-				attribute = attribute || property;
-				// TODO: Decide action on undefined
-				var firstValue = this.runSet(value, set, thisArg);
-				if (typeof firstValue !== 'undefined') {
-					this.element.setAttribute(attribute, firstValue);
-				}
-				var hidden = firstValue;
-				Object.defineProperty(this, property, Build.merge({
-					configurable : true,
-					enumerable : true,
-					get : typeof get === 'function' ? function() {
-						return thisArg ? get.call(thisArg, this.element.getAttribute(attribute), this) : get(this.element.getAttribute(attribute), this);
-					} : function() {
-						return this.element.getAttribute(attribute);
-					},
-					set : typeof set === 'function' ? function(value) {
-						if (value !== this.element.getAttribute(attribute)) {
-							value = thisArg ? set.call(thisArg, value, hidden, cancel) : set(value, hidden, cancel);
-							if (value !== cancel) {
-								hidden = value;
-								this.element.setAttribute(attribute, typeof hidden === 'undefined' ? '' : hidden);
-								this.publish(property);
-							}
-						}
-					} : function(value) {
-						if (value !== this.element.getAttribute(attribute)) {
-							this.element.setAttribute(attribute, typeof value === 'undefined' ? '' : value);
-							this.publish(property);
-						}
-					}
-				}, definition));
+				var self = this;
+				this.watchValueFunction(property, attribute, value, get, set, thisArg, definition, function(attribute) {
+					// TODO: Decide action on undefined
+					return self.element.getAttribute(attribute);
+				}, function(attribute, value) {
+					self.element.setAttribute(attribute, typeof value === 'undefined' ? '' : value);
+				});
 			},
 			/**
 			 * @method watchStyle
 			 */
 			// TODO: Apply value change detection on setter methods.
 			watchStyle : function(property, style, unit, value, get, set, thisArg, definition) {
-				style = style || property;
-				// TODO: Decide action on undefined
-				var firstValue = unit ? (this.runSet(value, set, thisArg) || 0) + unit : this.runSet(value, set, thisArg);
-				if (typeof firstValue !== 'undefined') {
-					this.element.style[style] = firstValue;
-				}
-				var hidden = firstValue;
-				if (unit) {
-					Object.defineProperty(this, property, Build.merge({
-						configurable : true,
-						enumerable : true,
-						get : typeof get === 'function' ? function() {
-							return thisArg ? get.call(thisArg, parseFloat(this.element.style[style] || 0), this) : get(parseFloat(this.element.style[style] || 0), this);
-						} : function() {
-							return parseFloat(this.element.style[style] || 0);
-						},
-						set : typeof set === 'function' ? function(value) {
-							value = thisArg ? set.call(thisArg, value, hidden, cancel) : set(value, hidden, cancel);
-							if (value !== cancel) {
-								hidden = value || 0;
-								this.element.style[style] = (hidden) + unit;
-								this.publish(property);
-							}
-						} : function(value) {
-							this.element.style[style] = (value || 0) + unit;
-							this.publish(property);
-						}
-					}, definition));
-				} else {
-					Object.defineProperty(this, property, Build.merge({
-						configurable : true,
-						enumerable : true,
-						get : typeof get === 'function' ? function() {
-							return thisArg ? get.call(thisArg, this.element.style[style], this) : get(this.element.style[style], this);
-						} : function() {
-							return this.element.style[style];
-						},
-						set : typeof set === 'function' ? function(value) {
-							value = thisArg ? set.call(thisArg, value, hidden, cancel) : set(value, hidden, cancel);
-							if (value !== cancel) {
-								hidden = value;
-								this.element.style[style] = hidden;
-								this.publish(property);
-							}
-						} : function(value) {
-							this.element.style[style] = value;
-							this.publish(property);
-						}
-					}, definition));
-				}
+				var self = this;
+				this.watchValueFunction(property, style, value, get, set, thisArg, definition, function(style) {
+					if (unit) {
+						return parseFloat(self.element.style[style] || 0);
+					} else {
+						return self.element.style[style];
+					}
+				}, function(style, value) {
+					if (unit) {
+						self.element.style[style] = (value) + unit;
+					} else {
+						self.element.style[style] = value;
+					}
+				});
 			},
 			// TODO: Remove this polyfill once IE10 support is dropped.
 			/**
 			 * @method watchData
 			 */
 			watchData : function(property, data, value, get, set, thisArg, definition) {
-				data = data || property;
-				// TODO: Decide action on undefined
-				var firstValue = this.runSet(value, set, thisArg);
-				if (typeof firstValue !== 'undefined') {
-					this.element.dataset ? this.element.dataset[data] = firstValue : this.element.setAttribute('data-' + data, firstValue);
-				}
-				var hidden = firstValue;
-				Object.defineProperty(this, property, Build.merge({
-					configurable : true,
-					enumerable : true,
-					get : typeof get === 'function' ? function() {
-						var dataValue = this.element.dataset ? this.element.dataset[data] : this.element.getAttribute('data-' + data);
-						return thisArg ? get.call(thisArg, dataValue, this) : get(dataValue, this);
-					} : function() {
-						return this.element.dataset ? this.element.dataset[data] : this.element.getAttribute('data-' + data);
-					},
-					set : typeof set === 'function' ? function(value) {
-						if (value !== this.element.dataset ? this.element.dataset[data] : this.element.getAttribute('data-' + data)) {
-							value = thisArg ? set.call(thisArg, value, hidden, cancel) : set(value, hidden, cancel);
-							if (value !== cancel) {
-								hidden = value;
-								value = typeof value === 'undefined' ? '' : value;
-								this.element.dataset ? this.element.dataset[data] = value : this.element.setAttribute('data-' + data, value);
-								this.publish(property);
-							}
-						}
-					} : function(value) {
-						if (value !== this.element.dataset ? this.element.dataset[data] : this.element.getAttribute('data-' + data)) {
-							value = typeof value === 'undefined' ? '' : value;
-							this.element.dataset ? this.element.dataset[data] = value : this.element.setAttribute('data-' + data, value);
-							this.publish(property);
-						}
-					}
-				}, definition));
+				var self = this;
+				this.watchValueFunction(property, data, value, get, set, thisArg, definition, function(data) {
+					return self.element.dataset ? self.element.dataset[data] : self.element.getAttribute('data-' + data);
+				}, function(data, value) {
+					self.element.dataset ? self.element.dataset[data] = value : self.element.setAttribute('data-' + data, value);
+				});
 			},
 			runClassName : function(className, value) {
 				var newClassName;
