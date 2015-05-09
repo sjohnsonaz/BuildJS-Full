@@ -1,7 +1,5 @@
 @import "tooltip-settings.less";
 
-@tooltip-spacing-adjusted: @tooltip-spacing / sqrt(2);
-
 .tooltip {
 	position: relative;
 	/* These may affect the applied element */
@@ -11,11 +9,9 @@
 		content: '';
 		display: block;
 		position: absolute;
-		//border: @tooltip-spacing-adjusted solid @tooltip-background-color;
-		background-image: -webkit-linear-gradient(45deg, @tooltip-background-color 44%, transparent 44%, transparent);
-		width: 2 * @tooltip-spacing-adjusted;
-		height: 2 * @tooltip-spacing-adjusted;
-		z-index: @tooltip-zindex;
+		border: @tooltip-spacing solid @tooltip-background-color;
+		width: 0;
+		z-index: @tooltip-zindex + 1;
 
 		text-decoration: underline;
 		visibility: hidden;
@@ -37,32 +33,36 @@
 		}
 
 		.tooltip-top& {
-			top: -@tooltip-spacing-adjusted;
+			top: -@tooltip-spacing;
 			right: 50%;
 			margin: 0 -@tooltip-spacing;
-			transform: translateY(-@tooltip-spacing) rotate(-45deg);
-			box-shadow: @tooltip-box-shadow;
+			border-right-color: transparent;
+			border-bottom-color: transparent;
+			border-left-color: transparent;
 		}
 		.tooltip-bottom& {
-			bottom: -@tooltip-spacing-adjusted;
+			bottom: -@tooltip-spacing;
 			right: 50%;
 			margin: 0 -@tooltip-spacing;
-			transform: translateY(@tooltip-spacing) rotate(135deg);
-			box-shadow: @tooltip-box-shadow;
+			border-top-color: transparent;
+			border-right-color: transparent;
+			border-left-color: transparent;
 		}
 		.tooltip-right& {
-			right: -@tooltip-spacing-adjusted;
+			right: -@tooltip-spacing;
 			bottom: 50%;
 			margin: -@tooltip-spacing 0;
-			transform: translateX(@tooltip-spacing) rotate(45deg);
-			box-shadow: @tooltip-box-shadow;
+			border-top-color: transparent;
+			border-bottom-color: transparent;
+			border-left-color: transparent;
 		}
 		.tooltip-left& {
-			left: -@tooltip-spacing-adjusted;
+			left: -@tooltip-spacing;
 			bottom: 50%;
 			margin: -@tooltip-spacing 0;
-			transform: translateX(-@tooltip-spacing) rotate(225deg);
-			box-shadow: @tooltip-box-shadow;
+			border-top-color: transparent;
+			border-right-color: transparent;
+			border-bottom-color: transparent;
 		}
 	}
 	&:after {
@@ -79,7 +79,6 @@
 		font-size: @tooltip-font-size;
 		font-weight: @tooltip-font-weight;
 		z-index: @tooltip-zindex;
-		box-shadow: @tooltip-box-shadow;
 
 		text-decoration: underline;
 		visibility: hidden;
