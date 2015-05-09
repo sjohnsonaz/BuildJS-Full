@@ -30,7 +30,7 @@ Build('build.form.input.Text', [ 'build::build.ui.Container', 'build::build.util
 			var mask = undefined;
 			var internalUpdate = false;
 			this.watchProperty('value', 'value', undefined, undefined, function(value, current, cancel) {
-				return internalUpdate ? value : (mask ? mask.runMask(value + '') : value);
+				return internalUpdate ? value : (mask ? mask.runMask(value ? value + '' : '') : value);
 			});
 			this.watchAttribute('placeholder');
 			this.watchAttribute('name');
