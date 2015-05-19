@@ -5,25 +5,27 @@
     margin: @input-margin;
     width: 100%;
     height: 20px;
-    border: @input-border-width solid @input-default-border-color;
-    background-color: @input-default-background-color;
-    border-radius: @input-border-radius;
+    border: @progress-bar-border-width solid @progress-bar-border-color;
+    background-color: @progress-bar-background-color;
+    border-radius: @progress-bar-border-radius;
     & > div {
         padding: 1px;
         width: 0%;
         height: 100%;
         overflow: visible;
-        background-color: @progress-bar-background-color;
-        color: @progress-bar-color;
+        background-color: @progress-bar-normal-background-color;
+        color: @progress-bar-normal-color;
         font-size: 12px;
         text-align: center;
-        border-radius: @input-border-radius - 1;
-        transition: width 0.5s ease;
+        border-radius: @progress-bar-border-radius - @progress-bar-border-width;
+        transition: width @progress-bar-transition-duration ease;
     }
     &.progress-complete > div {
-        background-color: lighten(@progress-bar-background-color, 20%);
+        background-color: @progress-bar-complete-background-color;
+        color: @progress-bar-complete-color;
     }
     &.progress-error > div {
-    	background-color: @input-danger-background-color;
+    	background-color: @progress-bar-error-background-color;
+        color: @progress-bar-error-color;
     }
 }
