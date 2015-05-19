@@ -1,7 +1,7 @@
 @import "modal-settings.less";
 .modal {
 	position: fixed;
-	z-index: 2000;
+	z-index: @modal-z-index;
 	top: 0;
 	right: 0;
 	bottom: 0;
@@ -15,7 +15,7 @@
 		right: 0;
 		bottom: 0;
 		left: 0;
-		background-color: rgba(1, 1, 1, 0.5);
+		background-color: @modal-mask-background-color;
 	}
 
 	.modal-scroll {
@@ -28,12 +28,12 @@
 		.modal-content {
 			position: absolute;
 			left: 50%;
-			width: 75%;
+			width: @modal-width;
 			min-height: 50px;
-			margin: 30px 0 30px -37.5%;
-			border-radius: 10px;
-			background-color: #fff;
-			box-shadow: 5px 5px 20px -2px #000;
+			margin: @modal-margin-top 0 @modal-margin-bottom -(@modal-width / 2);
+			border-radius: @modal-border-radius;
+			background-color: @modal-background-color;
+			box-shadow: @modal-content-box-shadow;
 			&:after {
 				display: table;
 				clear: both;
