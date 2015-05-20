@@ -1,14 +1,15 @@
 @import "../settings.less";
 
-@progress-bar-background-color: @input-default-background-color;
-@progress-bar-border-width: @input-border-width;
-@progress-bar-border-color: @input-default-border-color;
-@progress-bar-border-radius: @input-border-radius;
+@progress-bar-margin: @default-margin;
+@progress-bar-background-color: @default-foreground-background-color;
+@progress-bar-border-width: @default-border-width;
+@progress-bar-border-color: @default-border-color;
+@progress-bar-border-radius: @default-border-radius;
 @progress-bar-transition-duration: 0.5s;
 
-@progress-bar-normal-background-color: #005;
-@progress-bar-normal-color: #fff;
-@progress-bar-complete-background-color: lighten(@progress-bar-normal-background-color, 20%);
-@progress-bar-complete-color: #fff;
-@progress-bar-error-background-color: @input-danger-background-color;
-@progress-bar-error-color: #fff;
+@progress-bar-normal-background-color: @blue-dark;
+@progress-bar-normal-color: @white;
+@progress-bar-complete-background-color: @blue;
+@progress-bar-complete-color: @white;
+@progress-bar-error-background-color: @danger-color;
+@progress-bar-error-color: @danger-color-alt;
