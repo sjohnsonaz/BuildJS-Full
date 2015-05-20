@@ -1,4 +1,19 @@
 @import "../settings.less";
 @import "../mixins.less";
 
-@tab-background: #fff;
+@tab-background-color: #fff;
+@tab-color: @input-default-color;
+@tab-border-radius: @input-border-radius;
+@tab-body-padding: 10px;
+@tab-header-padding: 10px;
+
+@tab-inactive-background-color: @input-default-background-color;
+@tab-inactive-color: @input-default-background-color;
+
+@tab-hover-background-color: lighten(@input-default-background-color, @lighter);
+@tab-hover-color: lighten(@input-default-color, @lighter);
+
+@tab-active-background-color: darken(@input-default-background-color, @darker);
+@tab-active-color: darken(@input-default-color, @darker);
+
+@tab-box-shadow: @box-shadow-height-0;

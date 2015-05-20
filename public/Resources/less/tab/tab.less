@@ -16,32 +16,32 @@
 			padding: 0px;
 			//top: @input-border-width;
 			//border: @input-border-width solid @input-default-border-color;
-			.border-top-left-radius(@input-border-radius);
-			.border-top-right-radius(@input-border-radius);
-			background-color: @input-default-background-color;
-			box-shadow: @box-shadow-height-1;
+			.border-top-left-radius(@tab-border-radius);
+			.border-top-right-radius(@tab-border-radius);
+			background-color: @tab-inactive-background-color;
+			box-shadow: @tab-box-shadow;
 			& > a {
 				display: block;
-				padding: @input-padding;
+				padding: @tab-header-padding;
 				text-decoration: none;
 				cursor: pointer;
-				color: @input-default-color;
+				color: @tab-color;
 			}
 		}
 
 		& > li:hover {
-			color: lighten(@input-default-color, @lighter);
-            background-color: lighten(@input-default-background-color, @lighter);
+			color: @tab-hover-color;
+            background-color: @tab-hover-background-color;
 		}
 
 		& > li:active {
-			color: darken(@input-default-color, @darker);
-            background-color: darken(@input-default-background-color, @darker);
+			color: @tab-active-color;
+            background-color: @tab-active-background-color;
 		}
 
 		& > li.tab-active {
-			//border-bottom: @input-border-width solid @tab-background;
-			background-color: @tab-background;
+			//border-bottom: @input-border-width solid @tab-background-color;
+			background-color: @tab-background-color;
 			//z-index: 1;
 		}
 	}
@@ -50,10 +50,10 @@
 		display: block;
 		position: relative;
 		margin: 0px;
-		padding: 10px;
+		padding: @tab-body-padding;
 		//border: @input-border-width solid @input-default-border-color;
-		background-color: @tab-background;
-	    .border-radius-all(0px, @input-border-radius, @input-border-radius, @input-border-radius);
-	    box-shadow: @box-shadow-height-0;
+		background-color: @tab-background-color;
+	    .border-radius-all(0px, @tab-border-radius, @tab-border-radius, @tab-border-radius);
+	    box-shadow: @tab-box-shadow;
 	}
 }
