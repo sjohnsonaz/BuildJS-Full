@@ -12,8 +12,8 @@
 	padding: 0;
 	margin: 0;
 	height: 50px;
-	background-color: @input-menu-background-color;
-	color: @input-menu-color;
+	background-color: @menu-background-color;
+	color: @menu-color;
 	list-style-type: none;
 	z-index: 1000;
 	
@@ -48,18 +48,18 @@
 			padding: 15px;
 			text-decoration: none;
 			font-weight: bold;
-			color: @input-menu-color;
+			color: @menu-color;
 			&:hover {
-				background-color: lighten(@input-menu-background-color, @lighter);
-				color: lighten(@input-menu-color, @lighter);
+				background-color: lighten(@menu-background-color, @lighter);
+				color: lighten(@menu-color, @lighter);
 			}
 
 			&.active-menu {
-				background-color: darken(@input-menu-background-color, @darker);
-				color: darken(@input-menu-color, @darker);
+				background-color: darken(@menu-background-color, @darker);
+				color: darken(@menu-color, @darker);
 				&:hover {
-					background-color: darken(@input-menu-background-color, @darker + 10);
-					color: darken(@input-menu-color, @darker + 10);
+					background-color: darken(@menu-background-color, @darker + 10);
+					color: darken(@menu-color, @darker + 10);
 				}
 			}
 
@@ -76,8 +76,8 @@
 		top: 0px;
 		right: 0px;
 		left: 0px;
-		.linear-gradient(top, @input-menu-fixed-background-color, lighten(@input-menu-fixed-background-color, 20%));
-		//background-color: @input-menu-fixed-background-color;
+		.linear-gradient(top, @menu-fixed-background-color, lighten(@menu-fixed-background-color, 20%));
+		//background-color: @menu-fixed-background-color;
 		box-shadow: 0 0px 5px 2px #000;
 		.expand-button {
 			display: none;
@@ -85,18 +85,18 @@
 
 		li {
 			a {
-				color: @input-menu-fixed-color;
+				color: @menu-fixed-color;
 				&:hover {
-					background-color: lighten(@input-menu-fixed-background-color, @lighter);
-					color: lighten(@input-menu-fixed-color, @lighter);
+					background-color: lighten(@menu-fixed-background-color, @lighter);
+					color: lighten(@menu-fixed-color, @lighter);
 				}
 
 				&.active-menu {
-					background-color: darken(@input-menu-fixed-background-color, @darker);
-					color: darken(@input-menu-fixed-color, @darker);
+					background-color: darken(@menu-fixed-background-color, @darker);
+					color: darken(@menu-fixed-color, @darker);
 					&:hover {
-						background-color: darken(@input-menu-fixed-background-color, @darker + 10);
-						color: darken(@input-menu-fixed-color, @darker + 10);
+						background-color: darken(@menu-fixed-background-color, @darker + 10);
+						color: darken(@menu-fixed-color, @darker + 10);
 					}
 				}
 			}
@@ -161,22 +161,22 @@
 .build-widget-menu-Menu {
 	.clearfix;
 	display: inline-block;
-	background-color: @input-default-background-color;
+	background-color: @menu-background-color;
 	width: 100%;
 	padding: 0;
-	border-radius: @input-border-radius;
+	border-radius: @menu-border-radius;
 	box-shadow: @box-shadow-height-0;
 	& > a {
 		display: block;
 		float: left;
-		padding: @input-padding;
+		padding: @menu-padding;
 		margin: 0;
 		text-decoration: none;
 		font-weight: bold;
-		.border-radius-all(@input-border-radius, 0, 0, @input-border-radius);
+		.border-radius-all(@menu-border-radius, 0, 0, @menu-border-radius);
 		@media only screen and (max-width: (@size0 - 1)) {
 			float: none;
-			.border-radius-all(@input-border-radius, @input-border-radius, 0, 0);
+			.border-radius-all(@menu-border-radius, @menu-border-radius, 0, 0);
 		}
 	}
 	& > ul {
@@ -200,17 +200,17 @@
 			cursor: default;
 			& > a {
 				display: block;
-				padding: @input-padding;
+				padding: @menu-padding;
 				margin: 0;
 				text-decoration: none;
 				font-weight: bold;
 				border-radius: 0;
 				&:hover {
-					background-color: darken(@input-default-background-color, @darker);
+					background-color: @menu-hover-background-color;
 				}
 			}
 			&.container-child {
-				padding: @input-padding;
+				padding: @menu-padding;
 			}
 			&.menu-right {
 				float: right;
@@ -257,10 +257,10 @@
 			& > ul {
 				display: none;
 				position: absolute;
-				background-color: @input-default-background-color;
+				background-color: @menu-background-color;
 				padding: 0;
 				top: 100%;
-				border-radius: @input-border-radius;
+				border-radius: @menu-border-radius;
 				box-shadow: @box-shadow-height-2;
 				@media only screen and (max-width: (@size0 - 1)) {
 					top: 0;
@@ -305,17 +305,17 @@
 					}
 					&:last-child {
 						& > a {
-							.border-radius-all(0, 0, @input-border-radius, @input-border-radius);
+							.border-radius-all(0, 0, @menu-border-radius, @menu-border-radius);
 						}
 					}
 					&:first-child {
 						& > a {
-							.border-radius-all(@input-border-radius, @input-border-radius, 0, 0);
+							.border-radius-all(@menu-border-radius, @menu-border-radius, 0, 0);
 						}
 					}
 					&:only-child {
 						& > a {
-							.border-radius-all(@input-border-radius, @input-border-radius, @input-border-radius, @input-border-radius);
+							.border-radius-all(@menu-border-radius, @menu-border-radius, @menu-border-radius, @menu-border-radius);
 						}
 					}
 				}
@@ -324,10 +324,10 @@
 				.clearfix();
 				display: none;
 				position: absolute;
-				background-color: @input-default-background-color;
-				padding: @input-border-radius;
+				background-color: @menu-background-color;
+				padding: @menu-border-radius;
 				top: 100%;
-				border-radius: @input-border-radius;
+				border-radius: @menu-border-radius;
 				box-shadow: @box-shadow-height-2;
 			}
 			&.menu-open {
@@ -350,7 +350,7 @@
 	&.menu-open {
 		& > a {
 			&:hover {
-				background-color: darken(@input-default-background-color, @darker);
+				background-color: @menu-hover-background-color;
 			}
 		}
 	}
