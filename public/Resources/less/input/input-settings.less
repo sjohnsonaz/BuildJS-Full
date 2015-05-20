@@ -1,27 +1,27 @@
 @import "../settings.less";
 @import "../mixins.less";
 
-@input-padding: 10px;
-@input-margin: 2px;
-@input-border-width: 1px;
-@input-border-radius: 5px;
+@input-padding: @default-padding;
+@input-margin: @default-margin;
+@input-border-width: @default-border-width;
+@input-border-radius: @default-border-radius;
 
-@input-default-background-color: #ddd;
-@input-default-color: #000;
-@input-default-border-color: #aaa;
+@input-default-background-color: @widget-color;
+@input-default-color: @widget-color-alt;
+@input-default-border-color: @default-border-color;
 
-@input-primary-background-color: #00d;
-@input-primary-color: #fff;
-@input-primary-border-color: #00a;
+@input-primary-background-color: @primary-color;
+@input-primary-color: @primary-color-alt;
+@input-primary-border-color: darken(@primary-color, @darker);
 
-@input-danger-background-color: #d00;
-@input-danger-color: #fff;
-@input-danger-border-color: #a00;
+@input-danger-background-color: @danger-color;
+@input-danger-color: @danger-color-alt;
+@input-danger-border-color: darken(@danger-color, @darker);
 
-@input-selected-background-color: #33f;
-@input-selected-color: #fff;
-@input-selected-border-color: #00a;
+@input-selected-background-color: darken(@widget-color, @darker);
+@input-selected-color: @widget-color-alt;
+@input-selected-border-color: darken(@default-border-color, @darker);
 
-@input-default-border-color-focus: #777;
+@input-default-border-color-focus: darken(@default-border-color, @darker);
 
 @input-focus-box-shadow: 0px 0px 6px 0px #003;
