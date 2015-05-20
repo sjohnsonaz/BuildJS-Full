@@ -1,6 +1,6 @@
 @import "calendar-settings.less";
 @import "../mixins.less";
-@calendar-width: 250px;
+
 .calendar {
 	& > .calendar-title {
 		width: 100%;
@@ -63,16 +63,16 @@
 		td {
 			padding: 0;
 			&.calendar-day-selected {
-				background-color: @input-selected-background-color;
+				background-color: @calendar-day-selected-background-color;
 				font-weight: bold;
-				color: @input-selected-color;
+				color: @calendar-day-selected-color;
 				&:hover {
-					background-color: @input-selected-background-color;
+					background-color: @calendar-day-selected-background-color;
 				}
 			}
 
 			&:hover {
-				background-color: darken(@input-default-background-color, @darker);
+				background-color: @calendar-day-hover-background-color;
 			}
 
 			a {
@@ -93,13 +93,13 @@
 			float: left;
 			margin-right: 0;
 			border-right: 0;
-			.border-radius-all (@input-border-radius , 0 , 0 , @input-border-radius);
+			.border-radius-all (@calendar-border-radius , 0 , 0 , @calendar-border-radius);
 		}
 
 		& > button {
 			float: left;
 			margin-left: 0;
-			.border-radius-all (0 , @input-border-radius , @input-border-radius , 0);
+			.border-radius-all (0 , @calendar-border-radius , @calendar-border-radius , 0);
 		}
 	}
 
@@ -113,9 +113,9 @@
 			margin: 5px;
 			overflow: hidden;
 			right: 0;
-			.border-radius-all (@input-border-radius , @input-border-radius , @input-border-radius , @input-border-radius);
+			.border-radius-all (@calendar-border-radius , @calendar-border-radius , @calendar-border-radius , @calendar-border-radius);
 			background: #fff;
-			box-shadow: @box-shadow-height-0;
+			box-shadow: @calendar-box-shadow;
 			.calendar , .build-widget-calendar-Calendar {
 				width: @calendar-width;
 			}
