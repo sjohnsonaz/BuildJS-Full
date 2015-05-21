@@ -516,55 +516,58 @@ var Build = build.Build = (function() {
 			onload.queue.clear();
 		}
 	}
+	var compileMode = false;
 	/**
 	 * @method onload
 	 * @member build.Build
 	 * @param {Function} callback
 	 * Runs the callback function when the compilation process is complete.
 	 */
-	function onload(callback) {
-		if (onload.queue) {
-			onload.queue.add(callback);
-		} else {
-			onload.queue = new CallbackQueue();
-			onload.queue.add(callback);
-			switch (environment.name) {
-			case 'browser':
-				if (typeof (jQuery) != 'undefined') {
-					jQuery(function() {
-						loaded = true;
-						var preLoadingPaths = Object.keys(preLoading).map(function(value, index) {
-							return preLoading[value];
-						});
-						if (preLoadingPaths.length) {
-							load(preLoadingPaths, function() {
-								compile();
+	function onload(callback, compileModeValue) {
+		if (!compileMode) {
+			compileMode = compileModeValue;
+			if (onload.queue) {
+				onload.queue.add(callback);
+			} else {
+				onload.queue = new CallbackQueue();
+				onload.queue.add(callback);
+				switch (environment.name) {
+				case 'browser':
+					if (typeof (jQuery) != 'undefined') {
+						jQuery(function() {
+							loaded = true;
+							var preLoadingPaths = Object.keys(preLoading).map(function(value, index) {
+								return preLoading[value];
 							});
-						} else {
-							compile();
-						}
-					});
-				} else {
-					window.addEventListener('load', function() {
-						loaded = true;
-						var preLoadingPaths = Object.keys(preLoading).map(function(value, index) {
-							return preLoading[value];
-						});
-						if (preLoadingPaths.length) {
-							load(preLoadingPaths, function() {
+							if (preLoadingPaths.length) {
+								load(preLoadingPaths, function() {
+									compile();
+								});
+							} else {
 								compile();
+							}
+						});
+					} else {
+						window.addEventListener('load', function() {
+							loaded = true;
+							var preLoadingPaths = Object.keys(preLoading).map(function(value, index) {
+								return preLoading[value];
 							});
-						} else {
-							compile();
-						}
-					}, false);
+							if (preLoadingPaths.length) {
+								load(preLoadingPaths, function() {
+									compile();
+								});
+							} else {
+								compile();
+							}
+						}, false);
+					}
+					break;
+				case 'node':
+					compile();
+					break;
 				}
-				break;
-			case 'node':
-				compile();
-				break;
 			}
-
 		}
 	}
 	onload.queue = null;
@@ -590,6 +593,7 @@ var Build = build.Build = (function() {
 	Build.load = load;
 	Build.loadScript = loadScript;
 	Build.CallbackQueue = CallbackQueue;
+	Build.compileMode = compileMode;
 	Build.onload = onload;
 	Build.debug = false;
 	return Build;
