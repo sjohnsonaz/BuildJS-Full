@@ -125,3 +125,14 @@ fieldset {
     .border-radius(@input-border-radius);
     border: @input-border-width solid @input-default-border-color;
 }
+
+.select,
+select {
+	.focus();
+	margin: @input-margin;
+	padding: @input-padding;
+	border-radius: @input-border-radius;
+	border: @input-border-width solid @input-default-border-color;
+	font-family: Arial;
+	overflow: auto;
+}
