@@ -466,6 +466,7 @@ var Build = build.Build = (function() {
 		}
 		return $name;
 	}
+	var loadedFiles = [];
 	function loadSingle($name, callback) {
 		var pathInformation = getPathInformation($name);
 		var path = pathInformation.path;
@@ -477,6 +478,7 @@ var Build = build.Build = (function() {
 			loading[$name] = true;
 			loadScript(id, fileName, function() {
 				delete loading[$name];
+				loadedFiles.push(fileName);
 				typeof callback === 'function' ? callback() : true;
 			});
 		} else {
@@ -578,6 +580,7 @@ var Build = build.Build = (function() {
 	Build.safe = safe;
 	Build.definitions = definitions;
 	Build.definitionPaths = definitionPaths;
+	Build.loadedFiles = loadedFiles;
 	Build.assemble = assemble;
 	Build.paths = paths;
 	Build.define = define;
