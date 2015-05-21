@@ -274,15 +274,17 @@ var Build = build.Build = (function() {
 	 * @method compile
 	 */
 	function compile() {
-		var defHandlesNames = Object.keys(defHandles);
-		while (defHandlesNames.length) {
-			var $name = defHandlesNames.pop();
-			compileClass($name);
+		if (!Build.bundleMode) {
+			var defHandlesNames = Object.keys(defHandles);
+			while (defHandlesNames.length) {
+				var $name = defHandlesNames.pop();
+				compileClass($name);
+			}
+			defHandles = {};
+			defHandlesNames = null;
+			compiled = true;
+			loadPhaseComplete();
 		}
-		defHandles = {};
-		defHandlesNames = null;
-		compiled = true;
-		loadPhaseComplete();
 	}
 	/**
 	 * 
@@ -371,6 +373,11 @@ var Build = build.Build = (function() {
 	 * @returns
 	 */
 	function nameToFileName($name, path) {
+		if (Build.bundleMode) {
+			if (!path.startsWith('http://' || 'https://')) {
+				path = Build.bundleModeRoot + path;
+			}
+		}
 		if ($name.startsWith('http://' || 'https://')) {
 			return $name;
 		} else if ($name.endsWith('.js')) {
@@ -516,57 +523,53 @@ var Build = build.Build = (function() {
 			onload.queue.clear();
 		}
 	}
-	var compileMode = false;
 	/**
 	 * @method onload
 	 * @member build.Build
 	 * @param {Function} callback
 	 * Runs the callback function when the compilation process is complete.
 	 */
-	function onload(callback, compileModeValue) {
-		if (!compileMode) {
-			compileMode = compileModeValue;
-			if (onload.queue) {
-				onload.queue.add(callback);
-			} else {
-				onload.queue = new CallbackQueue();
-				onload.queue.add(callback);
-				switch (environment.name) {
-				case 'browser':
-					if (typeof (jQuery) != 'undefined') {
-						jQuery(function() {
-							loaded = true;
-							var preLoadingPaths = Object.keys(preLoading).map(function(value, index) {
-								return preLoading[value];
-							});
-							if (preLoadingPaths.length) {
-								load(preLoadingPaths, function() {
-									compile();
-								});
-							} else {
-								compile();
-							}
+	function onload(callback) {
+		if (onload.queue) {
+			onload.queue.add(callback);
+		} else {
+			onload.queue = new CallbackQueue();
+			onload.queue.add(callback);
+			switch (environment.name) {
+			case 'browser':
+				if (typeof (jQuery) != 'undefined') {
+					jQuery(function() {
+						loaded = true;
+						var preLoadingPaths = Object.keys(preLoading).map(function(value, index) {
+							return preLoading[value];
 						});
-					} else {
-						window.addEventListener('load', function() {
-							loaded = true;
-							var preLoadingPaths = Object.keys(preLoading).map(function(value, index) {
-								return preLoading[value];
-							});
-							if (preLoadingPaths.length) {
-								load(preLoadingPaths, function() {
-									compile();
-								});
-							} else {
+						if (preLoadingPaths.length) {
+							load(preLoadingPaths, function() {
 								compile();
-							}
-						}, false);
-					}
-					break;
-				case 'node':
-					compile();
-					break;
+							});
+						} else {
+							compile();
+						}
+					});
+				} else {
+					window.addEventListener('load', function() {
+						loaded = true;
+						var preLoadingPaths = Object.keys(preLoading).map(function(value, index) {
+							return preLoading[value];
+						});
+						if (preLoadingPaths.length) {
+							load(preLoadingPaths, function() {
+								compile();
+							});
+						} else {
+							compile();
+						}
+					}, false);
 				}
+				break;
+			case 'node':
+				compile();
+				break;
 			}
 		}
 	}
@@ -593,7 +596,8 @@ var Build = build.Build = (function() {
 	Build.load = load;
 	Build.loadScript = loadScript;
 	Build.CallbackQueue = CallbackQueue;
-	Build.compileMode = compileMode;
+	Build.bundleMode = false;
+	Build.bundleModeRoot = '';
 	Build.onload = onload;
 	Build.debug = false;
 	return Build;
