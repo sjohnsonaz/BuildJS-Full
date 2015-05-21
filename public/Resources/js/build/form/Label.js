@@ -14,11 +14,11 @@ Build('build.form.Label', [ 'build::build.ui.Container' ], function($define, $su
 		$constructor : function Label(text, control) {
 			$super(this)(text);
 			var self = this;
-			this.watchAttribute('forId', 'for');
+			this.watchProperty('forId', 'htmlFor');
 			this.watchValue('control', control, null, function(value, current, cancel) {
-				if (control) {
-					control = control.element || control;
-					self.forId = control.id;
+				if (value) {
+					value = value.element || value;
+					self.forId = value.id;
 				} else {
 					self.forId = '';
 				}

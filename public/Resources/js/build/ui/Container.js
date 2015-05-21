@@ -11,12 +11,6 @@ Build('build.ui.Container', [ 'build::build.ui.Widget', 'build::build.utility.Ob
 		$constructor : function Container(text) {
 			$super(this)();
 			var self = this;
-			this.watchProperty('text', 'innerHTML', text || '', undefined, function(value, current, cancel) {
-				return (self.children && !self.children.length) ? self.formatString(value, self) : cancel;
-			});
-			this.watchProperty('rawText', 'innerHTML', undefined, function(value, current, cancel) {
-				return typeof value !== 'undefined' ? value : '';
-			});
 			// TODO: This should be protected in a Document Fragment.
 			this.watchValue('innerElement', this.element, undefined, function(value, current, cancel) {
 				var oldElement = self.innerElement || self.element;
@@ -54,6 +48,12 @@ Build('build.ui.Container', [ 'build::build.ui.Widget', 'build::build.utility.Ob
 				// TODO: Only run if the old template has been used.
 				self.refreshChildren();
 				return value;
+			});
+			this.watchProperty('text', 'innerHTML', text || '', undefined, function(value, current, cancel) {
+				return (self.children && self.children.length) ? cancel : self.formatString(value, self);
+			});
+			this.watchProperty('rawText', 'innerHTML', undefined, function(value, current, cancel) {
+				return (self.children && self.children.length) ? cancel : (typeof value !== 'undefined' ? value : '');
 			});
 		},
 		$prototype : {

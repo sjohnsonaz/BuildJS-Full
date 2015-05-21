@@ -2,7 +2,7 @@
  * @class build.form.container.FormControl
  * @extends build.ui.Widget
  */
-Build('build.form.container.FormControl', [ 'build::build.ui.Widget' ], function($define, $super) {
+Build('build.form.container.FormControl', [ 'build::build.ui.Widget', 'build::build.binding.OneWayBinding' ], function($define, $super) {
 	$define({
 		$extends : 'build.ui.Widget',
 		/**
@@ -30,6 +30,7 @@ Build('build.form.container.FormControl', [ 'build::build.ui.Widget' ], function
 				if (value) {
 					element.appendChild(value.element);
 				}
+				return value;
 			});
 			this.watchValue('control', control, null, function(value) {
 				var element = self.controlIterator;
@@ -39,12 +40,23 @@ Build('build.form.container.FormControl', [ 'build::build.ui.Widget' ], function
 				if (value) {
 					element.appendChild(value.element);
 				}
+				return value;
 			});
-			this.label = label;
-			this.control = control;
-			if (label) {
-				label.control = control;
-			}
+			this.bind([ {
+				handler : 'oneWay',
+				sources : [ {
+					source : this,
+					property : 'label'
+				}, {
+					source : this,
+					property : 'control'
+				}, ],
+				output : function(label, control) {
+					if (label) {
+						label.control = control;
+					}
+				}
+			} ]);
 			this.element.appendChild(this.labelIterator);
 			this.element.appendChild(this.controlIterator);
 		},
