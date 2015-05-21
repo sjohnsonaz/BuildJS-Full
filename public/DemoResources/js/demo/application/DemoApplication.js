@@ -1,6 +1,6 @@
 var timeStart = 0;
 var timeBody = 0;
-if (performance && performance.now) {
+if (typeof performance !== 'undefined' && performance.now) {
 	timeStart = performance.now();
 }
 Build.paths.main = '/Resources/js/';
