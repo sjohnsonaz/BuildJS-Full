@@ -4,16 +4,12 @@ var compressor = require('node-minify');
 var Build = require('./public/Resources/js/build/Build');
 Build.environment.globalOverride();
 
-if (typeof window === 'undefined') {
-	window = {};
-	document = {};
-}
+var application = __dirname + '/public/DemoResources/js/demo/application/DemoApplication.js'
+var root = __dirname + '/public';
+var lazy = true;
 
-Build.bundleMode = true;
-Build.bundleModeRoot = __dirname + '/public';
+var files = Build.bundle(root, application, lazy);
 
-require('./public/DemoResources/js/demo/application/DemoApplication');
-var files = Build.loadedFiles.sort();
 console.log(files);
 
 function getDestination(folder, name, version, specialization, suffix) {
