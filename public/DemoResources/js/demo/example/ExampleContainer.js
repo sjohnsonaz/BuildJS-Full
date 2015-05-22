@@ -3,7 +3,7 @@
  * @extends build.ui.Container
  */
 Build('demo.example.ExampleContainer', [ 'build::build.ui.Container', 'build::build.widget.tab.TabContainer', 'build::build.widget.tab.TabPanel', 'demo::demo.example.widget.WidgetExample', 'demo::demo.example.viewmodel.ViewModelExample',
-		'demo::demo.example.remote.RemoteExample', 'demo::demo.example.input.InputExample' ], function($define, $super) {
+		'demo::demo.example.input.InputExample' ], function($define, $super) {
 	$define({
 		$extends : 'build.ui.Container',
 		/**
