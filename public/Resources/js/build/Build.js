@@ -249,7 +249,7 @@ var Build = build.Build = (function() {
 			var requiredPath = $required[index];
 			// required may be commented out with a #.
 			// This may be used for lazy load classes when compiling.
-			if (requiredPath[0] != '#') {
+			if (requiredPath[0] != '#' || Build.bundleLazy) {
 				var pathInformation = getPathInformation(requiredPath);
 				var requiredName = pathInformation.name;
 				if (!definitions[requiredName] && !defHandles[requiredName] && !loading[requiredName] && !preLoading[requiredName]) {
@@ -375,7 +375,7 @@ var Build = build.Build = (function() {
 	function nameToFileName($name, path) {
 		if (Build.bundleMode) {
 			if (!path.startsWith('http://' || 'https://')) {
-				path = Build.bundleModeRoot + path;
+				path = Build.bundleRoot + path;
 			}
 		}
 		if ($name.startsWith('http://' || 'https://')) {
@@ -575,6 +575,23 @@ var Build = build.Build = (function() {
 	}
 	onload.queue = null;
 
+	/**
+	 * @method bundle
+	 * @member build.Build
+	 * @param {String} root
+	 * @param {String} application
+	 * Returns a list of all files loaded by the application
+	 */
+	function bundle(root, application, lazy) {
+		Build.bundleMode = true;
+		Build.bundleRoot = root;
+		Build.bundleLazy = lazy;
+		require(application);
+		var files = Build.loadedFiles.sort();
+		files.push(application);
+		return files;
+	}
+
 	Build.root = root;
 	Build.environment = environment;
 	Build.namespace = namespace;
@@ -597,8 +614,12 @@ var Build = build.Build = (function() {
 	Build.loadScript = loadScript;
 	Build.CallbackQueue = CallbackQueue;
 	Build.bundleMode = false;
-	Build.bundleModeRoot = '';
+	Build.bundleRoot = '';
+	Build.bundleLazy = false;
 	Build.onload = onload;
+	if (environment.name == 'node') {
+		Build.bundle = bundle;
+	}
 	Build.debug = false;
 	return Build;
 })();
