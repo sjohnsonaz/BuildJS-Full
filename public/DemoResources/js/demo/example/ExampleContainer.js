@@ -25,14 +25,14 @@ Build('demo.example.ExampleContainer', [ 'build::build.ui.Container', 'build::bu
 			var viewModelExample = demo.example.viewmodel.ViewModelExample.create();
 			tabPanel2.addChild(viewModelExample);
 
-			var tabPanel3 = build.widget.tab.TabPanel.create('Remote Panel');
-			var remoteExample = demo.example.remote.RemoteExample.create();
-			tabPanel3.addChild(remoteExample);
+			//var tabPanel3 = build.widget.tab.TabPanel.create('Remote Panel');
+			//var remoteExample = demo.example.remote.RemoteExample.create();
+			//tabPanel3.addChild(remoteExample);
 
 			tabContainer.addChild(tabPanel0);
 			tabContainer.addChild(tabPanel1);
 			tabContainer.addChild(tabPanel2);
-			tabContainer.addChild(tabPanel3);
+			//tabContainer.addChild(tabPanel3);
 			this.addChild(tabContainer);
 		}
 	});
