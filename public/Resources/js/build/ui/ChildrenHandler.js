@@ -1,5 +1,5 @@
 /**
- * @class ChildrenHandler
+ * @class build.ui.ChildrenHandler
  */
 Build('build.ui.ChildrenHandler', [], function(define, $super) {
 	define({
