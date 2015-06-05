@@ -621,6 +621,9 @@ var Build = build.Build = (function() {
 	Build.safe = safe;
 	Build.definitions = definitions;
 	Build.definitionPaths = definitionPaths;
+	/*
+	 * This is IE9+.  Perhaps switch to regular getter.
+	 */
 	Object.defineProperty(Build, 'cssRequired', {
 		get : function() {
 			return Object.keys(cssRequired);
