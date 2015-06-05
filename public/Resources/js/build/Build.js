@@ -346,8 +346,12 @@ var Build = build.Build = (function() {
 				}
 			}, function(scope) {
 				if (scope) {
-					superScope = scope;
-					return superConstructor;
+					if (scope === true) {
+						return $constructor;
+					} else {
+						superScope = scope;
+						return superConstructor;
+					}
 				} else {
 					return $constructor.$super;
 				}
