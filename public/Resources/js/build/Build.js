@@ -267,7 +267,7 @@ var Build = build.Build = (function() {
 				}
 			}
 		}
-		if ($css) {
+		if (Build.bundleMode && $css) {
 			for (var index = 0, length = $css.length; index < length; index++) {
 				cssRequired[$css[index]] = $css[index];
 			}
