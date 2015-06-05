@@ -1,0 +1,26 @@
+@import "text-editor-settings.less";
+@import "../mixins.less";
+
+.text-editor {
+	& > .text-editor-content {
+		padding: 10px;
+		border: 1px solid #000;
+	}
+	& > div > .text-editor-toolbar {
+		.clearfix();
+		margin: 0;
+		padding: 0;
+		list-style-type: none;
+		background: #ddd;
+		& > li {
+			float: left;
+			margin: 2px;
+			& > button {
+				padding: 5px;
+				min-width: 20px;
+				text-align: center;
+			}
+		}
+	}
+}
+

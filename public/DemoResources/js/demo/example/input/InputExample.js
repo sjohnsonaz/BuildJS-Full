@@ -3,7 +3,7 @@
  * @extends build.ui.Container
  */
 Build('demo.example.input.InputExample', [ 'build::build.ui.Container', 'build::build.ui.element.Header1', 'demo::demo.example.input.ButtonExample', 'demo::demo.example.input.FormFieldExample', 'demo::demo.example.input.FormExample',
-		'demo::demo.example.input.ToggleExample', 'demo::demo.example.input.CalendarExample', 'demo::demo.example.input.UploadExample' ], function($define, $super) {
+		'demo::demo.example.input.ToggleExample', 'demo::demo.example.input.TextEditorExample', 'demo::demo.example.input.CalendarExample', 'demo::demo.example.input.UploadExample' ], function($define, $super) {
 	$define({
 		$extends : 'build.ui.Container',
 		/**
@@ -18,6 +18,7 @@ Build('demo.example.input.InputExample', [ 'build::build.ui.Container', 'build::
 			this.addChild(demo.example.input.FormFieldExample.create());
 			this.addChild(demo.example.input.FormExample.create());
 			this.addChild(demo.example.input.ToggleExample.create());
+			this.addChild(demo.example.input.TextEditorExample.create());
 			this.addChild(demo.example.input.CalendarExample.create());
 			this.addChild(demo.example.input.UploadExample.create());
 		},
