@@ -201,6 +201,7 @@ var Build = build.Build = (function() {
 			return result;
 		};
 	}
+	var cssRequired = {};
 	var definitions = {};
 	/**
 	 * @method assemble
@@ -238,7 +239,15 @@ var Build = build.Build = (function() {
 	 * @param $required
 	 * @param $definition
 	 */
-	function define($name, $required, $definition) {
+	function define($name, $required, $css, $definition) {
+		/*
+		 * $css is optional.
+		 * It may be an array of required CSS files.
+		 */
+		if (typeof $css === 'function') {
+			$definition = $css;
+			$css = undefined;
+		}
 		compiled = false;
 		if (!loaded) {
 			delete preLoading[$name];
@@ -256,6 +265,11 @@ var Build = build.Build = (function() {
 					requiredRemainingPaths.push(requiredPath);
 					requiredRemainingNames.push(requiredName);
 				}
+			}
+		}
+		if ($css) {
+			for (var index = 0, length = $css.length; index < length; index++) {
+				cssRequired[$css[index]] = $css[index];
 			}
 		}
 		defHandles[$name] = $definition;
@@ -607,6 +621,11 @@ var Build = build.Build = (function() {
 	Build.safe = safe;
 	Build.definitions = definitions;
 	Build.definitionPaths = definitionPaths;
+	Object.defineProperty(Build, 'cssRequired', {
+		get : function() {
+			return Object.keys(cssRequired);
+		}
+	});
 	Build.loadedFiles = loadedFiles;
 	Build.assemble = assemble;
 	Build.paths = paths;

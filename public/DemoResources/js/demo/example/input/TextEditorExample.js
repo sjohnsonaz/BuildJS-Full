@@ -2,7 +2,7 @@
  * @class demo.example.input.TextEditorExample
  * @extends build.ui.Container
  */
-Build('demo.example.input.TextEditorExample', [ 'build::build.ui.Container', 'build::build.ui.element.Header2', 'build::build.ui.element.Paragraph', 'build::build.widget.editor.TextEditor' ], function($define, $super) {
+Build('demo.example.input.TextEditorExample', [ 'build::build.ui.Container', 'build::build.ui.element.Header2', 'build::build.ui.element.Paragraph', 'build::build.widget.editor.TextEditor' ], [ 'text-editor' ], function($define, $super) {
 	$define({
 		$extends : 'build.ui.Container',
 		$constructor : function TextEditorExample() {
