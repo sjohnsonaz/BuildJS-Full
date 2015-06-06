@@ -25,13 +25,16 @@ input[type="button"] {
     display: inline-block;
     margin: @input-margin;
     padding: @input-padding;
-    border: @input-border-width solid @input-default-border-color;
+    border: 0;//@input-border-width solid @input-default-border-color;
     color: @input-default-color;
     background-color: @input-default-background-color;
     .border-radius(@input-border-radius);
+    box-shadow: @input-box-shadow-height0;
+    transition: box-shadow 0.3s;
     &:hover {
         color: lighten(@input-default-color, @lighter);
         background-color: lighten(@input-default-background-color, @lighter);
+        box-shadow: @input-box-shadow-height1;
     }
     &:active {
         color: darken(@input-default-color, @darker);
@@ -41,7 +44,7 @@ input[type="button"] {
 }
 
 .button-primary {
-    border: @input-border-width solid @input-primary-border-color;
+    border: 0;//@input-border-width solid @input-primary-border-color;
     color: @input-primary-color;
     background-color: @input-primary-background-color;
     &:hover {
@@ -55,7 +58,7 @@ input[type="button"] {
 }
 
 .button-danger {
-    border: @input-border-width solid @input-danger-border-color;
+    border: 0;//@input-border-width solid @input-danger-border-color;
     color: @input-danger-color;
     background-color: @input-danger-background-color;
     &:hover {
@@ -79,6 +82,8 @@ input[type="submit"] {
     display: inline-block;
     margin: @input-margin;
     padding: 0px;
+    box-shadow: @input-box-shadow-height0;
+    transition: box-shadow 0.3s;
     .clearfix;
     & > button,
     & > input,
@@ -89,6 +94,7 @@ input[type="submit"] {
         border-right-width: 0px;
         .border-radius(0px);
         .focus-tight();
+        box-shadow: none;
         &:first-child {
             .border-top-left-radius(@input-border-radius);
             .border-bottom-left-radius(@input-border-radius);
