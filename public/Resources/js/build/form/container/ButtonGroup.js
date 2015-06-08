@@ -12,6 +12,7 @@ Build('build.form.container.ButtonGroup', [ 'build::build.ui.Container' ], funct
 		 */
 		$constructor : function ButtonGroup() {
 			$super(this)();
+			this.classList.add('button-group');
 		}
 	});
 });

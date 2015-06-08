@@ -79,15 +79,19 @@ input[type="submit"] {
 }
 
 .button-group {
+    .clearfix;
     display: inline-block;
     margin: @input-margin;
     padding: 0px;
+    vertical-align: middle;
     box-shadow: @input-box-shadow-height0;
+    border-radius: @input-border-radius;
     transition: box-shadow 0.3s;
-    .clearfix;
+    &:hover {
+		box-shadow: @input-box-shadow-height1;
+    }
     & > button,
-    & > input,
-    & > * {
+    & > input {
         display: block;
         .pull-left;
         margin:0px;
